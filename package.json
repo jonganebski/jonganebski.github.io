@@ -12,14 +12,19 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy":"gatsby build && gh-pages -d build"
+    "deploy": "gatsby build && gh-pages -d public -b gh-pages"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.12.0",
     "gatsby": "^2.26.1",
+    "gatsby-plugin-styled-components": "^3.10.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.2.1",
+    "styled-reset": "^4.3.4"
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.7",
     "gh-pages": "^3.1.0",
     "prettier": "2.2.1",
     "typescript": "^4.1.5"
