@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react"
-import styled from "styled-components"
+import React from "react"
+import { styled } from "../styles/themes"
 import { Layout } from "../components/layout"
 import { graphql, Link, useStaticQuery } from "gatsby"
 
@@ -8,6 +8,7 @@ interface IBlogMarkdownsQuery {
     edges: {
       node: {
         id: string
+        timeToRead: number
         frontmatter: {
           title: string
           date: string
@@ -26,6 +27,7 @@ const BLOG_MARKDOWNS = graphql`
       edges {
         node {
           id
+          timeToRead
           frontmatter {
             title
             date
@@ -50,19 +52,37 @@ const PostsList = styled.ul`
 `
 
 const Post = styled.li`
-  min-height: 6rem;
+  height: 10rem;
   padding: 1rem;
   border: 1px solid;
-  border-color: rgba(0, 0, 0, 0.1);
+  border-color: ${({ theme }) => theme.borderColor.base};
   transition: border-color 0.15s ease-in-out;
+  color: ${({ theme }) => theme.textColor.base};
   &:hover {
-    border-color: rgba(0, 0, 0, 0.4);
+    border-color: ${({ theme }) => theme.borderColor.hover};
   }
+`
+
+const PostTitle = styled.h2``
+
+const PostInfo = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+const PostDate = styled.span`
+  font-size: 0.9rem;
+`
+
+const TimeToRead = styled.span`
+  font-size: 0.9rem;
 `
 
 const Home = () => {
   const data = useStaticQuery<IBlogMarkdownsQuery>(BLOG_MARKDOWNS)
-
+  console.log(data)
   return (
     <Layout>
       <Main>
@@ -70,7 +90,15 @@ const Home = () => {
           {data.allMarkdownRemark.edges.map(edge => {
             return (
               <Link to={`blog/${edge.node.fields.slug}`} key={edge.node.id}>
-                <Post>{edge.node.frontmatter.title}</Post>
+                <Post>
+                  <PostInfo>
+                    <PostTitle>{edge.node.frontmatter.title}</PostTitle>
+                    <div>
+                      <PostDate>{edge.node.frontmatter.date}</PostDate>
+                      <TimeToRead>{edge.node.timeToRead} min read</TimeToRead>
+                    </div>
+                  </PostInfo>
+                </Post>
               </Link>
             )
           })}

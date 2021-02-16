@@ -1,9 +1,15 @@
-import React, { ReactNode, useEffect, useRef } from "react"
-import styled from "styled-components"
-import { GlobalStyle } from "../styles/styles"
+import React, { ReactNode, useEffect, useRef, useState } from "react"
+import styled, {
+  ThemeProvider,
+  BaseThemeProviderComponent,
+} from "styled-components"
+import { GlobalStyle } from "../styles/globalStyle"
 import { Footer } from "./footer"
 import { Header } from "./header"
 import { Nav } from "./nav"
+import { useLocation } from "@reach/router"
+import { darkTheme, IMyTheme, lightTheme } from "../styles/themes"
+import { NAV_HEIGHT, ROUTES_WITH_FIXED_HEADER } from "../common/constants"
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,14 +18,24 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const Container = styled.div`
+interface IContainerProps {
+  pathname: string
+}
+
+const Container = styled.div<IContainerProps>`
   position: relative;
   z-index: 1;
   width: 100%;
   min-height: 100vh;
-  margin-top: calc(100vh - 5rem);
+  margin-top: ${({ pathname }) => {
+    if (ROUTES_WITH_FIXED_HEADER.includes(pathname)) {
+      return `calc(100vh - ${NAV_HEIGHT})`
+    } else {
+      return NAV_HEIGHT
+    }
+  }};
   padding: 0 1rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bgColor.background};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,24 +61,75 @@ const ArrowDown = styled.button`
   }
 `
 
+interface ISwitchProps {
+  colorMode: ColorMode
+}
+
+const Switch = styled.label<ISwitchProps>`
+  position: fixed;
+  z-index: 10;
+  top: 2rem;
+  right: calc(${NAV_HEIGHT} / 2);
+  width: 2.5rem;
+  height: 1.3rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  border: 2px solid;
+  border-color: ${({ theme }) => theme.borderColor.switch};
+  fill-opacity: 0.5;
+  input {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+  span {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: ${({ colorMode }) => (colorMode === "light" ? "10%" : "90%")};
+    transition: left 0.2s ease-in-out;
+    transform: translate(-50%, -50%);
+    background-color: ${({ theme }) => theme.bgColor.switch};
+    border-radius: 999px;
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`
+
 interface ILayoutProps {
   children: ReactNode
 }
 
+type ColorMode = "light" | "dark"
+
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
+  const getInitialTheme = (): ColorMode => {
+    const storedTheme = localStorage.getItem("theme")
+    if (storedTheme === "light" || storedTheme === "dark") {
+      return storedTheme
+    }
+    return "light"
+  }
+
+  const location = useLocation()
+  const [colorMode, setColorMode] = useState<ColorMode>(getInitialTheme())
   const headerRef = useRef<HTMLDivElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
+
   useEffect(() => {
-    const callBack = () => {
-      console.log(containerRef.current?.offsetTop, window.pageYOffset)
+    const onScroll = () => {
       if (window.pageYOffset < 500) {
         if (headerRef.current) {
           headerRef.current.style.opacity = 1 - window.pageYOffset / 500 + ""
         }
       }
     }
-    document.addEventListener("scroll", callBack)
-    return () => document.removeEventListener("scroll", callBack)
+    document.addEventListener("scroll", onScroll)
+    return () => document.removeEventListener("scroll", onScroll)
   }, [])
 
   const autoScroll = () => {
@@ -74,16 +141,40 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
     }
   }
 
+  const onToggleDarkModeSwitch = () =>
+    setColorMode(prev => {
+      if (prev === "light") {
+        localStorage.setItem("theme", "dark")
+        return "dark"
+      }
+      localStorage.setItem("theme", "light")
+      return "light"
+    })
+
   return (
-    <Wrapper>
+    <ThemeProvider theme={colorMode === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Nav />
-      <Header headerRef={headerRef} />
-      <Container ref={containerRef}>
-        <ArrowDown onClick={autoScroll}>&darr;</ArrowDown>
-        {children}
-        <Footer />
-      </Container>
-    </Wrapper>
+      <Wrapper>
+        <Nav />
+        {ROUTES_WITH_FIXED_HEADER.includes(location.pathname) && (
+          <Header headerRef={headerRef} />
+        )}
+        <Container ref={containerRef} pathname={location.pathname}>
+          {ROUTES_WITH_FIXED_HEADER.includes(location.pathname) && (
+            <ArrowDown onClick={autoScroll}>&darr;</ArrowDown>
+          )}
+          {children}
+          <Footer />
+        </Container>
+        <Switch colorMode={colorMode}>
+          <input
+            type="checkbox"
+            defaultChecked={colorMode === "dark"}
+            onChange={onToggleDarkModeSwitch}
+          />
+          <span>{colorMode === "light" ? "🌜" : "🌞"}</span>
+        </Switch>
+      </Wrapper>
+    </ThemeProvider>
   )
 }

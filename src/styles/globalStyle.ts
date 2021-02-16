@@ -1,0 +1,23 @@
+import {
+  createGlobalStyle,
+  GlobalStyleComponent,
+  DefaultTheme,
+} from "styled-components"
+import { reset } from "styled-reset"
+import { IMyTheme } from "./themes"
+
+export const GlobalStyle = createGlobalStyle`
+    ${reset}
+    *{
+      box-sizing:border-box;
+      transition: background-color 0.5s ease-in-out;
+      color: ${({ theme }) => theme.textColor.base};
+    }
+    a{
+      text-decoration:none;
+      color: ${({ theme }: { theme: IMyTheme }) => theme.textColor.base};
+      &:hover{
+        color: ${({ theme }) => theme.textColor.linkHover}
+      }
+    }
+  `

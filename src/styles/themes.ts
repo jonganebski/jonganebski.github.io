@@ -1,0 +1,68 @@
+import baseStyled, { ThemedStyledInterface } from "styled-components"
+
+export interface IMyTheme {
+  bgColor: {
+    background: string
+    pre: string
+    code: string
+    switch: string
+  }
+  textColor: {
+    rare: string
+    base: string
+    shade: string
+    linkHover: string
+  }
+  borderColor: {
+    base: string
+    hover: string
+    switch: string
+  }
+}
+
+const BACKGROUND_COLOR = {
+  LIGHT: "white",
+  DARK: "#0d1117",
+}
+
+export const lightTheme: IMyTheme = {
+  bgColor: {
+    background: BACKGROUND_COLOR.LIGHT,
+    pre: "rgb(235, 235, 235)",
+    code: "rgb(235, 235, 235)",
+    switch: BACKGROUND_COLOR.DARK,
+  },
+  textColor: {
+    rare: "black",
+    base: "rgb(30, 30, 30)",
+    shade: "rgb(200, 200, 200)",
+    linkHover: "#0366d6",
+  },
+  borderColor: {
+    base: "rgb(220, 220, 220)",
+    hover: "rgb(150, 150, 150)",
+    switch: "#8b949e",
+  },
+}
+
+export const darkTheme: IMyTheme = {
+  bgColor: {
+    background: BACKGROUND_COLOR.DARK,
+    pre: "rgb(22 27 34)",
+    code: "rgb(22 27 34)",
+    switch: "#da3633",
+  },
+  textColor: {
+    rare: "white",
+    base: "#c9d1d9",
+    shade: "rgb(80, 80, 80)",
+    linkHover: "#58a6ff",
+  },
+  borderColor: {
+    base: "rgb(50, 50, 50)",
+    hover: "rgb(150, 150, 150)",
+    switch: "#ffa198",
+  },
+}
+
+export const styled = baseStyled as ThemedStyledInterface<IMyTheme>
