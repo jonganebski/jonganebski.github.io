@@ -1,35 +1,51 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
-import { CLASSNAMES } from "../styles/styles"
+
+const Wrapper = styled.nav`
+  position: fixed;
+  top: 0px;
+  z-index: 10;
+  height: 5rem;
+  width: 100%;
+  max-width: 750px;
+  background-color: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+`
 
 const Ul = styled.ul`
-  padding: 1rem 0;
+  height: 100%;
   display: grid;
   grid-auto-flow: column;
+  justify-items: center;
+  align-items: center;
   gap: 1rem;
 `
 
-const NavLink = styled(Link)`
+const StyledLink = styled(Link)`
   font-weight: 600;
   color: rgba(0, 0, 0, 0.5);
 `
 
 export const Nav = () => {
   return (
-    <nav>
+    <Wrapper>
       <Ul>
         <li>
-          <NavLink to="/" activeClassName={CLASSNAMES.ACTIVE_LINK}>
+          <StyledLink to="/" activeStyle={{ color: "rgba(0, 0, 0, 0.9)" }}>
             Blog
-          </NavLink>
+          </StyledLink>
         </li>
         <li>
-          <NavLink to="/projects" activeClassName={CLASSNAMES.ACTIVE_LINK}>
+          <StyledLink
+            to="/projects"
+            activeStyle={{ color: "rgba(0, 0, 0, 0.9)" }}
+          >
             Projects
-          </NavLink>
+          </StyledLink>
         </li>
       </Ul>
-    </nav>
+    </Wrapper>
   )
 }

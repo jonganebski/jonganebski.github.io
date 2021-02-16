@@ -1,7 +1,7 @@
 import React from "react"
 
 const BlogTemplate = () => {
-  return <div></div>
+  return <div>ss</div>
 }
 
 export default BlogTemplate

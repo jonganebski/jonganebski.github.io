@@ -1,15 +1,17 @@
 import { CreateNodeArgs, CreatePagesArgs } from "gatsby"
+import { createFilePath } from "gatsby-source-filesystem"
 import path from "path"
 
-export const onCreateNode = ({ node, actions }: CreateNodeArgs) => {
+export const onCreateNode = ({ node, getNode, actions }: CreateNodeArgs) => {
   const { createNodeField } = actions
+
   if (node.internal.type === "MarkdownRemark") {
     const slug = path.basename(node.fileAbsolutePath as string, ".md")
-    createNodeField({
-      node,
-      name: "slug",
-      value: slug,
-    })
+    const type = createFilePath({ node, getNode, basePath: "posts" }).split(
+      "/"
+    )[1]
+    createNodeField({ node, name: "slug", value: slug })
+    createNodeField({ node, name: "type", value: type })
   }
 }
 
@@ -19,6 +21,7 @@ interface ISlugQuery {
       node: {
         fields: {
           slug: string
+          type: "blog" | "projects"
         }
       }
     }[]
@@ -26,12 +29,13 @@ interface ISlugQuery {
 }
 
 const SLUG = `
-query {
+query SlugQuery {
   allMarkdownRemark {
     edges {
       node {
         fields {
           slug
+          type
         }
       }
     }
@@ -42,6 +46,7 @@ query {
 export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions
   const blogTemplate = path.resolve("./src/templates/blog.tsx")
+  const projectTemplate = path.resolve("./src/templates/projects.tsx")
   const { data, errors } = await graphql<ISlugQuery>(SLUG)
 
   if (errors || !data) {
@@ -49,12 +54,11 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   }
 
   data.allMarkdownRemark.edges.forEach(edge => {
+    const { slug, type } = edge.node.fields
     createPage({
-      component: blogTemplate,
-      path: `/blog/${edge.node.fields.slug}`,
-      context: {
-        slug: edge.node.fields.slug,
-      },
+      component: type === "projects" ? projectTemplate : blogTemplate,
+      path: `/${type}/${slug}`,
+      context: { slug, type },
     })
   })
 }

@@ -4,7 +4,38 @@ import { Layout } from "../components/layout"
 const ProjectsPage = () => {
   return (
     <Layout>
-      <main>projects</main>
+      <main>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+        <div>
+          <h4>Project</h4>
+        </div>
+      </main>
     </Layout>
   )
 }

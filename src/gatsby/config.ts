@@ -19,6 +19,14 @@ const GATSBY_SOURCE_FILESYSTEM: FileSystemConfig = {
 export default {
   siteMetadata: {},
   plugins: [
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        google: {
+          families: ["Droid Sans", "Nanum Gothic"],
+        },
+      },
+    },
     GATSBY_PLUGIN_STYLED_COMPONENTS,
     GATSBY_SOURCE_FILESYSTEM,
     GATSBY_TRANSFORMER_REMARK,
