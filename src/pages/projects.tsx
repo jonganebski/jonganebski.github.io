@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import React from "react"
 import { Layout } from "../components/layout"
 import { Project } from "../components/project"
-import { IProjectMarkdownsQuery } from "../dtos/allMarkdownRemark.dto"
+import { IProjectMarkdownsQuery } from "../dtos/project.dto"
 import { styled } from "../styles/themes"
 
 const PROJECT_MARKDOWNS = graphql`

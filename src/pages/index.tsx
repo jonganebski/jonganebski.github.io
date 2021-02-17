@@ -2,16 +2,20 @@ import React from "react"
 import { styled } from "../styles/themes"
 import { Layout } from "../components/layout"
 import { graphql, useStaticQuery } from "gatsby"
-import { IBlogMarkdownsQuery } from "../dtos/allMarkdownRemark.dto"
+import { IBlogMarkdownsQuery } from "../dtos/blog.dto"
 import { BlogPost } from "../components/blog-post"
 
 const BLOG_MARKDOWNS = graphql`
   query BlogMarkdowns {
-    allMarkdownRemark(filter: { fields: { type: { eq: "blog" } } }) {
+    allMarkdownRemark(
+      filter: { fields: { type: { eq: "blog" } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       edges {
         node {
           id
           timeToRead
+          excerpt
           frontmatter {
             title
             date
@@ -39,7 +43,7 @@ const BlogPostsList = styled.ul`
 
 const Home = () => {
   const data = useStaticQuery<IBlogMarkdownsQuery>(BLOG_MARKDOWNS)
-
+  console.log(data)
   return (
     <Layout>
       <Main>

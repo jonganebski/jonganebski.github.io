@@ -20,4 +20,8 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.textColor.linkHover}
       }
     }
+    ::selection {
+      color: rgb(250, 250, 250);
+      background-color: #805AD5;
+    }
   `

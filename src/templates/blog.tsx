@@ -1,7 +1,11 @@
 import { graphql, PageProps } from "gatsby"
-import React from "react"
-import { styled } from "../styles/themes"
+import hljs from "highlight.js"
+import "highlight.js/styles/monokai-sublime.css"
+import React, { useEffect } from "react"
 import { Layout } from "../components/layout"
+import { IContext } from "../dtos/context.dto"
+import { styled } from "../styles/themes"
+import { BlogNav } from "../components/blog-nav"
 
 interface IBlogMarkdownQuery {
   markdownRemark: {
@@ -36,6 +40,7 @@ const Title = styled.h1`
   padding: 4rem 0;
   font-size: 2.3rem;
   font-weight: 600;
+  line-height: 3rem;
 `
 
 const Article = styled.article`
@@ -66,11 +71,13 @@ const Article = styled.article`
     margin-bottom: 2rem;
     font-family: "Nanum Gothic", sans-serif;
     line-height: 1.8rem;
+    code {
+      padding: 0.2rem 0.5rem;
+      background-color: ${({ theme }) => theme.bgColor.code};
+    }
   }
   code {
     font-family: "Inconsolata", monospace;
-    background-color: ${({ theme }) => theme.bgColor.code};
-    padding: 0.3rem 0.5rem 0.2rem 0.5rem;
   }
   ol {
     padding-left: 2rem;
@@ -78,20 +85,23 @@ const Article = styled.article`
   }
   pre {
     margin-bottom: 2rem;
-    padding: 1rem;
-    width: 100%;
-    font-family: "Inconsolata", monospace;
-    background-color: ${({ theme }) => theme.bgColor.pre};
-    font-size: 0.9rem;
     line-height: 1.5rem;
-    font-weight: 300;
-    code {
-      padding: none;
+    .hljs-function {
+      color: white;
     }
   }
 `
 
-const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery>> = ({ data }) => {
+const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
+  data,
+  pageContext,
+}) => {
+  useEffect(() => {
+    document.querySelectorAll("pre > code").forEach(element => {
+      hljs.highlightBlock(element as HTMLElement)
+    })
+  }, [])
+
   return (
     <Layout>
       <Main>
@@ -99,6 +109,7 @@ const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery>> = ({ data }) => {
         <Article
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
         />
+        <BlogNav pageContext={pageContext} />
       </Main>
     </Layout>
   )

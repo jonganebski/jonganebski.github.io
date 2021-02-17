@@ -51,7 +51,7 @@ export const darkTheme: IMyTheme = {
   bgColor: {
     background: BACKGROUND_COLOR.DARK,
     pre: "rgb(22 27 34)",
-    code: "rgb(22 27 34)",
+    code: "#23241f",
     switch: "#da3633",
     alter: BACKGROUND_COLOR.DARK,
   },

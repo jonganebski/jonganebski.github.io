@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { styled } from "../styles/themes"
-import { IProjectNode } from "../dtos/allMarkdownRemark.dto"
+import { IProjectNode } from "../dtos/project.dto"
 
 const ProjectLi = styled.li`
   width: 100%;

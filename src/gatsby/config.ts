@@ -1,4 +1,4 @@
-import { RemarkConfig, RemarkOptions } from "gatsby-transformer-remark"
+import { RemarkConfig } from "gatsby-transformer-remark"
 import { FileSystemConfig } from "gatsby-source-filesystem"
 
 const GATSBY_PLUGIN_STYLED_COMPONENTS = "gatsby-plugin-styled-components"
