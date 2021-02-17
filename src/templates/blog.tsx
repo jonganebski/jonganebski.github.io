@@ -92,7 +92,6 @@ const Article = styled.article`
 `
 
 const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery>> = ({ data }) => {
-  console.log(data)
   return (
     <Layout>
       <Main>

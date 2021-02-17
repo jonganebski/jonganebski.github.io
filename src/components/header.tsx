@@ -44,7 +44,7 @@ export const Header: React.FC<IHeaderProps> = ({ headerRef }) => {
           안녕하세요! <span>👋</span>
         </Hello>
         <h2>웹 개발자 방진석입니다.</h2>
-        <span>이메일: </span>
+        <span>💌 </span>
         <Anchor href="mailto: jon.ganebski@gamil.com">
           jon.ganebski@gmail.com
         </Anchor>

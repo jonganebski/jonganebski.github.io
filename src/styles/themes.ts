@@ -6,6 +6,7 @@ export interface IMyTheme {
     pre: string
     code: string
     switch: string
+    alter: string
   }
   textColor: {
     rare: string
@@ -31,6 +32,7 @@ export const lightTheme: IMyTheme = {
     pre: "rgb(235, 235, 235)",
     code: "rgb(235, 235, 235)",
     switch: BACKGROUND_COLOR.DARK,
+    alter: BACKGROUND_COLOR.DARK,
   },
   textColor: {
     rare: "black",
@@ -51,6 +53,7 @@ export const darkTheme: IMyTheme = {
     pre: "rgb(22 27 34)",
     code: "rgb(22 27 34)",
     switch: "#da3633",
+    alter: BACKGROUND_COLOR.DARK,
   },
   textColor: {
     rare: "white",

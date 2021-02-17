@@ -23,7 +23,7 @@ const GATSBY_TRANSFORMER_REMARK: RemarkConfig = {
         resolve: "gatsby-remark-images",
         options: {
           maxWidth: 750,
-          linkImagesToOriginal: false,
+          // linkImagesToOriginal: false,
         },
       },
     ],

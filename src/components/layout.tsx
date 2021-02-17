@@ -1,15 +1,12 @@
+import { useLocation } from "@reach/router"
 import React, { ReactNode, useEffect, useRef, useState } from "react"
-import styled, {
-  ThemeProvider,
-  BaseThemeProviderComponent,
-} from "styled-components"
+import { ThemeProvider } from "styled-components"
+import { NAV_HEIGHT, ROUTES_WITH_FIXED_HEADER } from "../common/constants"
 import { GlobalStyle } from "../styles/globalStyle"
+import { darkTheme, lightTheme, styled } from "../styles/themes"
 import { Footer } from "./footer"
 import { Header } from "./header"
 import { Nav } from "./nav"
-import { useLocation } from "@reach/router"
-import { darkTheme, IMyTheme, lightTheme } from "../styles/themes"
-import { NAV_HEIGHT, ROUTES_WITH_FIXED_HEADER } from "../common/constants"
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,6 +23,7 @@ const Container = styled.div<IContainerProps>`
   position: relative;
   z-index: 1;
   width: 100%;
+  height: 100%;
   min-height: 100vh;
   margin-top: ${({ pathname }) => {
     if (ROUTES_WITH_FIXED_HEADER.includes(pathname)) {
@@ -56,6 +54,7 @@ const ArrowDown = styled.button`
   font-size: 2rem;
   cursor: pointer;
   background-color: white;
+  color: black;
   &:hover {
     background-color: rgb(240, 240, 240);
   }
