@@ -14,7 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "gatsby build && gh-pages -d public -b gh-pages"
+    "deploy": "rm -rf node_modules/gh-pages/.cache && gatsby build && gh-pages -d public -b gh-pages"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.12.0",
