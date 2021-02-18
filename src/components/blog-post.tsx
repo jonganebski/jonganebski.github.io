@@ -7,7 +7,7 @@ import { formatDate } from "../common/helpers"
 const Post = styled.li`
   min-height: 10rem;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr 0px;
   border: 1px solid;
   border-color: ${({ theme }) => theme.borderColor.base};
   transition: border-color 0.15s ease-in-out;
@@ -16,12 +16,16 @@ const Post = styled.li`
   &:hover {
     border-color: ${({ theme }) => theme.borderColor.hover};
   }
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: 3fr 1fr;
+  }
 `
 
 const PostTitle = styled.h2`
   font-size: 1.2rem;
   line-height: 2rem;
   font-weight: 600;
+  word-break: keep-all;
 `
 
 const Excerpt = styled.p`
@@ -52,6 +56,10 @@ const CoverImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
+  /* @media only screen and (min-width: 700px) {
+    height: 100%;
+    width: 100%;
+  } */
 `
 
 interface IBlogPostProps {

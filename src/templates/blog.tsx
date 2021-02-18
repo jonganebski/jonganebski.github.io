@@ -40,6 +40,7 @@ const Title = styled.h1`
   font-size: 2.3rem;
   font-weight: 600;
   line-height: 3rem;
+  word-break: keep-all;
 `
 
 const Article = styled.article`

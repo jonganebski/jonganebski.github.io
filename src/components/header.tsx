@@ -20,8 +20,14 @@ const Intro = styled.div`
   width: 100%;
   height: 30%;
   line-height: 4rem;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-family: "Nanum Gothic", sans-serif;
+  @media only screen and (min-width: 400px) {
+    font-size: 1.6rem;
+  }
+  @media only screen and (min-width: 500px) {
+    font-size: 2rem;
+  }
 `
 
 const waveHand = keyframes`

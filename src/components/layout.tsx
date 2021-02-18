@@ -65,9 +65,9 @@ interface ISwitchProps {
 }
 
 const Switch = styled.label<ISwitchProps>`
-  position: fixed;
-  z-index: 10;
-  top: 2rem;
+  position: absolute;
+  z-index: 1;
+  top: calc(${NAV_HEIGHT} + 1rem);
   right: calc(${NAV_HEIGHT} / 2);
   width: 2.5rem;
   height: 1.3rem;
@@ -96,6 +96,11 @@ const Switch = styled.label<ISwitchProps>`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  @media only screen and (min-width: 700px) {
+    position: fixed;
+    top: 2rem;
+    z-index: 10;
   }
 `
 
