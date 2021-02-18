@@ -19,7 +19,8 @@ const Article = styled.article`
       0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   p {
-    line-height: 1.5rem;
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 1.7rem;
   }
 `
 

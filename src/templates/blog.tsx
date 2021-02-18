@@ -73,6 +73,7 @@ const Article = styled.article`
     code {
       padding: 0.2rem 0.5rem;
       background-color: ${({ theme }) => theme.bgColor.code};
+      border-radius: 5px;
     }
   }
   code {
