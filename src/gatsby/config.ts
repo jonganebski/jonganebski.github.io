@@ -39,6 +39,18 @@ const GATSBY_TRANSFORMER_REMARK: RemarkConfig = {
           maxWidth: 750,
         },
       },
+      {
+        resolve: `gatsby-remark-vscode`,
+        options: {
+          theme: {
+            default: "Abyss",
+            parentSelector: {
+              ".wrapper[data-theme=light]": "Solarized Light",
+              ".wrapper[data-theme=dark]": "Dark+ (default dark)",
+            },
+          },
+        },
+      },
     ],
   },
 }
@@ -61,6 +73,6 @@ export default {
     GATSBY_SOURCE_FILESYSTEM,
     GATSBY_PLUGIN_SHARP,
     GATSBY_TRANSFORMER_REMARK,
-    GATSBY_PLUGIN_OFFLINE,
+    // GATSBY_PLUGIN_OFFLINE
   ],
 }

@@ -1,6 +1,4 @@
 import { graphql, PageProps } from "gatsby"
-import hljs from "highlight.js"
-// import "highlight.js/styles/monokai-sublime.css"
 import React, { useEffect } from "react"
 import { Layout } from "../components/layout"
 import { IContext } from "../dtos/context.dto"
@@ -97,24 +95,16 @@ const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
   data,
   pageContext,
 }) => {
-  useEffect(() => {
-    document.querySelectorAll("pre > code").forEach(element => {
-      hljs.highlightBlock(element as HTMLElement)
-    })
-  }, [])
-
   return (
     <Layout>
-      <Helmet title={`${data.markdownRemark.frontmatter.title} | JonGanebski`}>
-        <link
-          rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css"
-        ></link>
-      </Helmet>
+      <Helmet
+        title={`${data.markdownRemark.frontmatter.title} | JonGanebski`}
+      />
       <Main>
         <Title>{data.markdownRemark.frontmatter.title}</Title>
         <Article
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
+          className="light-theme"
         />
         <BlogNav pageContext={pageContext} />
       </Main>

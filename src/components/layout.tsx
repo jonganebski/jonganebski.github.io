@@ -157,7 +157,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return colorMode ? (
     <ThemeProvider theme={colorMode === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Wrapper>
+      <Wrapper className="wrapper" data-theme={colorMode}>
         <Nav />
         {ROUTES_WITH_FIXED_HEADER.includes(location.pathname) && (
           <Header headerRef={headerRef} />
