@@ -107,9 +107,11 @@ type ColorMode = "light" | "dark"
 
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const getInitialTheme = (): ColorMode => {
-    const storedTheme = localStorage.getItem("theme")
-    if (storedTheme === "light" || storedTheme === "dark") {
-      return storedTheme
+    if (localStorage) {
+      const storedTheme = localStorage.getItem("theme")
+      if (storedTheme === "light" || storedTheme === "dark") {
+        return storedTheme
+      }
     }
     return "light"
   }
