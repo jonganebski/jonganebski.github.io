@@ -1,5 +1,6 @@
 import { Link } from "gatsby"
 import React from "react"
+import { Helmet } from "react-helmet"
 import { Layout } from "../components/layout"
 import { styled } from "../styles/themes"
 
@@ -26,6 +27,7 @@ const StyledLink = styled(Link)``
 const NotFound = () => {
   return (
     <Layout>
+      <Helmet title="Page Not Found | JonGanebski" />
       <Main>
         <Imoji>🌌</Imoji>
         <Text>Page Not Found</Text>

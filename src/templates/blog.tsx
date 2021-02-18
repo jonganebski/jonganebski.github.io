@@ -6,6 +6,7 @@ import { Layout } from "../components/layout"
 import { IContext } from "../dtos/context.dto"
 import { styled } from "../styles/themes"
 import { BlogNav } from "../components/blog-nav"
+import { Helmet } from "react-helmet"
 
 interface IBlogMarkdownQuery {
   markdownRemark: {
@@ -104,6 +105,9 @@ const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
 
   return (
     <Layout>
+      <Helmet
+        title={`${data.markdownRemark.frontmatter.title} | JonGanebski`}
+      />
       <Main>
         <Title>{data.markdownRemark.frontmatter.title}</Title>
         <Article

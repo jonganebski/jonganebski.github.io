@@ -48,21 +48,22 @@ const light = keyframes`
     35%{
         fill: inherit;
     }
-    99%{
-        fill: inherit;
-    }
     100%{
-        fill: red;
+        fill: inherit;
     }
     
 `
 
 const PrevNode = styled.div`
   height: 100%;
-  grid-area: prev;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
+  h5 {
+    line-height: 1.5rem;
+    word-break: keep-all;
+  }
   span {
     margin-left: 3rem;
     font-size: 0.9rem;
@@ -78,8 +79,37 @@ const PrevNode = styled.div`
   }
 `
 
-const NextNode = styled.div`
+const PrevLink = styled(Link)`
+  grid-area: prev;
+`
+
+const NextLink = styled(Link)`
   grid-area: next;
+`
+
+const NextNode = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  h5 {
+    line-height: 1.5rem;
+    word-break: keep-all;
+  }
+  span {
+    margin-right: 3rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+  &:hover {
+    ${NavItem} {
+      svg {
+        animation: ${light} 1s linear;
+        fill: red;
+      }
+    }
+  }
 `
 
 const StyledTiArrowLeftOutline = styled(TiArrowLeftOutline)`
@@ -88,6 +118,7 @@ const StyledTiArrowLeftOutline = styled(TiArrowLeftOutline)`
 `
 
 const StyledTiArrowRightOutline = styled(TiArrowRightOutline)`
+  margin-left: 1rem;
   font-size: 2rem;
 `
 
@@ -97,23 +128,28 @@ export const BlogNav: React.FC<IBlogNavProps> = ({
   return (
     <Nav>
       {prevNode && (
-        <Link to={`/blog/${prevNode.fields.slug}`}>
+        <PrevLink to={`/blog/${prevNode.fields.slug}`}>
           <PrevNode>
             <span>Previous Post</span>
             <NavItem>
               <StyledTiArrowLeftOutline />
               <h5>{prevNode.frontmatter.title}</h5>
             </NavItem>
-            <span>sss</span>
+            <span>{prevNode.timeToRead} min read</span>
           </PrevNode>
-        </Link>
+        </PrevLink>
       )}
       {nextNode && (
-        <NextNode>
-          <StyledTiArrowRightOutline />
-          <span>Next Post</span>
-          <h5>{nextNode.frontmatter.title}</h5>
-        </NextNode>
+        <NextLink to={`/blog/${nextNode.fields.slug}`}>
+          <NextNode>
+            <span>Next Post</span>
+            <NavItem>
+              <h5>{nextNode.frontmatter.title}</h5>
+              <StyledTiArrowRightOutline />
+            </NavItem>
+            <span>{nextNode.timeToRead} min read</span>
+          </NextNode>
+        </NextLink>
       )}
     </Nav>
   )

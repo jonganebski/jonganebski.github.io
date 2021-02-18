@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby"
 import React from "react"
+import { Helmet } from "react-helmet"
 import { Layout } from "../components/layout"
 import { Project } from "../components/project"
 import { IProjectMarkdownsQuery } from "../dtos/project.dto"
@@ -46,6 +47,7 @@ const ProjectsPage = () => {
 
   return (
     <Layout>
+      <Helmet title="Projects | JonGanebski" />
       <Main>
         <ProjectsList>
           {data.allMarkdownRemark.edges.map(edge => {

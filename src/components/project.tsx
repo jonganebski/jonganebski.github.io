@@ -18,6 +18,9 @@ const Article = styled.article`
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
       0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
+  p {
+    line-height: 1.5rem;
+  }
 `
 
 const TechsList = styled.ul`

@@ -4,6 +4,7 @@ import { Layout } from "../components/layout"
 import { graphql, useStaticQuery } from "gatsby"
 import { IBlogMarkdownsQuery } from "../dtos/blog.dto"
 import { BlogPost } from "../components/blog-post"
+import { Helmet } from "react-helmet"
 
 const BLOG_MARKDOWNS = graphql`
   query BlogMarkdowns {
@@ -43,9 +44,10 @@ const BlogPostsList = styled.ul`
 
 const Home = () => {
   const data = useStaticQuery<IBlogMarkdownsQuery>(BLOG_MARKDOWNS)
-  console.log(data)
+
   return (
     <Layout>
+      <Helmet title="Welcome! | JonGanebski" />
       <Main>
         <BlogPostsList>
           {data.allMarkdownRemark.edges.map(edge => {
