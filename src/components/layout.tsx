@@ -106,20 +106,22 @@ interface ILayoutProps {
 type ColorMode = "light" | "dark"
 
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
-  const getInitialTheme = (): ColorMode => {
-    if (localStorage) {
+  const location = useLocation()
+  const [colorMode, setColorMode] = useState<ColorMode | null>(null)
+  const headerRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const getInitialTheme = (): ColorMode => {
       const storedTheme = localStorage.getItem("theme")
       if (storedTheme === "light" || storedTheme === "dark") {
         return storedTheme
       }
-    }
-    return "light"
-  }
 
-  const location = useLocation()
-  const [colorMode, setColorMode] = useState<ColorMode>(getInitialTheme())
-  const headerRef = useRef<HTMLDivElement | null>(null)
-  const containerRef = useRef<HTMLDivElement | null>(null)
+      return "light"
+    }
+    setColorMode(getInitialTheme())
+  })
 
   useEffect(() => {
     const onScroll = () => {
@@ -152,7 +154,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
       return "light"
     })
 
-  return (
+  return colorMode ? (
     <ThemeProvider theme={colorMode === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
       <Wrapper>
@@ -177,5 +179,5 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
         </Switch>
       </Wrapper>
     </ThemeProvider>
-  )
+  ) : null
 }
