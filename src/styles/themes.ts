@@ -38,7 +38,8 @@ export const lightTheme: IMyTheme = {
     rare: "black",
     base: "rgb(30, 30, 30)",
     shade: "rgb(200, 200, 200)",
-    linkHover: "#0366d6",
+    linkHover: "#1f6feb",
+    // linkHover: "#0366d6",
   },
   borderColor: {
     base: "rgb(220, 220, 220)",
@@ -59,7 +60,8 @@ export const darkTheme: IMyTheme = {
     rare: "white",
     base: "#c9d1d9",
     shade: "rgb(80, 80, 80)",
-    linkHover: "#58a6ff",
+    linkHover: "#388bfd",
+    // linkHover: "#58a6ff",
   },
   borderColor: {
     base: "rgb(50, 50, 50)",

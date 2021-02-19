@@ -24,7 +24,7 @@ const Text = styled.span`
 
 const StyledLink = styled(Link)``
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <Layout>
       <Helmet title="Page Not Found | JonGanebski" />
@@ -37,4 +37,4 @@ const NotFound = () => {
   )
 }
 
-export default NotFound
+export default NotFoundPage

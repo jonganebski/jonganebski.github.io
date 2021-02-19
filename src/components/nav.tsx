@@ -43,7 +43,7 @@ export const Nav = () => {
       <Ul>
         <li>
           <StyledLink
-            to={"/" || "/blog"}
+            to="/"
             partiallyActive={pathname.includes("/blog")}
             activeStyle={{ color: theme.textColor.base }}
           >
@@ -56,6 +56,14 @@ export const Nav = () => {
             activeStyle={{ color: theme.textColor.base }}
           >
             Projects
+          </StyledLink>
+        </li>
+        <li>
+          <StyledLink
+            to="/gallery"
+            activeStyle={{ color: theme.textColor.base }}
+          >
+            Gallery
           </StyledLink>
         </li>
       </Ul>
