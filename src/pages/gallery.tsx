@@ -5,6 +5,7 @@ import { Layout } from "../components/layout"
 import { IGalleryMarkdownsQuery } from "../dtos/gallery.dto"
 import { styled } from "../styles/themes"
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md"
+import { Helmet } from "react-helmet"
 
 export const GALLERY_MARKDOWNS = graphql`
   query GalleryMarkdowns {
@@ -140,6 +141,7 @@ const GalleryPage: React.FC<PageProps<IGalleryMarkdownsQuery>> = ({ data }) => {
 
   return (
     <Layout>
+      <Helmet title="Gallery | JonGanebski" />
       <Main>
         <Slider ref={sliderRef} onScroll={onScroll}>
           {data.allMarkdownRemark.edges.map(edge => {
