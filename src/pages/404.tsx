@@ -4,6 +4,10 @@ import { Helmet } from "react-helmet"
 import { Layout } from "../components/layout"
 import { styled } from "../styles/themes"
 
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Main = styled.main`
   margin-top: 12rem;
   display: flex;
@@ -23,6 +27,10 @@ const Text = styled.span`
 `
 
 const StyledLink = styled(Link)``
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 const NotFoundPage = () => {
   return (

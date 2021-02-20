@@ -4,6 +4,18 @@ import { IBlogPostNode } from "../dtos/blog.dto"
 import { styled } from "../styles/themes"
 import { formatDate } from "../common/helpers"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
+interface IBlogPostProps {
+  node: IBlogPostNode
+}
+
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Post = styled.li`
   min-height: 10rem;
   display: grid;
@@ -56,15 +68,11 @@ const CoverImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
-  /* @media only screen and (min-width: 700px) {
-    height: 100%;
-    width: 100%;
-  } */
 `
 
-interface IBlogPostProps {
-  node: IBlogPostNode
-}
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const BlogPost: React.FC<IBlogPostProps> = ({ node }) => {
   return (

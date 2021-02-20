@@ -3,6 +3,10 @@ import { createFilePath } from "gatsby-source-filesystem"
 import { IContext, IContextQuery } from "../dtos/context.dto"
 import path from "path"
 
+// ------------------------
+//    On Create Node
+// ------------------------
+
 export const onCreateNode = ({ node, getNode, actions }: CreateNodeArgs) => {
   const { createNodeField } = actions
 
@@ -15,6 +19,10 @@ export const onCreateNode = ({ node, getNode, actions }: CreateNodeArgs) => {
     createNodeField({ node, name: "type", value: type })
   }
 }
+
+// ------------------------
+//    GraphQL Query
+// ------------------------
 
 const CONTEXTS_QUERY = `
 query ContextsQuery {
@@ -34,6 +42,10 @@ query ContextsQuery {
   }
 }
 `
+
+// ------------------------
+//    Create Pages
+// ------------------------
 
 export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions

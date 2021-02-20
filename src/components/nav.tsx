@@ -5,6 +5,10 @@ import { NAV_HEIGHT } from "../common/constants"
 import { useLocation } from "@reach/router"
 import { ThemeContext } from "styled-components"
 
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Wrapper = styled.nav`
   position: fixed;
   top: 0px;
@@ -33,6 +37,10 @@ const StyledLink = styled(Link)`
   font-weight: 600;
   color: ${({ theme }) => theme.textColor.shade};
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const Nav = () => {
   const { pathname } = useLocation()

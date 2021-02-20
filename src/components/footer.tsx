@@ -1,6 +1,10 @@
 import React from "react"
 import { styled } from "../styles/themes"
 
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Wrapper = styled.footer`
   margin-top: auto;
   padding: 2rem;
@@ -12,6 +16,10 @@ const Wrapper = styled.footer`
   justify-content: center;
   color: ${({ theme }) => theme.textColor.rare};
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const Footer = () => {
   return (

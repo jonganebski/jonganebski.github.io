@@ -1,21 +1,15 @@
 import { graphql, PageProps } from "gatsby"
-import React, { useEffect } from "react"
+import React from "react"
+import { Helmet } from "react-helmet"
+import { BlogNav } from "../components/blog-nav"
 import { Layout } from "../components/layout"
+import { IBlogMarkdownQuery } from "../dtos/blog.dto"
 import { IContext } from "../dtos/context.dto"
 import { styled } from "../styles/themes"
-import { BlogNav } from "../components/blog-nav"
-import { Helmet } from "react-helmet"
 
-interface IBlogMarkdownQuery {
-  markdownRemark: {
-    frontmatter: {
-      title: string
-      data: string
-    }
-    html: string
-    timeToRead: number
-  }
-}
+// ------------------------
+//    GraphQL
+// ------------------------
 
 export const BLOG_MARKDOWN = graphql`
   query BlogMarkdown($slug: String!) {
@@ -29,6 +23,10 @@ export const BLOG_MARKDOWN = graphql`
     }
   }
 `
+
+// ------------------------
+//    Styled Components
+// ------------------------
 
 const Main = styled.main`
   width: 100%;
@@ -92,6 +90,10 @@ const Article = styled.article`
     }
   }
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
   data,

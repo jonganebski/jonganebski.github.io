@@ -3,6 +3,10 @@ import { IGalleryNode } from "../dtos/gallery.dto"
 import { styled } from "../styles/themes"
 import { VscClose } from "react-icons/vsc"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
 interface IGalleryItemProps {
   node: IGalleryNode
 }
@@ -10,6 +14,10 @@ interface IGalleryItemProps {
 interface IStateProvider {
   showText: boolean
 }
+
+// ------------------------
+//    Styled Components
+// ------------------------
 
 const ListItem = styled.li`
   flex-shrink: 0;
@@ -81,6 +89,10 @@ const Article = styled.article<IStateProvider>`
     color: #c9d1d9;
   }
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const GalleryItem: React.FC<IGalleryItemProps> = ({ node }) => {
   const [showText, setShowText] = useState(false)

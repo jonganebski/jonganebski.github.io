@@ -1,5 +1,9 @@
 import baseStyled, { ThemedStyledInterface } from "styled-components"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
 export interface IMyTheme {
   bgColor: {
     background: string
@@ -21,10 +25,18 @@ export interface IMyTheme {
   }
 }
 
+// ------------------------
+//    Constants
+// ------------------------
+
 const BACKGROUND_COLOR = {
   LIGHT: "white",
   DARK: "#0d1117",
 }
+
+// ------------------------
+//    Themes
+// ------------------------
 
 export const lightTheme: IMyTheme = {
   bgColor: {
@@ -69,5 +81,9 @@ export const darkTheme: IMyTheme = {
     switch: "#ffa198",
   },
 }
+
+// ---------------------------
+//    Extended Base Styled
+// ---------------------------
 
 export const styled = baseStyled as ThemedStyledInterface<IMyTheme>

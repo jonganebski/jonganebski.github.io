@@ -19,3 +19,14 @@ export interface IBlogMarkdownsQuery {
     }[]
   }
 }
+
+export interface IBlogMarkdownQuery {
+  markdownRemark: {
+    frontmatter: {
+      title: string
+      data: string
+    }
+    html: string
+    timeToRead: number
+  }
+}

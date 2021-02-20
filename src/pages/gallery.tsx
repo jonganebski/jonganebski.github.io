@@ -7,6 +7,10 @@ import { styled } from "../styles/themes"
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md"
 import { Helmet } from "react-helmet"
 
+// ------------------------
+//    GrapgQL
+// ------------------------
+
 export const GALLERY_MARKDOWNS = graphql`
   query GalleryMarkdowns {
     allMarkdownRemark(
@@ -27,6 +31,10 @@ export const GALLERY_MARKDOWNS = graphql`
     }
   }
 `
+
+// ------------------------
+//    Styled Components
+// ------------------------
 
 const Main = styled.main`
   position: relative;
@@ -102,6 +110,10 @@ const Dot = styled.span<IDotProps>`
   background-color: ${({ isLocation, theme }) =>
     isLocation ? theme.textColor.linkHover : theme.textColor.shade};
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 const GalleryPage: React.FC<PageProps<IGalleryMarkdownsQuery>> = ({ data }) => {
   const sliderRef = useRef<HTMLUListElement | null>(null)

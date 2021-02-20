@@ -6,6 +6,10 @@ import { IBlogMarkdownsQuery } from "../dtos/blog.dto"
 import { BlogPost } from "../components/blog-post"
 import { Helmet } from "react-helmet"
 
+// ------------------------
+//    GrapgQL
+// ------------------------
+
 export const BLOG_MARKDOWNS = graphql`
   query BlogMarkdowns {
     allMarkdownRemark(
@@ -30,6 +34,10 @@ export const BLOG_MARKDOWNS = graphql`
     }
   }
 `
+
+// ------------------------
+//    Styled Components
+// ------------------------
 
 const Main = styled.main`
   width: 100%;

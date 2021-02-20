@@ -8,16 +8,34 @@ import { Footer } from "./footer"
 import { Header } from "./header"
 import { Nav } from "./nav"
 
+// ------------------------
+//    Interfaces & Types
+// ------------------------
+
+interface IContainerProps {
+  pathname: string
+}
+
+interface ISwitchProps {
+  colorMode: ColorMode
+}
+
+interface ILayoutProps {
+  children: ReactNode
+}
+
+type ColorMode = "light" | "dark"
+
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `
-
-interface IContainerProps {
-  pathname: string
-}
 
 const Container = styled.div<IContainerProps>`
   position: relative;
@@ -60,10 +78,6 @@ const ArrowDown = styled.button`
   }
 `
 
-interface ISwitchProps {
-  colorMode: ColorMode
-}
-
 const Switch = styled.label<ISwitchProps>`
   position: absolute;
   z-index: 1;
@@ -104,11 +118,9 @@ const Switch = styled.label<ISwitchProps>`
   }
 `
 
-interface ILayoutProps {
-  children: ReactNode
-}
-
-type ColorMode = "light" | "dark"
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const location = useLocation()

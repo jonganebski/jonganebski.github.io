@@ -2,6 +2,18 @@ import React, { useEffect, useRef } from "react"
 import { styled } from "../styles/themes"
 import { IProjectNode } from "../dtos/project.dto"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
+interface IProjectProps {
+  node: IProjectNode
+}
+
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const ProjectLi = styled.li`
   width: 100%;
   max-width: 750px;
@@ -31,9 +43,9 @@ const TechsList = styled.ul`
   font-weight: 300;
 `
 
-interface IProjectProps {
-  node: IProjectNode
-}
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const Project: React.FC<IProjectProps> = ({ node }) => {
   const projectRef = useRef<HTMLLIElement | null>(null)

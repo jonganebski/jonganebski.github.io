@@ -3,6 +3,18 @@ import { keyframes } from "styled-components"
 import { EMAIL } from "../common/constants"
 import { styled } from "../styles/themes"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
+interface IHeaderProps {
+  headerRef: React.MutableRefObject<HTMLDivElement | null>
+}
+
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Wrapper = styled.header`
   position: fixed;
   height: calc(100vh - 5rem);
@@ -55,9 +67,9 @@ const Anchor = styled.a`
   }
 `
 
-interface IHeaderProps {
-  headerRef: React.MutableRefObject<HTMLDivElement | null>
-}
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const Header: React.FC<IHeaderProps> = ({ headerRef }) => {
   return (

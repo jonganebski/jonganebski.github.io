@@ -6,6 +6,10 @@ import { Project } from "../components/project"
 import { IProjectMarkdownsQuery } from "../dtos/project.dto"
 import { styled } from "../styles/themes"
 
+// ------------------------
+//    GrapgQL
+// ------------------------
+
 const PROJECT_MARKDOWNS = graphql`
   query ProjectMarkdowns {
     allMarkdownRemark(
@@ -29,6 +33,10 @@ const PROJECT_MARKDOWNS = graphql`
   }
 `
 
+// ------------------------
+//    Styled Components
+// ------------------------
+
 const Main = styled.main`
   width: 100%;
   padding: 8rem 0;
@@ -41,6 +49,10 @@ const ProjectsList = styled.ul`
   place-items: center;
   gap: 10rem;
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 const ProjectsPage = () => {
   const data = useStaticQuery<IProjectMarkdownsQuery>(PROJECT_MARKDOWNS)

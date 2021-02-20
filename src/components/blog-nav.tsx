@@ -4,9 +4,17 @@ import { styled } from "../styles/themes"
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti"
 import { Link } from "gatsby"
 
+// ------------------------
+//    Interfaces
+// ------------------------
+
 interface IBlogNavProps {
   pageContext: IContext
 }
+
+// ------------------------
+//    Styled Components
+// ------------------------
 
 const NavItem = styled.div`
   cursor: pointer;
@@ -58,6 +66,10 @@ const PrevLink = styled(Link)`
 const NextLink = styled(Link)`
   grid-area: next;
 `
+
+// ------------------------
+//    Main Component
+// ------------------------
 
 export const BlogNav: React.FC<IBlogNavProps> = ({
   pageContext: { prevNode, nextNode },
