@@ -1,7 +1,7 @@
 import React from "react"
 import { styled } from "../styles/themes"
 import { Layout } from "../components/layout"
-import { graphql, PageProps } from "gatsby"
+import { graphql, PageProps, useStaticQuery } from "gatsby"
 import { IBlogMarkdownsQuery } from "../dtos/blog.dto"
 import { BlogPost } from "../components/blog-post"
 import { Helmet } from "react-helmet"
@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet"
 //    GrapgQL
 // ------------------------
 
-export const BLOG_MARKDOWNS = graphql`
+const BLOG_MARKDOWNS = graphql`
   query BlogMarkdowns {
     allMarkdownRemark(
       filter: { fields: { type: { eq: "blog" } } }
@@ -50,7 +50,8 @@ const BlogPostsList = styled.ul`
   gap: 1rem;
 `
 
-const HomePage: React.FC<PageProps<IBlogMarkdownsQuery>> = ({ data }) => {
+const HomePage = () => {
+  const data = useStaticQuery<IBlogMarkdownsQuery>(BLOG_MARKDOWNS)
   return (
     <Layout>
       <Helmet title="Welcome! | JonGanebski" />

@@ -11,9 +11,6 @@ const GATSBY_PLUGIN_GOOGLE_GTAG = {
   resolve: `gatsby-plugin-google-gtag`,
   options: {
     trackingIds: ["G-FB90L8QGZ2"],
-    gtagConfig: {
-      send_page_view: true,
-    },
   },
 }
 

@@ -1,4 +1,4 @@
-import { graphql, PageProps } from "gatsby"
+import { graphql, PageProps, useStaticQuery } from "gatsby"
 import React, { useEffect, useRef, useState } from "react"
 import { GalleryItem } from "../components/gallery-item"
 import { Layout } from "../components/layout"
@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet"
 //    GrapgQL
 // ------------------------
 
-export const GALLERY_MARKDOWNS = graphql`
+const GALLERY_MARKDOWNS = graphql`
   query GalleryMarkdowns {
     allMarkdownRemark(
       filter: { fields: { type: { eq: "gallery" } } }
@@ -115,7 +115,8 @@ const Dot = styled.span<IDotProps>`
 //    Main Component
 // ------------------------
 
-const GalleryPage: React.FC<PageProps<IGalleryMarkdownsQuery>> = ({ data }) => {
+const GalleryPage = () => {
+  const data = useStaticQuery<IGalleryMarkdownsQuery>(GALLERY_MARKDOWNS)
   const sliderRef = useRef<HTMLUListElement | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
 
