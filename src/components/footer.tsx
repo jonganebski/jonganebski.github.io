@@ -8,13 +8,23 @@ import { styled } from "../styles/themes"
 const Wrapper = styled.footer`
   margin-top: auto;
   padding: 2rem;
-  height: 10rem;
+  height: 8rem;
   width: 100%;
   max-width: 1000px;
+  display: grid;
+  place-items: center;
+  color: ${({ theme }) => theme.textColor.rare};
+`
+
+const FlexDiv = styled.div`
   display: flex;
   align-items: flex-end;
-  justify-content: center;
-  color: ${({ theme }) => theme.textColor.rare};
+`
+
+const GatsbyIcon = styled.img`
+  margin-left: 5px;
+  width: 1.1rem;
+  height: 1.1rem;
 `
 
 // ------------------------
@@ -23,6 +33,14 @@ const Wrapper = styled.footer`
 
 export const Footer = () => {
   return (
-    <Wrapper>Copyright &copy; Jon Ganebski {new Date().getFullYear()} </Wrapper>
+    <Wrapper>
+      <FlexDiv>
+        <span>Created with</span>
+        <a href="https://www.gatsbyjs.com/" target="_blank" rel="noopener">
+          <GatsbyIcon src="/Gatsby-Monogram.svg" />
+        </a>
+      </FlexDiv>
+      <span>Copyright &copy; Jon Ganebski {new Date().getFullYear()}</span>{" "}
+    </Wrapper>
   )
 }
