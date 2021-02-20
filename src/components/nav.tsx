@@ -53,6 +53,7 @@ export const Nav = () => {
         <li>
           <StyledLink
             to="/projects"
+            partiallyActive
             activeStyle={{ color: theme.textColor.base }}
           >
             Projects
@@ -61,6 +62,7 @@ export const Nav = () => {
         <li>
           <StyledLink
             to="/gallery"
+            partiallyActive
             activeStyle={{ color: theme.textColor.base }}
           >
             Gallery
