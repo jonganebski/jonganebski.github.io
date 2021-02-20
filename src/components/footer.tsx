@@ -7,8 +7,8 @@ import { styled } from "../styles/themes"
 
 const Wrapper = styled.footer`
   margin-top: auto;
-  padding: 2rem;
-  height: 8rem;
+  padding: 5rem 0 1rem 0;
+  height: 10rem;
   width: 100%;
   max-width: 1000px;
   display: grid;

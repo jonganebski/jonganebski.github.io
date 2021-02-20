@@ -22,6 +22,14 @@ const PROJECT_MARKDOWNS = graphql`
           frontmatter {
             title
             techs
+            href
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 750) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
           fields {
             slug
