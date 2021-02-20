@@ -16,8 +16,11 @@ const ListItem = styled.li`
   width: 100%;
   max-width: 1200px;
   scroll-snap-align: start;
-  padding: 4rem 5rem 2rem 5rem;
   position: relative;
+  padding: 4rem 1rem 2rem 1rem;
+  @media only screen and (min-width: 700px) {
+    padding: 4rem 5rem 2rem 5rem;
+  }
 `
 
 const Container = styled.div`
@@ -48,6 +51,7 @@ const CloseButton = styled.div`
 
 const Photograph = styled.img<IStateProvider>`
   width: 100%;
+  max-width: 100%;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   backface-visibility: hidden;

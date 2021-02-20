@@ -29,11 +29,11 @@ export const GALLERY_MARKDOWNS = graphql`
 
 const Main = styled.main`
   position: relative;
+  max-width: 1200px;
+  width: 100%;
 `
 
 const Slider = styled.ul`
-  width: 100%;
-  max-width: 1200px;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -50,16 +50,19 @@ const ExploreBtnCore = styled.div`
   position: absolute;
   width: 3rem;
   height: 50%;
-  display: flex;
-  justify-content: center;
   font-size: 2rem;
-  align-items: center;
   top: 50%;
   cursor: pointer;
   &:hover {
     svg {
       fill: ${({ theme }) => theme.textColor.linkHover};
     }
+  }
+  display: none;
+  @media only screen and (min-width: 700px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
 const ExploreLeft = styled(ExploreBtnCore)`
@@ -111,41 +114,44 @@ const GalleryPage: React.FC<PageProps<IGalleryMarkdownsQuery>> = ({ data }) => {
     }
   }, [sliderRef.current])
 
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.scroll({
-        behavior: "smooth",
-        left: sliderRef.current.clientWidth * currentIndex,
-      })
-    }
-  }, [currentIndex])
-
   const isNotFirstPhoto = 0 < currentIndex
 
   const isNotLastPhoto = currentIndex < data.allMarkdownRemark.edges.length - 1
 
-  const scrollTo = (direction: "left" | "right") => {
-    if (direction === "left" && isNotFirstPhoto) {
-      setCurrentIndex(currentIndex - 1)
-    } else if (direction === "right" && isNotLastPhoto) {
-      setCurrentIndex(currentIndex + 1)
+  const scrollTo = (targetIndex: number) => {
+    if (sliderRef.current) {
+      if (isNotFirstPhoto || isNotLastPhoto) {
+        sliderRef.current.scroll({
+          behavior: "smooth",
+          left: sliderRef.current.clientWidth * targetIndex,
+        })
+      }
+    }
+  }
+
+  const onScroll = () => {
+    if (sliderRef.current) {
+      const index = Math.round(
+        sliderRef.current.scrollLeft / sliderRef.current.clientWidth
+      )
+      setCurrentIndex(index)
     }
   }
 
   return (
     <Layout>
       <Main>
-        <Slider ref={sliderRef}>
+        <Slider ref={sliderRef} onScroll={onScroll}>
           {data.allMarkdownRemark.edges.map(edge => {
             return <GalleryItem node={edge.node} key={edge.node.id} />
           })}
           {isNotFirstPhoto && (
-            <ExploreLeft onClick={() => scrollTo("left")}>
+            <ExploreLeft onClick={() => scrollTo(currentIndex - 1)}>
               <MdKeyboardArrowLeft />
             </ExploreLeft>
           )}
           {isNotLastPhoto && (
-            <ExploreRight onClick={() => scrollTo("right")}>
+            <ExploreRight onClick={() => scrollTo(currentIndex + 1)}>
               <MdKeyboardArrowRight />
             </ExploreRight>
           )}
@@ -153,10 +159,7 @@ const GalleryPage: React.FC<PageProps<IGalleryMarkdownsQuery>> = ({ data }) => {
         <Navigator role="list">
           {data.allMarkdownRemark.edges.map((edge, index) => {
             return (
-              <DotContainer
-                onClick={() => setCurrentIndex(index)}
-                key={edge.node.id}
-              >
+              <DotContainer onClick={() => scrollTo(index)} key={edge.node.id}>
                 <Dot isLocation={index === currentIndex} />
               </DotContainer>
             )
