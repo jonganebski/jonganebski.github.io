@@ -70,9 +70,9 @@ const CoverImage = styled.img`
   object-fit: cover;
 `
 
-// ------------------------
+// -----------------------
 //    Main Component
-// ------------------------
+// -----------------------
 
 export const BlogPost: React.FC<IBlogPostProps> = ({ node }) => {
   return (
