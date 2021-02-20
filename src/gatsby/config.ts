@@ -1,9 +1,5 @@
 import { RemarkConfig } from "gatsby-transformer-remark"
 import { FileSystemConfig } from "gatsby-source-filesystem"
-import dotenv from "dotenv"
-dotenv.config({ path: ".env" })
-//@ts-ignore
-import config from "gatsby-plugin-config"
 
 const GATSBY_PLUGIN_STYLED_COMPONENTS = "gatsby-plugin-styled-components"
 const GATSBY_PLUGIN_REACT_HELMET = `gatsby-plugin-react-helmet`
@@ -13,7 +9,7 @@ const GATSBY_PLUGIN_OFFLINE = `gatsby-plugin-offline`
 const GATSBY_PLUGIN_GOOGLE_GTAG = {
   resolve: `gatsby-plugin-google-gtag`,
   options: {
-    trackingIds: [config.GA_TRACKING_ID],
+    trackingIds: ["G-FB90L8QGZ2"],
   },
 }
 
