@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { styled } from "../styles/themes"
 import { IProjectNode } from "../dtos/project.dto"
-import { OutboundLink } from "gatsby-plugin-google-gtag"
-import GatsbyImg from "gatsby-image"
 
 // ------------------------
 //    Interfaces
@@ -19,8 +17,6 @@ interface IProjectProps {
 const ProjectLi = styled.li`
   width: 100%;
   max-width: 750px;
-  display: grid;
-  gap: 2rem;
 `
 
 const Title = styled.h2`
@@ -28,6 +24,7 @@ const Title = styled.h2`
 `
 
 const Article = styled.article`
+  margin-bottom: 2rem;
   span {
     margin: 2rem 0;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -92,11 +89,6 @@ export const Project: React.FC<IProjectProps> = ({ node }) => {
   return (
     <ProjectLi ref={projectRef}>
       <Title>{node.frontmatter.title}</Title>
-      <OutboundLink href={node.frontmatter.href} target="_blank" rel="noopener">
-        <GatsbyImg
-          fluid={node.frontmatter.featuredImage?.childImageSharp.fluid}
-        />
-      </OutboundLink>
       <Article dangerouslySetInnerHTML={{ __html: node.html }} />
       <TechsList>
         {node.frontmatter.techs.map((tech, i) => (

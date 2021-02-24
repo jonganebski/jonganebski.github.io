@@ -4,15 +4,7 @@ import { FileSystemConfig } from "gatsby-source-filesystem"
 const GATSBY_PLUGIN_STYLED_COMPONENTS = "gatsby-plugin-styled-components"
 const GATSBY_PLUGIN_REACT_HELMET = `gatsby-plugin-react-helmet`
 const GATSBY_PLUGIN_SHARP = "gatsby-plugin-sharp"
-const GATSBY_TRANSFORMER_SHARP = "gatsby-transformer-sharp"
 const GATSBY_PLUGIN_OFFLINE = `gatsby-plugin-offline`
-
-const GATSBY_PLUGIN_GOOGLE_GTAG = {
-  resolve: `gatsby-plugin-google-gtag`,
-  options: {
-    trackingIds: ["G-FB90L8QGZ2"],
-  },
-}
 
 const GATSBY_PLUGIN_MAIFEST = {
   resolve: `gatsby-plugin-manifest`,
@@ -74,14 +66,12 @@ const GATSBY_SOURCE_FILESYSTEM: FileSystemConfig = {
 export default {
   siteMetadata: {},
   plugins: [
-    GATSBY_PLUGIN_GOOGLE_GTAG,
     GATSBY_PLUGIN_MAIFEST,
     GATSBY_PLUGIN_WEB_FONT_LOADER,
     GATSBY_PLUGIN_REACT_HELMET,
     GATSBY_PLUGIN_STYLED_COMPONENTS,
     GATSBY_SOURCE_FILESYSTEM,
     GATSBY_PLUGIN_SHARP,
-    GATSBY_TRANSFORMER_SHARP,
     GATSBY_TRANSFORMER_REMARK,
     // GATSBY_PLUGIN_OFFLINE
   ],
