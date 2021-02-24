@@ -103,7 +103,9 @@ const Switch = styled.label<ISwitchProps>`
     transition: left 0.2s ease-in-out;
     transform: translate(-50%, -50%);
     background-color: ${({ theme }) => theme.bgColor.switch};
+    border: 2px solid;
     border-radius: 999px;
+    border-color: ${({ theme }) => theme.borderColor.switch};
     width: 28px;
     height: 28px;
     font-size: 0.8rem;
@@ -192,7 +194,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
             defaultChecked={colorMode === "dark"}
             onChange={onToggleDarkModeSwitch}
           />
-          <span>{colorMode === "light" ? "🌜" : "🌞"}</span>
+          <span>{colorMode === "light" ? "🌞" : "🌜"}</span>
         </Switch>
       </Wrapper>
     </ThemeProvider>

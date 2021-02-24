@@ -28,11 +28,6 @@ const Title = styled.h2`
 `
 
 const Article = styled.article`
-  span {
-    margin: 2rem 0;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
   p {
     font-family: "Nanum Gothic", sans-serif;
     line-height: 1.7rem;
@@ -95,6 +90,10 @@ export const Project: React.FC<IProjectProps> = ({ node }) => {
       <OutboundLink href={node.frontmatter.href} target="_blank" rel="noopener">
         <GatsbyImg
           fluid={node.frontmatter.featuredImage?.childImageSharp.fluid}
+          style={{
+            boxShadow:
+              "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+          }}
         />
       </OutboundLink>
       <Article dangerouslySetInnerHTML={{ __html: node.html }} />
