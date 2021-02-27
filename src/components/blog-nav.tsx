@@ -17,6 +17,10 @@ interface IBlogNavProps {
 // ------------------------
 
 const NavItem = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
   span {
     font-size: 0.9rem;
@@ -33,8 +37,7 @@ const NavItem = styled.div`
 const NodeDivCore = styled.div`
   height: 100%;
   display: grid;
-  grid-auto-flow: column;
-  place-items: center;
+  align-items: center;
   gap: 1rem;
   svg {
     font-size: 2rem;
@@ -54,9 +57,11 @@ const Nav = styled.nav`
 `
 
 const PrevNode = styled(NodeDivCore)`
+  grid-template-columns: 2rem auto;
   text-align: start;
 `
 const NextNode = styled(NodeDivCore)`
+  grid-template-columns: auto 2rem;
   text-align: end;
 `
 

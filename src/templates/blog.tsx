@@ -89,6 +89,10 @@ const Article = styled.article`
       color: white;
     }
   }
+  sup {
+    font-size: 0.7rem;
+    vertical-align: super;
+  }
 `
 
 // ------------------------
