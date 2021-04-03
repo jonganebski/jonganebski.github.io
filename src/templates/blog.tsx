@@ -95,9 +95,9 @@ const Article = styled.article`
   }
 `
 
-// ------------------------
+// -----------------------
 //    Main Component
-// ------------------------
+// -----------------------
 
 const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
   data,
