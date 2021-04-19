@@ -1,0 +1,2 @@
+(self.webpackChunkjonganebski_github_io=self.webpackChunkjonganebski_github_io||[]).push([[876],{5538:function(e,n,t){"use strict";t.d(n,{ven:function(){return l}});var i=t(1046);function l(e){return(0,i.w_)({tag:"svg",attr:{viewBox:"0 0 16 16",fill:"currentColor"},child:[{tag:"path",attr:{fillRule:"evenodd",clipRule:"evenodd",d:"M8 8.707l3.646 3.647.708-.707L8.707 8l3.647-3.646-.707-.708L8 7.293 4.354 3.646l-.707.708L7.293 8l-3.646 3.646.707.708L8 8.707z"}}]})(e)}}}]);
+//# sourceMappingURL=17007de1-96fcbb7c72b183948deb.js.map

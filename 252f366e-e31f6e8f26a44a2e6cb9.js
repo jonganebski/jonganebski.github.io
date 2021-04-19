@@ -1,0 +1,2 @@
+(self.webpackChunkjonganebski_github_io=self.webpackChunkjonganebski_github_io||[]).push([[228],{2775:function(t,n,i){"use strict";i.d(n,{sG8:function(){return u},AeI:function(){return e}});var a=i(1046);function u(t){return(0,a.w_)({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"}}]})(t)}function e(t){return(0,a.w_)({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"}}]})(t)}}}]);
+//# sourceMappingURL=252f366e-e31f6e8f26a44a2e6cb9.js.map
