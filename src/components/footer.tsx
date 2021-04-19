@@ -23,6 +23,6 @@ const Wrapper = styled.footer`
 
 export const Footer = () => {
   return (
-    <Wrapper>Copyright &copy; Jon Ganebski {new Date().getFullYear()} </Wrapper>
+    <Wrapper>Copyright &copy; Jon Ganebski {new Date().getFullYear()}</Wrapper>
   )
 }
