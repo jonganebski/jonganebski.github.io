@@ -1,18 +1,17 @@
 import { useLocation } from "@reach/router"
+import { Link } from "gatsby"
 import React, { ReactNode, useEffect, useRef, useState } from "react"
 import { ThemeProvider } from "styled-components"
-import { NAV_HEIGHT, ROUTES_WITH_FIXED_HEADER } from "../common/constants"
+import { NAV_HEIGHT } from "../common/constants"
 import { GlobalStyle } from "../styles/globalStyle"
 import { darkTheme, lightTheme, styled } from "../styles/themes"
 import { Footer } from "./footer"
-import { Header } from "./header"
-import { Nav } from "./nav"
 
 // ------------------------
 //    Interfaces & Types
 // ------------------------
 
-interface IContainerProps {
+interface IPathname {
   pathname: string
 }
 
@@ -35,47 +34,27 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: ${({ theme }) => theme.bgColor.background};
 `
 
-const Container = styled.div<IContainerProps>`
+const Container = styled.div`
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  margin-top: ${({ pathname }) => {
-    if (ROUTES_WITH_FIXED_HEADER.includes(pathname)) {
-      return `calc(100vh - ${NAV_HEIGHT})`
-    } else {
-      return NAV_HEIGHT
-    }
-  }};
+  max-width: 1400px;
   padding: 0 1rem;
-  background-color: ${({ theme }) => theme.bgColor.background};
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-const ArrowDown = styled.button`
-  all: unset;
-  position: absolute;
-  top: -1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3rem;
-  height: 3rem;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  &:hover {
-    background-color: rgb(240, 240, 240);
-  }
+const Heading = styled.h1<IPathname>`
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  margin-right: auto;
+  font-size: ${({ pathname }) => (pathname === "/" ? "6rem" : "2rem")};
 `
 
 const Switch = styled.label<ISwitchProps>`
@@ -127,7 +106,6 @@ const Switch = styled.label<ISwitchProps>`
 export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   const location = useLocation()
   const [colorMode, setColorMode] = useState<ColorMode | null>(null)
-  const headerRef = useRef<HTMLDivElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -141,27 +119,6 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
     }
     setColorMode(getInitialTheme())
   })
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.pageYOffset < 500) {
-        if (headerRef.current) {
-          headerRef.current.style.opacity = 1 - window.pageYOffset / 500 + ""
-        }
-      }
-    }
-    document.addEventListener("scroll", onScroll)
-    return () => document.removeEventListener("scroll", onScroll)
-  }, [])
-
-  const autoScroll = () => {
-    if (containerRef.current) {
-      window.scroll({
-        top: containerRef.current.offsetTop,
-        behavior: "smooth",
-      })
-    }
-  }
 
   const onToggleDarkModeSwitch = () =>
     setColorMode(prev => {
@@ -177,14 +134,10 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
     <ThemeProvider theme={colorMode === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
       <Wrapper className="wrapper" data-theme={colorMode}>
-        <Nav />
-        {ROUTES_WITH_FIXED_HEADER.includes(location.pathname) && (
-          <Header headerRef={headerRef} />
-        )}
-        <Container ref={containerRef} pathname={location.pathname}>
-          {ROUTES_WITH_FIXED_HEADER.includes(location.pathname) && (
-            <ArrowDown onClick={autoScroll}>&darr;</ArrowDown>
-          )}
+        <Container ref={containerRef}>
+          <Heading pathname={location.pathname}>
+            <Link to="/">Blog.</Link>
+          </Heading>
           {children}
           <Footer />
         </Container>

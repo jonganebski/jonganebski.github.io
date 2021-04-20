@@ -17,6 +17,7 @@ export const BLOG_MARKDOWN = graphql`
       frontmatter {
         title
         date
+        coverUrl
       }
       timeToRead
       html
@@ -30,21 +31,23 @@ export const BLOG_MARKDOWN = graphql`
 
 const Main = styled.main`
   width: 100%;
-  max-width: 750px;
-`
-
-const Title = styled.h1`
-  padding: 4rem 0;
-  font-size: 2.3rem;
-  font-weight: 600;
-  line-height: 3rem;
-  word-break: keep-all;
+  h1 {
+    margin-bottom: 0.5em;
+    font-size: 4rem;
+    font-weight: 600;
+    line-height: 1.5em;
+    word-break: keep-all;
+  }
+  img {
+    width: 100%;
+  }
 `
 
 const Article = styled.article`
+  max-width: 750px;
+  margin: 0 auto;
   img {
     width: 100%;
-    max-width: 750px;
     margin-bottom: 1rem;
   }
   .photo-reference {
@@ -55,12 +58,12 @@ const Article = styled.article`
     margin-bottom: 2rem;
   }
   h2 {
-    margin-bottom: 2rem;
+    padding: 2rem 0;
     font-weight: 600;
     font-size: 1.8rem;
   }
   h3 {
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
     font-weight: 600;
     font-size: 1.1rem;
   }
@@ -109,7 +112,8 @@ const BlogTemplate: React.FC<PageProps<IBlogMarkdownQuery, IContext>> = ({
         title={`${data.markdownRemark.frontmatter.title} | JonGanebski`}
       />
       <Main>
-        <Title>{data.markdownRemark.frontmatter.title}</Title>
+        <h1>{data.markdownRemark.frontmatter.title}</h1>
+        <img src={data.markdownRemark.frontmatter.coverUrl} />
         <Article
           dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
           className="light-theme"

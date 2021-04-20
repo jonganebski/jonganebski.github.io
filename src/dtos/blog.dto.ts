@@ -25,6 +25,7 @@ export interface IBlogMarkdownQuery {
     frontmatter: {
       title: string
       data: string
+      coverUrl: string
     }
     html: string
     timeToRead: number
