@@ -13,6 +13,8 @@ const Container = styled.div`
   img {
     width: 100%;
     margin-bottom: 3rem;
+    aspect-ratio: 1.7 / 1;
+    object-fit: cover;
   }
 `
 
