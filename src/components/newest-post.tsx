@@ -9,23 +9,33 @@ interface INewestPostProps {
 }
 
 const Container = styled.div`
-  margin-bottom: 6rem;
+  @media screen and (min-width: 1024px) {
+    margin-bottom: 6rem;
+  }
+  margin-bottom: 3rem;
   img {
+    @media screen and (min-width: 1024px) {
+      margin-bottom: 3rem;
+    }
+    margin-bottom: 1rem;
     width: 100%;
-    margin-bottom: 3rem;
     aspect-ratio: 1.7 / 1;
     object-fit: cover;
   }
 `
 
 const Desc = styled.div`
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
   h3 {
+    margin-bottom: 1rem;
     line-height: 1.5em;
-    font-size: 3rem;
-    margin-bottom: 1em;
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-size: ${({ theme }) => theme.fontSizeClamp.xl};
     a {
       text-underline-position: under;
       &:hover {
@@ -34,13 +44,14 @@ const Desc = styled.div`
     }
   }
   span {
-    font-size: 1.2rem;
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    font-size: ${({ theme }) => theme.fontSizeClamp.xs};
   }
-
   p {
     margin-bottom: 1rem;
-    font-size: 1.2rem;
-    line-height: 2em;
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    font-size: ${({ theme }) => theme.fontSizeClamp.sm};
+    line-height: 1.8em;
   }
 `
 

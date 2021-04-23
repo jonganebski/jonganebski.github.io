@@ -32,8 +32,9 @@ export const BLOG_MARKDOWN = graphql`
 const Main = styled.main`
   width: 100%;
   h1 {
+    font-size: ${({ theme }) => theme.fontSize.xxl};
+    font-size: ${({ theme }) => theme.fontSizeClamp.xxl};
     margin-bottom: 0.5em;
-    font-size: 4rem;
     font-weight: 600;
     line-height: 1.5em;
     word-break: keep-all;

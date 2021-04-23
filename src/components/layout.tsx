@@ -51,10 +51,13 @@ const Container = styled.div`
 `
 
 const Heading = styled.h1<IPathname>`
+  font-size: ${({ pathname, theme }) =>
+    pathname === "/" ? `${theme.fontSize.xxl}` : "2rem"};
+  font-size: ${({ pathname, theme }) =>
+    pathname === "/" ? `${theme.fontSizeClamp.xxl}` : "2rem"};
   margin-top: 4rem;
   margin-bottom: 3rem;
   margin-right: auto;
-  font-size: ${({ pathname }) => (pathname === "/" ? "6rem" : "2rem")};
 `
 
 const Switch = styled.label<ISwitchProps>`

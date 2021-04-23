@@ -27,8 +27,10 @@ const Post = styled.li`
     object-fit: cover;
   }
   h3 {
-    font-size: 2rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSizeClamp.lg};
     line-height: 1.5em;
+    word-break: break-all;
     a {
       text-underline-position: under;
       &:hover {
@@ -37,7 +39,13 @@ const Post = styled.li`
     }
   }
   p {
-    line-height: 2em;
+    line-height: 1.8em;
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    font-size: ${({ theme }) => theme.fontSizeClamp.sm};
+  }
+  span {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    font-size: ${({ theme }) => theme.fontSizeClamp.xs};
   }
 `
 

@@ -46,13 +46,17 @@ const Main = styled.main`
 
 const Heading2 = styled.h2`
   margin-bottom: 3rem;
-  font-size: 4rem;
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSizeClamp.xl};
 `
 
 const BlogPostsList = styled.ul`
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+  }
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
+  gap: 3rem;
 `
 
 const HomePage: React.FC<PageProps<IBlogMarkdownsQuery>> = ({ data }) => {

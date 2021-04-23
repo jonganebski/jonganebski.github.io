@@ -4,6 +4,15 @@ import baseStyled, { ThemedStyledInterface } from "styled-components"
 //    Interfaces
 // ------------------------
 
+interface IFontSizes {
+  xxl: string
+  xl: string
+  lg: string
+  md: string
+  sm: string
+  xs: string
+}
+
 export interface IMyTheme {
   bgColor: {
     background: string
@@ -23,6 +32,8 @@ export interface IMyTheme {
     hover: string
     switch: string
   }
+  fontSize: IFontSizes
+  fontSizeClamp: IFontSizes
 }
 
 // ------------------------
@@ -34,11 +45,32 @@ const BACKGROUND_COLOR = {
   DARK: "#0d1117",
 }
 
+const FONT_SIZE: IFontSizes = {
+  xxl: "3rem",
+  xl: "2.5rem",
+  lg: "1.5rem",
+  md: "1.1rem",
+  sm: "1rem",
+  xs: "0.9rem",
+}
+
+const FONT_SIZE_CLAMP: IFontSizes = {
+  xxl: "clamp(3rem, 10vw, 6rem)",
+  xl: "clamp(2.5rem, 9vw, 3rem)",
+  lg: "clamp(1.5rem, 7vw, 2rem)",
+  md: "clamp(1.1rem, 5vw, 1.3rem)",
+  sm: "clamp(1rem, 3vw, 1.2rem)",
+  xs: "clamp(0.9rem, 1vw, 1.1rem)",
+}
+
 // ------------------------
 //    Themes
 // ------------------------
 
+const sharedTheme = { fontSize: FONT_SIZE, fontSizeClamp: FONT_SIZE_CLAMP }
+
 export const lightTheme: IMyTheme = {
+  ...sharedTheme,
   bgColor: {
     background: BACKGROUND_COLOR.LIGHT,
     pre: "rgb(235, 235, 235)",
@@ -61,6 +93,7 @@ export const lightTheme: IMyTheme = {
 }
 
 export const darkTheme: IMyTheme = {
+  ...sharedTheme,
   bgColor: {
     background: BACKGROUND_COLOR.DARK,
     pre: "rgb(22 27 34)",
