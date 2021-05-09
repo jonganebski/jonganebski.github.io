@@ -99,6 +99,21 @@ const Article = styled.article`
     font-size: 0.7rem;
     vertical-align: super;
   }
+  blockquote {
+    width: 90%;
+    padding-left: 2rem;
+    border-left: 4px solid ${({ theme }) => theme.textColor.shade};
+    .caption {
+      display: block;
+      text-align: end;
+    }
+  }
+  small {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+  }
+  em {
+    font-style: italic;
+  }
 `
 
 // -----------------------
