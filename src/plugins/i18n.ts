@@ -4,9 +4,9 @@ import type { ViteSSGContext } from 'vite-ssg';
 type Plugin = (ctx: ViteSSGContext) => void;
 
 const messages = Object.fromEntries(
-	Object.entries(import.meta.globEager('../../locales/*.y(a)?ml')).map(([key, value]) => {
-		const yaml = key.endsWith('.yaml');
-		return [key.slice(14, yaml ? -5 : -4), value.default];
+	Object.entries(import.meta.globEager('../../locales/*.json')).map(([key, value]) => {
+		const json = key.endsWith('.json');
+		return [key.slice(14, json ? -5 : -4), value.default];
 	}),
 );
 
