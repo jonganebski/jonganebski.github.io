@@ -25,9 +25,10 @@ export default defineConfig({
 			dts: 'src/auto-imports.d.ts',
 		}),
 		Components({
+			directoryAsNamespace: true,
 			extensions: ['vue', 'md'],
-			include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
 			resolvers: [IconsResolver({ prefix: false })],
+			include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
 			dts: 'src/components.d.ts',
 		}),
 		Icons({ autoInstall: true }),
