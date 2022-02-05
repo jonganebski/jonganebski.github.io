@@ -12,6 +12,7 @@ import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
 import WindiCSS from 'vite-plugin-windicss';
+import { markdownWrapperClass } from './windi.config';
 
 export default defineConfig({
 	plugins: [
@@ -31,7 +32,8 @@ export default defineConfig({
 		Icons({ autoInstall: true }),
 		WindiCSS(),
 		Markdown({
-			wrapperClasses: '',
+			wrapperComponent: 'md-wrapper',
+			wrapperClasses: markdownWrapperClass,
 			headEnabled: true,
 			markdownItSetup(md) {
 				md.use(Prism);
