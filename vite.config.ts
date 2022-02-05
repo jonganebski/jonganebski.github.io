@@ -15,6 +15,7 @@ import WindiCSS from 'vite-plugin-windicss';
 import { markdownWrapperClass } from './windi.config';
 
 export default defineConfig({
+	resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
 	plugins: [
 		Vue({ include: [/\.vue$/, /\.md$/] }),
 		Pages({ extensions: ['vue', 'md'] }),
