@@ -24,6 +24,7 @@ specifiers:
   vite-plugin-windicss: ^1.6.3
   vite-ssg: ^0.17.9
   vue: ^3.2.25
+  vue-country-flag-next: ^2.3.2
   vue-i18n: ^9.2.0-beta.30
   vue-router: ^4.0.12
   vue-tsc: ^0.29.8
@@ -33,6 +34,7 @@ dependencies:
   '@vueuse/core': 7.5.5_vue@3.2.29
   '@vueuse/head': 0.7.5_vue@3.2.29
   vue: 3.2.29
+  vue-country-flag-next: 2.3.2_vue@3.2.29
   vue-i18n: 9.2.0-beta.30_vue@3.2.29
   vue-router: 4.0.12_vue@3.2.29
 
@@ -4136,6 +4138,15 @@ packages:
       vscode-pug-languageservice: 0.29.8
       vscode-typescript-languageservice: 0.29.8
     dev: true
+
+  /vue-country-flag-next/2.3.2_vue@3.2.29:
+    resolution: {integrity: sha512-Lv12L1VTwlBgizpZ3xPEPO3zuIETaJmeSiPuLOWLLgu2EakwU/o72iKYiKcdZ6BXiSkfss+Ski5fDzjuxZ1DcA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.2.29
+    dev: false
 
   /vue-demi/0.12.1_vue@3.2.29:
     resolution: {integrity: sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==}
