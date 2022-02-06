@@ -8,7 +8,9 @@ const setLocale = (localeTo: 'ko' | 'en') => {
 
 <template>
 	<div>
-		<header class="fixed h-screen w-14 py-10 flex flex-col items-center bg-green-100 text-sm">
+		<header
+			class="fixed top-0 left-0 h-screen w-14 py-10 flex flex-col items-center bg-green-100 text-sm"
+		>
 			<div>S</div>
 			<div class="w-0 h-0">
 				<nav class="nav">
@@ -45,7 +47,7 @@ const setLocale = (localeTo: 'ko' | 'en') => {
 				</button>
 			</div>
 		</header>
-		<main>
+		<main class="ml-14">
 			<router-view />
 		</main>
 	</div>
