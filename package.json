@@ -8,6 +8,7 @@
 		"preview": "vite preview --port 5002"
 	},
 	"dependencies": {
+		"@supabase/supabase-js": "^1.30.0",
 		"@vueuse/core": "^7.5.5",
 		"@vueuse/head": "^0.7.5",
 		"vue": "^3.2.25",
