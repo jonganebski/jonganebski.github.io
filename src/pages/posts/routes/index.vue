@@ -17,12 +17,14 @@ const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, F
 </script>
 
 <template>
-	<div class="container my-10 mx-auto">
-		<ul class="space-y-16">
-			<li
+	<div class="container my-10 mx-auto grid grid-cols-2">
+		<div></div>
+		<ul class="">
+			<ui-block
 				v-for="({ cover_image_url, countries, fileName, from, to, title }, index) in posts"
 				:key="index"
-				class="flex"
+				as="li"
+				content-class="flex p-4 bg-gray-400 rounded"
 			>
 				<img
 					:src="cover_image_url"
@@ -30,7 +32,7 @@ const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, F
 					height="400"
 					class="w-28rem aspect-video object-cover"
 				/>
-				<div class="px-16 max-w-lg flex-1">
+				<div class="px-16 max-w-lg flex-1 text-gray-900">
 					<div class="flex items-center">
 						<p class="text-xs mr-auto">{{ from }} ~ {{ to }}</p>
 						<country-flag v-for="country in countries" :key="country" :country="country" />
@@ -44,7 +46,7 @@ const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, F
 						Click
 					</router-link>
 				</div>
-			</li>
+			</ui-block>
 		</ul>
 	</div>
 </template>
