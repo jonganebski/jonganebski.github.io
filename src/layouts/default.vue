@@ -9,10 +9,10 @@ const setLocale = (localeTo: 'ko' | 'en') => {
 <template>
 	<div>
 		<header
-			class="fixed top-0 left-0 h-screen w-14 py-10 flex flex-col items-center bg-green-100 text-sm"
+			class="fixed top-0 left-0 h-screen w-14 pb-10 flex flex-col items-center bg-green-100 text-sm"
 		>
-			<div>S</div>
-			<div class="w-0 h-0">
+			<div class="bg-blue-300 w-14 h-14">S</div>
+			<div class="mt-5 w-0 h-0">
 				<nav class="nav">
 					<router-link to="/posts/techs" :class="[locale === 'ko' && 'transform rotate-90']">
 						{{ t('nav.techs') }}
