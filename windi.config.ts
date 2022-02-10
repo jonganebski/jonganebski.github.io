@@ -5,8 +5,8 @@ import aspectRatio from 'windicss/plugin/aspect-ratio';
 export const markdownWrapperClass = 'prose prose m-auto text-left';
 
 export default defineConfig({
-	attributify: true,
-	darkMode: 'class',
-	safelist: [markdownWrapperClass],
-	plugins: [typography(), aspectRatio],
+  attributify: true,
+  darkMode: 'class',
+  safelist: [markdownWrapperClass],
+  plugins: [typography(), aspectRatio],
 });

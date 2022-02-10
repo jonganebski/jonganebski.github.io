@@ -3,6 +3,6 @@ import { VueQueryDevTools } from 'vue-query/devtools';
 </script>
 
 <template>
-	<router-view />
-	<VueQueryDevTools />
+  <router-view />
+  <VueQueryDevTools />
 </template>

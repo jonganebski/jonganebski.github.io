@@ -14,20 +14,20 @@ addEventListner. 자바스크립트를 쓰는 이상 굉장히 많이 사용하�
 
 ```html
 <body>
-	<article>
-		<section>
-			<h3></h3>
-		</section>
-	</article>
-	<script>
-		const article = document.querySelector('article');
-		const section = document.querySelector('section');
-		const h3 = document.querySelector('h3');
+  <article>
+    <section>
+      <h3></h3>
+    </section>
+  </article>
+  <script>
+    const article = document.querySelector('article');
+    const section = document.querySelector('section');
+    const h3 = document.querySelector('h3');
 
-		article.addEventListener('click', () => console.log('Article'));
-		section.addEventListener('click', () => console.log('Section'));
-		h3.addEventListener('click', () => console.log('H3'));
-	</script>
+    article.addEventListener('click', () => console.log('Article'));
+    section.addEventListener('click', () => console.log('Section'));
+    h3.addEventListener('click', () => console.log('H3'));
+  </script>
 </body>
 ```
 
@@ -39,22 +39,22 @@ h3를 클릭했을 때: H3 &rarr; Section &rarr; Article
 
 ```html
 <body>
-	<article>
-		<section>
-			<h3></h3>
-		</section>
-	</article>
-	<script>
-		const article = document.querySelector('article');
-		const section = document.querySelector('section');
-		const heading = document.querySelector('h3');
+  <article>
+    <section>
+      <h3></h3>
+    </section>
+  </article>
+  <script>
+    const article = document.querySelector('article');
+    const section = document.querySelector('section');
+    const heading = document.querySelector('h3');
 
-		article.addEventListener('click', () => console.log('Article'), {
-			capture: true, // 이 부분 추가
-		});
-		section.addEventListener('click', () => console.log('Section'));
-		heading.addEventListener('click', () => console.log('H3'));
-	</script>
+    article.addEventListener('click', () => console.log('Article'), {
+      capture: true, // 이 부분 추가
+    });
+    section.addEventListener('click', () => console.log('Section'));
+    heading.addEventListener('click', () => console.log('H3'));
+  </script>
 </body>
 ```
 
@@ -66,29 +66,29 @@ h3를 클릭했을 때: Article &rarr; H3 &rarr; Section
 
 ```html
 <body>
-	<article>
-		<section>
-			<h3></h3>
-		</section>
-	</article>
-	<script>
-		const article = document.querySelector('article');
-		const section = document.querySelector('section');
-		const heading = document.querySelector('h3');
-		// 복잡하지 않다. 단순히 각 엘리먼트에 capture: true인 이벤트만 추가했다.
-		article.addEventListener('click', () => console.log('Article'));
-		article.addEventListener('click', () => console.log('Capture Article'), {
-			capture: true,
-		});
-		section.addEventListener('click', () => console.log('Section'));
-		section.addEventListener('click', () => console.log('Capture Section'), {
-			capture: true,
-		});
-		heading.addEventListener('click', () => console.log('H3'));
-		heading.addEventListener('click', () => console.log('Capture H3'), {
-			capture: true,
-		});
-	</script>
+  <article>
+    <section>
+      <h3></h3>
+    </section>
+  </article>
+  <script>
+    const article = document.querySelector('article');
+    const section = document.querySelector('section');
+    const heading = document.querySelector('h3');
+    // 복잡하지 않다. 단순히 각 엘리먼트에 capture: true인 이벤트만 추가했다.
+    article.addEventListener('click', () => console.log('Article'));
+    article.addEventListener('click', () => console.log('Capture Article'), {
+      capture: true,
+    });
+    section.addEventListener('click', () => console.log('Section'));
+    section.addEventListener('click', () => console.log('Capture Section'), {
+      capture: true,
+    });
+    heading.addEventListener('click', () => console.log('H3'));
+    heading.addEventListener('click', () => console.log('Capture H3'), {
+      capture: true,
+    });
+  </script>
 </body>
 ```
 
@@ -133,29 +133,29 @@ section.addEventListener('click', () => console.log('Section'), { once: true });
 
 ```html
 <body>
-	<article>
-		<section>
-			<h3></h3>
-		</section>
-	</article>
-	<script>
-		const article = document.querySelector('article');
-		const section = document.querySelector('section');
-		const h3 = document.querySelector('h3');
-		// h3를 클릭했을 때
-		article.addEventListener('click', (e) => {
-			console.log('currentTarget: ', e.currentTarget); // article
-			console.log('target: ', e.target); // h3
-		});
-		section.addEventListener('click', (e) => {
-			console.log('currentTarget: ', e.currentTarget); // section
-			console.log('target: ', e.target); // h3
-		});
-		h3.addEventListener('click', (e) => {
-			console.log('currentTarget: ', e.currentTarget); // h3
-			console.log('target: ', e.target); // h3
-		});
-	</script>
+  <article>
+    <section>
+      <h3></h3>
+    </section>
+  </article>
+  <script>
+    const article = document.querySelector('article');
+    const section = document.querySelector('section');
+    const h3 = document.querySelector('h3');
+    // h3를 클릭했을 때
+    article.addEventListener('click', (e) => {
+      console.log('currentTarget: ', e.currentTarget); // article
+      console.log('target: ', e.target); // h3
+    });
+    section.addEventListener('click', (e) => {
+      console.log('currentTarget: ', e.currentTarget); // section
+      console.log('target: ', e.target); // h3
+    });
+    h3.addEventListener('click', (e) => {
+      console.log('currentTarget: ', e.currentTarget); // h3
+      console.log('target: ', e.target); // h3
+    });
+  </script>
 </body>
 ```
 
@@ -175,20 +175,20 @@ article의 currentTarget은 article 자신이며, target은 h3다.
 
 ```html
 <body>
-	<div>
-		<input type="text" />
-	</div>
-	<script>
-		const input = document.querySelector('input');
-		let timeoutId = 0;
-		input.addEventListener('input', (e) => {
-			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => {
-				console.log(e.currentTarget); // null
-				console.log(e.target); // <input type="text">
-			}, 1000);
-		});
-	</script>
+  <div>
+    <input type="text" />
+  </div>
+  <script>
+    const input = document.querySelector('input');
+    let timeoutId = 0;
+    input.addEventListener('input', (e) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        console.log(e.currentTarget); // null
+        console.log(e.target); // <input type="text">
+      }, 1000);
+    });
+  </script>
 </body>
 ```
 
@@ -197,17 +197,17 @@ article의 currentTarget은 article 자신이며, target은 h3다.
 
 ```html
 <body>
-	<div>
-		<input type="text" />
-	</div>
-	<script>
-		const input = document.querySelector('input');
-		let timeoutId = 0;
-		input.addEventListener('input', (e) => {
-			console.log(e); // {..., currentTarget: null, ...}
-			console.log(e.currentTarget); // <input type="text">
-		});
-	</script>
+  <div>
+    <input type="text" />
+  </div>
+  <script>
+    const input = document.querySelector('input');
+    let timeoutId = 0;
+    input.addEventListener('input', (e) => {
+      console.log(e); // {..., currentTarget: null, ...}
+      console.log(e.currentTarget); // <input type="text">
+    });
+  </script>
 </body>
 ```
 
@@ -215,21 +215,21 @@ article의 currentTarget은 article 자신이며, target은 h3다.
 
 ```html
 <body>
-	<div>
-		<input type="text" />
-	</div>
-	<script>
-		const input = document.querySelector('input');
-		let timeoutId = 0;
-		let currentTarget = ''; // 추가된 부분
-		input.addEventListener('input', (e) => {
-			clearTimeout(timeoutId);
-			currentTarget = e.currentTarget; // 추가된 부분
-			timeoutId = setTimeout(() => {
-				console.log(currentTarget); // <input type="text">
-			}, 1000);
-		});
-	</script>
+  <div>
+    <input type="text" />
+  </div>
+  <script>
+    const input = document.querySelector('input');
+    let timeoutId = 0;
+    let currentTarget = ''; // 추가된 부분
+    input.addEventListener('input', (e) => {
+      clearTimeout(timeoutId);
+      currentTarget = e.currentTarget; // 추가된 부분
+      timeoutId = setTimeout(() => {
+        console.log(currentTarget); // <input type="text">
+      }, 1000);
+    });
+  </script>
 </body>
 ```
 

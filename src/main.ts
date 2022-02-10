@@ -16,5 +16,5 @@ import 'virtual:windi-devtools';
 const routes = setupLayouts(generatedRoutes);
 
 export const createApp = ViteSSG(App, { routes, base: import.meta.env.BASE_URL }, (ctx) => {
-	Object.values(import.meta.globEager('./plugins/*.ts')).forEach((plugin) => plugin.install?.(ctx));
+  Object.values(import.meta.globEager('./plugins/*.ts')).forEach((plugin) => plugin.install?.(ctx));
 });

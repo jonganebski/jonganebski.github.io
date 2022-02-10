@@ -32,7 +32,7 @@ const input = [1, 2, 3, 4, 5];
 
 // 시간복잡도: O(1), 공간복잡도: O(1)
 const algorithm = (input) => {
-	return input[0];
+  return input[0];
 };
 
 console.log(algorithm(input)); // 1
@@ -53,11 +53,11 @@ const input = [1, 2, 3, 4, 5];
 
 // 시간복잡도: O(n), 공간복잡도: O(1)
 const algorithm = (input) => {
-	let sum = 0;
-	for (let i = 0; i < input.length; i++) {
-		sum += input[i];
-	}
-	return sum;
+  let sum = 0;
+  for (let i = 0; i < input.length; i++) {
+    sum += input[i];
+  }
+  return sum;
 };
 
 console.log(algorithm(input)); // 15

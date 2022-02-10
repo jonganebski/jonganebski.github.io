@@ -5,5 +5,5 @@ const { locale } = useI18n();
 </script>
 
 <template>
-	<props.as v-show="locale === 'ko'"> <slot /> </props.as>
+  <props.as v-show="locale === 'ko'"> <slot /> </props.as>
 </template>

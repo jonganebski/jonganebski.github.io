@@ -22,11 +22,11 @@ A closure is the combination of a function bundled together (enclosed) with refe
 
 ```ts
 const outer = () => {
-	const name = 'Rice Shower';
-	const inner = () => {
-		console.log(name);
-	};
-	inner();
+  const name = 'Rice Shower';
+  const inner = () => {
+    console.log(name);
+  };
+  inner();
 };
 
 outer(); // Rice Shower
@@ -38,11 +38,11 @@ outer(); // Rice Shower
 
 ```ts
 const outer = () => {
-	const name = 'Rice Shower';
-	const inner = () => {
-		console.log(name);
-	};
-	return inner;
+  const name = 'Rice Shower';
+  const inner = () => {
+    console.log(name);
+  };
+  return inner;
 };
 
 const inner = outer();
@@ -58,14 +58,14 @@ MDN에서 Closure를 Combination(조합)이라고 표현하지만 이런 일련�
 ```ts
 // 생활코딩 egoing님의 예제를 조금 바꿔봤다.
 const stable = (name: string) => {
-	return {
-		getName: () => {
-			return name;
-		},
-		setName: (_name: string) => {
-			name = _name;
-		},
-	};
+  return {
+    getName: () => {
+      return name;
+    },
+    setName: (_name: string) => {
+      name = _name;
+    },
+  };
 };
 
 const main = stable('Special Week');
@@ -99,19 +99,19 @@ console.log(sub.getName()); // Silence Suzuka
 ```ts
 // 코어 자바스크립트에 소개된 예시를 조금 바꿔 봤다.
 const outer = () => {
-	let a = 0;
-	let intervalId: number;
+  let a = 0;
+  let intervalId: number;
 
-	const inner = () => {
-		++a;
-		if (a >= 10) {
-			clearInterval(intervalId);
-			return;
-		}
-		console.log(a);
-	};
+  const inner = () => {
+    ++a;
+    if (a >= 10) {
+      clearInterval(intervalId);
+      return;
+    }
+    console.log(a);
+  };
 
-	intervalId = setInterval(inner, 1000);
+  intervalId = setInterval(inner, 1000);
 };
 
 outer(); // 1 2 3 4 5 6 7 8 9
@@ -124,27 +124,27 @@ outer(); // 1 2 3 4 5 6 7 8 9
 ```html
 <!-- 코어 자바스크립트에 소개된 예시를 조금 바꿔 봤다. -->
 <body>
-	<div>
-		<button>Click</button>
-	</div>
-	<script>
-		const outer = () => {
-			let count = 0;
-			const button = document.querySelector('button');
-			if (!button) return;
+  <div>
+    <button>Click</button>
+  </div>
+  <script>
+    const outer = () => {
+      let count = 0;
+      const button = document.querySelector('button');
+      if (!button) return;
 
-			const inner = () => {
-				++count;
-				console.log(`${count} times clicked`);
-			};
+      const inner = () => {
+        ++count;
+        console.log(`${count} times clicked`);
+      };
 
-			button.addEventListener('click', inner);
-		};
+      button.addEventListener('click', inner);
+    };
 
-		outer(); // 버튼 클릭 시: 1 times clicked, 2 times clicked, 3 times cilcked, ...
-		// outer함수는 종료됐고 inner함수를 리턴하지도 않았지만,
-		// addEventListener의 콜백함수인 inner함수는 변수 count를 계속 사용하고 있다.
-	</script>
+    outer(); // 버튼 클릭 시: 1 times clicked, 2 times clicked, 3 times cilcked, ...
+    // outer함수는 종료됐고 inner함수를 리턴하지도 않았지만,
+    // addEventListener의 콜백함수인 inner함수는 변수 count를 계속 사용하고 있다.
+  </script>
 </body>
 ```
 
@@ -156,13 +156,13 @@ MDN에서는 클로저와 관련해서 범할 수 있는 실수에 대해서 언
 const arr: any[] = [];
 
 for (var i = 0; i < 5; i++) {
-	// 여기서 let을 쓰면 0 1 2 3 4 가 출력된다.
-	// 하지만 var를 쓰면 아래처럼 5 5 5 5 5가 출력된다.
-	arr[i] = () => i;
+  // 여기서 let을 쓰면 0 1 2 3 4 가 출력된다.
+  // 하지만 var를 쓰면 아래처럼 5 5 5 5 5가 출력된다.
+  arr[i] = () => i;
 }
 
 for (var j = 0; j < arr.length; j++) {
-	console.log(arr[j]()); // 5 5 5 5 5
+  console.log(arr[j]()); // 5 5 5 5 5
 }
 ```
 
@@ -170,7 +170,7 @@ for (var j = 0; j < arr.length; j++) {
 
 ```ts
 for (var i = 0; i < 5; i++) {
-	// do something
+  // do something
 }
 console.log(i); // 5
 ```
@@ -179,7 +179,7 @@ let은 block scope이므로 위처럼 for문 밖에서 i로 접근이 불가능�
 
 ```ts
 for (let i = 0; i < 5; i++) {
-	// do something
+  // do something
 }
 console.log(i); // Error
 ```
@@ -195,14 +195,14 @@ console.log(i); // Error
 const arr: any[] = [];
 
 for (var i = 0; i < 5; i++) {
-	arr[i] = (
-		(x: number) => () =>
-			x
-	)(i); // arr[i] = () => i 에서 변경
+  arr[i] = (
+    (x: number) => () =>
+      x
+  )(i); // arr[i] = () => i 에서 변경
 }
 
 for (var j = 0; j < arr.length; j++) {
-	console.log(arr[j]()); // 0 1 2 3 4
+  console.log(arr[j]()); // 0 1 2 3 4
 }
 ```
 

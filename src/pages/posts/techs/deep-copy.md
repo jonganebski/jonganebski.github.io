@@ -31,8 +31,8 @@ const test = [1, 2, 3, 4, 5];
 const copied = [];
 
 for (let i = 0; i < test.length; i++) {
-	const copiedNumber = test[i]; // 기본형 타입의 복사
-	copied.push(copiedNumber);
+  const copiedNumber = test[i]; // 기본형 타입의 복사
+  copied.push(copiedNumber);
 }
 
 test.pop();
@@ -63,15 +63,15 @@ slice, map, filter등의 메소드는 새로운 배열을 리턴한다는 성질
 
 ```js
 const nested = [
-	[1, 2, 3],
-	[4, 5, 6],
-	[7, 8, 9],
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
 ];
 const copied = [];
 
 for (let i = 0; i < nested.length; i++) {
-	const copiedNumber = nested[i];
-	copied.push(copiedNumber);
+  const copiedNumber = nested[i];
+  copied.push(copiedNumber);
 }
 
 nested.pop();
@@ -110,19 +110,19 @@ console.log(copied);
 
 ```js
 const nested = [
-	[1, 2, 3],
-	[4, 5, 6],
-	[7, 8, 9],
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
 ];
 const copied = [];
 
 for (let i = 0; i < nested.length; i++) {
-	const deep1 = [];
-	for (let j = 0; j < nested[i].length; j++) {
-		const copiedNumber = nested[i][j]; // 기본형 타입의 복사
-		deep1.push(copiedNumber);
-	}
-	copied.push(deep1);
+  const deep1 = [];
+  for (let j = 0; j < nested[i].length; j++) {
+    const copiedNumber = nested[i][j]; // 기본형 타입의 복사
+    deep1.push(copiedNumber);
+  }
+  copied.push(deep1);
 }
 
 nested[2].pop();
@@ -149,13 +149,13 @@ const copied = [[...nested[0]], [...nested[1]], [...nested[2]]];
 const copied = [nested[0].slice(), nested[1].slice(), nested[2].slice()];
 // ... 그만하자. 사실 아무도 이렇게 하지 않는다.
 const nested = [
-	[1, 2, 3],
-	[1, 2, 3, [4, 5, 6]],
-	[1, 2, 3, [4, 5, 6, [7, 8, 9]]],
-	{ name: 'Jon', age: 5, friends: ['Roberto', 'Dominik', 'Gasai Yuno'] },
-	[1, 2, 3, [4, 5, 6, [7, 8, 9]]],
-	[1, 2, 3, [4, 5, 6]],
-	[1, 2, 3],
+  [1, 2, 3],
+  [1, 2, 3, [4, 5, 6]],
+  [1, 2, 3, [4, 5, 6, [7, 8, 9]]],
+  { name: 'Jon', age: 5, friends: ['Roberto', 'Dominik', 'Gasai Yuno'] },
+  [1, 2, 3, [4, 5, 6, [7, 8, 9]]],
+  [1, 2, 3, [4, 5, 6]],
+  [1, 2, 3],
 ];
 // 이런건 어떻게 하려고...
 ```
@@ -170,9 +170,9 @@ const nested = [
 
 ```js
 const nested = [
-	[1, 2, 3],
-	[4, 5, 6],
-	[7, 8, 9],
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
 ];
 
 const copied = JSON.parse(JSON.stringify(nested));
@@ -206,8 +206,8 @@ console.log(copied);
 
 ```js
 const nested = {
-	name: undefined,
-	sayHello: () => console.log('Hello!'),
+  name: undefined,
+  sayHello: () => console.log('Hello!'),
 };
 
 const copied = JSON.parse(JSON.stringify(nested));

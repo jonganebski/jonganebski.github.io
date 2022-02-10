@@ -59,8 +59,8 @@ type X = keyof Coordinate;
 // -------------------------
 
 interface User {
-	username: string;
-	email: string;
+  username: string;
+  email: string;
 }
 
 type Y = keyof User;
@@ -73,7 +73,7 @@ type Y = keyof User;
 
 ```ts
 interface KeysAreNumber {
-	[n: number]: string;
+  [n: number]: string;
 }
 
 type X = typeof KeysAreNumber;
@@ -82,7 +82,7 @@ type X = typeof KeysAreNumber;
 // -------------------------
 
 interface KeysAreString {
-	[n: string]: string;
+  [n: string]: string;
 }
 
 type Y = keyof KeysAreString;
@@ -129,9 +129,9 @@ type User = keyof typeof user;
 
 ```ts
 enum Role {
-	'Owner' = 'Owner',
-	'Customer' = 'Customer',
-	'Service' = 'Service',
+  'Owner' = 'Owner',
+  'Customer' = 'Customer',
+  'Service' = 'Service',
 }
 
 type User = keyof typeof Role;
