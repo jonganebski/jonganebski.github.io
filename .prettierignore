@@ -7,3 +7,7 @@ dist-ssr
 src/assets/images
 
 .env
+
+pnpm-lock.yaml
+auto-imports.d.ts
+components.d.ts
