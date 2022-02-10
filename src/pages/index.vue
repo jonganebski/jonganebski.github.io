@@ -2,6 +2,8 @@
 
 <template>
 	<div>
-		<h1>Hello World</h1>
+		<div class="h-96 bg-white"></div>
+		<div class="h-96 bg-teal-700"></div>
+		<div class="h-96 bg-indigo-900"></div>
 	</div>
 </template>
