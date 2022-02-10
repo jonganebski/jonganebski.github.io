@@ -1,7 +1,7 @@
 ---
 title: keyof & typeof
 date: 2021-05-09
-coverUrl: https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1021&q=80
+cover_image_url: https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1021&q=80
 ---
 
 <span class="photo-reference">Photo by <a href="https://unsplash.com/@jankolar?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jan Antonin Kolar</a> on <a href="https://unsplash.com/s/photos/sort?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>

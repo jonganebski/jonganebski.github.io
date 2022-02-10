@@ -1,7 +1,7 @@
 ---
 title: Closure
 date: 2021-04-22
-coverUrl: https://images.pexels.com/photos/5910298/pexels-photo-5910298.jpeg?cs=srgb&dl=pexels-plato-terentev-5910298.jpg&fm=jpg
+cover_image_url: https://images.pexels.com/photos/5910298/pexels-photo-5910298.jpeg?cs=srgb&dl=pexels-plato-terentev-5910298.jpg&fm=jpg
 ---
 
 <span class="photo-reference">Plato Terentev 님의 사진, 출처: Pexels</span>

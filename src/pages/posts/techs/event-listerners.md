@@ -1,7 +1,7 @@
 ---
 title: Event Listener에 대한 탐구
 date: 2021-04-19
-coverUrl: https://images.unsplash.com/photo-1595984300393-017f4108f886?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80
+cover_image_url: https://images.unsplash.com/photo-1595984300393-017f4108f886?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80
 ---
 
 <span class="photo-reference">Photo by <a href="https://unsplash.com/@anspchee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Al Soot</a> on <a href="https://unsplash.com/s/photos/bubble?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></span>
