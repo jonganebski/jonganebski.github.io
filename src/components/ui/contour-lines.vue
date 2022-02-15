@@ -56,22 +56,22 @@ onMounted(() => {
     .attr('stroke-width', (d, i) => (i % 5 ? 0.25 : 1))
     .attr('d', d3.geoPath())
     .attr('stroke-dasharray', (d, i, paths) => {
-      return (paths[i] as SVGPathElement).getTotalLength();
+      return Math.round((paths[i] as SVGPathElement).getTotalLength());
     })
     .attr('stroke-dashoffset', (d, i, paths) => {
-      return (paths[i] as SVGPathElement).getTotalLength();
+      return Math.round((paths[i] as SVGPathElement).getTotalLength());
     })
     .transition()
     .duration((d, i, paths) => {
       const totalLength = (paths[i] as SVGPathElement).getTotalLength();
-      return totalLength * 10;
+      return Math.round(totalLength * 5);
     })
     .delay((d, i, paths) => {
       let sumOfDuration = 0;
       for (let j = 0; j < i + 1; j++) {
         sumOfDuration += (paths[j] as SVGPathElement).getTotalLength();
       }
-      return sumOfDuration;
+      return Math.round(sumOfDuration / 2);
     })
     .ease(d3.easeLinear)
     .attr('stroke-dashoffset', () => {
