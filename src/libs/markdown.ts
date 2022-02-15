@@ -4,6 +4,11 @@ interface RouteFrontmatter {
   countries: string[];
 }
 
+/**
+ * ### Get Route Posts
+ * This function will return information about the route posts.
+ * @author Jon Ganebski
+ */
 export function getRoutePosts() {
   try {
     const posts = Object.entries(
@@ -27,6 +32,11 @@ interface TechFrontmatter {
   cover_image_url: string;
 }
 
+/**
+ * ### Get Tech Posts
+ * This function will return information about the tech posts.
+ * @author Jon Ganebski
+ */
 export function getTechPosts() {
   try {
     const posts = Object.entries(
