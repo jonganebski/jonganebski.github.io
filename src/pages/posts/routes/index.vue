@@ -1,19 +1,8 @@
 <script setup lang="ts">
 import CountryFlag from 'vue-country-flag-next';
+import { getRoutePosts } from '~/libs/markdown';
 
-interface Frontmatter {
-  title: { ko: string; en: string };
-  cover_image_url: string;
-  countries: string[];
-}
-
-const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, Frontmatter>)
-  .reverse()
-  .map(([filePath, frontmatter]) => {
-    const fileName = filePath.split('').slice(2, -3).join('');
-    const [from, to] = fileName.split('T');
-    return { fileName, from, to, ...frontmatter };
-  });
+const posts = getRoutePosts();
 </script>
 
 <template>

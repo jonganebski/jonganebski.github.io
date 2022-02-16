@@ -1,8 +1,12 @@
-interface RouteFrontmatter {
+export interface Frontmatter {
   title: { ko: string; en: string };
-  cover_image_url: string;
-  countries: string[];
+  date?: string;
+  cover_image_url?: string;
+  countries?: string[];
 }
+
+export interface RoutesFrontmatter
+  extends Required<Pick<Frontmatter, 'title' | 'cover_image_url' | 'countries'>> {}
 
 /**
  * ### Get Route Posts
@@ -12,7 +16,7 @@ interface RouteFrontmatter {
 export function getRoutePosts() {
   try {
     const posts = Object.entries(
-      import.meta.globEager('../pages/posts/routes/*.md') as Record<string, RouteFrontmatter>,
+      import.meta.globEager('../pages/posts/routes/*.md') as Record<string, RoutesFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
       const fileName = path.split('/').at(-1);
@@ -26,11 +30,8 @@ export function getRoutePosts() {
   }
 }
 
-interface TechFrontmatter {
-  title: string;
-  date: string;
-  cover_image_url: string;
-}
+export interface TechsFrontmatter
+  extends Required<Pick<Frontmatter, 'title' | 'date' | 'cover_image_url'>> {}
 
 /**
  * ### Get Tech Posts
@@ -40,7 +41,7 @@ interface TechFrontmatter {
 export function getTechPosts() {
   try {
     const posts = Object.entries(
-      import.meta.globEager('../pages/posts/techs/*.md') as Record<string, TechFrontmatter>,
+      import.meta.globEager('../pages/posts/techs/*.md') as Record<string, TechsFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
       const fileName = path.split('/').at(-1);

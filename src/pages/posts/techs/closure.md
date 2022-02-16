@@ -1,5 +1,7 @@
 ---
-title: Closure
+title:
+  ko: Closure
+  en: Closure
 date: 2021-04-22
 cover_image_url: https://images.pexels.com/photos/5910298/pexels-photo-5910298.jpeg?cs=srgb&dl=pexels-plato-terentev-5910298.jpg&fm=jpg
 ---

@@ -1,16 +1,10 @@
 <script setup lang="ts">
-interface Frontmatter {
-  title: string;
-  date: string;
-  cover_image_url: string;
-}
+import { getTechPosts } from '~/libs/markdown';
+import { useMyI18n } from '~/plugins/i18n';
 
-const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, Frontmatter>)
-  .map(([filePath, frontmatter]) => {
-    const fileName = filePath.split('').slice(2, -3).join('');
-    return { fileName, ...frontmatter };
-  })
-  .sort((a, b) => b.date.localeCompare(a.date));
+const { locale } = useMyI18n();
+
+const posts = getTechPosts()?.sort((a, b) => b.date.localeCompare(a.date));
 </script>
 
 <template>
@@ -31,7 +25,7 @@ const posts = Object.entries(import.meta.globEager('./*.md') as Record<string, F
           <div class="flex items-center">
             <p class="text-xs mr-auto">{{ date }}</p>
           </div>
-          <h5 class="mt-6 text-5xl">{{ title }}</h5>
+          <h5 class="mt-6 text-5xl">{{ title[locale] }}</h5>
           <router-link
             :to="`/posts/techs/${fileName}`"
             class="inline-block mt-5 px-5 py-2 bg-red-200"

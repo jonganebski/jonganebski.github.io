@@ -1,5 +1,7 @@
 ---
-title: keyof & typeof
+title:
+  ko: keyof & typeof
+  en: keyof & typeof
 date: 2021-05-09
 cover_image_url: https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1021&q=80
 ---

@@ -1,5 +1,7 @@
 ---
-title: 객체를 복사하는 방법, JSON.parse(JSON.stringify(Object)) vs 깊은 복사
+title:
+  ko: 얕은 복사와 깊은 복사
+  en: Shallow copy and deep copy
 date: 2021-02-15
 cover_image_url: https://images.unsplash.com/flagged/photo-1582733265415-a0740c8a82fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80
 ---

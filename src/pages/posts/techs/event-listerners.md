@@ -1,5 +1,7 @@
 ---
-title: Event Listener에 대한 탐구
+title:
+  ko: Event Listener에 대한 탐구
+  en: Event Listener
 date: 2021-04-19
 cover_image_url: https://images.unsplash.com/photo-1595984300393-017f4108f886?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80
 ---

@@ -8,7 +8,7 @@ const routePosts = getRoutePosts();
 const routePostsRecent = routePosts?.reverse().slice(-5);
 
 const techPosts = getTechPosts();
-const techPostsRecent = techPosts?.reverse().slice(-5);
+const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).slice(-5);
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const techPostsRecent = techPosts?.reverse().slice(-5);
             :to="path"
             class="recent-post-link"
           >
-            {{ title }}
+            {{ title[locale] }}
           </router-link>
         </nav>
       </div>

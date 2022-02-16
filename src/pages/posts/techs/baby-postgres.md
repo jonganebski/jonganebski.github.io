@@ -1,5 +1,7 @@
 ---
-title: 간단하고 자그마한 나의 PostgreSQL 명령문들
+title:
+  ko: 간단하고 자그마한 나의 PostgreSQL 명령문들
+  en: My simple and small PostgreSQL commands
 date: 2021-02-18
 cover_image_url: https://images.unsplash.com/photo-1535077516733-ad29da1026f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1398&q=80
 ---
