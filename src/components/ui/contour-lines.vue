@@ -2,6 +2,17 @@
 import * as d3 from 'd3';
 import { useWindowSize } from '@vueuse/core';
 
+interface Props {
+  draw?: boolean;
+}
+
+interface Emits {
+  (event: 'onTransitionEnd'): void;
+}
+
+const props = withDefaults(defineProps<Props>(), { draw: false });
+const emits = defineEmits<Emits>();
+
 const { width, height } = useWindowSize();
 const containerRef = ref<HTMLDivElement | null>(null);
 const margin = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -49,34 +60,40 @@ onMounted(() => {
     .attr('stroke', 'steelblue')
     .attr('stroke-linejoin', 'round');
 
-  g.selectAll('path')
+  const paths = g
+    .selectAll('path')
     .data(contours)
     .join('path')
     .sort((a, b) => b.value - a.value)
-    .attr('stroke-width', (d, i) => (i % 5 ? 0.25 : 1))
-    .attr('d', d3.geoPath())
-    .attr('stroke-dasharray', (d, i, paths) => {
-      return Math.round((paths[i] as SVGPathElement).getTotalLength());
-    })
-    .attr('stroke-dashoffset', (d, i, paths) => {
-      return Math.round((paths[i] as SVGPathElement).getTotalLength());
-    })
-    .transition()
-    .duration((d, i, paths) => {
-      const totalLength = (paths[i] as SVGPathElement).getTotalLength();
-      return Math.round(totalLength * 5);
-    })
-    .delay((d, i, paths) => {
-      let sumOfDuration = 0;
-      for (let j = 0; j < i + 1; j++) {
-        sumOfDuration += (paths[j] as SVGPathElement).getTotalLength();
-      }
-      return Math.round(sumOfDuration / 2);
-    })
-    .ease(d3.easeLinear)
-    .attr('stroke-dashoffset', () => {
-      return 0;
-    });
+    .attr('stroke-width', (_, i) => (i % 5 ? 0.25 : 1))
+    .attr('d', d3.geoPath());
+
+  if (props.draw) {
+    paths
+      .attr('stroke-dasharray', (_, i, paths) => {
+        return Math.round((paths[i] as SVGPathElement).getTotalLength());
+      })
+      .attr('stroke-dashoffset', (_, i, paths) => {
+        return Math.round((paths[i] as SVGPathElement).getTotalLength());
+      })
+      .transition()
+      .duration((_, i, paths) => {
+        const totalLength = (paths[i] as SVGPathElement).getTotalLength();
+        return Math.round(totalLength / 2);
+      })
+      .delay((_, i, paths) => {
+        const totalLength = (paths[i] as SVGPathElement).getTotalLength();
+        return Math.round(totalLength / 2);
+      })
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', () => {
+        return 0;
+      })
+      .on('end', (_, index) => {
+        if (paths.nodes().length - 1 !== index) return;
+        emits('onTransitionEnd');
+      });
+  }
 
   const svgElement = svg.node();
   if (!svgElement) return;
@@ -86,5 +103,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="fixed top-0 left-0 -z-1 w-full h-screen overflow-hidden" />
+  <div ref="containerRef" class="fixed top-0 left-0 -z-1 w-full h-screen opacity-50" />
 </template>
