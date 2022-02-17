@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getTechPosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
 
-const { locale } = useMyI18n();
+gsap.registerPlugin(ScrollTrigger);
 
 const posts = getTechPosts()?.sort((a, b) => b.date.localeCompare(a.date));
+
+const imageRefs = ref<HTMLImageElement[]>([]);
+
+onMounted(() => {
+  imageRefs.value.forEach((imageElement) => {
+    ScrollTrigger.create({
+      trigger: imageElement,
+      onEnter: () => {
+        imageElement.src = imageElement.dataset.src ?? '';
+      },
+    });
+  });
+});
 </script>
 
 <template>
@@ -16,10 +31,12 @@ const posts = getTechPosts()?.sort((a, b) => b.date.localeCompare(a.date));
         class="flex"
       >
         <img
-          :src="cover_image_url"
-          width="400"
-          height="400"
-          class="w-28rem aspect-video object-cover"
+          :data-src="cover_image_url"
+          :ref="(x) => imageRefs.push(x as HTMLImageElement)"
+          class="h-[300px] aspect-video object-cover bg-gray-300"
+          width="500"
+          height="300"
+          loading="lazy"
         />
         <div class="px-16 max-w-lg flex-1">
           <div class="flex items-center">
