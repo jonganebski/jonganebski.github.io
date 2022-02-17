@@ -1,10 +1,29 @@
+/**
+ * @file This file contains variables, functions and types/interfaces handles markdown files.
+ */
+
+/*----------------------------------
+| General Declarations
+----------------------------------*/
+
+/**
+ * ### General Interface of the Markdown Frontmatter
+ * Please search for other frontmatter interfaces instead of using this.
+ */
 export interface Frontmatter {
   title: { ko: string; en: string };
-  date?: string;
   cover_image_url?: string;
   countries?: string[];
+  date?: string;
 }
 
+/*----------------------------------
+| Route Post Markdowns
+----------------------------------*/
+
+/**
+ * ### Interface of the Route Post Frontmatter
+ */
 export interface RoutesFrontmatter
   extends Required<Pick<Frontmatter, 'title' | 'cover_image_url' | 'countries'>> {}
 
@@ -30,6 +49,13 @@ export function getRoutePosts() {
   }
 }
 
+/*----------------------------------
+| Tech Post Markdowns
+----------------------------------*/
+
+/**
+ * ### Interface of the Tech Post Frontmatter
+ */
 export interface TechsFrontmatter
   extends Required<Pick<Frontmatter, 'title' | 'date' | 'cover_image_url'>> {}
 
