@@ -1,0 +1,6 @@
+{
+  "click": "Click",
+  "nav": { "home": "Home", "routes": "Routes", "techs": "Techs" },
+  "github": "Github",
+  "portfolio": "Portfolio"
+}
