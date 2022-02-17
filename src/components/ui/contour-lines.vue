@@ -65,8 +65,9 @@ onMounted(() => {
     .data(contours)
     .join('path')
     .sort((a, b) => b.value - a.value)
-    .attr('stroke-width', (_, i) => (i % 5 ? 0.25 : 1))
-    .attr('d', d3.geoPath());
+    .attr('stroke-width', (_, i) => (i % 5 ? 0.4 : 1))
+    .attr('d', d3.geoPath())
+    .attr('opacity', 0.4);
 
   if (props.draw) {
     paths
@@ -103,5 +104,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="fixed top-0 left-0 -z-1 w-full h-screen opacity-50" />
+  <div ref="containerRef" class="fixed top-0 left-0 -z-1 w-full h-screen bg-gray-50" />
 </template>
