@@ -6,9 +6,19 @@ import { useMyI18n } from '~/plugins/i18n';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const { locale, t } = useMyI18n();
+
 const posts = getTechPosts()?.sort((a, b) => b.date.localeCompare(a.date));
 
 const imageRefs = ref<HTMLImageElement[]>([]);
+
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString(locale.value, {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+}
 
 onMounted(() => {
   imageRefs.value.forEach((imageElement) => {
@@ -23,12 +33,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container my-10 mx-auto">
-    <ul class="space-y-16">
+  <div class="mt-20 mb-40 px-16 mx-auto">
+    <div class="flex justify-between">
+      <div>
+        <h1 class="text-3xl">기술 블로그</h1>
+        <p>주로 자바스크립트에 대해 다루고 있습니다.</p>
+      </div>
+      <router-link to="/notes/tech">Notes</router-link>
+    </div>
+    <ul class="mt-48 space-y-32">
       <li
         v-for="({ cover_image_url, fileName, title, date }, index) in posts"
         :key="index"
-        class="flex"
+        class="max-w-6xl flex"
       >
         <img
           :data-src="cover_image_url"
@@ -39,18 +56,14 @@ onMounted(() => {
           loading="lazy"
         />
         <div class="px-16 max-w-lg flex-1">
-          <div class="flex items-center">
-            <p class="text-xs mr-auto">{{ date }}</p>
-          </div>
+          <p class="text-xs mr-auto">
+            {{ formatDate(date) }}
+          </p>
           <h5 class="mt-6 text-5xl">{{ title[locale] }}</h5>
-          <router-link
-            :to="`/posts/techs/${fileName}`"
-            class="inline-block mt-5 px-5 py-2 bg-red-200"
-          >
-            Click
-          </router-link>
+          <ui-party-btn :content="t('click')" :to="`/posts/techs/${fileName}`" class="mt-10" />
         </div>
       </li>
     </ul>
   </div>
+  <ui-contour-lines />
 </template>
