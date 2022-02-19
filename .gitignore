@@ -7,3 +7,5 @@ dist-ssr
 src/assets/images
 
 .env
+
+*.gpx
