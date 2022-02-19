@@ -1,10 +1,15 @@
 import fs from 'fs';
 import gpxparser from 'gpxparser';
 import { resolve } from 'path';
-import { supabase } from '../../src/libs/supabase/commonjs';
-import type { Point, Point__point } from '../../src/libs/supabase/interfaces';
+import type { Point, Point__point } from '../../src/libs/supabase';
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const ONE_MINUTE = 1_000 * 60;
+
+const supabase = createClient(process.env.VITE_SUPABASE_URL!, process.env.VITE_SUPABASE_ANON_KEY!);
 
 async function insertPoints(fileName: string, data: Partial<Point>) {
   console.log(`${fileName} points: Does not exist. Inserting...`);
