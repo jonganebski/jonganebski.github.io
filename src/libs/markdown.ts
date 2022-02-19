@@ -2,6 +2,8 @@
  * @file This file contains variables, functions and types/interfaces handles markdown files.
  */
 
+import type { Point__point } from './supabase';
+
 /*----------------------------------
 | General Declarations
 ----------------------------------*/
@@ -28,11 +30,22 @@ export interface RoutesFrontmatter
   extends Required<Pick<Frontmatter, 'title' | 'cover_image_url' | 'countries'>> {}
 
 /**
+ * ### Interface of the Route Post Meta
+ */
+export interface RoutesPostMeta extends RoutesFrontmatter {
+  fileName: string;
+  points: Point__point[];
+  path: string;
+  from: string;
+  to: string;
+}
+
+/**
  * ### Get Route Posts
  * This function will return information about the route posts.
  * @author Jon Ganebski
  */
-export function getRoutePosts() {
+export function getRoutePosts(): RoutesPostMeta[] | undefined {
   try {
     const posts = Object.entries(
       import.meta.globEager('../pages/posts/routes/*.md') as Record<string, RoutesFrontmatter>,
@@ -41,7 +54,7 @@ export function getRoutePosts() {
       const fileName = path.split('/').at(-1);
       if (!fileName) throw Error('File name is not detected');
       const [from, to] = fileName.split('T');
-      return { fileName, path, from, to, ...frontmatter };
+      return { fileName, points: [], path, from, to, ...frontmatter };
     });
     return posts;
   } catch (error) {
