@@ -1,13 +1,17 @@
 {
-  "click": "Click",
   "nav": { "home": "Home", "routes": "Routes", "techs": "Techs" },
-  "github": "Github",
-  "note": "Note | Notes",
-  "portfolio": "Portfolio",
-  "tech_blog": "Tech Blog",
   "posts_techs": {
     "p_1": "The posts on this page are related to the programming.",
     "p_2": "I'm a front-end developer. Most of times I use Typescript(who uses Javascript?), React, Vue.",
     "p_3": "Also, I'm interested in other languages like Rust."
-  }
+  },
+  "click": "Click",
+  "github": "Github",
+  "hello": "Hello",
+  "i_am_a_frontend_developer_and_a_traveler": "I'm a front-end developer and a traveler.",
+  "note": "Note | Notes",
+  "portfolio": "Portfolio",
+  "tech_blog": "Tech Blog",
+  "this_site_is_under_development": "This site is under development.",
+  "welcome_to_my_blog": "Welcome to my blog."
 }
