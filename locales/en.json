@@ -2,5 +2,12 @@
   "click": "Click",
   "nav": { "home": "Home", "routes": "Routes", "techs": "Techs" },
   "github": "Github",
-  "portfolio": "Portfolio"
+  "note": "Note | Notes",
+  "portfolio": "Portfolio",
+  "tech_blog": "Tech Blog",
+  "posts_techs": {
+    "p_1": "The posts on this page are related to the programming.",
+    "p_2": "I'm a front-end developer. Most of times I use Typescript(who uses Javascript?), React, Vue.",
+    "p_3": "Also, I'm interested in other languages like Rust."
+  }
 }
