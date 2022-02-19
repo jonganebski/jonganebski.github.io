@@ -5,7 +5,8 @@
     "prepare": "husky install && gitmoji -i",
     "dev": "vite --open",
     "build": "vue-tsc --noEmit && vite-ssg build",
-    "preview": "vite preview --port 5002"
+    "preview": "vite preview --port 5002",
+    "extract:points": "tsnd --transpile-only -P tsconfig.common.json scripts/extract-points/index.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.30.0",
