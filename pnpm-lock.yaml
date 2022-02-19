@@ -15,6 +15,7 @@ specifiers:
   critters: ^0.0.16
   d3: ^7.3.0
   dotenv: ^16.0.0
+  fs-extra: ^10.0.0
   gitmoji-cli: ^4.7.0
   gpxparser: ^3.0.8
   gsap: ^3.9.1
@@ -67,6 +68,7 @@ devDependencies:
   chalk: 5.0.0
   critters: 0.0.16
   dotenv: 16.0.0
+  fs-extra: 10.0.0
   gitmoji-cli: 4.8.0
   gpxparser: 3.0.8
   husky: 7.0.4
