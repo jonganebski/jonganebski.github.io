@@ -38,6 +38,7 @@
     "fs-extra": "^10.0.0",
     "gitmoji-cli": "^4.7.0",
     "gpxparser": "^3.0.8",
+    "happy-dom": "^2.39.1",
     "husky": "^7.0.4",
     "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-prism": "^2.2.2",
