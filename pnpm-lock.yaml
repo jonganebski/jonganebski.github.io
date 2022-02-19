@@ -5,9 +5,11 @@ specifiers:
   '@intlify/vite-plugin-vue-i18n': ^3.2.1
   '@supabase/supabase-js': ^1.30.0
   '@types/d3': ^7.1.0
+  '@types/fs-extra': ^9.0.13
   '@types/mapbox-gl': ^2.6.1
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/node': ^17.0.14
+  '@types/object-path': ^0.11.1
   '@vitejs/plugin-vue': ^2.0.0
   '@vueuse/core': ^7.5.5
   '@vueuse/head': ^0.7.5
@@ -61,9 +63,11 @@ devDependencies:
   '@iconify-json/carbon': 1.0.14
   '@intlify/vite-plugin-vue-i18n': 3.2.2_982cda0e10aea0b91af8f780699ae3a3
   '@types/d3': 7.1.0
+  '@types/fs-extra': 9.0.13
   '@types/mapbox-gl': 2.6.1
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/node': 17.0.16
+  '@types/object-path': 0.11.1
   '@vitejs/plugin-vue': 2.2.0_vite@2.8.0+vue@3.2.31
   chalk: 4.1.2
   critters: 0.0.16
@@ -592,6 +596,12 @@ packages:
       '@types/d3-zoom': 3.0.1
     dev: true
 
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 17.0.16
+    dev: true
+
   /@types/geojson/7946.0.8:
     resolution: {integrity: sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==}
     dev: true
@@ -632,6 +642,10 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+    dev: true
+
+  /@types/object-path/0.11.1:
+    resolution: {integrity: sha512-219LSCO9HPcoXcRTC6DbCs0FRhZgBnEMzf16RRqkT40WbkKx3mOeQuz3e2XqbfhOz/AHfbru0kzB1n1RCAsIIg==}
     dev: true
 
   /@types/strip-bom/3.0.0:
