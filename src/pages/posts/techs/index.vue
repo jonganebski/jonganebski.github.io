@@ -2,6 +2,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getTechPosts } from '~/libs/markdown';
+import { computeRandInt } from '~/libs/random';
 import { useMyI18n } from '~/plugins/i18n';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +12,7 @@ const { locale, t } = useMyI18n();
 const posts = getTechPosts()?.sort((a, b) => b.date.localeCompare(a.date));
 
 const imageRefs = ref<HTMLImageElement[]>([]);
+const iconContainerRefs = ref<HTMLSpanElement[]>([]);
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(locale.value, {
@@ -28,6 +30,22 @@ onMounted(() => {
         imageElement.src = imageElement.dataset.src ?? '';
       },
     });
+  });
+  iconContainerRefs.value.forEach((icon) => {
+    const initialRotate = computeRandInt(20, 180);
+    gsap.fromTo(
+      icon,
+      { rotate: initialRotate },
+      {
+        rotate: initialRotate - 360,
+        ease: 'none',
+        y: -300,
+        scrollTrigger: {
+          trigger: icon,
+          scrub: true,
+        },
+      },
+    );
   });
 });
 </script>
@@ -62,6 +80,19 @@ onMounted(() => {
           <h5 class="mt-6 text-5xl">{{ title[locale] }}</h5>
           <ui-party-btn :content="t('click')" :to="`/posts/techs/${fileName}`" class="mt-10" />
         </div>
+        <span
+          :ref="(el) => iconContainerRefs.push(el as HTMLSpanElement)"
+          class="absolute z-0 inline-block"
+          :style="{
+            top: `${computeRandInt(0, 50)}%`,
+            left: `${computeRandInt(0, 100)}%`,
+          }"
+        >
+          <icon-javascript v-if="index === 2" class="w-16 text-yellow-500" />
+          <icon-react v-if="index === 3" class="w-16 text-light-blue-500" />
+          <icon-typescript v-if="index === 4" class="w-16 text-blue-500" />
+          <icon-vue v-if="index === 5" class="w-16 text-green-600" />
+        </span>
       </li>
     </ul>
   </div>
