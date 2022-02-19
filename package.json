@@ -48,6 +48,7 @@
     "vite-plugin-vue-layouts": "^0.5.0",
     "vite-plugin-windicss": "^1.6.3",
     "vite-ssg": "^0.17.9",
+    "vue-i18n-extract": "^2.0.4",
     "vue-tsc": "^0.29.8",
     "windicss": "^3.4.3"
   }
