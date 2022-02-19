@@ -1,3 +1,6 @@
+import { createClient } from '@supabase/supabase-js';
+import { supabaseAnonKey, supabaseUrl } from './env';
+
 export interface Point__point {
   lat: number;
   lon: number;
@@ -12,3 +15,5 @@ export interface Point {
   points_summary: Point__point[];
   points: Point__point[];
 }
+
+export const supabase = createClient(supabaseUrl as string, supabaseAnonKey as string);
