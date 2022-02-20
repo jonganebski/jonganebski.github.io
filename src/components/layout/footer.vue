@@ -12,8 +12,8 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
 </script>
 
 <template>
-  <footer class="min-h-[32rem] pt-32 pb-5 flex flex-col justify-between bg-transparent">
-    <div class="w-full max-w-screen-lg mx-auto grid grid-cols-3 gap-10">
+  <footer class="min-h-[32rem] pt-32 pb-5 px-28 flex flex-col justify-between bg-transparent">
+    <div class="w-full max-w-screen-lg mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
       <div>
         <h6><carbon-campsite class="icon" /></h6>
         <nav class="nav">
@@ -40,7 +40,7 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
           </router-link>
         </nav>
       </div>
-      <div class="text-right">
+      <div class="lg:text-right">
         <h6><carbon-link class="icon" /></h6>
         <nav class="nav">
           <a
@@ -62,7 +62,7 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
         </nav>
       </div>
     </div>
-    <div class="text-center text-sm text-gray-500">
+    <div class="mt-20 text-center text-sm text-gray-500">
       <p>Built with Vue</p>
       <p>{{ new Date().getFullYear() }} &copy; Jon Ganebski</p>
     </div>
