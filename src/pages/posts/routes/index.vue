@@ -26,6 +26,16 @@ function onMouseEnter(fileName: string, location: 'img' | 'map') {
 function onMouseLeave() {
   hoverMeta.value = null;
 }
+
+watch(hoverMeta, () => {
+  if (!hoverMeta.value) return;
+  if (!ulRef.value) return;
+  if (hoverMeta.value.location === 'img') return;
+  const li = document.getElementById(hoverMeta.value.fileName);
+  if (!li) return;
+  const { left, top } = li.getBoundingClientRect();
+  ulRef.value.scrollTo({ left, top, behavior: 'smooth' });
+});
 </script>
 
 <template>
