@@ -4,10 +4,24 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    IconGo: typeof import('./components/icon/go.vue')['default']
+    IconJavascript: typeof import('./components/icon/javascript.vue')['default']
+    IconReact: typeof import('./components/icon/react.vue')['default']
+    IconRust: typeof import('./components/icon/rust.vue')['default']
+    IconTypescript: typeof import('./components/icon/typescript.vue')['default']
+    IconVue: typeof import('./components/icon/vue.vue')['default']
+    LayoutFooter: typeof import('./components/layout/footer.vue')['default']
+    LayoutHeader: typeof import('./components/layout/header.vue')['default']
+    MapSummary: typeof import('./components/map/summary.vue')['default']
     MdEn: typeof import('./components/md/en.vue')['default']
     MdKo: typeof import('./components/md/ko.vue')['default']
     MdWrapper: typeof import('./components/md/wrapper.vue')['default']
     UiBlock: typeof import('./components/ui/block.vue')['default']
+    UiCloudShadow: typeof import('./components/ui/cloud-shadow.vue')['default']
+    UiContourLines: typeof import('./components/ui/contour-lines.vue')['default']
+    UiFloatingIcon: typeof import('./components/ui/floating-icon.vue')['default']
+    UiLazyImage: typeof import('./components/ui/lazy-image.vue')['default']
+    UiPartyBtn: typeof import('./components/ui/party-btn.vue')['default']
   }
 }
 
