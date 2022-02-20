@@ -3,14 +3,14 @@ import * as d3 from 'd3';
 import { useWindowSize } from '@vueuse/core';
 
 interface Props {
-  draw?: boolean;
+  transition?: boolean;
 }
 
 interface Emits {
   (event: 'onTransitionEnd'): void;
 }
 
-const props = withDefaults(defineProps<Props>(), { draw: false });
+const props = withDefaults(defineProps<Props>(), { transition: false });
 const emits = defineEmits<Emits>();
 
 const { width, height } = useWindowSize();
@@ -69,7 +69,7 @@ onMounted(() => {
     .attr('d', d3.geoPath())
     .attr('opacity', 0.4);
 
-  if (props.draw) {
+  if (props.transition) {
     paths
       .attr('stroke-dasharray', (_, i, paths) => {
         return Math.round((paths[i] as SVGPathElement).getTotalLength());
