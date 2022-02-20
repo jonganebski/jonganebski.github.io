@@ -39,7 +39,7 @@ watch(hoverMeta, () => {
 </script>
 
 <template>
-  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] 2xl:(grid grid-rows-1 grid-cols-2) bg-white">
+  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] bg-white">
     <client-only>
       <map-summary v-model:hoverMeta="hoverMeta" :posts="posts" />
     </client-only>
@@ -52,7 +52,7 @@ watch(hoverMeta, () => {
         <p class="text-center text-gray-700 text-xs">{{ hoverPost?.from }} ~ {{ hoverPost?.to }}</p>
       </div>
     </div>
-    <ul ref="ulRef" class="flex 2xl:flex-col space-x-12 overflow-x-scroll 2xl:overflow-x-hidden">
+    <ul ref="ulRef" class="flex space-x-12 overflow-x-scroll">
       <li v-for="{ cover_image_url, fileName, path } in posts" :key="fileName" :id="fileName">
         <router-link :to="path" class="block min-w-[400px] overflow-hidden">
           <img
