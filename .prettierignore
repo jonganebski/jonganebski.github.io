@@ -8,4 +8,6 @@ src/assets/images
 
 .env
 
-*.gpx
+pnpm-lock.yaml
+auto-imports.d.ts
+components.d.ts
