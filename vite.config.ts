@@ -36,7 +36,6 @@ export default defineConfig({
     Markdown({
       wrapperComponent: 'md-wrapper',
       wrapperClasses: markdownWrapperClass,
-      headEnabled: true,
       markdownItSetup(md) {
         md.use(Prism);
         md.use(LinkAttributes, {
