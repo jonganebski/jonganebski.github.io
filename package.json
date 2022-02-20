@@ -37,6 +37,7 @@
     "critters": "^0.0.16",
     "dotenv": "^16.0.0",
     "fs-extra": "^10.0.0",
+    "gh-pages": "^3.2.3",
     "gitmoji-cli": "^4.7.0",
     "gpxparser": "^3.0.8",
     "happy-dom": "^2.39.1",
