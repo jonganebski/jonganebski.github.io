@@ -19,8 +19,8 @@ const { locale } = useMyI18n();
   <Head>
     <title>{{ frontmatter.title[locale] }} | Jon Ganebski</title>
   </Head>
-  <div class="p-20 bg-yellow-100">
-    <article class="py-10 max-w-screen-lg bg-white">
+  <div class="p-20">
+    <article class="py-10 max-w-screen-lg bg-gray-50 shadow-lg">
       <h1 class="mx-16 text-7xl font-bold">
         {{ frontmatter.title[locale] }}
       </h1>
@@ -35,6 +35,9 @@ const { locale } = useMyI18n();
       </div>
     </article>
   </div>
+  <client-only>
+    <ui-contour-lines />
+  </client-only>
 </template>
 
 <style scoped lang="css">
