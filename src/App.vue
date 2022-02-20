@@ -1,8 +1,5 @@
-<script setup lang="ts">
-import { VueQueryDevTools } from 'vue-query/devtools';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <router-view />
-  <VueQueryDevTools />
 </template>
