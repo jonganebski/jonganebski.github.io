@@ -4,9 +4,13 @@
   "scripts": {
     "prepare": "husky install && gitmoji -i",
     "dev": "vite --open",
-    "build": "vue-tsc --noEmit && vite-ssg build",
+    "prebuild": "vue-tsc --noEmit && pnpm test:unit",
+    "build": "vite-ssg build",
+    "predeploy": "pnpm build",
+    "deploy": "gh-pages -d build",
     "preview": "vite preview --port 5002",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest watch",
     "extract:points": "tsnd --transpile-only -P tsconfig.common.json scripts/extract-points/index.ts",
     "extract:i18n": "tsnd --transpile-only -P tsconfig.common.json scripts/extract-i18n.ts && prettier --write locales"
   },
