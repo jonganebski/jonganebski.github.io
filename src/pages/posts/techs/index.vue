@@ -35,9 +35,8 @@ function formatDate(dateString: string) {
         <ui-lazy-image
           :src="cover_image_url"
           class="h-[300px] aspect-video object-cover bg-gray-300"
-          width="500"
-          height="300"
-          loading="lazy"
+          :height="300"
+          :width="500"
         />
         <div class="z-1 px-16 max-w-lg flex-1">
           <p class="text-xs mr-auto">
