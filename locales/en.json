@@ -5,13 +5,21 @@
     "p_2": "I'm a front-end developer. Most of times I use Typescript(who uses Javascript?), React, Vue.",
     "p_3": "Also, I'm interested in other languages like Rust."
   },
+  "altitude": "Altitude",
   "click": "Click",
+  "current": "Current",
+  "distance": "Distance",
+  "downhill": "Downhill",
   "github": "Github",
   "hello": "Hello",
+  "highest": "Highest",
   "i_am_a_frontend_developer_and_a_traveler": "I'm a front-end developer and a traveler.",
+  "lowest": "Lowest",
   "note": "Note | Notes",
   "portfolio": "Portfolio",
   "tech_blog": "Tech Blog",
   "this_site_is_under_development": "This site is under development.",
-  "welcome_to_my_blog": "Welcome to my blog."
+  "total": "Total",
+  "up_&_down": "Up & Down",
+  "uphill": "Uphill"
 }
