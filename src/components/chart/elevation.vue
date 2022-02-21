@@ -10,13 +10,7 @@ interface Props {
 }
 
 interface Emits {
-  (
-    event: 'update:hoverPoint',
-    payload: {
-      lon: number;
-      lat: number;
-    } | null,
-  ): void;
+  (event: 'update:hoverPoint', payload: UsePointsQueryResult | null): void;
 }
 
 const props = defineProps<Props>();
