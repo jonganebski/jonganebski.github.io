@@ -11,8 +11,10 @@ const props = defineProps<Props>();
 
 // This doesn't need to be a computedRef because this component is static.
 const { frontmatter } = props;
-
 const { locale } = useMyI18n();
+
+const route = useRoute();
+const isRoutePost = route.path.startsWith('/posts/routes/');
 </script>
 
 <template>
@@ -35,6 +37,9 @@ const { locale } = useMyI18n();
       </div>
     </article>
   </div>
+  <client-only v-if="isRoutePost">
+    <md-route-visualization />
+  </client-only>
   <client-only>
     <ui-contour-lines />
   </client-only>
