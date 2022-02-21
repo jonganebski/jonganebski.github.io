@@ -1,4 +1,4 @@
-import { LngLat } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import { useQuery } from 'vue-query';
 import type { Point, Point__point } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
@@ -30,8 +30,8 @@ export function usePointsQuery(fileName: string) {
         return points.map((currentPoint, index) => {
           const previousPoint = points[Math.max(0, index - 1)];
           const km =
-            new LngLat(previousPoint.lon, previousPoint.lat).distanceTo(
-              new LngLat(currentPoint.lon, currentPoint.lat),
+            new mapboxgl.LngLat(previousPoint.lon, previousPoint.lat).distanceTo(
+              new mapboxgl.LngLat(currentPoint.lon, currentPoint.lat),
             ) / 1000;
           distance += km;
           return { ...currentPoint, distance };
