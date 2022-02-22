@@ -15,7 +15,13 @@ export type Locale = 'en' | 'ko';
 // );
 
 export function useMyI18n() {
-  return useI18n<[typeof enMessages], Locale>();
+  const i18n = useI18n<[typeof enMessages], Locale>();
+
+  const setLocaleTo = (to: 'ko' | 'en') => {
+    i18n.locale.value = to;
+  };
+
+  return { ...i18n, setLocaleTo };
 }
 
 export const install: Plugin = ({ app }) => {

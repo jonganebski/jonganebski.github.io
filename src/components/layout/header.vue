@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { useMyI18n } from '~/plugins/i18n';
 
-const { locale, t } = useMyI18n();
-
-const setLocaleTo = (to: 'ko' | 'en') => {
-  locale.value = to;
-};
+const { setLocaleTo, locale, t } = useMyI18n();
 </script>
 
 <template>
