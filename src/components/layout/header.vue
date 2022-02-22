@@ -6,7 +6,7 @@ const { setLocaleTo, locale, t } = useMyI18n();
 
 <template>
   <header
-    class="fixed top-0 left-0 z-10 h-screen w-14 pb-10 flex flex-col items-center bg-white text-sm shadow-2xl"
+    class="fixed top-0 left-0 z-10 h-screen w-14 pb-10 hidden lg:flex flex-col items-center bg-white text-sm shadow-2xl"
   >
     <div class="mt-22 w-0 h-0">
       <nav class="nav">
