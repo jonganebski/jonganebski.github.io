@@ -8,8 +8,7 @@ const { setLocaleTo, locale, t } = useMyI18n();
   <header
     class="fixed top-0 left-0 z-10 h-screen w-14 pb-10 flex flex-col items-center bg-white text-sm shadow-2xl"
   >
-    <div class="bg-red-800 w-14 h-14"></div>
-    <div class="mt-5 w-0 h-0">
+    <div class="mt-22 w-0 h-0">
       <nav class="nav">
         <router-link to="/posts/techs" :class="[locale === 'ko' && 'transform rotate-90']">
           {{ t('nav.techs') }}
