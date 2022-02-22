@@ -5,8 +5,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
+    CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonCode: typeof import('~icons/carbon/code')['default']
     CarbonLink: typeof import('~icons/carbon/link')['default']
+    CarbonMenu: typeof import('~icons/carbon/menu')['default']
     ChartElevation: typeof import('./components/chart/elevation.vue')['default']
     IconGo: typeof import('./components/icon/go.vue')['default']
     IconJavascript: typeof import('./components/icon/javascript.vue')['default']
@@ -16,6 +18,7 @@ declare module 'vue' {
     IconVue: typeof import('./components/icon/vue.vue')['default']
     LayoutFooter: typeof import('./components/layout/footer.vue')['default']
     LayoutHeader: typeof import('./components/layout/header.vue')['default']
+    LayoutMenu: typeof import('./components/layout/menu.vue')['default']
     MapDetail: typeof import('./components/map/detail.vue')['default']
     MapSummary: typeof import('./components/map/summary.vue')['default']
     MdEn: typeof import('./components/md/en.vue')['default']
