@@ -39,7 +39,7 @@ watch(hoverMeta, () => {
 </script>
 
 <template>
-  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] bg-white">
+  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] bg-light-500 dark:bg-dark-500">
     <client-only>
       <map-summary v-model:hoverMeta="hoverMeta" :posts="posts" />
     </client-only>
@@ -48,8 +48,12 @@ watch(hoverMeta, () => {
         <div class="flex justify-center gap-3">
           <country-flag v-for="country in hoverPost?.countries" :key="country" :country="country" />
         </div>
-        <h4 class="text-center text-gray-900 text-lg">{{ hoverPost?.title[locale] }}</h4>
-        <p class="text-center text-gray-700 text-xs">{{ hoverPost?.from }} ~ {{ hoverPost?.to }}</p>
+        <h4 class="text-center text-dark-500 dark:text-light-500 text-lg">
+          {{ hoverPost?.title[locale] }}
+        </h4>
+        <p class="text-center text-dark-300 dark:text-light-300 text-xs">
+          {{ hoverPost?.from }} ~ {{ hoverPost?.to }}
+        </p>
       </div>
     </div>
     <ul ref="ulRef" class="flex space-x-12 overflow-x-scroll">

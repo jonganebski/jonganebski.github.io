@@ -36,7 +36,10 @@ onBeforeRouteLeave((_, __, next) => {
         backgroundImage: `url(${bg})`,
       }"
     >
-      <h1 class="mb-20 text-5xl">{{ t('menu') }}</h1>
+      <div class="mb-20 flex items-center">
+        <h1 class="text-5xl">{{ t('menu') }}</h1>
+        <ui-toggle-dark-mode-btn class="ml-20" />
+      </div>
       <nav class="grid gap-3 text-xl font-normal">
         <router-link to="/">{{ t('nav.home') }}</router-link>
         <router-link to="/posts/routes">{{ t('nav.routes') }}</router-link>

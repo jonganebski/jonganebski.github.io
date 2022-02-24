@@ -6,7 +6,7 @@ const { setLocaleTo, locale, t } = useMyI18n();
 
 <template>
   <header
-    class="fixed top-0 left-0 z-10 h-screen w-14 pb-10 hidden lg:flex flex-col items-center bg-white text-sm shadow-2xl"
+    class="fixed top-0 left-0 z-10 h-screen w-14 pb-10 hidden lg:flex flex-col items-center bg-white dark:bg-dark-500 text-sm text-dark-500 dark:text-light-500 shadow-2xl"
   >
     <div class="mt-22 w-0 h-0">
       <nav class="nav">
@@ -22,10 +22,11 @@ const { setLocaleTo, locale, t } = useMyI18n();
       </nav>
     </div>
     <div class="mt-auto grid justify-center">
+      <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
       <button>
         <span
           class="write-vertical-right"
-          :class="locale === 'ko' && 'text-red-300'"
+          :class="locale === 'ko' && 'text-red-500'"
           @click="setLocaleTo('ko')"
         >
           한국어
@@ -35,7 +36,7 @@ const { setLocaleTo, locale, t } = useMyI18n();
       <button>
         <span
           class="write-vertical-right write-orient-upright"
-          :class="locale === 'en' && 'text-red-300'"
+          :class="locale === 'en' && 'text-red-500'"
           @click="setLocaleTo('en')"
         >
           en

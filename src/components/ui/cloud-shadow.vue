@@ -59,7 +59,7 @@ function getD() {
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <path fill="black" class="opacity-13">
+      <path fill="black" class="opacity-13 dark:opacity-30">
         <animate attributeName="d" dur="20s" repeatCount="indefinite" :values="getD()" />
       </path>
     </svg>

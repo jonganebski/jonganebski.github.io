@@ -16,7 +16,7 @@ function formatDate(dateString: string) {
 </script>
 
 <template>
-  <div class="mt-20 mb-40 px-16 mx-auto">
+  <div class="mt-20 mb-40 px-16 mx-auto text-dark-500 dark:text-light-500">
     <div class="flex justify-between">
       <div>
         <h1 class="text-6xl">{{ t('tech_blog') }}</h1>
