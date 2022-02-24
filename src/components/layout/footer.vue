@@ -5,7 +5,7 @@ import { useMyI18n } from '~/plugins/i18n';
 const { locale, t } = useMyI18n();
 
 const routePosts = getRoutePosts();
-const routePostsRecent = routePosts?.reverse().slice(-5);
+const routePostsRecent = routePosts?.slice(-5).reverse();
 
 const techPosts = getTechPosts();
 const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).slice(-5);
@@ -64,7 +64,7 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
         </nav>
       </div>
     </div>
-    <div class="mt-20 text-center text-sm text-gray-500">
+    <div class="mt-20 text-center text-sm">
       <p>Built with Vue</p>
       <p>{{ new Date().getFullYear() }} &copy; Jon Ganebski</p>
     </div>
@@ -79,6 +79,6 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
   @apply inline-block text-lg;
 }
 .recent-post-link {
-  @apply block w-full cursor-pointer truncate whitespace-nowrap text-sm text-gray-600 hover:text-gray-900 hover:underline underline-offset-2;
+  @apply block w-full cursor-pointer truncate whitespace-nowrap text-sm hover:underline underline-offset-2;
 }
 </style>
