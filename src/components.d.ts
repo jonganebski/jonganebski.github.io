@@ -9,6 +9,8 @@ declare module 'vue' {
     CarbonCode: typeof import('~icons/carbon/code')['default']
     CarbonLink: typeof import('~icons/carbon/link')['default']
     CarbonMenu: typeof import('~icons/carbon/menu')['default']
+    CarbonMoon: typeof import('~icons/carbon/moon')['default']
+    CarbonSun: typeof import('~icons/carbon/sun')['default']
     ChartElevation: typeof import('./components/chart/elevation.vue')['default']
     IconGo: typeof import('./components/icon/go.vue')['default']
     IconJavascript: typeof import('./components/icon/javascript.vue')['default']
@@ -31,6 +33,7 @@ declare module 'vue' {
     UiFloatingIcon: typeof import('./components/ui/floating-icon.vue')['default']
     UiLazyImage: typeof import('./components/ui/lazy-image.vue')['default']
     UiPartyBtn: typeof import('./components/ui/party-btn.vue')['default']
+    UiToggleDarkModeBtn: typeof import('./components/ui/toggle-dark-mode-btn.vue')['default']
   }
 }
 
