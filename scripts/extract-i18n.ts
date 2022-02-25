@@ -29,22 +29,14 @@ function sortMessages(messages: TMessages) {
   return newMessages;
 }
 
-function handleUnusedKey(messages: TMessages, path: string) {
-  objectPath.del(messages, path);
-}
-
-function handleMissingKey(messages: TMessages, path: string) {
-  objectPath.set(messages, path, '__missing__');
-}
-
 async function main() {
   console.log('\n--------------------- Extract i18n ---------------------\n');
 
-  const enUSFilePath = path.resolve(__dirname, `../locales/en.json`);
-  const viVNFilePath = path.resolve(__dirname, `../locales/ko.json`);
+  const enFilePath = path.resolve(__dirname, `../locales/en.json`);
+  const koFilePath = path.resolve(__dirname, `../locales/ko.json`);
 
-  const enUSMessages = await fs.readJson(enUSFilePath);
-  const viVNMessages = await fs.readJson(viVNFilePath);
+  const enMessages = await fs.readJson(enFilePath);
+  const koMessages = await fs.readJson(koFilePath);
 
   const { missingKeys, unusedKeys } = await VueI18NExtract.createI18NReport({
     languageFiles: path.resolve(__dirname, `../locales/*.json`),
@@ -54,10 +46,10 @@ async function main() {
   missingKeys.forEach((key) => {
     switch (key.language) {
       case 'en':
-        handleMissingKey(enUSMessages, key.path);
+        objectPath.set(enMessages, key.path, '__missing__');
         break;
       case 'ko':
-        handleMissingKey(viVNMessages, key.path);
+        objectPath.set(koMessages, key.path, '__missing__');
         break;
     }
   });
@@ -65,20 +57,19 @@ async function main() {
   unusedKeys.forEach((key) => {
     switch (key.language) {
       case 'en':
-        handleUnusedKey(enUSMessages, key.path);
+        objectPath.del(enMessages, key.path);
         break;
       case 'ko':
-        handleUnusedKey(viVNMessages, key.path);
+        objectPath.del(koMessages, key.path);
         break;
     }
   });
-  const sortedEnUS = sortMessages(enUSMessages);
-  const sortedViVN = sortMessages(viVNMessages);
+  const sortedEn = sortMessages(enMessages);
+  const sortedKo = sortMessages(koMessages);
 
   try {
-    await fs.writeJson(enUSFilePath, sortedEnUS);
-
-    await fs.writeJson(viVNFilePath, sortedViVN);
+    await fs.writeJson(enFilePath, sortedEn);
+    await fs.writeJson(koFilePath, sortedKo);
 
     console.log(chalk.green('I18n extraction completed!'));
   } catch (err) {
