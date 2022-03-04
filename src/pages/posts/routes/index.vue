@@ -39,7 +39,7 @@ watch(hoverMeta, () => {
 </script>
 
 <template>
-  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] bg-light-500 dark:bg-dark-500">
+  <div class="h-screen grid grid-rows-[65fr,10fr,auto] bg-light-500 dark:bg-dark-500">
     <client-only>
       <map-summary v-model:hoverMeta="hoverMeta" :posts="posts" />
     </client-only>
@@ -58,12 +58,12 @@ watch(hoverMeta, () => {
     </div>
     <ul ref="ulRef" class="flex space-x-12 overflow-x-scroll">
       <li v-for="{ cover_image_url, fileName, path } in posts" :key="fileName" :id="fileName">
-        <router-link :to="path" class="block min-w-[400px] overflow-hidden">
+        <router-link :to="path" class="block min-w-xs overflow-hidden">
           <img
             :src="cover_image_url"
             width="400"
             height="400"
-            class="min-w-[400px] aspect-video object-cover transition-all duration-300 filter transform"
+            class="aspect-video object-cover transition-all duration-300 filter transform"
             :class="[
               hoverMeta?.fileName === fileName
                 ? 'grayscale-0 scale-110'

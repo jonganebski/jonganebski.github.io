@@ -13,7 +13,7 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
 
 <template>
   <footer
-    class="min-h-[32rem] mt-32 pt-32 pb-5 px-28 flex flex-col justify-between bg-transparent text-dark-500 dark:text-light-500"
+    class="min-h-[32rem] mt-32 pt-32 pb-5 px-4 md:px-28 flex flex-col justify-between bg-transparent text-dark-500 dark:text-light-500"
   >
     <div class="w-full max-w-screen-lg mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
       <div>

@@ -16,7 +16,7 @@ function formatDate(dateString: string) {
 </script>
 
 <template>
-  <div class="mt-20 mb-40 px-16 mx-auto text-dark-500 dark:text-light-500">
+  <div class="mt-20 mb-40 px-4 md:px-16 mx-auto text-dark-500 dark:text-light-500">
     <div class="flex justify-between">
       <div>
         <h1 class="text-6xl">{{ t('tech_blog') }}</h1>
@@ -30,15 +30,15 @@ function formatDate(dateString: string) {
       <li
         v-for="({ cover_image_url, fileName, title, date }, index) in posts"
         :key="index"
-        class="relative max-w-6xl flex"
+        class="relative max-w-6xl grid lg:grid-cols-2"
       >
         <ui-lazy-image
           :src="cover_image_url"
-          class="h-[300px] aspect-video object-cover bg-gray-300"
+          class="w-full aspect-video object-cover bg-gray-300"
           :height="300"
           :width="500"
         />
-        <div class="z-1 px-16 max-w-lg flex-1">
+        <div class="z-1 mt-5 lg:mt-0 lg:px-16 max-w-lg flex-1">
           <p class="text-xs mr-auto">
             {{ formatDate(date) }}
           </p>

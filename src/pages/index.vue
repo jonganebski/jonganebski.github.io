@@ -11,7 +11,7 @@ const lazyParagraphTransitionClass = computed(() =>
 </script>
 
 <template>
-  <section class="max-w-screen-md pt-40 mx-auto text-dark-500 dark:text-light-500">
+  <section class="max-w-screen-md pt-40 px-10 mx-auto text-dark-500 dark:text-light-500">
     <p class="transition-all duration-1000 transform" :class="[lazyParagraphTransitionClass]">
       {{ t('hello') }}! 👋
     </p>
