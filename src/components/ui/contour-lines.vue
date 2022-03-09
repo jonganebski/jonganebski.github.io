@@ -7,7 +7,7 @@ interface Props {
 }
 
 interface Emits {
-  (event: 'onTransitionEnd'): void;
+  (event: 'transitionend'): void;
 }
 
 const props = withDefaults(defineProps<Props>(), { transition: false });
@@ -92,7 +92,7 @@ onMounted(() => {
       })
       .on('end', (_, index) => {
         if (paths.nodes().length - 1 !== index) return;
-        emits('onTransitionEnd');
+        emits('transitionend');
       });
   }
 
