@@ -12,7 +12,6 @@ import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
 import WindiCSS from 'vite-plugin-windicss';
-import { markdownWrapperClass } from './windi.config';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
@@ -35,7 +34,6 @@ export default defineConfig({
     WindiCSS(),
     Markdown({
       wrapperComponent: 'md-wrapper',
-      wrapperClasses: markdownWrapperClass,
       markdownItSetup(md) {
         md.use(Prism);
         md.use(LinkAttributes, {
