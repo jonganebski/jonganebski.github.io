@@ -160,5 +160,8 @@ const stopWatch = watchEffect(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="w-full bg-white" />
+  <div
+    ref="containerRef"
+    class="w-full bg-light-300 dark:bg-dark-300 text-dark-300 dark:text-light-300"
+  />
 </template>

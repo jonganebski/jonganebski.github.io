@@ -40,9 +40,11 @@ const hoverPoint = ref<UsePointsQueryResult | null>(null);
 </script>
 
 <template>
-  <div class="max-w-screen-lg mx-20 grid grid-rows-[45vh,auto,auto] shadow-lg">
+  <div
+    class="max-w-screen-lg mx-20 grid grid-rows-[45vh,auto,auto] shadow-lg bg-light-300 dark:bg-dark-300 text-dark-300 dark:text-light-300"
+  >
     <map-detail v-model:hoverPoint="hoverPoint" :file-name="fileName" :points="data" />
-    <ul class="p-5 grid grid-cols-3 gap-14 text-sm bg-gray-50">
+    <ul class="p-5 grid grid-cols-3 gap-14 text-sm">
       <li class="px-6">
         <h6 class="mb-3">{{ t('up_&_down') }}</h6>
         <p class="flex justify-between">

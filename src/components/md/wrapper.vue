@@ -21,9 +21,11 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
   <Head>
     <title>{{ frontmatter.title[locale] }} | Jon Ganebski</title>
   </Head>
-  <div class="p-20">
-    <article class="py-10 max-w-screen-lg bg-gray-50 shadow-lg">
-      <h1 class="mx-16 text-7xl font-bold">
+  <div class="md:p-10 lg:p-20">
+    <article
+      class="py-15 max-w-screen-lg w-full bg-light-300 dark:bg-dark-300 text-dark-300 dark:text-light-300 shadow-lg"
+    >
+      <h1 class="mx-4 text-4xl md:text-7xl font-bold">
         {{ frontmatter.title[locale] }}
       </h1>
       <img
