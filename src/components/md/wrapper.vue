@@ -46,10 +46,22 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
 </template>
 
 <style scoped lang="css">
+::v-slotted(h1) {
+  @apply mt-30 px-5 text-4xl font-bold;
+}
+::v-slotted(h2) {
+  @apply mt-20 px-5 text-3xl font-bold;
+}
+::v-slotted(h3) {
+  @apply mt-20 px-5 text-2xl font-bold;
+}
 ::v-slotted(img) {
-  width: 100%;
+  @apply w-full mt-20 mb-10;
 }
 ::v-slotted(p) {
-  font-size: 0.9rem;
+  @apply mt-5 px-5 text-sm xl:text-lg;
+}
+::v-slotted(pre) {
+  @apply mt-5 p-5 text-sm xl:text-lg overflow-x-auto;
 }
 </style>
