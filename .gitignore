@@ -9,3 +9,7 @@ src/assets/images
 .env
 
 *.gpx
+
+# Rust Related
+
+target
