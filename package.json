@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "prepare": "husky install && gitmoji -i",
+    "wasm": "wasm-pack build ./mine-sweeper --target web",
     "dev": "vite --open",
     "prebuild": "vue-tsc --noEmit && pnpm test:unit",
     "build": "vite-ssg build",
