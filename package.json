@@ -58,6 +58,7 @@
     "vite-plugin-md": "^0.11.7",
     "vite-plugin-pages": "^0.20.1",
     "vite-plugin-vue-layouts": "^0.5.0",
+    "vite-plugin-wasm-pack": "^0.1.9",
     "vite-plugin-windicss": "^1.6.3",
     "vite-ssg": "^0.17.9",
     "vitest": "^0.4.1",
