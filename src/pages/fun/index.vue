@@ -1,10 +1,10 @@
 <script setup lang="ts">
 // @ts-ignore
-import init, { initialize } from 'mine-sweeper';
+import init, { easy } from 'mine-sweeper';
 
 onMounted(() => {
   init().then(() => {
-    initialize('Easy');
+    easy();
   });
 });
 </script>
@@ -18,8 +18,18 @@ onMounted(() => {
 <style scoped lang="css">
 #wasm {
   display: grid;
-  grid-template-columns: repeat(8, 20px);
-  grid-template-rows: repeat(8, 20px);
+  grid-template-columns: repeat(8, 40px);
+  grid-template-rows: repeat(8, 40px);
   font-size: 0.5rem;
+}
+</style>
+
+<style lang="css">
+#wasm > .veiled {
+  background-color: gray;
+}
+
+#wasm > .unveiled {
+  background-color: transparent;
 }
 </style>
