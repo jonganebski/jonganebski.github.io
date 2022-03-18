@@ -12,6 +12,7 @@ import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
 import WindiCSS from 'vite-plugin-windicss';
+import WasmPack from 'vite-plugin-wasm-pack';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
@@ -47,6 +48,7 @@ export default defineConfig({
       compositionOnly: true,
       include: [resolve(__dirname, 'locales/**')],
     }),
+    WasmPack(['./mine-sweeper']),
   ],
   server: { fs: { strict: true } },
   ssgOptions: {
