@@ -24,20 +24,6 @@ class Node {
     this.colNum = payload.colNum;
   }
 
-  startTimer() {
-    gameStartedAt.value = new Date().getTime();
-    startTimer();
-  }
-
-  finishGame(payload: { isSuccess: boolean }) {
-    stopTimer();
-    isGameOver.value = true;
-    isSuccess.value = payload.isSuccess;
-    if (!payload.isSuccess) {
-      explode();
-    }
-  }
-
   increaseHint() {
     this.hint += 1;
   }
@@ -87,7 +73,7 @@ class Node {
     if (!this.isVeiled) return;
     if (this.isFlagged) return;
     if (this.isMine) {
-      this.finishGame({ isSuccess: false });
+      finishGame({ isSuccess: false });
       return;
     }
     this.isVeiled = false;
@@ -96,14 +82,9 @@ class Node {
   }
 
   onLeftClick() {
-    if (isGameOver.value) return;
-    if (!gameStartedAt.value) this.startTimer();
     if (this.isFlagged) return;
     if (this.isQuestion) return;
     this.unveil();
-    if (validate()) {
-      this.finishGame({ isSuccess: true });
-    }
   }
 
   onDoubleClick() {
@@ -111,14 +92,9 @@ class Node {
     const flagCountArount = this.countAround('isFlagged');
     if (flagCountArount !== this.hint) return;
     this.around('unveil');
-    if (validate()) {
-      this.finishGame({ isSuccess: true });
-    }
   }
 
   onRightClick() {
-    if (isGameOver.value) return;
-    if (!gameStartedAt.value) this.startTimer();
     if (!this.isVeiled) return;
     if (this.isFlagged) {
       flagCount.value -= 1;
@@ -135,9 +111,6 @@ class Node {
     flagCount.value += 1;
     this.isFlagged = true;
     this.isQuestion = false;
-    if (validate()) {
-      this.finishGame({ isSuccess: true });
-    }
   }
 }
 
@@ -148,6 +121,12 @@ const {
   resume: startTimer,
 } = useTimestamp({ immediate: false, controls: true });
 const time = computed(() => (gameStartedAt.value ? timestamp.value - gameStartedAt.value : 0));
+const MAX_TIME = 1000 * 999;
+
+watch(time, () => {
+  if (time.value < MAX_TIME) return;
+  finishGame({ isSuccess: false });
+});
 
 const isGameOver = ref<boolean>(false);
 const isSuccess = ref<boolean>(false);
@@ -163,6 +142,28 @@ const meta = computed(() =>
     : { totalMines: 10, rows: 9, cols: 9 },
 );
 
+function withController(fn: () => void) {
+  if (isGameOver.value) return;
+  if (!gameStartedAt.value) startGame();
+  fn();
+  if (meta.value.totalMines !== flagCount.value) return;
+  validate() && finishGame({ isSuccess: true });
+}
+
+function startGame() {
+  gameStartedAt.value = new Date().getTime();
+  startTimer();
+}
+
+function finishGame(payload: { isSuccess: boolean }) {
+  stopTimer();
+  isGameOver.value = true;
+  isSuccess.value = payload.isSuccess;
+  if (!payload.isSuccess) {
+    explode();
+  }
+}
+
 function explode() {
   game.value.forEach((row) => {
     row.forEach((node) => {
@@ -174,7 +175,6 @@ function explode() {
 }
 
 function validate() {
-  if (meta.value.totalMines !== flagCount.value) return;
   let solved = true;
   game.value.forEach((row) => {
     row.forEach((node) => {
@@ -190,6 +190,22 @@ function onSelectMode(event: Event) {
   const value = (event.target as HTMLSelectElement).value as Mode;
   mode.value = value;
   initialize();
+}
+
+function getHintColor(hint: number) {
+  return hint === 1
+    ? 'text-blue-700'
+    : hint === 2
+    ? 'text-green-700'
+    : hint === 3
+    ? 'text-red-700'
+    : hint === 4
+    ? 'text-purple-700'
+    : hint === 5
+    ? 'text-fuchsia-700'
+    : hint === 6
+    ? 'text-cyan-600'
+    : 'text-black';
 }
 
 function initialize() {
@@ -238,56 +254,49 @@ const COLORS = {
         <option value="EXPERT">EXPERT</option>
       </select>
     </div>
-    <div class="mt-20 flex justify-center">
-      <div class="p-2 relief" :class="[`bg-[${COLORS.surfaceDark}]`]">
+    <div class="mt-20 flex justify-center game" @contextmenu.prevent>
+      <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
         <div class="p-2 grid grid-cols-3 intaglio">
-          <p>{{ meta.totalMines - flagCount }}</p>
+          <div class="flex">
+            <span class="counter">
+              {{ (meta.totalMines - flagCount).toString().padStart(3, '0') }}
+            </span>
+          </div>
           <div class="flex items-center justify-center">
-            <button class="btn relief w-10 h-10" data-isVeiled="true" @click="initialize">
-              {{ isGameOver && isSuccess ? '😎' : isGameOver && !isSuccess ? '💀' : '🙂' }}
+            <button
+              class="node-btn relief player w-10 h-10"
+              :data-isGameOver="isGameOver"
+              aria-label="Click to restart the game"
+              @click="initialize"
+            >
+              {{ isGameOver && isSuccess ? '😎' : isGameOver && !isSuccess ? '💀' : '' }}
             </button>
           </div>
-          <p>
-            {{
-              Math.round(time / 1000)
-                .toString()
-                .padStart(3, '0')
-            }}
-          </p>
+          <div class="flex justify-end">
+            <span class="counter">
+              {{
+                Math.round(time / 1000)
+                  .toString()
+                  .padStart(3, '0')
+              }}
+            </span>
+          </div>
         </div>
-        <div
-          class="mt-3 grid gap-px text-xl intaglio"
-          :class="[`bg-[${COLORS.shadow}]`]"
-          :style="{ gridTemplateRows: `repeat(${meta.rows}, 40px)` }"
-        >
-          <div
-            v-for="(row, index) in game"
-            :key="index"
-            class="grid gap-px"
-            :style="{ gridTemplateColumns: `repeat(${meta.cols}, 40px)` }"
-          >
+        <div class="rows-container intaglio">
+          <div v-for="(row, index) in game" :key="index" class="row">
             <button
               v-for="(node, index) in row"
               :key="index"
-              class="btn"
-              :class="[node.isVeiled ? 'relief' : '']"
-              :data-isVeiled="node.isVeiled"
-              @contextmenu.prevent="() => node.onRightClick()"
-              @dblclick.prevent="() => node.onDoubleClick()"
-              @click.prevent="() => node.onLeftClick()"
+              class="node-btn"
+              :class="[node.isVeiled && 'relief']"
+              :data-isExploded="node.isExploded"
+              @contextmenu.prevent="() => withController(() => node.onRightClick())"
+              @dblclick.prevent="() => withController(() => node.onDoubleClick())"
+              @click.prevent="() => withController(() => node.onLeftClick())"
             >
-              <span
-                v-if="!node.isVeiled"
-                class="font-extrabold"
-                :class="[
-                  node.hint === 1
-                    ? 'text-blue-700'
-                    : node.hint === 2
-                    ? 'text-green-700'
-                    : 'text-red-700',
-                ]"
-                >{{ node.hint === 0 ? '' : node.hint }}</span
-              >
+              <span v-if="!node.isVeiled" class="font-extrabold" :class="[getHintColor(node.hint)]">
+                {{ node.hint === 0 ? '' : node.hint }}
+              </span>
               <span v-if="node.isExploded">💣</span>
               <carbon-flag v-if="node.isFlagged" />
               <carbon-help v-if="node.isQuestion" />
@@ -300,11 +309,43 @@ const COLORS = {
 </template>
 
 <style scoped lang="css">
-.btn {
+.game:active .player[data-isGameOver='false']:before {
+  content: '😲';
+}
+.player[data-isGameOver='false']:before {
+  content: '🙂';
+}
+.counter {
+  height: 100%;
+  min-width: 4ch;
+  background-color: black;
+  text-align: center;
+  color: red;
+  font-size: 26px;
+}
+.rows-container {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 1px;
+  grid-template-rows: repeat(v-bind('meta.rows'), 40px);
+  background-color: v-bind('COLORS.shadow');
+}
+.row {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(v-bind('meta.cols'), 40px);
+}
+.node-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 24px;
+  line-height: 32px;
   background-color: v-bind('COLORS.surfaceLight');
+}
+.node-btn[data-isExploded='true'] {
+  background-color: red;
+  border: none;
 }
 .relief {
   border-top: 4px solid white;
@@ -313,7 +354,7 @@ const COLORS = {
   border-right: 4px solid v-bind('COLORS.shadow');
 }
 button.relief:active {
-  border: 4px solid transparent;
+  border: 4px solid v-bind('COLORS.shadow');
 }
 .intaglio {
   border-bottom: 4px solid white;
