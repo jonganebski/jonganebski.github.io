@@ -128,13 +128,28 @@
   "src/components/ui/toggle-dark-mode-btn.vue": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
+  "src/components/icon/google.vue": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
+  "src/components/icon/apple.vue": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
+  "src/components/icon/github.vue": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
+  "~icons/carbon/logout": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
   "~icons/carbon/user": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
-  "src/api/useSignIn.ts": [
+  "src/api/useSignInMutation.ts": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
   "src/api/useUserQuery.ts": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
+  "src/components/ui/avatar.vue?vue&type=style&index=0&scoped=true&lang.css": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
   "src/components/ui/avatar.vue": [
@@ -2247,61 +2262,61 @@
     "/assets/vendor.77b22dfd.js"
   ],
   "src/pages/[...all].vue": [
-    "/assets/_...all_.5566b48a.js"
+    "/assets/_...all_.6e00dc49.js"
   ],
   "~icons/carbon/help": [
-    "/assets/index.ea7a44ab.js",
+    "/assets/index.4c3f623a.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "~icons/carbon/flag": [
-    "/assets/index.ea7a44ab.js",
+    "/assets/index.4c3f623a.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/fun/index.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/index.ea7a44ab.js",
+    "/assets/index.4c3f623a.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/fun/index.vue": [
-    "/assets/index.ea7a44ab.js",
+    "/assets/index.4c3f623a.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/notes/route.md": [
-    "/assets/route.4bdde527.js"
+    "/assets/route.a428c0c4.js"
   ],
   "src/pages/notes/tech.md": [
-    "/assets/tech.13d8da82.js"
+    "/assets/tech.d9c0ac91.js"
   ],
   "src/api/usePointsSummaryQuery.ts": [
-    "/assets/index.d9708edf.js"
+    "/assets/index.5ac4661b.js"
   ],
   "src/components/map/summary.vue": [
-    "/assets/index.d9708edf.js"
+    "/assets/index.5ac4661b.js"
   ],
   "node_modules/.pnpm/vue-country-flag-next@2.3.2_vue@3.2.31/node_modules/vue-country-flag-next/dist/country-flag.esm.js": [
-    "/assets/index.d9708edf.js"
+    "/assets/index.5ac4661b.js"
   ],
   "src/pages/posts/routes/index.vue": [
-    "/assets/index.d9708edf.js"
+    "/assets/index.5ac4661b.js"
   ],
   "src/components/icon/vue.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/components/icon/typescript.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/components/icon/react.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/components/icon/javascript.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/components/ui/floating-icon.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/components/ui/party-btn.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ],
   "src/pages/posts/techs/index.vue": [
-    "/assets/index.cbc0c132.js"
+    "/assets/index.8b95c816.js"
   ]
 }
