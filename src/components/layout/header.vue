@@ -22,6 +22,7 @@ const { setLocaleTo, locale, t } = useMyI18n();
       </nav>
     </div>
     <div class="mt-auto grid justify-center">
+      <ui-avatar />
       <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
       <button>
         <span
