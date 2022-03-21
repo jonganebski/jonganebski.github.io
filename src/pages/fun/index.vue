@@ -175,15 +175,15 @@ function explode() {
 }
 
 function validate() {
-  let solved = true;
-  game.value.forEach((row) => {
-    row.forEach((node) => {
-      if (node.isMine && node.isFlagged) return;
-      if (!node.isVeiled) return;
-      solved = false;
-    });
-  });
-  return solved;
+  for (let rowNum = 0; rowNum < game.value.length; rowNum++) {
+    for (let colNum = 0; colNum < game.value[rowNum].length; colNum++) {
+      const node = game.value[rowNum][colNum];
+      if (node.isMine && node.isFlagged) continue;
+      if (!node.isVeiled) continue;
+      return false;
+    }
+  }
+  return true;
 }
 
 function onSelectMode(event: Event) {
