@@ -134,6 +134,9 @@
   "src/api/useSignIn.ts": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
+  "src/api/useUserQuery.ts": [
+    "/assets/menu-bg.b6f595e2.svg"
+  ],
   "src/components/ui/avatar.vue": [
     "/assets/menu-bg.b6f595e2.svg"
   ],
@@ -2244,61 +2247,61 @@
     "/assets/vendor.c454fe11.js"
   ],
   "src/pages/[...all].vue": [
-    "/assets/_...all_.3d3b08e1.js"
+    "/assets/_...all_.6a71f3d9.js"
   ],
   "~icons/carbon/help": [
-    "/assets/index.a4fb17b6.js",
+    "/assets/index.8981278d.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "~icons/carbon/flag": [
-    "/assets/index.a4fb17b6.js",
+    "/assets/index.8981278d.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/fun/index.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/index.a4fb17b6.js",
+    "/assets/index.8981278d.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/fun/index.vue": [
-    "/assets/index.a4fb17b6.js",
+    "/assets/index.8981278d.js",
     "/assets/index.2f2e9b3d.css"
   ],
   "src/pages/notes/route.md": [
-    "/assets/route.b4a778f1.js"
+    "/assets/route.06da0e1a.js"
   ],
   "src/pages/notes/tech.md": [
-    "/assets/tech.2d20a62c.js"
+    "/assets/tech.80c9f0d1.js"
   ],
   "src/api/usePointsSummaryQuery.ts": [
-    "/assets/index.146dbee3.js"
+    "/assets/index.8c4c3e26.js"
   ],
   "src/components/map/summary.vue": [
-    "/assets/index.146dbee3.js"
+    "/assets/index.8c4c3e26.js"
   ],
   "node_modules/.pnpm/vue-country-flag-next@2.3.2_vue@3.2.31/node_modules/vue-country-flag-next/dist/country-flag.esm.js": [
-    "/assets/index.146dbee3.js"
+    "/assets/index.8c4c3e26.js"
   ],
   "src/pages/posts/routes/index.vue": [
-    "/assets/index.146dbee3.js"
+    "/assets/index.8c4c3e26.js"
   ],
   "src/components/icon/vue.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/components/icon/typescript.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/components/icon/react.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/components/icon/javascript.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/components/ui/floating-icon.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/components/ui/party-btn.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ],
   "src/pages/posts/techs/index.vue": [
-    "/assets/index.341acd86.js"
+    "/assets/index.c94b723d.js"
   ]
 }
