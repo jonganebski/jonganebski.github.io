@@ -52,6 +52,52 @@ export interface Point__point {
 }
 
 /*----------------------------------
+| Mine Sweeper Records Table
+----------------------------------*/
+
+/**
+ * ### Interface of the Mine Sweeper Records Table
+ *
+ * @example
+ * ```ts
+ * id: 1;
+ * created_at: '2022-02-07T05:56:07+00:00';
+ * updated_at: '2022-02-07T05:56:07+00:00';
+ * user_id: 'ba6546d0-1303-46ee-bddf-77b780542a91'
+ * mode: 2;
+ * time: 20326
+ * ```
+ */
+export interface MineSweeperRecord {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
+  mode: number;
+  time: number;
+}
+
+/*----------------------------------
+| Mine Sweeper Modes Table
+----------------------------------*/
+
+/**
+ * ### Interface of the Mine Sweeper Modes Table
+ *
+ * @example
+ * ```ts
+ * id: 1;
+ * created_at: '2022-02-07T05:56:07+00:00';
+ * mode: 'intermediate'
+ * ```
+ */
+export interface MineSweeperMode {
+  id: number;
+  created_at: string;
+  mode: 'beginner' | 'intermediate' | 'expert';
+}
+
+/*----------------------------------
 | Supabase Client
 ----------------------------------*/
 
