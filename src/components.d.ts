@@ -5,8 +5,11 @@
 declare module 'vue' {
   export interface GlobalComponents {
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
+    CarbonChevronDown: typeof import('~icons/carbon/chevron-down')['default']
     CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonCode: typeof import('~icons/carbon/code')['default']
+    CarbonFlag: typeof import('~icons/carbon/flag')['default']
+    CarbonHelp: typeof import('~icons/carbon/help')['default']
     CarbonLink: typeof import('~icons/carbon/link')['default']
     CarbonLogout: typeof import('~icons/carbon/logout')['default']
     CarbonMenu: typeof import('~icons/carbon/menu')['default']
@@ -39,7 +42,9 @@ declare module 'vue' {
     UiContourLines: typeof import('./components/ui/contour-lines.vue')['default']
     UiFloatingIcon: typeof import('./components/ui/floating-icon.vue')['default']
     UiLazyImage: typeof import('./components/ui/lazy-image.vue')['default']
+    UiOption: typeof import('./components/ui/option.vue')['default']
     UiPartyBtn: typeof import('./components/ui/party-btn.vue')['default']
+    UiSelect: typeof import('./components/ui/select.vue')['default']
     UiToggleDarkModeBtn: typeof import('./components/ui/toggle-dark-mode-btn.vue')['default']
   }
 }
