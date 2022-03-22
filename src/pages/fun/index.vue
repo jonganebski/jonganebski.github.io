@@ -253,6 +253,9 @@ const COLORS = {
 <template>
   <div class="min-h-screen">
     <div class="mt-10 flex justify-center">
+      <ui-select>
+        <ui-option v-for="mode in modes" :key="mode.id" :value="mode.id" :label="mode.mode" />
+      </ui-select>
       <select :value="modeId" @input="onSelectMode">
         <option v-for="mode in modes" :value="mode.id">
           {{
