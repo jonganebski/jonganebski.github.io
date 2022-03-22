@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User } from '@supabase/supabase-js';
+import { onClickOutside } from '@vueuse/core';
 import { useQueryClient } from 'vue-query';
 import { useSignInMutation } from '~/api/useSignInMutation';
 import { useUserQuery } from '~/api/useUserQuery';
@@ -10,14 +11,17 @@ const queryClient = useQueryClient();
 const { mutate: signIn } = useSignInMutation();
 const { data: user } = useUserQuery();
 
-const isSignInOptionOpen = ref(false);
+const isAuthContainerOpen = ref(false);
 
-function toggleSignInOption(forceTo?: boolean) {
-  isSignInOptionOpen.value = forceTo ?? !isSignInOptionOpen.value;
+const authContainer = ref<HTMLDivElement | null>(null);
+onClickOutside(authContainer, closeAuthContainer);
+
+function closeAuthContainer() {
+  isAuthContainerOpen.value = false;
 }
 
-function onClickAvatar() {
-  toggleSignInOption();
+function toggleAuthContainer() {
+  isAuthContainerOpen.value = !isAuthContainerOpen.value;
 }
 
 function signOut() {
@@ -32,8 +36,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
-    <button class="btn mb-10" @click="onClickAvatar">
+  <div class="relative mb-10" ref="authContainer">
+    <button class="btn" @click="toggleAuthContainer">
       <img
         v-if="user?.user_metadata.avatar_url"
         :src="user?.user_metadata.avatar_url"
@@ -41,24 +45,26 @@ onMounted(() => {
       />
       <carbon-user v-else class="text-lg" />
     </button>
-    <div v-if="isSignInOptionOpen && user" class="absolute top-0 left-14">
-      <button class="btn" @click="signOut">
-        <carbon-logout />
-      </button>
-    </div>
-    <div v-if="isSignInOptionOpen && !user" class="absolute top-0 left-14 grid gap-2">
-      <button
-        class="btn anim p-2 transition-shadow hover:shadow-lg"
-        @click="signIn({ provider: 'github' })"
-      >
-        <icon-github />
-      </button>
-      <button class="btn anim-2 p-2 transition-shadow hover:shadow-lg">
-        <icon-apple />
-      </button>
-      <button class="btn anim-3 p-2 transition-shadow hover:shadow-lg">
-        <icon-google />
-      </button>
+    <div class="absolute top-0 left-14">
+      <div v-if="isAuthContainerOpen && user">
+        <button class="btn" @click="signOut">
+          <carbon-logout />
+        </button>
+      </div>
+      <div v-if="isAuthContainerOpen && !user" class="grid gap-2">
+        <button
+          class="btn anim p-2 transition-shadow hover:shadow-lg"
+          @click="signIn({ provider: 'github' })"
+        >
+          <icon-github />
+        </button>
+        <button class="btn anim-2 p-2 transition-shadow hover:shadow-lg">
+          <icon-apple />
+        </button>
+        <button class="btn anim-3 p-2 transition-shadow hover:shadow-lg">
+          <icon-google />
+        </button>
+      </div>
     </div>
   </div>
 </template>
