@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTimestamp } from '@vueuse/core';
-
-type Mode = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT';
+import { useModesQuery } from '~/api/useModesQuery';
+import { useMyI18n } from '~/plugins/i18n';
 
 class Node {
   public isExploded: boolean;
@@ -114,6 +114,10 @@ class Node {
   }
 }
 
+const { data: modes, findModeById } = useModesQuery('mine-sweeper-modes');
+
+const { t } = useMyI18n();
+
 const gameStartedAt = ref<number | null>(null);
 const {
   timestamp,
@@ -130,14 +134,15 @@ watch(time, () => {
 
 const isGameOver = ref<boolean>(false);
 const isSuccess = ref<boolean>(false);
-const mode = ref<Mode>('BEGINNER');
+const modeId = ref<number>(1);
+const modeName = computed(() => findModeById(modeId.value));
 const game = ref<Node[][]>([]);
 const flagCount = ref(0);
 
 const meta = computed(() =>
-  mode.value === 'EXPERT'
+  modeName.value === 'expert'
     ? { totalMines: 99, rows: 16, cols: 30 }
-    : mode.value === 'INTERMEDIATE'
+    : modeName.value === 'intermediate'
     ? { totalMines: 40, rows: 16, cols: 16 }
     : { totalMines: 10, rows: 9, cols: 9 },
 );
@@ -187,8 +192,8 @@ function validate() {
 }
 
 function onSelectMode(event: Event) {
-  const value = (event.target as HTMLSelectElement).value as Mode;
-  mode.value = value;
+  const value = (event.target as HTMLSelectElement).value;
+  modeId.value = Number(value);
   initialize();
 }
 
@@ -248,10 +253,16 @@ const COLORS = {
 <template>
   <div class="min-h-screen">
     <div class="mt-10 flex justify-center">
-      <select :value="mode" @input="onSelectMode">
-        <option value="BEGINNER">BEGINNER</option>
-        <option value="INTERMEDIATE">INTERMEDIATE</option>
-        <option value="EXPERT">EXPERT</option>
+      <select :value="modeId" @input="onSelectMode">
+        <option v-for="mode in modes" :value="mode.id">
+          {{
+            mode.mode === 'expert'
+              ? t('expert')
+              : mode.mode === 'intermediate'
+              ? t('intermediate')
+              : t('beginner')
+          }}
+        </option>
       </select>
     </div>
     <div class="mt-20 flex justify-center game" @contextmenu.prevent>
