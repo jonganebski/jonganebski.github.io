@@ -5,6 +5,9 @@ import { useQueryClient } from 'vue-query';
 import { useSignInMutation } from '~/api/useSignInMutation';
 import { useUserQuery } from '~/api/useUserQuery';
 import { supabase } from '~/libs/supabase';
+import { useMyI18n } from '~/plugins/i18n';
+
+const { t } = useMyI18n();
 
 const queryClient = useQueryClient();
 
@@ -37,7 +40,10 @@ onMounted(() => {
 
 <template>
   <div class="relative mb-10" ref="authContainer">
-    <button class="btn" @click="toggleAuthContainer">
+    <button
+      class="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden bg-gray-100 dark:bg-dark-800 transform active:scale-90"
+      @click="toggleAuthContainer"
+    >
       <img
         v-if="user?.user_metadata.avatar_url"
         :src="user?.user_metadata.avatar_url"
@@ -45,25 +51,32 @@ onMounted(() => {
       />
       <carbon-user v-else class="text-lg" />
     </button>
-    <div class="absolute top-0 left-14">
-      <div v-if="isAuthContainerOpen && user">
-        <button class="btn" @click="signOut">
-          <carbon-logout />
+    <div class="absolute top-1/2 transform -translate-y-1/2 left-14">
+      <div v-if="isAuthContainerOpen && user" class="auth-container">
+        <div class="text-dark-500">
+          <span>Email: {{ user.email }}</span>
+          <span>Provider: {{ user.app_metadata.provider }}</span>
+        </div>
+        <button class="auth-btn group" @click="signOut">
+          <carbon-logout class="icon text-teal-700" />
+          <span class="z-10 ml-12">{{ t('sign_out') }}</span>
         </button>
       </div>
-      <div v-if="isAuthContainerOpen && !user" class="grid gap-2">
-        <button
-          class="btn anim p-2 transition-shadow hover:shadow-lg"
-          @click="signIn({ provider: 'github' })"
-        >
-          <icon-github />
-        </button>
-        <button class="btn anim-2 p-2 transition-shadow hover:shadow-lg">
-          <icon-apple />
-        </button>
-        <button class="btn anim-3 p-2 transition-shadow hover:shadow-lg">
-          <icon-google />
-        </button>
+      <div v-if="isAuthContainerOpen && !user" class="auth-container">
+        <h6 class="text-dark-500">{{ t('sign_up_or_sign_in') }}</h6>
+        <div class="grid gap-3">
+          <button class="auth-btn group" @click="signIn({ provider: 'github' })">
+            <icon-github class="icon text-purple-700" />
+            <span class="z-10 ml-12">{{ t('sign_in_with_github') }}</span>
+          </button>
+          <button class="auth-btn group">
+            <icon-google class="icon text-blue-700" @click="signIn({ provider: 'google' })" />
+            <span class="z-10 ml-12">{{ t('sign_in_with_google') }}</span>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500">
+          {{ t('sign_up_notice') }}
+        </p>
       </div>
     </div>
   </div>
@@ -71,25 +84,29 @@ onMounted(() => {
 
 <style scoped lang="css">
 .btn {
-  @apply w-10 h-10 flex items-center justify-center rounded-full overflow-hidden text-dark-500 dark:text-light-500 bg-gray-100 dark:bg-gray-800;
+  @apply flex items-center justify-start gap-3 rounded text-light-500 transition-all shadow hover:shadow-lg;
 }
+
+.auth-btn {
+  @apply relative h-12 px-3 flex items-center bg-dark-500 text-light-500 overflow-hidden;
+}
+
+.icon {
+  @apply absolute left-3 w-8 h-8 transition-all duration-200 transform scale-500 group-hover:scale-100 group-hover:text-light-500 group-hover:text-light-500;
+}
+
 @keyframes slide-in {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
     transform: translateX(0px);
   }
 }
-.anim {
-  animation: slide-in linear 0.1s;
-}
-.anim-2 {
-  animation: slide-in linear 0.15s;
-}
-.anim-3 {
-  animation: slide-in linear 0.2s;
+.auth-container {
+  @apply min-w-sm p-4 grid gap-6 bg-white rounded shadow-xl;
+  animation: slide-in linear 0.3s;
 }
 </style>
