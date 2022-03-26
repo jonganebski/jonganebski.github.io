@@ -2,7 +2,7 @@ import { Provider, User } from '@supabase/supabase-js';
 import { useMutation, useQueryClient } from 'vue-query';
 import { supabase } from '~/libs/supabase';
 
-type AllowedProvider = Extract<Provider, 'apple' | 'github' | 'google'>;
+type AllowedProvider = Extract<Provider, 'facebook' | 'github' | 'google'>;
 
 interface UseAuthMutationVariables {
   provider: AllowedProvider;
