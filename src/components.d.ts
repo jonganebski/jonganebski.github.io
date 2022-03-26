@@ -19,6 +19,7 @@ declare module 'vue' {
     ChartElevation: typeof import('./components/chart/elevation.vue')['default']
     DevToolsVueQuery: typeof import('./components/dev-tools/vue-query.vue')['default']
     IconApple: typeof import('./components/icon/apple.vue')['default']
+    IconFacebook: typeof import('./components/icon/facebook.vue')['default']
     IconGithub: typeof import('./components/icon/github.vue')['default']
     IconGo: typeof import('./components/icon/go.vue')['default']
     IconGoogle: typeof import('./components/icon/google.vue')['default']
