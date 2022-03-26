@@ -70,8 +70,12 @@ onMounted(() => {
             <span class="z-10 ml-12">{{ t('sign_in_with_github') }}</span>
           </button>
           <button class="auth-btn group">
-            <icon-google class="icon text-blue-700" @click="signIn({ provider: 'google' })" />
+            <icon-google class="icon text-red-700" @click="signIn({ provider: 'google' })" />
             <span class="z-10 ml-12">{{ t('sign_in_with_google') }}</span>
+          </button>
+          <button class="auth-btn group">
+            <icon-facebook class="icon text-blue-700" @click="signIn({ provider: 'facebook' })" />
+            <span class="z-10 ml-12">{{ t('sign_in_with_facebook') }}</span>
           </button>
         </div>
         <p class="text-xs text-gray-500">
