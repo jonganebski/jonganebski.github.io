@@ -1,4 +1,6 @@
 <script setup lang="ts">
+type Direction = 'top' | 'bottom' | 'right' | 'left';
+
 const imageUrl =
   'https://images.unsplash.com/photo-1630788232884-01f4cbad0e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80';
 
@@ -26,39 +28,65 @@ function validate() {
   return true;
 }
 
-async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
-  const node = e.currentTarget as HTMLDivElement;
-  if (!node) return;
-  const nodeT = bluePrint.value[rowNum - 1][colNum];
-  const nodeB = bluePrint.value[rowNum + 1][colNum];
-  const nodeR = bluePrint.value[rowNum][colNum + 1];
-  const nodeL = bluePrint.value[rowNum][colNum - 1];
-  if (nodeT === -1) {
+async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) {
+  const direction = getDirection(rowNum, colNum);
+  if (!direction) return;
+  node.style.transition = 'transform linear 0.1s';
+  if (direction === 'top') {
+    node.style.transform = 'translateY(-51px)';
+    await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum - 1][colNum]] = [
       bluePrint.value[rowNum - 1][colNum],
       bluePrint.value[rowNum][colNum],
     ];
   }
-  if (nodeB === -1) {
+  if (direction === 'bottom') {
     node.style.transform = 'translateY(51px)';
-    await new Promise((resolve) => setTimeout(() => resolve(true), 100));
+    await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum + 1][colNum]] = [
       bluePrint.value[rowNum + 1][colNum],
       bluePrint.value[rowNum][colNum],
     ];
   }
-  if (nodeR === -1) {
+  if (direction === 'right') {
+    node.style.transform = 'translateX(51px)';
+    await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum + 1]] = [
       bluePrint.value[rowNum][colNum + 1],
       bluePrint.value[rowNum][colNum],
     ];
   }
-  if (nodeL === -1) {
+  if (direction === 'left') {
+    node.style.transform = 'translateX(-51px)';
+    await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum - 1]] = [
       bluePrint.value[rowNum][colNum - 1],
       bluePrint.value[rowNum][colNum],
     ];
   }
+  node.style.transition = '';
+}
+
+async function sleep(milliseconds: number) {
+  await new Promise((resolve) => setTimeout(() => resolve(true), milliseconds));
+}
+
+function getDirection(rowNum: number, colNum: number): Direction | null {
+  return bluePrint.value[rowNum - 1][colNum] === -1
+    ? 'top'
+    : bluePrint.value[rowNum + 1][colNum] === -1
+    ? 'bottom'
+    : bluePrint.value[rowNum][colNum + 1] === -1
+    ? 'right'
+    : bluePrint.value[rowNum][colNum - 1] === -1
+    ? 'left'
+    : null;
+}
+
+async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
+  const node = e.currentTarget as HTMLDivElement;
+  if (!node) return;
+  switchNode(node, rowNum, colNum);
   console.log(validate());
 }
 
@@ -79,7 +107,7 @@ function computeBgPosition(node: number) {
     :style="{
       display: 'grid',
       gap: '1px',
-      gridTemplateRows: `repeat(${SIZE_Y + 2}, ${SIZE_NODE}px)`,
+      gridTemplateRows: `auto repeat(${SIZE_Y}, ${SIZE_NODE}px) auto`,
     }"
   >
     <div
@@ -87,17 +115,16 @@ function computeBgPosition(node: number) {
       :key="rowNum"
       :style="{
         display: 'grid',
-        gridTemplateColumns: `repeat(${SIZE_X + 2}, ${SIZE_NODE}px)`,
+        gridTemplateColumns: `auto repeat(${SIZE_X}, ${SIZE_NODE}px) auto`,
         gap: '1px',
         transition: 'all linear 1s',
       }"
     >
       <div v-for="(node, colNum) in row" :key="node">
         <div v-if="node === 0" :style="{ width: '0px', height: '0px' }"></div>
-        <div
-          v-else-if="node === -1"
-          :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }"
-        ></div>
+        <div v-else-if="node === -1" :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }">
+          {{ node }}
+        </div>
         <button
           v-else
           :style="{
@@ -105,9 +132,9 @@ function computeBgPosition(node: number) {
             height: `${SIZE_NODE}px`,
             backgroundImage: `url(${imageUrl})`,
             backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
-            transition: 'transform linear 0.1s',
             backgroundPosition: computeBgPosition(node),
             color: 'white',
+            transform: 'translate(0px)',
           }"
           @click="onClick($event, rowNum, colNum)"
         >
