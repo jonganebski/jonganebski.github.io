@@ -54,8 +54,8 @@ onMounted(() => {
     <div class="absolute top-1/2 transform -translate-y-1/2 left-14">
       <div v-if="isAuthContainerOpen && user" class="auth-container">
         <div class="text-dark-500">
-          <span>Email: {{ user.email }}</span>
-          <span>Provider: {{ user.app_metadata.provider }}</span>
+          <p>Email: {{ user.email }}</p>
+          <p>Provider: {{ user.app_metadata.provider?.toUpperCase() }}</p>
         </div>
         <button class="auth-btn group" @click="signOut">
           <carbon-logout class="icon text-teal-700" />
