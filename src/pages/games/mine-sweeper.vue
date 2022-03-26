@@ -191,8 +191,7 @@ function validate() {
   return true;
 }
 
-function onSelectMode(event: Event) {
-  const value = (event.target as HTMLSelectElement).value;
+function onSelectMode(value: string | number) {
   modeId.value = Number(value);
   initialize();
 }
@@ -253,20 +252,14 @@ const COLORS = {
 <template>
   <div class="min-h-screen">
     <div class="mt-10 flex justify-center">
-      <ui-select>
-        <ui-option v-for="mode in modes" :key="mode.id" :value="mode.id" :label="mode.mode" />
+      <ui-select :model-value="modeId" :label="t('mode')" @update:model-value="onSelectMode">
+        <ui-option
+          v-for="mode in modes"
+          :key="mode.id"
+          :value="mode.id"
+          :label="mode.mode.toUpperCase()"
+        />
       </ui-select>
-      <select :value="modeId" @input="onSelectMode">
-        <option v-for="mode in modes" :value="mode.id">
-          {{
-            mode.mode === 'expert'
-              ? t('expert')
-              : mode.mode === 'intermediate'
-              ? t('intermediate')
-              : t('beginner')
-          }}
-        </option>
-      </select>
     </div>
     <div class="mt-20 flex justify-center game" @contextmenu.prevent>
       <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
