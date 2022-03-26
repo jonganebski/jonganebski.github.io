@@ -73,7 +73,7 @@ export interface MineSweeperRecord {
   created_at: string;
   updated_at: string;
   user_id: string;
-  mode: number;
+  mode_id: number;
   time: number;
 }
 
