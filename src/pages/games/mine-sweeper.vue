@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTimestamp } from '@vueuse/core';
+import { useCreateMineSweeperRecordMutation } from '~/api/useCreateMineSweeperRecordMutation';
 import { useModesQuery } from '~/api/useModesQuery';
+import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 
 class Node {
@@ -114,7 +116,9 @@ class Node {
   }
 }
 
+const { data: user } = useUserQuery();
 const { data: modes, findModeById } = useModesQuery('mine-sweeper-modes');
+const createRecord = useCreateMineSweeperRecordMutation();
 
 const { t } = useMyI18n();
 
@@ -164,9 +168,16 @@ function finishGame(payload: { isSuccess: boolean }) {
   stopTimer();
   isGameOver.value = true;
   isSuccess.value = payload.isSuccess;
-  if (!payload.isSuccess) {
-    explode();
-  }
+  if (!payload.isSuccess) return explode();
+  if (!user.value) return;
+  createRecord.mutate(
+    { modeId: modeId.value, userId: user.value.id, time: time.value },
+    {
+      onSuccess: () => {
+        window.alert('New Record!');
+      },
+    },
+  );
 }
 
 function explode() {
@@ -261,7 +272,7 @@ const COLORS = {
         />
       </ui-select>
     </div>
-    <div class="mt-20 flex justify-center game" @contextmenu.prevent>
+    <div class="mt-20 flex flex-col items-center justify-center game" @contextmenu.prevent>
       <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
         <div class="p-2 grid grid-cols-3 intaglio">
           <div class="flex">
@@ -311,6 +322,7 @@ const COLORS = {
           </div>
         </div>
       </div>
+      <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
   </div>
 </template>
