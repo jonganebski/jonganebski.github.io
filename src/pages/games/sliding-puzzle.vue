@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { randArrayElements } from '~/libs/random';
+
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 const imageUrl =
@@ -13,6 +15,36 @@ const bluePrint = ref([
   [0, 0, 0, 0, -1, 0],
   [0, 0, 0, 0, 0, 0],
 ]);
+
+function getRandomNodeAround(rowNum: number, colNum: number, prevNode?: number) {
+  let result: number[] = [];
+  const top = bluePrint.value[rowNum - 1][colNum];
+  const bottom = bluePrint.value[rowNum + 1][colNum];
+  const right = bluePrint.value[rowNum][colNum + 1];
+  const left = bluePrint.value[rowNum][colNum - 1];
+  if (0 < top && top !== prevNode) result.push(top);
+  if (0 < bottom && bottom !== prevNode) result.push(bottom);
+  if (0 < right && right !== prevNode) result.push(right);
+  if (0 < left && left !== prevNode) result.push(left);
+  if (prevNode) {
+    result = result.filter((node) => node !== 16);
+  }
+  return randArrayElements(1, result)[0];
+}
+
+onMounted(async () => {
+  let prevNode;
+  for (let i = 0; i < 70; i++) {
+    await sleep(100);
+    const voidEl = document.getElementById('void') as HTMLDivElement | null;
+    if (!voidEl) return;
+    const rowNum = Number(voidEl.dataset.rownum);
+    const colNum = Number(voidEl.dataset.colnum);
+    const node = getRandomNodeAround(rowNum, colNum, prevNode);
+    document.getElementById(node.toString())?.click();
+    prevNode = node;
+  }
+});
 
 function validate() {
   let value = 0;
@@ -122,11 +154,20 @@ function computeBgPosition(node: number) {
     >
       <div v-for="(node, colNum) in row" :key="node">
         <div v-if="node === 0" :style="{ width: '0px', height: '0px' }"></div>
-        <div v-else-if="node === -1" :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }">
+        <div
+          v-else-if="node === -1"
+          id="void"
+          :data-rowNum="rowNum"
+          :data-colNum="colNum"
+          :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }"
+        >
           {{ node }}
         </div>
         <button
           v-else
+          :id="node.toString()"
+          :data-rowNum="rowNum"
+          :data-colNum="colNum"
           :style="{
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
