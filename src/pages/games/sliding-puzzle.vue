@@ -4,13 +4,24 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
+const MOVE_COUNT = 3;
+const SIZE_X = 4;
+const SIZE_Y = 4;
+const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
+
 const breakpoints = useBreakpoints(breakpointsTailwind);
 
 const smAndLarger = breakpoints.greater('sm');
 const lgAndLarger = breakpoints.greater('lg');
 
+const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
+const clickCount = ref(0);
+const score = computed(() => Math.round((clickCount.value / MOVE_COUNT) * 100));
+
 const imageUrl =
-  'https://images.unsplash.com/photo-1630788232884-01f4cbad0e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80';
+  // 'https://meblog.s3.ap-northeast-2.amazonaws.com/images/china/DSCF0343.jpg';
+  // 'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29';
+  'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80';
 
 const bluePrint = ref([
   [0, 0, 0, 0, 0, 0],
@@ -39,17 +50,21 @@ function getRandomNodeAround(rowNum: number, colNum: number, prevNode?: number) 
 }
 
 onMounted(async () => {
+  status.value = 'shuffle';
   let prevNode;
-  for (let i = 0; i < 70; i++) {
+  for (let i = 0; i < MOVE_COUNT; i++) {
     await sleep(100);
     const voidEl = document.getElementById('void') as HTMLDivElement | null;
     if (!voidEl) return;
     const rowNum = Number(voidEl.dataset.rownum);
     const colNum = Number(voidEl.dataset.colnum);
     const node = getRandomNodeAround(rowNum, colNum, prevNode);
-    document.getElementById(node.toString())?.click();
+    const el = document.getElementById(node.toString()) as HTMLDivElement | null;
+    if (!el) return;
+    await switchNode(el, Number(el.dataset.rownum), Number(el.dataset.colnum));
     prevNode = node;
   }
+  status.value = 'ready';
 });
 
 function validate() {
@@ -68,7 +83,6 @@ function validate() {
 
 async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) {
   const direction = getDirection(rowNum, colNum);
-  if (!direction) return;
   node.style.transition = 'transform linear 0.1s';
   if (direction === 'top') {
     node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
@@ -122,15 +136,14 @@ function getDirection(rowNum: number, colNum: number): Direction | null {
 }
 
 async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
+  if (status.value === 'shuffle' || status.value === 'done') return;
   const node = e.currentTarget as HTMLDivElement;
   if (!node) return;
-  switchNode(node, rowNum, colNum);
-  console.log(validate());
+  await switchNode(node, rowNum, colNum);
+  if (status.value === 'ready') status.value = 'playing';
+  clickCount.value += 1;
+  if (validate()) status.value = 'done';
 }
-
-const SIZE_X = 4;
-const SIZE_Y = 4;
-const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
 
 function computeBgPosition(node: number) {
   const x = ((node - 1) % SIZE_X) * SIZE_NODE.value * -1;
@@ -141,6 +154,10 @@ function computeBgPosition(node: number) {
 </script>
 
 <template>
+  <div>
+    <div>{{ clickCount }}</div>
+    <div>{{ score }}%</div>
+  </div>
   <div
     :style="{
       display: 'grid',
@@ -166,9 +183,7 @@ function computeBgPosition(node: number) {
           :data-rowNum="rowNum"
           :data-colNum="colNum"
           :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }"
-        >
-          {{ node }}
-        </div>
+        ></div>
         <button
           v-else
           :id="node.toString()"
@@ -185,17 +200,10 @@ function computeBgPosition(node: number) {
           }"
           @click="onClick($event, rowNum, colNum)"
         >
-          {{ node }}
+          {{ status === 'done' ? '' : node }}
         </button>
       </div>
     </div>
   </div>
-  <div
-    :style="{
-      width: `${SIZE_NODE * SIZE_X}px`,
-      height: `${SIZE_NODE * SIZE_Y}px`,
-      backgroundImage: `url(${imageUrl})`,
-      backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
-    }"
-  ></div>
+  <div v-if="status === 'done'">Congratulations!</div>
 </template>
