@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { randArrayElements } from '~/libs/random';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
+
+const breakpoints = useBreakpoints(breakpointsTailwind);
+
+const smAndLarger = breakpoints.greater('sm');
+const lgAndLarger = breakpoints.greater('lg');
 
 const imageUrl =
   'https://images.unsplash.com/photo-1630788232884-01f4cbad0e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80';
@@ -65,7 +71,7 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) 
   if (!direction) return;
   node.style.transition = 'transform linear 0.1s';
   if (direction === 'top') {
-    node.style.transform = 'translateY(-51px)';
+    node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
     await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum - 1][colNum]] = [
       bluePrint.value[rowNum - 1][colNum],
@@ -73,7 +79,7 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) 
     ];
   }
   if (direction === 'bottom') {
-    node.style.transform = 'translateY(51px)';
+    node.style.transform = `translateY(${SIZE_NODE.value}px)`;
     await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum + 1][colNum]] = [
       bluePrint.value[rowNum + 1][colNum],
@@ -81,7 +87,7 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) 
     ];
   }
   if (direction === 'right') {
-    node.style.transform = 'translateX(51px)';
+    node.style.transform = `translateX(${SIZE_NODE.value}px)`;
     await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum + 1]] = [
       bluePrint.value[rowNum][colNum + 1],
@@ -89,7 +95,7 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) 
     ];
   }
   if (direction === 'left') {
-    node.style.transform = 'translateX(-51px)';
+    node.style.transform = `translateX(-${SIZE_NODE.value}px)`;
     await sleep(100);
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum - 1]] = [
       bluePrint.value[rowNum][colNum - 1],
@@ -124,11 +130,11 @@ async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
 
 const SIZE_X = 4;
 const SIZE_Y = 4;
-const SIZE_NODE = 50;
+const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
 
 function computeBgPosition(node: number) {
-  const x = ((node - 1) % SIZE_X) * SIZE_NODE * -1;
-  const y = Math.floor((node - 1) / SIZE_Y) * SIZE_NODE * -1;
+  const x = ((node - 1) % SIZE_X) * SIZE_NODE.value * -1;
+  const y = Math.floor((node - 1) / SIZE_Y) * SIZE_NODE.value * -1;
   const t = `${x}px ${y}px`;
   return t;
 }
