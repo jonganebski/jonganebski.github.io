@@ -18,7 +18,7 @@ export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
   plugins: [
     Vue({ include: [/\.vue$/, /\.md$/] }),
-    Pages({ extensions: ['vue', 'md'] }),
+    Pages({ extensions: ['vue', 'md'], exclude: ['**/composables/*', '**/components/*'] }),
     Layouts(),
     AutoImport({
       imports: ['vue', 'vue-router', 'vue-i18n', '@vueuse/head', '@vueuse/core'],
