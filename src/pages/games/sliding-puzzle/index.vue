@@ -235,6 +235,7 @@ function computeBgPosition(node: number) {
           :data-rowNum="rowNum"
           :data-colNum="colNum"
           :style="{
+            position: 'relative',
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
             backgroundImage: `url(${imageUrl})`,
@@ -245,6 +246,10 @@ function computeBgPosition(node: number) {
           }"
           @click="onClick($event, rowNum, colNum)"
         >
+          <div
+            class="absolute top-0 left-0 w-full h-full bg-white opacity-0"
+            :class="{ done: status === 'done' }"
+          ></div>
           {{ status === 'done' ? '' : node }}
         </button>
       </div>
@@ -253,3 +258,24 @@ function computeBgPosition(node: number) {
   <div v-if="status === 'done'">Congratulations!</div>
   <ui-contour-lines />
 </template>
+
+<style scoped lang="css">
+@keyframes done {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.done {
+  animation: done linear 5s;
+}
+</style>
