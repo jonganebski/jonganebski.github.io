@@ -48,7 +48,7 @@ provide(
 </script>
 
 <template>
-  <div class="relative group mt-5">
+  <div class="relative z-10 group mt-5">
     <label
       class="block rounded cursor-pointer transition-all transform group-hover:shadow"
       @mousedown="toggleOptions"
@@ -58,7 +58,8 @@ provide(
       <input
         type="text"
         :value="selectedOptionLabel"
-        class="px-2 py-1 outline-none bg-gray-200 rounded transition-all transform group-hover:bg-white cursor-pointer group-hover:-translate-y-1"
+        class="px-2 py-1 w-full outline-none bg-gray-200 rounded transition-all transform group-hover:bg-white cursor-pointer group-hover:-translate-y-1"
+        readonly
       />
       <span
         class="absolute top-0 left-0 z-10 px-2 py-1 h-full flex items-center text-sm transition-transform transform"
@@ -81,7 +82,7 @@ provide(
     </label>
     <div
       v-show="isOptionsOpen"
-      class="absolute p-1 max-h-96 grid w-full border bg-light-200 shadow-lg overflow-auto"
+      class="absolute p-1 max-h-96 grid min-w-full border bg-light-200 shadow-lg"
     >
       <slot />
     </div>

@@ -19,7 +19,10 @@ const modelValue = inject<ComputedRef<string | number>>('modelValue');
     :class="{ 'bg-rose-50 text-rose-600': modelValue === props.value }"
     @mousedown="onClickOption && onClickOption(props.value)"
   >
-    <span class="flex transition-all transform" :class="{ inactive: modelValue !== props.value }">
+    <span
+      class="flex text-sm whitespace-nowrap transition-all transform"
+      :class="{ inactive: modelValue !== props.value }"
+    >
       {{ props.label }}
     </span>
   </button>
