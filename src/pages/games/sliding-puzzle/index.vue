@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { randArrayElements } from '~/libs/random';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-import Hello from './components/hello.vue';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
@@ -178,7 +177,6 @@ function computeBgPosition(node: number) {
 </script>
 
 <template>
-  <Hello></Hello>
   <div>
     <div>{{ clickCount }}</div>
     <div>{{ score }}%</div>
