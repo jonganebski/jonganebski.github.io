@@ -1,7 +1,7 @@
 import { useCreateMineSweeperRecordMutation } from '~/api/useCreateMineSweeperRecordMutation';
 import { useTimestamp } from '@vueuse/core';
 import { useUserQuery } from '~/api/useUserQuery';
-import { useModesQuery } from '~/api/useModesQuery';
+import { useModes } from './useModes';
 
 export function useMineSweeper() {
   class Node {
@@ -114,91 +114,56 @@ export function useMineSweeper() {
       this.isQuestion = false;
     }
   }
-  const { data: modes, findModeById } = useModesQuery('mine-sweeper-modes');
 
-  const route = useRoute();
+  const MAX_TIME = 1000 * 999;
+  const COLORS = {
+    surfaceLight: '#c6c6c6',
+    surfaceDark: '#C0C0C0',
+    shadow: '#808080',
+  };
+
+  const createRecord = useCreateMineSweeperRecordMutation();
   const { data: user } = useUserQuery();
-  const modeId = ref<number>(route.query.mode ? +route.query.mode.toString() : 1);
-  const modeName = computed(() => findModeById(modeId.value));
+
+  const { modeId, modeName } = useModes();
+
+  const game = ref<Node[][]>([]);
+
+  const flagCount = ref(0);
 
   const isGameOver = ref<boolean>(false);
   const isSuccess = ref<boolean>(false);
+
   const gameStartedAt = ref<number | null>(null);
+
   const {
     timestamp,
     pause: stopTimer,
     resume: startTimer,
   } = useTimestamp({ immediate: false, controls: true });
-  const time = computed(() => (gameStartedAt.value ? timestamp.value - gameStartedAt.value : 0));
-  const MAX_TIME = 1000 * 999;
-  const createRecord = useCreateMineSweeperRecordMutation();
 
-  const game = ref<Node[][]>([]);
-  const flagCount = ref(0);
+  const time = computed(() => (gameStartedAt.value ? timestamp.value - gameStartedAt.value : 0));
 
   watch(time, () => {
     if (time.value < MAX_TIME) return;
     finishGame({ isSuccess: false });
   });
 
-  function finishGame(payload: { isSuccess: boolean }) {
-    stopTimer();
-    isGameOver.value = true;
-    isSuccess.value = payload.isSuccess;
-    if (!payload.isSuccess) return explode();
-    if (!user.value) return;
-    createRecord.mutate(
-      { modeId: modeId.value, userId: user.value.id, time: time.value },
-      {
-        onSuccess: () => {
-          window.alert('New Record!');
-        },
-      },
-    );
-  }
-
   const meta = computed(() =>
     modeName.value === 'expert'
       ? { totalMines: 99, rows: 16, cols: 30 }
       : modeName.value === 'intermediate'
       ? { totalMines: 40, rows: 16, cols: 16 }
-      : { totalMines: 10, rows: 9, cols: 9 },
+      : modeName.value === 'beginner'
+      ? { totalMines: 10, rows: 9, cols: 9 }
+      : { totalMines: 0, rows: 0, cols: 0 },
   );
 
-  function withController(fn: () => void) {
-    if (isGameOver.value) return;
-    if (!gameStartedAt.value) startGame();
-    fn();
-    if (meta.value.totalMines !== flagCount.value) return;
-    validate() && finishGame({ isSuccess: true });
-  }
-
-  function startGame() {
-    gameStartedAt.value = new Date().getTime();
-    startTimer();
-  }
-
-  function explode() {
-    game.value.forEach((row) => {
-      row.forEach((node) => {
-        if (node.isFlagged) return;
-        if (!node.isMine) return;
-        node.isExploded = true;
-      });
-    });
-  }
-
-  function validate() {
-    for (let rowNum = 0; rowNum < game.value.length; rowNum++) {
-      for (let colNum = 0; colNum < game.value[rowNum].length; colNum++) {
-        const node = game.value[rowNum][colNum];
-        if (node.isMine && node.isFlagged) continue;
-        if (!node.isVeiled) continue;
-        return false;
-      }
-    }
-    return true;
-  }
+  watch(
+    () => meta.value,
+    () => initialize(),
+    { immediate: true },
+  );
 
   function initialize() {
     stopTimer();
@@ -226,5 +191,66 @@ export function useMineSweeper() {
     }
   }
 
-  return { isGameOver, isSuccess, flagCount, initialize, meta, game, withController, time };
+  function startGame() {
+    gameStartedAt.value = new Date().getTime();
+    startTimer();
+  }
+
+  function finishGame(payload: { isSuccess: boolean }) {
+    stopTimer();
+    isGameOver.value = true;
+    isSuccess.value = payload.isSuccess;
+    if (!payload.isSuccess) return explode();
+    if (!user.value) return;
+    createRecord.mutate(
+      { modeId: modeId.value, userId: user.value.id, time: time.value },
+      {
+        onSuccess: () => {
+          window.alert('New Record!');
+        },
+      },
+    );
+  }
+
+  function withController(fn: () => void) {
+    if (isGameOver.value) return;
+    if (!gameStartedAt.value) startGame();
+    fn();
+    if (meta.value.totalMines !== flagCount.value) return;
+    validate() && finishGame({ isSuccess: true });
+  }
+
+  function explode() {
+    game.value.forEach((row) => {
+      row.forEach((node) => {
+        if (node.isFlagged) return;
+        if (!node.isMine) return;
+        node.isExploded = true;
+      });
+    });
+  }
+
+  function validate() {
+    for (let rowNum = 0; rowNum < game.value.length; rowNum++) {
+      for (let colNum = 0; colNum < game.value[rowNum].length; colNum++) {
+        const node = game.value[rowNum][colNum];
+        if (node.isMine && node.isFlagged) continue;
+        if (!node.isVeiled) continue;
+        return false;
+      }
+    }
+    return true;
+  }
+
+  return {
+    withController,
+    initialize,
+    isGameOver,
+    flagCount,
+    isSuccess,
+    COLORS,
+    game,
+    meta,
+    time,
+  };
 }
