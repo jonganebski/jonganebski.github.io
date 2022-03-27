@@ -4,9 +4,9 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
-const MOVE_COUNT = 30;
 const SIZE_X = 4;
 const SIZE_Y = 4;
+const MOVE_COUNT = SIZE_X * SIZE_Y * 2;
 const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -16,13 +16,19 @@ const lgAndLarger = breakpoints.greater('lg');
 
 const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
 const clickCount = ref(0);
-const score = computed(() => Math.round((clickCount.value / MOVE_COUNT) * 100));
+const score = computed(() => clickCount.value - MOVE_COUNT);
 
 const images = [
-  'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29',
-  'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
-  'https://wallpapercave.com/wp/wp9322869.jpg',
-  'https://wallpapercave.com/wp/wp9322942.jpg',
+  {
+    name: 'Jean Alter',
+    url: 'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29',
+  },
+  {
+    name: 'Fox',
+    url: 'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
+  },
+  { name: 'Lena-1', url: 'https://wallpapercave.com/wp/wp9322869.jpg' },
+  { name: 'Lena-2', url: 'https://wallpapercave.com/wp/wp9322942.jpg' },
 ];
 
 const imageUrl = ref(
@@ -39,8 +45,8 @@ const bluePrint = ref([
   [0, 0, 0, 0, 0, 0],
 ]);
 
-function selectImage(index: number) {
-  imageUrl.value = images[index];
+function selectImage(value: string | number) {
+  imageUrl.value = typeof value === 'string' ? value : value.toString();
   initialize();
 }
 
@@ -140,6 +146,7 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, 
     ];
   }
   if (transition) node.style.transition = '';
+  return direction ? true : false;
 }
 
 async function sleep(milliseconds: number) {
@@ -162,9 +169,8 @@ async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
   if (status.value === 'shuffle' || status.value === 'done') return;
   const node = e.currentTarget as HTMLDivElement;
   if (!node) return;
-  await switchNode(node, rowNum, colNum);
+  if (await switchNode(node, rowNum, colNum)) clickCount.value += 1;
   if (status.value === 'ready') status.value = 'playing';
-  clickCount.value += 1;
   if (validate()) status.value = 'done';
 }
 
@@ -177,14 +183,25 @@ function computeBgPosition(node: number) {
 </script>
 
 <template>
-  <div>
-    <div>{{ clickCount }}</div>
-    <div>{{ score }}%</div>
-  </div>
-  <div>
-    <button v-for="(image, index) in images" @click="selectImage(index)">
-      <img :src="image" width="200" height="200" class="w-[200px] h-[200px] object-fill" />
-    </button>
+  <div class="my-10 grid gap-5 place-items-center">
+    <ui-select :model-value="imageUrl" @update:model-value="selectImage" label="Image" class="w-56">
+      <ui-option
+        v-for="(image, index) in images"
+        :key="index"
+        :value="image.url"
+        :label="image.name"
+      />
+    </ui-select>
+    <div>
+      <div>{{ clickCount }}</div>
+      <div
+        :class="[
+          score < 0 ? 'text-green-500' : score < MOVE_COUNT ? 'text-yellow-500' : 'text-red-500',
+        ]"
+      >
+        {{ score > 0 ? `+${score}` : score }} moves
+      </div>
+    </div>
   </div>
   <div
     :style="{
@@ -234,4 +251,5 @@ function computeBgPosition(node: number) {
     </div>
   </div>
   <div v-if="status === 'done'">Congratulations!</div>
+  <ui-contour-lines />
 </template>
