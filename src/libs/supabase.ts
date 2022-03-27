@@ -6,6 +6,32 @@ import { createClient } from '@supabase/supabase-js';
 import { supabaseAnonKey, supabaseUrl } from './env';
 
 /*----------------------------------
+| Profiles Table
+----------------------------------*/
+
+/**
+ * ### Interface of the Profiles Table
+ *
+ * @example
+ * ```ts
+ * id: '627cbb5c-8c85-4bc4-92f5-952353eca321';
+ * created_at: '2022-02-07T05:56:07+00:00';
+ * updated_at: '2022-02-07T05:56:07+00:00';
+ * email: 'jon.ganebski@gmail.com';
+ * avatar_url: 'https://avatars.githubusercontent.com/u/62702084?v=4';
+ * user_name: 'jonganebski';
+ * ```
+ */
+export interface Profile {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  email?: string;
+  avatar_url?: string;
+  user_name?: string;
+}
+
+/*----------------------------------
 | Points Table
 ----------------------------------*/
 
