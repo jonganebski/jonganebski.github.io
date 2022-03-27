@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useModesQuery } from '~/api/useModesQuery';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import { useMineSweeper } from './composables/useMineSweeper';
@@ -7,26 +6,12 @@ import Controller from './components/controller.vue';
 import Records from './components/records.vue';
 
 const { data: user } = useUserQuery();
-const route = useRoute();
-const { data: modes } = useModesQuery('mine-sweeper-modes');
 
-const { isGameOver, isSuccess, flagCount, initialize, meta, game, withController, time } =
+const { COLORS, isGameOver, isSuccess, flagCount, initialize, meta, game, withController, time } =
   useMineSweeper();
 
 const { t } = useMyI18n();
 
-const modeId = ref<number>(route.query.mode ? +route.query.mode.toString() : 1);
-const { data: records } = useMineSweeperRecordsQuery(modeId);
-
-const COLORS = {
-  surfaceLight: '#c6c6c6',
-  surfaceDark: '#C0C0C0',
-  shadow: '#808080',
-};
-function onSelectMode(value: string | number) {
-  modeId.value = Number(value);
-  // initialize();
-}
 function getHintColor(hint: number) {
   return hint === 1
     ? 'text-blue-700'
@@ -42,17 +27,18 @@ function getHintColor(hint: number) {
     ? 'text-cyan-600'
     : 'text-black';
 }
-onMounted(() => {
-  initialize();
-});
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen grid place-items-center">
     <div class="mt-10 flex justify-center">
       <controller />
     </div>
-    <div class="mt-20 flex flex-col items-center justify-center game" @contextmenu.prevent>
+    <div
+      v-if="0 < meta.rows && 0 < meta.cols"
+      class="mt-20 flex flex-col items-center justify-center game"
+      @contextmenu.prevent
+    >
       <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
         <div class="p-2 grid grid-cols-3 intaglio">
           <div class="flex">
