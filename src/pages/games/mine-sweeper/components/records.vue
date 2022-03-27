@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import { useMineSweeperRecordsQuery } from '~/api/useMineSweeperRecordsQuery';
+import { useModes } from '../composables/useModes';
+
+const { modeId } = useModes();
+
+const { data, isLoading } = useMineSweeperRecordsQuery(modeId);
+</script>
+
+<template>
+  <div class="mt-10 p-10 rounded shadow-lg">
+    <table class="mx-auto text-sm">
+      <thead>
+        <tr>
+          <th class="pb-5 pr-10"><carbon-list-numbered class="mx-auto" /></th>
+          <th class="pb-5 px-10 w-48"><carbon-user class="mx-auto" /></th>
+          <th class="pb-5 pl-10"><carbon-time class="mx-auto" /></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-if="isLoading">
+          <td colspan="3" class="py-10 text-center">Loading...</td>
+        </tr>
+        <tr v-else-if="!data || data.length === 0">
+          <td colspan="3" class="py-10 text-center">No Data</td>
+        </tr>
+        <tr v-else v-for="(record, index) in data" :key="record.id">
+          <td class="py-2 pr-10 text-center">
+            {{ index + 1 }}
+          </td>
+          <td class="py-2">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <ui-lazy-image
+                  :src="record.user.avatar_url ?? ''"
+                  :width="40"
+                  :height="40"
+                  class="rounded-full"
+                />
+                <span v-if="index + 1 <= 3" class="absolute top-0 right-0 text-xl">
+                  {{
+                    index + 1 === 1 ? '🥇' : index + 1 === 2 ? '🥈' : index + 1 === 3 ? '🥉' : ''
+                  }}
+                </span>
+              </div>
+              <span class="w-48 truncate">{{ record.user.user_name }}</span>
+            </div>
+          </td>
+          <td class="py-2 text-right">{{ (record.time / 1000).toFixed(2) }}`s</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>

@@ -4,6 +4,7 @@ import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import { useMineSweeper } from './composables/useMineSweeper';
 import Controller from './components/controller.vue';
+import Records from './components/records.vue';
 
 const { data: user } = useUserQuery();
 const route = useRoute();
@@ -103,41 +104,7 @@ onMounted(() => {
       </div>
       <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
-    <table class="mt-10 mx-auto text-sm">
-      <thead>
-        <tr>
-          <th class="pr-6"><carbon-list-numbered class="mx-auto" /></th>
-          <th class="px-8 w-48"><carbon-user class="mx-auto" /></th>
-          <th class="px-8"><carbon-time class="mx-auto" /></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(record, index) in records" :key="record.id">
-          <td class="py-2 pr-6 text-center">
-            {{ index + 1 }}
-          </td>
-          <td class="py-2">
-            <div class="flex items-center gap-3">
-              <div class="relative">
-                <ui-lazy-image
-                  :src="record.user.avatar_url ?? ''"
-                  :width="40"
-                  :height="40"
-                  class="rounded-full"
-                />
-                <span v-if="index + 1 <= 3" class="absolute top-0 right-0 text-xl">
-                  {{
-                    index + 1 === 1 ? '🥇' : index + 1 === 2 ? '🥈' : index + 1 === 3 ? '🥉' : ''
-                  }}
-                </span>
-              </div>
-              <span class="w-48 truncate"> {{ record.user.user_name }}lknasihweknefweknwvj </span>
-            </div>
-          </td>
-          <td class="py-2 text-right">{{ (record.time / 1000).toFixed(2) }} sec</td>
-        </tr>
-      </tbody>
-    </table>
+    <records />
   </div>
 </template>
 
