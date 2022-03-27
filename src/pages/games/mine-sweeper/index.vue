@@ -3,7 +3,7 @@ import { useModesQuery } from '~/api/useModesQuery';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import { useMineSweeper } from './composables/useMineSweeper';
-import { useMineSweeperRecordsQuery } from '~/api/useMineSweeperRecordsQuery';
+import Controller from './components/controller.vue';
 
 const { data: user } = useUserQuery();
 const route = useRoute();
@@ -49,14 +49,7 @@ onMounted(() => {
 <template>
   <div class="min-h-screen">
     <div class="mt-10 flex justify-center">
-      <ui-select :model-value="modeId" :label="t('mode')" @update:model-value="onSelectMode">
-        <ui-option
-          v-for="mode in modes"
-          :key="mode.id"
-          :value="mode.id"
-          :label="mode.mode.toUpperCase()"
-        />
-      </ui-select>
+      <controller />
     </div>
     <div class="mt-20 flex flex-col items-center justify-center game" @contextmenu.prevent>
       <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
