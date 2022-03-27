@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { getTechPosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
+import PartyBtn from './components/party-btn.vue';
+import FloatingIcon from './components/floating-icon.vue';
 
 const { locale, t } = useMyI18n();
 
@@ -43,14 +45,14 @@ function formatDate(dateString: string) {
             {{ formatDate(date) }}
           </p>
           <h5 class="mt-6 text-5xl">{{ title[locale] }}</h5>
-          <ui-party-btn
+          <party-btn
             :content="t('click').toUpperCase()"
             :to="`/posts/techs/${fileName}`"
             class="mt-10 text-sm"
           />
         </div>
         <client-only>
-          <ui-floating-icon :index="index" />
+          <floating-icon :index="index" />
         </client-only>
       </li>
     </ul>

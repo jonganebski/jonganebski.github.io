@@ -2,6 +2,7 @@
 import CountryFlag from 'vue-country-flag-next';
 import { getRoutePosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
+import WorldMap from './components/world-map.vue';
 
 interface HoverMeta {
   fileName: string;
@@ -41,7 +42,7 @@ watch(hoverMeta, () => {
 <template>
   <div class="h-screen grid grid-rows-[65fr,10fr,auto] bg-light-500 dark:bg-dark-500">
     <client-only>
-      <map-summary v-model:hoverMeta="hoverMeta" :posts="posts" />
+      <world-map v-model:hoverMeta="hoverMeta" :posts="posts" />
     </client-only>
     <div class="grid place-items-center">
       <div v-show="hoverPost">

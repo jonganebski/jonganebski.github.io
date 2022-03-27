@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { randArrayElements } from '~/libs/random';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import Hello from './components/hello.vue';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
-const MOVE_COUNT = 3;
+const MOVE_COUNT = 30;
 const SIZE_X = 4;
 const SIZE_Y = 4;
 const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
@@ -18,10 +19,16 @@ const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
 const clickCount = ref(0);
 const score = computed(() => Math.round((clickCount.value / MOVE_COUNT) * 100));
 
-const imageUrl =
-  // 'https://meblog.s3.ap-northeast-2.amazonaws.com/images/china/DSCF0343.jpg';
-  // 'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29';
-  'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80';
+const images = [
+  'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29',
+  'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
+  'https://wallpapercave.com/wp/wp9322869.jpg',
+  'https://wallpapercave.com/wp/wp9322942.jpg',
+];
+
+const imageUrl = ref(
+  'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
+);
 
 const bluePrint = ref([
   [0, 0, 0, 0, 0, 0],
@@ -32,6 +39,11 @@ const bluePrint = ref([
   [0, 0, 0, 0, -1, 0],
   [0, 0, 0, 0, 0, 0],
 ]);
+
+function selectImage(index: number) {
+  imageUrl.value = images[index];
+  initialize();
+}
 
 function getRandomNodeAround(rowNum: number, colNum: number, prevNode?: number) {
   let result: number[] = [];
@@ -49,11 +61,11 @@ function getRandomNodeAround(rowNum: number, colNum: number, prevNode?: number) 
   return randArrayElements(1, result)[0];
 }
 
-onMounted(async () => {
+async function initialize() {
+  clickCount.value = 0;
   status.value = 'shuffle';
   let prevNode;
   for (let i = 0; i < MOVE_COUNT; i++) {
-    await sleep(100);
     const voidEl = document.getElementById('void') as HTMLDivElement | null;
     if (!voidEl) return;
     const rowNum = Number(voidEl.dataset.rownum);
@@ -61,10 +73,14 @@ onMounted(async () => {
     const node = getRandomNodeAround(rowNum, colNum, prevNode);
     const el = document.getElementById(node.toString()) as HTMLDivElement | null;
     if (!el) return;
-    await switchNode(el, Number(el.dataset.rownum), Number(el.dataset.colnum));
+    await switchNode(el, Number(el.dataset.rownum), Number(el.dataset.colnum), false);
     prevNode = node;
   }
   status.value = 'ready';
+}
+
+onMounted(async () => {
+  await initialize();
 });
 
 function validate() {
@@ -81,42 +97,50 @@ function validate() {
   return true;
 }
 
-async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number) {
+async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, transition = true) {
   const direction = getDirection(rowNum, colNum);
-  node.style.transition = 'transform linear 0.1s';
+  if (transition) node.style.transition = 'transform linear 0.1s';
   if (direction === 'top') {
-    node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
-    await sleep(100);
+    if (transition) {
+      node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
+      await sleep(100);
+    }
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum - 1][colNum]] = [
       bluePrint.value[rowNum - 1][colNum],
       bluePrint.value[rowNum][colNum],
     ];
   }
   if (direction === 'bottom') {
-    node.style.transform = `translateY(${SIZE_NODE.value}px)`;
-    await sleep(100);
+    if (transition) {
+      node.style.transform = `translateY(${SIZE_NODE.value}px)`;
+      await sleep(100);
+    }
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum + 1][colNum]] = [
       bluePrint.value[rowNum + 1][colNum],
       bluePrint.value[rowNum][colNum],
     ];
   }
   if (direction === 'right') {
-    node.style.transform = `translateX(${SIZE_NODE.value}px)`;
-    await sleep(100);
+    if (transition) {
+      node.style.transform = `translateX(${SIZE_NODE.value}px)`;
+      await sleep(100);
+    }
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum + 1]] = [
       bluePrint.value[rowNum][colNum + 1],
       bluePrint.value[rowNum][colNum],
     ];
   }
   if (direction === 'left') {
-    node.style.transform = `translateX(-${SIZE_NODE.value}px)`;
-    await sleep(100);
+    if (transition) {
+      node.style.transform = `translateX(-${SIZE_NODE.value}px)`;
+      await sleep(100);
+    }
     [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum - 1]] = [
       bluePrint.value[rowNum][colNum - 1],
       bluePrint.value[rowNum][colNum],
     ];
   }
-  node.style.transition = '';
+  if (transition) node.style.transition = '';
 }
 
 async function sleep(milliseconds: number) {
@@ -154,9 +178,15 @@ function computeBgPosition(node: number) {
 </script>
 
 <template>
+  <Hello></Hello>
   <div>
     <div>{{ clickCount }}</div>
     <div>{{ score }}%</div>
+  </div>
+  <div>
+    <button v-for="(image, index) in images" @click="selectImage(index)">
+      <img :src="image" width="200" height="200" class="w-[200px] h-[200px] object-fill" />
+    </button>
   </div>
   <div
     :style="{
