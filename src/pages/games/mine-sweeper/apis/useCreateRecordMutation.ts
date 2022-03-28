@@ -1,7 +1,7 @@
 import { useMutation } from 'vue-query';
 import { MineSweeperRecord, supabase } from '~/libs/supabase';
 
-export function useCreateMineSweeperRecordMutation() {
+export function useCreateRecordMutation() {
   return useMutation<any, unknown, { modeId: number; userId: string; time: number }>(
     async ({ modeId, userId, time }) => {
       const { data } = await supabase

@@ -1,6 +1,6 @@
 import { useTimestamp } from '@vueuse/core';
 import { useUserQuery } from '~/api/useUserQuery';
-import { useCreateMineSweeperRecordMutation } from '../apis/useCreateMineSweeperRecordMutation';
+import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 import { useModes } from './useModes';
 
 export function useMineSweeper() {
@@ -122,7 +122,7 @@ export function useMineSweeper() {
     shadow: '#808080',
   };
 
-  const createRecord = useCreateMineSweeperRecordMutation();
+  const createRecord = useCreateRecordMutation();
   const { data: user } = useUserQuery();
 
   const { modeId, modeName } = useModes();

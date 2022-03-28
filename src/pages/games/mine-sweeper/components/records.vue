@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useMineSweeperRecordsQuery } from '../apis/useMineSweeperRecordsQuery';
+import { useRecordsQuery } from '../apis/useRecordsQuery';
 import { useModes } from '../composables/useModes';
 
 const { modeId } = useModes();
 
-const { data, isLoading } = useMineSweeperRecordsQuery(modeId);
+const { data, isLoading } = useRecordsQuery(modeId);
 </script>
 
 <template>
