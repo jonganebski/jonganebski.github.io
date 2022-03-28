@@ -1,15 +1,15 @@
 <script setup lang="ts">
 interface Props {
-  label: string;
+  categoryName: string;
 }
 
 const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="mt-2 text-sm font-bold">
-    <span class="pl-1">{{ props.label }}</span>
-    <div display="pl-2 grid">
+  <div class="mt-2 text-sm">
+    <span class="pl-2 font-bold">{{ props.categoryName }}</span>
+    <div display="mt-1 grid">
       <slot />
     </div>
   </div>
