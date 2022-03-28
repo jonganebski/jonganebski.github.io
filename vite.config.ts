@@ -6,13 +6,14 @@ import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
+import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
-import WindiCSS from 'vite-plugin-windicss';
 import WasmPack from 'vite-plugin-wasm-pack';
+import WindiCSS from 'vite-plugin-windicss';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
@@ -27,7 +28,7 @@ export default defineConfig({
     Components({
       directoryAsNamespace: true,
       extensions: ['vue', 'md'],
-      resolvers: [IconsResolver({ prefix: false })],
+      resolvers: [IconsResolver({ prefix: false }), HeadlessUiResolver()],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
     }),
