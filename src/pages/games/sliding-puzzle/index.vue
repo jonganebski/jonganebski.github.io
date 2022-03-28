@@ -50,12 +50,12 @@ function selectImage(value: string | number) {
   initialize();
 }
 
-function getRandomNodeAround(rowNum: number, colNum: number, prevNode?: number) {
+function getRandomNodeAround(rowIdx: number, colIdx: number, prevNode?: number) {
   let result: number[] = [];
-  const top = bluePrint.value[rowNum - 1][colNum];
-  const bottom = bluePrint.value[rowNum + 1][colNum];
-  const right = bluePrint.value[rowNum][colNum + 1];
-  const left = bluePrint.value[rowNum][colNum - 1];
+  const top = bluePrint.value[rowIdx - 1][colIdx];
+  const bottom = bluePrint.value[rowIdx + 1][colIdx];
+  const right = bluePrint.value[rowIdx][colIdx + 1];
+  const left = bluePrint.value[rowIdx][colIdx - 1];
   if (0 < top && top !== prevNode) result.push(top);
   if (0 < bottom && bottom !== prevNode) result.push(bottom);
   if (0 < right && right !== prevNode) result.push(right);
@@ -73,12 +73,12 @@ async function initialize() {
   for (let i = 0; i < MOVE_COUNT; i++) {
     const voidEl = document.getElementById('void') as HTMLDivElement | null;
     if (!voidEl) return;
-    const rowNum = Number(voidEl.dataset.rownum);
-    const colNum = Number(voidEl.dataset.colnum);
-    const node = getRandomNodeAround(rowNum, colNum, prevNode);
+    const rowIdx = Number(voidEl.dataset.rowidx);
+    const colIdx = Number(voidEl.dataset.colidx);
+    const node = getRandomNodeAround(rowIdx, colIdx, prevNode);
     const el = document.getElementById(node.toString()) as HTMLDivElement | null;
     if (!el) return;
-    await switchNode(el, Number(el.dataset.rownum), Number(el.dataset.colnum), false);
+    await switchNode(el, Number(el.dataset.rowidx), Number(el.dataset.colidx), false);
     prevNode = node;
   }
   status.value = 'ready';
@@ -102,17 +102,17 @@ function validate() {
   return true;
 }
 
-async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, transition = true) {
-  const direction = getDirection(rowNum, colNum);
+async function switchNode(node: HTMLDivElement, rowIdx: number, colIdx: number, transition = true) {
+  const direction = getDirection(rowIdx, colIdx);
   if (transition) node.style.transition = 'transform linear 0.1s';
   if (direction === 'top') {
     if (transition) {
       node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
       await sleep(100);
     }
-    [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum - 1][colNum]] = [
-      bluePrint.value[rowNum - 1][colNum],
-      bluePrint.value[rowNum][colNum],
+    [bluePrint.value[rowIdx][colIdx], bluePrint.value[rowIdx - 1][colIdx]] = [
+      bluePrint.value[rowIdx - 1][colIdx],
+      bluePrint.value[rowIdx][colIdx],
     ];
   }
   if (direction === 'bottom') {
@@ -120,9 +120,9 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, 
       node.style.transform = `translateY(${SIZE_NODE.value}px)`;
       await sleep(100);
     }
-    [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum + 1][colNum]] = [
-      bluePrint.value[rowNum + 1][colNum],
-      bluePrint.value[rowNum][colNum],
+    [bluePrint.value[rowIdx][colIdx], bluePrint.value[rowIdx + 1][colIdx]] = [
+      bluePrint.value[rowIdx + 1][colIdx],
+      bluePrint.value[rowIdx][colIdx],
     ];
   }
   if (direction === 'right') {
@@ -130,9 +130,9 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, 
       node.style.transform = `translateX(${SIZE_NODE.value}px)`;
       await sleep(100);
     }
-    [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum + 1]] = [
-      bluePrint.value[rowNum][colNum + 1],
-      bluePrint.value[rowNum][colNum],
+    [bluePrint.value[rowIdx][colIdx], bluePrint.value[rowIdx][colIdx + 1]] = [
+      bluePrint.value[rowIdx][colIdx + 1],
+      bluePrint.value[rowIdx][colIdx],
     ];
   }
   if (direction === 'left') {
@@ -140,9 +140,9 @@ async function switchNode(node: HTMLDivElement, rowNum: number, colNum: number, 
       node.style.transform = `translateX(-${SIZE_NODE.value}px)`;
       await sleep(100);
     }
-    [bluePrint.value[rowNum][colNum], bluePrint.value[rowNum][colNum - 1]] = [
-      bluePrint.value[rowNum][colNum - 1],
-      bluePrint.value[rowNum][colNum],
+    [bluePrint.value[rowIdx][colIdx], bluePrint.value[rowIdx][colIdx - 1]] = [
+      bluePrint.value[rowIdx][colIdx - 1],
+      bluePrint.value[rowIdx][colIdx],
     ];
   }
   if (transition) node.style.transition = '';
@@ -153,23 +153,23 @@ async function sleep(milliseconds: number) {
   await new Promise((resolve) => setTimeout(() => resolve(true), milliseconds));
 }
 
-function getDirection(rowNum: number, colNum: number): Direction | null {
-  return bluePrint.value[rowNum - 1][colNum] === -1
+function getDirection(rowIdx: number, colIdx: number): Direction | null {
+  return bluePrint.value[rowIdx - 1][colIdx] === -1
     ? 'top'
-    : bluePrint.value[rowNum + 1][colNum] === -1
+    : bluePrint.value[rowIdx + 1][colIdx] === -1
     ? 'bottom'
-    : bluePrint.value[rowNum][colNum + 1] === -1
+    : bluePrint.value[rowIdx][colIdx + 1] === -1
     ? 'right'
-    : bluePrint.value[rowNum][colNum - 1] === -1
+    : bluePrint.value[rowIdx][colIdx - 1] === -1
     ? 'left'
     : null;
 }
 
-async function onClick(e: MouseEvent, rowNum: number, colNum: number) {
+async function onClick(e: MouseEvent, rowIdx: number, colIdx: number) {
   if (status.value === 'shuffle' || status.value === 'done') return;
   const node = e.currentTarget as HTMLDivElement;
   if (!node) return;
-  if (await switchNode(node, rowNum, colNum)) clickCount.value += 1;
+  if (await switchNode(node, rowIdx, colIdx)) clickCount.value += 1;
   if (status.value === 'ready') status.value = 'playing';
   if (validate()) status.value = 'done';
 }
@@ -211,8 +211,8 @@ function computeBgPosition(node: number) {
     }"
   >
     <div
-      v-for="(row, rowNum) in bluePrint"
-      :key="rowNum"
+      v-for="(row, rowIdx) in bluePrint"
+      :key="rowIdx"
       :style="{
         display: 'grid',
         gridTemplateColumns: `auto repeat(${SIZE_X}, ${SIZE_NODE}px) auto`,
@@ -220,20 +220,20 @@ function computeBgPosition(node: number) {
         transition: 'all linear 1s',
       }"
     >
-      <div v-for="(node, colNum) in row" :key="node">
+      <div v-for="(node, colIdx) in row" :key="node">
         <div v-if="node === 0" :style="{ width: '0px', height: '0px' }"></div>
         <div
           v-else-if="node === -1"
           id="void"
-          :data-rowNum="rowNum"
-          :data-colNum="colNum"
+          :data-rowIdx="rowIdx"
+          :data-colIdx="colIdx"
           :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }"
         ></div>
         <button
           v-else
           :id="node.toString()"
-          :data-rowNum="rowNum"
-          :data-colNum="colNum"
+          :data-rowIdx="rowIdx"
+          :data-colIdx="colIdx"
           :style="{
             position: 'relative',
             width: `${SIZE_NODE}px`,
@@ -244,7 +244,7 @@ function computeBgPosition(node: number) {
             color: 'white',
             transform: 'translate(0px)',
           }"
-          @click="onClick($event, rowNum, colNum)"
+          @click="onClick($event, rowIdx, colIdx)"
         >
           <div
             class="absolute top-0 left-0 w-full h-full bg-white opacity-0"
