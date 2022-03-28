@@ -1,6 +1,6 @@
-import { useCreateMineSweeperRecordMutation } from '~/api/useCreateMineSweeperRecordMutation';
 import { useTimestamp } from '@vueuse/core';
 import { useUserQuery } from '~/api/useUserQuery';
+import { useCreateMineSweeperRecordMutation } from '../apis/useCreateMineSweeperRecordMutation';
 import { useModes } from './useModes';
 
 export function useMineSweeper() {

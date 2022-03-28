@@ -1,4 +1,4 @@
-import { useModesQuery } from '~/api/useModesQuery';
+import { useModesQuery } from '../apis/useModesQuery';
 
 export function useModes() {
   const { data: modes, findModeById, isLoading } = useModesQuery('mine-sweeper-modes');

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMineSweeperRecordsQuery } from '~/api/useMineSweeperRecordsQuery';
+import { useMineSweeperRecordsQuery } from '../apis/useMineSweeperRecordsQuery';
 import { useModes } from '../composables/useModes';
 
 const { modeId } = useModes();
