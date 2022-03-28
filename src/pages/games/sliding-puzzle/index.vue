@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Controller from './components/controller.vue';
 import Score from './components/score.vue';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
 
@@ -8,8 +7,9 @@ const {
   SIZE_NODE,
   SIZE_X,
   SIZE_Y,
+  selectedImage,
+  images,
   clickCount,
-  imageUrl,
   status,
   nodes,
   score,
@@ -20,7 +20,17 @@ const {
 
 <template>
   <div class="my-10 grid gap-5 place-items-center">
-    <Controller v-model="imageUrl" />
+    <div class="w-52">
+      <ui-select v-model="selectedImage" label="Image" class="w-56">
+        <ui-option-group
+          v-for="{ categoryName, options } in images"
+          :key="categoryName"
+          :category-name="categoryName"
+        >
+          <ui-option v-for="option in options" :key="option.value" :value="option"></ui-option>
+        </ui-option-group>
+      </ui-select>
+    </div>
     <Score :shuffle-count="SHUFFLE_COUNT" :click-count="clickCount" :score="score" />
   </div>
   <div
@@ -29,6 +39,7 @@ const {
   >
     <div
       class="absolute top-0 left-1/2 transform -translate-x-1/2 z-1 pointer-events-none"
+      :class="[status === 'done' ? 'shadow-2xl' : 'shadow']"
       :style="{
         width: `${SIZE_X * SIZE_NODE + SIZE_X}px`,
         height: `${SIZE_Y * SIZE_NODE + SIZE_Y}px`,
@@ -41,7 +52,7 @@ const {
       <div
         class="w-full h-full bg-cover"
         :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
-        :style="{ backgroundImage: `url(${imageUrl})` }"
+        :style="{ backgroundImage: `url(${selectedImage.value})` }"
       />
     </div>
     <div
@@ -68,7 +79,7 @@ const {
           :style="{
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(${selectedImage.value})`,
             backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
             backgroundPosition: computeBgPosition(node),
             transform: 'translate(0px)',
