@@ -9,12 +9,20 @@ export interface Props {
 
 const props = defineProps<Props>();
 
+const updateSelectedLabel = inject<(label: string) => void>('updateSelectedLabel');
 const onClickOption = inject<(value: string | number) => void>('onClickOption');
 const modelValue = inject<ComputedRef<string | number>>('modelValue');
+
+watchEffect(() => {
+  if (modelValue?.value !== props.value) return;
+  if (!updateSelectedLabel) return;
+  updateSelectedLabel(props.label);
+});
 </script>
 
 <template>
   <button
+    role="option"
     class="py-1 px-2 rounded"
     :class="{ 'bg-rose-50 text-rose-600': modelValue === props.value }"
     @mousedown="onClickOption && onClickOption(props.value)"

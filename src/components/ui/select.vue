@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { Slot, VNode } from 'vue';
-import type { Props as OptionProps } from './option.vue';
-
 interface Props {
   modelValue: string | number;
   label: string;
@@ -13,16 +10,10 @@ interface Emits {
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
-const slots = useSlots() as Readonly<{ default: Slot }>;
 
 const isOptionsOpen = ref(false);
 
-const selectedOptionLabel = computed(
-  () =>
-    (slots.default()[0].children as VNode<{}, {}, OptionProps>[]).find(
-      (vNode) => vNode.props?.value === props.modelValue,
-    )?.props?.label,
-);
+const selectedOptionLabel = ref('');
 
 function openOptions() {
   isOptionsOpen.value = true;
@@ -40,7 +31,12 @@ function onClickOption(value: string | number) {
   emits('update:modelValue', value);
 }
 
+function updateSelectedLabel(label: string) {
+  selectedOptionLabel.value = label;
+}
+
 provide('onClickOption', onClickOption);
+provide('updateSelectedLabel', updateSelectedLabel);
 provide(
   'modelValue',
   computed(() => props.modelValue),
@@ -82,6 +78,7 @@ provide(
     </label>
     <div
       v-show="isOptionsOpen"
+      role="listbox"
       class="absolute p-1 max-h-96 grid min-w-full border bg-light-200 shadow-lg"
     >
       <slot />
