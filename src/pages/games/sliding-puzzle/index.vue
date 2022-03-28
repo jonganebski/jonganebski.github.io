@@ -8,7 +8,8 @@ type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 const SIZE_X = 4;
 const SIZE_Y = 4;
-const MOVE_COUNT = SIZE_X * SIZE_Y * 2;
+// const SHUFFLE_COUNT = SIZE_X * SIZE_Y * 2;
+const SHUFFLE_COUNT = 2;
 const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -18,7 +19,7 @@ const lgAndLarger = breakpoints.greater('lg');
 
 const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
 const clickCount = ref(0);
-const score = computed(() => clickCount.value - MOVE_COUNT);
+const score = computed(() => clickCount.value - SHUFFLE_COUNT);
 
 const imageUrl = ref(
   'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
@@ -56,7 +57,7 @@ async function initialize() {
   clickCount.value = 0;
   status.value = 'shuffle';
   let prevNode;
-  for (let i = 0; i < MOVE_COUNT; i++) {
+  for (let i = 0; i < SHUFFLE_COUNT; i++) {
     const voidEl = document.getElementById('void') as HTMLDivElement | null;
     if (!voidEl) return;
     const rowIdx = Number(voidEl.dataset.rowidx);
@@ -171,7 +172,7 @@ function computeBgPosition(node: number) {
 <template>
   <div class="my-10 grid gap-5 place-items-center">
     <Controller v-model="imageUrl" />
-    <Score :shuffle-count="MOVE_COUNT" :click-count="clickCount" :score="score" />
+    <Score :shuffle-count="SHUFFLE_COUNT" :click-count="clickCount" :score="score" />
   </div>
   <div
     class="relative grid gap-px transition-all duration-1000 ease-linear"
@@ -179,12 +180,12 @@ function computeBgPosition(node: number) {
   >
     <div
       class="absolute top-0 left-1/2 transform -translate-x-1/2 z-1 pointer-events-none"
-    :style="{
+      :style="{
         width: `${SIZE_X * SIZE_NODE + SIZE_X}px`,
         height: `${SIZE_Y * SIZE_NODE + SIZE_Y}px`,
-    }"
-  >
-    <div
+      }"
+    >
+      <div
         class="absolute top-0 left-0 z-1 w-full h-full bg-white opacity-0"
         :class="{ 'done__anim-mask': status === 'done' }"
       />
