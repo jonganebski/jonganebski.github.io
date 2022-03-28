@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { randArrayElements } from '~/libs/random';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import Controller from './components/controller.vue';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
@@ -18,22 +19,11 @@ const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
 const clickCount = ref(0);
 const score = computed(() => clickCount.value - MOVE_COUNT);
 
-const images = [
-  {
-    name: 'Jean Alter',
-    url: 'https://preview.redd.it/m2dst4o2hds61.png?width=640&crop=smart&auto=webp&s=29b4040ebc7ca6f7c368ef690cec55212a51bc29',
-  },
-  {
-    name: 'Fox',
-    url: 'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
-  },
-  { name: 'Lena-1', url: 'https://wallpapercave.com/wp/wp9322869.jpg' },
-  { name: 'Lena-2', url: 'https://wallpapercave.com/wp/wp9322942.jpg' },
-];
-
 const imageUrl = ref(
   'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
 );
+
+watch(imageUrl, () => initialize());
 
 const bluePrint = ref([
   [0, 0, 0, 0, 0, 0],
@@ -44,11 +34,6 @@ const bluePrint = ref([
   [0, 0, 0, 0, -1, 0],
   [0, 0, 0, 0, 0, 0],
 ]);
-
-function selectImage(value: string | number) {
-  imageUrl.value = typeof value === 'string' ? value : value.toString();
-  initialize();
-}
 
 function getRandomNodeAround(rowIdx: number, colIdx: number, prevNode?: number) {
   let result: number[] = [];
@@ -184,14 +169,7 @@ function computeBgPosition(node: number) {
 
 <template>
   <div class="my-10 grid gap-5 place-items-center">
-    <ui-select :model-value="imageUrl" @update:model-value="selectImage" label="Image" class="w-56">
-      <ui-option
-        v-for="(image, index) in images"
-        :key="index"
-        :value="image.url"
-        :label="image.name"
-      />
-    </ui-select>
+    <Controller v-model="imageUrl" />
     <div>
       <div>{{ clickCount }}</div>
       <div
