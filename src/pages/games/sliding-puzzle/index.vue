@@ -2,6 +2,7 @@
 import { randArrayElements } from '~/libs/random';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Controller from './components/controller.vue';
+import Score from './components/score.vue';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
@@ -170,16 +171,7 @@ function computeBgPosition(node: number) {
 <template>
   <div class="my-10 grid gap-5 place-items-center">
     <Controller v-model="imageUrl" />
-    <div>
-      <div>{{ clickCount }}</div>
-      <div
-        :class="[
-          score < 0 ? 'text-green-500' : score < MOVE_COUNT ? 'text-yellow-500' : 'text-red-500',
-        ]"
-      >
-        {{ score > 0 ? `+${score}` : score }} moves
-      </div>
-    </div>
+    <Score :shuffle-count="MOVE_COUNT" :click-count="clickCount" :score="score" />
   </div>
   <div
     class="relative grid gap-px transition-all duration-1000 ease-linear"
