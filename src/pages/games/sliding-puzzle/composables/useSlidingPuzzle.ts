@@ -1,8 +1,52 @@
 import { breakpointsTailwind } from '@vueuse/core';
 import { randArrayElements } from '~/libs/random';
+import { useMyI18n } from '~/plugins/i18n';
+
+interface ImageCategory {
+  categoryName: string;
+  options: { label: string; value: string }[];
+}
+
+type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 export function useSlidingPuzzle() {
-  type Direction = 'top' | 'bottom' | 'right' | 'left';
+  const { t } = useMyI18n();
+
+  const images = computed<ImageCategory[]>(() => [
+    {
+      categoryName: t('fate_series'),
+      options: [
+        {
+          label: t('jean_alter'),
+          value:
+            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/jean-alter.jpg',
+        },
+        { label: '', value: '' },
+      ],
+    },
+    {
+      categoryName: t('eighty_six'),
+      options: [
+        {
+          label: t('vladilena_milize'),
+          value:
+            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/vladilena-milize.jpg',
+        },
+      ],
+    },
+    {
+      categoryName: t('attack_on_titan'),
+      options: [
+        {
+          label: t('eren_yeager'),
+          value:
+            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/eren-yeager.jpg',
+        },
+      ],
+    },
+  ]);
+
+  const selectedImage = ref(randArrayElements(1, randArrayElements(1, images.value)[0].options)[0]);
 
   const SIZE_X = 4;
   const SIZE_Y = 4;
@@ -19,11 +63,11 @@ export function useSlidingPuzzle() {
   const clickCount = ref(0);
   const score = computed(() => clickCount.value - SHUFFLE_COUNT);
 
-  const imageUrl = ref(
-    'https://images.unsplash.com/photo-1647821172233-d1b0d2926b1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
+  watch(
+    () => selectedImage.value.value,
+    () => initialize(),
+    { deep: true },
   );
-
-  watch(imageUrl, () => initialize());
 
   const nodes = ref([
     [0, 0, 0, 0, 0, 0],
@@ -54,6 +98,16 @@ export function useSlidingPuzzle() {
   }
 
   async function initialize() {
+    nodes.value = [
+      [0, 0, 0, 0, 0, 0],
+      [0, 1, 2, 3, 4, 0],
+      [0, 5, 6, 7, 8, 0],
+      [0, 9, 10, 11, 12, 0],
+      [0, 13, 14, 15, 16, 0],
+      [0, 0, 0, 0, -1, 0],
+      [0, 0, 0, 0, 0, 0],
+    ];
+    await nextTick();
     clickCount.value = 0;
     status.value = 'shuffle';
     let prevNode;
@@ -174,7 +228,8 @@ export function useSlidingPuzzle() {
     SIZE_X,
     SIZE_Y,
     clickCount,
-    imageUrl,
+    selectedImage,
+    images,
     status,
     nodes,
     score,
