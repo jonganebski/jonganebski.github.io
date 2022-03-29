@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { useUserQuery } from '~/api/useUserQuery';
+import { useMyI18n } from '~/plugins/i18n';
+import CopyRight from './components/copy-right.vue';
 import Score from './components/score.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
-import CopyRight from './components/copy-right.vue';
+
+const { data: user } = useUserQuery();
+
+const { t } = useMyI18n();
 
 const {
   SHUFFLE_COUNT,
@@ -102,6 +108,7 @@ watch(
     </div>
   </div>
   <CopyRight :selected-image="selectedImage" />
+  <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
   <div v-if="status === 'done'">Congratulations!</div>
   <ui-contour-lines />
 </template>
