@@ -2,13 +2,18 @@
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import { useMineSweeper } from './composables/useMineSweeper';
-import Controller from './components/controller.vue';
 import Records from './components/records.vue';
+import { useModes } from './composables/useModes';
+
+const router = useRouter();
+const route = useRoute();
 
 const { data: user } = useUserQuery();
 
+const { selectedMode, modes } = useModes();
+
 const { COLORS, isGameOver, isSuccess, flagCount, initialize, meta, game, withController, time } =
-  useMineSweeper();
+  useMineSweeper(selectedMode);
 
 const { t } = useMyI18n();
 
@@ -27,12 +32,23 @@ function getHintColor(hint: number) {
     ? 'text-cyan-600'
     : 'text-black';
 }
+
+function pushWithModeQuery(payload: { [key: string]: any }) {
+  router.push({ path: route.path, query: { mode: payload.id } });
+}
 </script>
 
 <template>
   <div class="min-h-screen grid place-items-center">
     <div class="mt-10 flex justify-center">
-      <controller />
+      <ui-select
+        :model-value="selectedMode"
+        option-label-key="mode"
+        :label="t('mode')"
+        @update:model-value="pushWithModeQuery"
+      >
+        <ui-option v-for="mode in modes" :key="mode.id" :value="mode" label-key="mode" />
+      </ui-select>
     </div>
     <div
       v-if="0 < meta.rows && 0 < meta.cols"
@@ -90,7 +106,7 @@ function getHintColor(hint: number) {
       </div>
       <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
-    <records />
+    <records v-if="selectedMode" :selected-mode="selectedMode" />
   </div>
 </template>
 

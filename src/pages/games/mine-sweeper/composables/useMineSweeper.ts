@@ -1,9 +1,17 @@
 import { useTimestamp } from '@vueuse/core';
+import { Ref } from 'vue';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
-import { useModes } from './useModes';
 
-export function useMineSweeper() {
+export function useMineSweeper(
+  selectedMode: Ref<
+    | {
+        id: number;
+        mode: string;
+      }
+    | undefined
+  >,
+) {
   class Node {
     public isExploded: boolean;
     public isQuestion: boolean;
@@ -125,8 +133,6 @@ export function useMineSweeper() {
   const createRecord = useCreateRecordMutation();
   const { data: user } = useUserQuery();
 
-  const { modeId, modeName } = useModes();
-
   const game = ref<Node[][]>([]);
 
   const flagCount = ref(0);
@@ -150,11 +156,11 @@ export function useMineSweeper() {
   });
 
   const meta = computed(() =>
-    modeName.value === 'expert'
+    selectedMode.value?.id === 3
       ? { totalMines: 99, rows: 16, cols: 30 }
-      : modeName.value === 'intermediate'
+      : selectedMode.value?.id === 2
       ? { totalMines: 40, rows: 16, cols: 16 }
-      : modeName.value === 'beginner'
+      : selectedMode.value?.id === 1
       ? { totalMines: 10, rows: 9, cols: 9 }
       : { totalMines: 0, rows: 0, cols: 0 },
   );
@@ -201,9 +207,9 @@ export function useMineSweeper() {
     isGameOver.value = true;
     isSuccess.value = payload.isSuccess;
     if (!payload.isSuccess) return explode();
-    if (!user.value) return;
+    if (!user.value || !selectedMode.value) return;
     createRecord.mutate(
-      { modeId: modeId.value, userId: user.value.id, time: time.value },
+      { modeId: selectedMode.value.id, userId: user.value.id, time: time.value },
       {
         onSuccess: () => {
           window.alert('New Record!');

@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useRecordsQuery } from '../apis/useRecordsQuery';
-import { useModes } from '../composables/useModes';
 
-const { modeId } = useModes();
+const props = defineProps<{
+  selectedMode: {
+    id: number;
+    mode: string;
+  };
+}>();
 
-const { data, isLoading } = useRecordsQuery(modeId);
+const { data, isLoading } = useRecordsQuery(computed(() => props.selectedMode.id));
 </script>
 
 <template>
