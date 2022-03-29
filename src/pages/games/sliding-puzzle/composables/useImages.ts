@@ -1,14 +1,16 @@
 import { randArrayElements } from '~/libs/random';
 import { useMyI18n } from '~/plugins/i18n';
 
+export interface ImageOption {
+  label: string;
+  url: string;
+  provider?: { name: string; url?: string };
+  creator?: { name: string; url?: string };
+}
+
 interface ImageCategory {
   categoryName: string;
-  options: {
-    label: string;
-    url: string;
-    provider?: { name: string; url?: string };
-    creator?: { name: string; url?: string };
-  }[];
+  options: ImageOption[];
 }
 
 export function useImages() {

@@ -2,6 +2,7 @@
 import Score from './components/score.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
+import CopyRight from './components/copy-right.vue';
 
 const {
   SHUFFLE_COUNT,
@@ -100,39 +101,7 @@ watch(
       </div>
     </div>
   </div>
-  <div class="mt-4 px-2 text-center">
-    <span class="text-sm text-gray-700 dark:text-gray-300">
-      Photo by
-      <a
-        :class="[
-          selectedImage.creator?.url
-            ? 'underline hover:text-dark-500 dark:hover:text-light-500'
-            : 'pointer-events-none',
-        ]"
-        :href="selectedImage.creator?.url"
-        target="_blank"
-        rel="noopener"
-      >
-        {{ selectedImage.creator?.name }}
-      </a>
-    </span>
-    <span class="text-sm text-gray-700 dark:text-gray-300">
-      on
-      <a
-        :class="[
-          selectedImage.creator?.url
-            ? 'underline hover:text-dark-500 dark:hover:text-light-500'
-            : 'pointer-events-none',
-        ]"
-        :href="selectedImage.provider?.url"
-        target="_blank"
-        rel="noopener"
-      >
-        {{ selectedImage.provider?.name }}
-      </a>
-    </span>
-    <p class="text-xs text-gray-500">All rights of the photo belong to the creator.</p>
-  </div>
+  <CopyRight :selected-image="selectedImage" />
   <div v-if="status === 'done'">Congratulations!</div>
   <ui-contour-lines />
 </template>
