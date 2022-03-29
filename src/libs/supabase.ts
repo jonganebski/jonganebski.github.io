@@ -144,7 +144,7 @@ export interface SlidingPuzzleRecord {
   created_at: string;
   updated_at: string;
   user_id: string;
-  moves_count: number;
+  score: number;
 }
 
 /*----------------------------------
