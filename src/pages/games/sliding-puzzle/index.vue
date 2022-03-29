@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Score from './components/score.vue';
+import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
 
 const {
@@ -7,19 +8,27 @@ const {
   SIZE_NODE,
   SIZE_X,
   SIZE_Y,
-  selectedImage,
-  images,
   clickCount,
   status,
   nodes,
   score,
   computeBgPosition,
   onClickNode,
+  initialize,
 } = useSlidingPuzzle();
+
+const { selectedImage, openBackDoor, images } = useImages();
+
+watch(
+  () => selectedImage.value.value,
+  () => initialize(),
+  { deep: true },
+);
 </script>
 
 <template>
   <div class="my-10 grid gap-5 place-items-center">
+    <button @click="openBackDoor">Back Door</button>
     <div class="w-52">
       <ui-select v-model="selectedImage" label="Image" class="w-56">
         <ui-option-group
@@ -90,6 +99,39 @@ const {
         </button>
       </div>
     </div>
+  </div>
+  <div class="mt-4 px-2 text-center">
+    <span class="text-sm text-gray-700 dark:text-gray-300">
+      Photo by
+      <a
+        :class="[
+          selectedImage.creator?.url
+            ? 'underline hover:text-dark-500 dark:hover:text-light-500'
+            : 'pointer-events-none',
+        ]"
+        :href="selectedImage.creator?.url"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ selectedImage.creator?.name }}
+      </a>
+    </span>
+    <span class="text-sm text-gray-700 dark:text-gray-300">
+      on
+      <a
+        :class="[
+          selectedImage.creator?.url
+            ? 'underline hover:text-dark-500 dark:hover:text-light-500'
+            : 'pointer-events-none',
+        ]"
+        :href="selectedImage.provider?.url"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ selectedImage.provider?.name }}
+      </a>
+    </span>
+    <p class="text-xs text-gray-500">All rights of the photo belong to the creator.</p>
   </div>
   <div v-if="status === 'done'">Congratulations!</div>
   <ui-contour-lines />

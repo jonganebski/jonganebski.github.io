@@ -1,53 +1,9 @@
 import { breakpointsTailwind } from '@vueuse/core';
 import { randArrayElements } from '~/libs/random';
-import { useMyI18n } from '~/plugins/i18n';
-
-interface ImageCategory {
-  categoryName: string;
-  options: { label: string; value: string }[];
-}
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 export function useSlidingPuzzle() {
-  const { t } = useMyI18n();
-
-  const images = computed<ImageCategory[]>(() => [
-    {
-      categoryName: t('fate_series'),
-      options: [
-        {
-          label: t('jean_alter'),
-          value:
-            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/jean-alter.jpg',
-        },
-        { label: '', value: '' },
-      ],
-    },
-    {
-      categoryName: t('eighty_six'),
-      options: [
-        {
-          label: t('vladilena_milize'),
-          value:
-            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/vladilena-milize.jpg',
-        },
-      ],
-    },
-    {
-      categoryName: t('attack_on_titan'),
-      options: [
-        {
-          label: t('eren_yeager'),
-          value:
-            'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/eren-yeager.jpg',
-        },
-      ],
-    },
-  ]);
-
-  const selectedImage = ref(randArrayElements(1, randArrayElements(1, images.value)[0].options)[0]);
-
   const SIZE_X = 4;
   const SIZE_Y = 4;
   // const SHUFFLE_COUNT = SIZE_X * SIZE_Y * 2;
@@ -62,12 +18,6 @@ export function useSlidingPuzzle() {
   const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
   const clickCount = ref(0);
   const score = computed(() => clickCount.value - SHUFFLE_COUNT);
-
-  watch(
-    () => selectedImage.value.value,
-    () => initialize(),
-    { deep: true },
-  );
 
   const nodes = ref([
     [0, 0, 0, 0, 0, 0],
@@ -228,12 +178,11 @@ export function useSlidingPuzzle() {
     SIZE_X,
     SIZE_Y,
     clickCount,
-    selectedImage,
-    images,
     status,
     nodes,
     score,
     computeBgPosition,
     onClickNode,
+    initialize,
   };
 }
