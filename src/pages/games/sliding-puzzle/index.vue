@@ -20,7 +20,7 @@ const {
 const { selectedImage, openBackDoor, images } = useImages();
 
 watch(
-  () => selectedImage.value.value,
+  () => selectedImage.value.url,
   () => initialize(),
   { deep: true },
 );
@@ -36,7 +36,7 @@ watch(
           :key="categoryName"
           :category-name="categoryName"
         >
-          <ui-option v-for="option in options" :key="option.value" :value="option"></ui-option>
+          <ui-option v-for="option in options" :key="option.url" :value="option"></ui-option>
         </ui-option-group>
       </ui-select>
     </div>
@@ -61,7 +61,7 @@ watch(
       <div
         class="w-full h-full bg-cover"
         :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
-        :style="{ backgroundImage: `url(${selectedImage.value})` }"
+        :style="{ backgroundImage: `url(${selectedImage.url})` }"
       />
     </div>
     <div
@@ -88,7 +88,7 @@ watch(
           :style="{
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
-            backgroundImage: `url(${selectedImage.value})`,
+            backgroundImage: `url(${selectedImage.url})`,
             backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
             backgroundPosition: computeBgPosition(node),
             transform: 'translate(0px)',

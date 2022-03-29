@@ -5,7 +5,7 @@ interface ImageCategory {
   categoryName: string;
   options: {
     label: string;
-    value: string;
+    url: string;
     provider?: { name: string; url?: string };
     creator?: { name: string; url?: string };
   }[];
@@ -24,10 +24,9 @@ export function useImages() {
             options: [
               {
                 label: t('jean_alter'),
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/jean-alter.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/jean-alter.jpg',
               },
-              { label: '', value: '' },
+              { label: '', url: '' },
             ],
           },
           {
@@ -35,8 +34,7 @@ export function useImages() {
             options: [
               {
                 label: t('vladilena_milize'),
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/vladilena-milize.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/vladilena-milize.jpg',
               },
             ],
           },
@@ -45,8 +43,7 @@ export function useImages() {
             options: [
               {
                 label: t('eren_yeager'),
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/eren-yeager.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/eren-yeager.jpg',
               },
             ],
           },
@@ -57,8 +54,7 @@ export function useImages() {
             options: [
               {
                 label: 'Kamran Ch',
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/mountain.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/mountain.jpg',
                 provider: {
                   name: 'Unsplash',
                   url: 'https://unsplash.com/t/act-for-nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
@@ -70,8 +66,7 @@ export function useImages() {
               },
               {
                 label: 'David Scanlon',
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/gorilla.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/gorilla.jpg',
                 provider: {
                   name: 'Unsplash',
                   url: 'https://unsplash.com/t/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
@@ -88,8 +83,7 @@ export function useImages() {
             options: [
               {
                 label: 'Pacto Visual',
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_pacto-visual.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_pacto-visual.jpg',
                 provider: {
                   name: 'Unsplash',
                   url: 'https://unsplash.com/s/photos/cat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
@@ -101,8 +95,7 @@ export function useImages() {
               },
               {
                 label: 'Georgi Benev',
-                value:
-                  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_georgi-benev.jpg',
+                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_georgi-benev.jpg',
                 provider: {
                   name: 'Unsplash',
                   url: 'https://unsplash.com/s/photos/cat-box?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
