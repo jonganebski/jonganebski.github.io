@@ -1,19 +1,26 @@
-import { useMutation } from 'vue-query';
+import { useMutation, useQueryClient } from 'vue-query';
+import { useUserQuery } from '~/api/useUserQuery';
 import { MineSweeperRecord, supabase } from '~/libs/supabase';
+import { UseRecordsQueryData } from './useRecordsQuery';
 
 interface UseCreateRecordMutationVariables {
   modeId: number;
-  userId: string;
   time: number;
 }
 
 export function useCreateRecordMutation() {
-  return useMutation<any, unknown, UseCreateRecordMutationVariables>(
-    async ({ modeId, userId, time }) => {
+  const queryClient = useQueryClient();
+
+  const { data: user } = useUserQuery();
+
+  return useMutation<MineSweeperRecord | null, unknown, UseCreateRecordMutationVariables>(
+    async ({ modeId, time }) => {
+      if (!user.value) return null;
+
       const { data } = await supabase
         .from<MineSweeperRecord>('mine-sweeper-records')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', user.value.id)
         .eq('mode_id', modeId)
         .order('time', { ascending: true });
 
@@ -21,22 +28,43 @@ export function useCreateRecordMutation() {
 
       switch (data.length <= 10) {
         case true: {
-          const { data: resData } = await supabase
-            .from<MineSweeperRecord>('mine-sweeper-records')
-            .insert({ mode_id: modeId, time, user_id: userId });
-          console.log(resData);
-          return resData;
+          return (
+            await supabase
+              .from<MineSweeperRecord>('mine-sweeper-records')
+              .insert({ mode_id: modeId, time, user_id: user.value.id })
+              .single()
+          ).data;
         }
         case false: {
           const worstRecord = data[data.length - 1];
           if (worstRecord.time < time) return null;
-          const { data: resData } = await supabase
-            .from<MineSweeperRecord>('mine-sweeper-records')
-            .update({ id: worstRecord.id, time });
-          return resData;
+          return (
+            await supabase
+              .from<MineSweeperRecord>('mine-sweeper-records')
+              .update({ id: worstRecord.id, time })
+              .single()
+          ).data;
         }
       }
     },
-    { onSuccess: () => {} },
+    {
+      onSuccess: (resData) => {
+        if (!user.value) return;
+        const { user_name = user.value.email, avatar_url = '' } = user.value.user_metadata;
+        if (!resData) return;
+        const prevData = queryClient.getQueryData<UseRecordsQueryData[]>([
+          'mine-sweeper-records',
+          resData.mode_id,
+        ]);
+        if (!prevData) return;
+        queryClient.setQueryData<UseRecordsQueryData[]>(
+          ['mine-sweeper-records', resData.mode_id],
+          () => {
+            prevData.push({ ...resData, user: { user_name, avatar_url } });
+            return prevData.sort((a, b) => a.time - b.time);
+          },
+        );
+      },
+    },
   );
 }

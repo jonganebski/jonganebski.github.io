@@ -2,7 +2,7 @@ import { ComputedRef } from 'vue';
 import { useQuery } from 'vue-query';
 import { MineSweeperRecord, Profile, supabase } from '~/libs/supabase';
 
-interface UseRecordsQueryData extends MineSweeperRecord {
+export interface UseRecordsQueryData extends MineSweeperRecord {
   user: Pick<Profile, 'user_name' | 'avatar_url'>;
 }
 

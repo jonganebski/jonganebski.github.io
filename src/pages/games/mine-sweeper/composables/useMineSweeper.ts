@@ -1,6 +1,5 @@
 import { useTimestamp } from '@vueuse/core';
 import { Ref } from 'vue';
-import { useUserQuery } from '~/api/useUserQuery';
 import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 
 export function useMineSweeper(
@@ -131,7 +130,6 @@ export function useMineSweeper(
   };
 
   const createRecord = useCreateRecordMutation();
-  const { data: user } = useUserQuery();
 
   const game = ref<Node[][]>([]);
 
@@ -207,9 +205,9 @@ export function useMineSweeper(
     isGameOver.value = true;
     isSuccess.value = payload.isSuccess;
     if (!payload.isSuccess) return explode();
-    if (!user.value || !selectedMode.value) return;
+    if (!selectedMode.value) return;
     createRecord.mutate(
-      { modeId: selectedMode.value.id, userId: user.value.id, time: time.value },
+      { modeId: selectedMode.value.id, time: time.value },
       {
         onSuccess: () => {
           window.alert('New Record!');
