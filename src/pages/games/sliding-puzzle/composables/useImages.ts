@@ -12,7 +12,7 @@ interface ImageCategory {
 }
 
 export function useImages() {
-  const { t } = useMyI18n();
+  const { t, locale } = useMyI18n();
 
   const backDoor = ref(false);
 
@@ -79,7 +79,7 @@ export function useImages() {
             ],
           },
           {
-            categoryName: t('cats'),
+            categoryName: t('cat', 2),
             options: [
               {
                 label: 'Pacto Visual',
@@ -119,8 +119,19 @@ export function useImages() {
 
   function openBackDoor() {
     backDoor.value = true;
-    selectedImage.value = getRandomImage();
   }
+
+  watch(backDoor, () => {
+    selectedImage.value = getRandomImage();
+  });
+
+  watch(locale, () => {
+    const selectedImageWithNewLocale = images.value
+      .flatMap(({ options }) => options)
+      .find(({ url }) => url === selectedImage.value.url);
+    if (!selectedImageWithNewLocale) return;
+    selectedImage.value = selectedImageWithNewLocale;
+  });
 
   return { selectedImage, images, openBackDoor };
 }
