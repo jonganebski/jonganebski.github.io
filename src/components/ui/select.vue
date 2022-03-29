@@ -1,14 +1,15 @@
 <script setup lang="ts">
 interface Props {
-  modelValue?: { value: string | number; label: string };
+  optionLabelKey?: string;
+  modelValue?: { [key: string]: any };
   label: string;
 }
 
 interface Emits {
-  (event: 'update:modelValue', payload: { value: string | number; label: string }): void;
+  (event: 'update:modelValue', payload: { [key: string]: any }): void;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { optionLabelKey: 'label' });
 const emits = defineEmits<Emits>();
 </script>
 
@@ -30,7 +31,7 @@ const emits = defineEmits<Emits>();
       <ListboxButton
         class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
       >
-        <span class="block h-5 truncate">{{ props.modelValue?.label }}</span>
+        <span class="block h-5 truncate">{{ props.modelValue?.[props.optionLabelKey] }}</span>
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
           <carbon-chevron-down class="w-5 h-5 text-gray-400" aria-hidden="true" />
         </span>

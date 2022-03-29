@@ -2,13 +2,13 @@
 import colors from 'windicss/colors';
 
 export interface Props {
+  labelKey?: string;
   value: {
-    value: string | number;
-    label: string;
+    [key: string]: any;
   };
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { labelKey: 'label' });
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const props = defineProps<Props>();
             : 'text-gray-900',
           'block truncate transition-all transform',
         ]"
-        >{{ props.value.label }}</span
+        >{{ props.value[props.labelKey] }}</span
       >
     </li>
   </ListboxOption>
