@@ -1,14 +1,17 @@
 import { breakpointsTailwind } from '@vueuse/core';
 import { randArrayElements } from '~/libs/random';
+import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 export function useSlidingPuzzle() {
   const SIZE_X = 4;
   const SIZE_Y = 4;
-  // const SHUFFLE_COUNT = SIZE_X * SIZE_Y * 2;
-  const SHUFFLE_COUNT = 2;
+  const SHUFFLE_COUNT = import.meta.env.DEV ? 2 : SIZE_X * SIZE_Y * 2;
+
   const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
+
+  const createRecord = useCreateRecordMutation();
 
   const breakpoints = useBreakpoints(breakpointsTailwind);
 
@@ -162,7 +165,9 @@ export function useSlidingPuzzle() {
     if (!node) return;
     if (await switchNode(node, rowIdx, colIdx)) clickCount.value += 1;
     if (status.value === 'ready') status.value = 'playing';
-    if (validate()) status.value = 'done';
+    if (!validate()) return;
+    status.value = 'done';
+    createRecord.mutate({ score: score.value });
   }
 
   function computeBgPosition(node: number) {

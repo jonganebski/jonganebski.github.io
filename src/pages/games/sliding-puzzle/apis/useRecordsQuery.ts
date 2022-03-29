@@ -2,7 +2,7 @@ import { useQuery } from 'vue-query';
 import type { Profile, SlidingPuzzleRecord } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
 
-interface UseRecordsQueryData extends SlidingPuzzleRecord {
+export interface UseRecordsQueryData extends SlidingPuzzleRecord {
   user: Pick<Profile, 'user_name' | 'avatar_url'>;
 }
 
