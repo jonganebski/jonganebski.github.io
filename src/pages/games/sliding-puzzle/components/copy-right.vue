@@ -13,22 +13,22 @@ const { t } = useMyI18n();
 
 <template>
   <div class="mt-4 px-2 text-center">
-    <span class="text-sm text-gray-700 dark:text-gray-300">
+    <span v-if="props.selectedImage.creator" class="text-sm text-gray-700 dark:text-gray-300">
       Photo by
       <a
-        :class="[props.selectedImage.creator?.url ? 'link__active' : 'link__inactive']"
-        :href="props.selectedImage.creator?.url"
+        :class="[props.selectedImage.creator.url ? 'link__active' : 'link__inactive']"
+        :href="props.selectedImage.creator.url"
         target="_blank"
         rel="noopener"
       >
         {{ props.selectedImage.creator?.name }}
       </a>
     </span>
-    <span class="text-sm text-gray-700 dark:text-gray-300">
+    <span v-if="props.selectedImage.provider" class="text-sm text-gray-700 dark:text-gray-300">
       on
       <a
-        :class="[props.selectedImage.provider?.url ? 'link__active' : 'link__inactive']"
-        :href="props.selectedImage.provider?.url"
+        :class="[props.selectedImage.provider.url ? 'link__active' : 'link__inactive']"
+        :href="props.selectedImage.provider.url"
         target="_blank"
         rel="noopener"
       >

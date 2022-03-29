@@ -107,9 +107,10 @@ watch(
       </div>
     </div>
   </div>
+  <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
+    {{ t('games_auth_warning') }}
+  </div>
   <CopyRight :selected-image="selectedImage" />
-  <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
-  <div v-if="status === 'done'">Congratulations!</div>
   <ui-contour-lines />
 </template>
 

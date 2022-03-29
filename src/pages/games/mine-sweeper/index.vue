@@ -104,7 +104,7 @@ function pushWithModeQuery(payload: { [key: string]: any }) {
           </div>
         </div>
       </div>
-      <div v-if="!user" class="mt-2 w-96 text-rose-300 text-sm">{{ t('games_auth_warning') }}</div>
+      <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
     <records v-if="selectedMode" :selected-mode="selectedMode" />
   </div>
