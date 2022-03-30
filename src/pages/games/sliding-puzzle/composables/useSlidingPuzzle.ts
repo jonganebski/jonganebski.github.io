@@ -5,11 +5,11 @@ import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 type Direction = 'top' | 'bottom' | 'right' | 'left';
 
 export function useSlidingPuzzle() {
-  const SIZE_X = 4;
-  const SIZE_Y = 4;
+  const SIZE_X = 5;
+  const SIZE_Y = 5;
   const SHUFFLE_COUNT = import.meta.env.DEV ? 2 : SIZE_X * SIZE_Y * 2;
 
-  const SIZE_NODE = computed(() => (lgAndLarger.value ? 160 : smAndLarger.value ? 120 : 80));
+  const SIZE_NODE = computed(() => (lgAndLarger.value ? 140 : smAndLarger.value ? 100 : 60));
 
   const createRecord = useCreateRecordMutation();
 
@@ -23,13 +23,14 @@ export function useSlidingPuzzle() {
   const score = computed(() => clickCount.value - SHUFFLE_COUNT);
 
   const nodes = ref([
-    [0, 0, 0, 0, 0, 0],
-    [0, 1, 2, 3, 4, 0],
-    [0, 5, 6, 7, 8, 0],
-    [0, 9, 10, 11, 12, 0],
-    [0, 13, 14, 15, 16, 0],
-    [0, 0, 0, 0, -1, 0],
-    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 2, 3, 4, 5, 0],
+    [0, 6, 7, 8, 9, 10, 0],
+    [0, 11, 12, 13, 14, 15, 0],
+    [0, 16, 17, 18, 19, 20, 0],
+    [0, 21, 22, 23, 24, 25, 0],
+    [0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0],
   ]);
 
   onMounted(async () => initialize());
@@ -52,13 +53,14 @@ export function useSlidingPuzzle() {
 
   async function initialize() {
     nodes.value = [
-      [0, 0, 0, 0, 0, 0],
-      [0, 1, 2, 3, 4, 0],
-      [0, 5, 6, 7, 8, 0],
-      [0, 9, 10, 11, 12, 0],
-      [0, 13, 14, 15, 16, 0],
-      [0, 0, 0, 0, -1, 0],
-      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 2, 3, 4, 5, 0],
+      [0, 6, 7, 8, 9, 10, 0],
+      [0, 11, 12, 13, 14, 15, 0],
+      [0, 16, 17, 18, 19, 20, 0],
+      [0, 21, 22, 23, 24, 25, 0],
+      [0, 0, 0, 0, 0, -1, 0],
+      [0, 0, 0, 0, 0, 0, 0],
     ];
     await nextTick();
     clickCount.value = 0;
@@ -79,12 +81,13 @@ export function useSlidingPuzzle() {
   }
 
   function validate() {
+    const lastNode = SIZE_X * SIZE_Y;
     let value = 0;
     for (let i = 0; i < nodes.value.length; i++) {
       for (let j = 0; j < nodes.value[i].length; j++) {
         const element = nodes.value[i][j];
         if (element === 0) continue;
-        if (value === 16 && element === -1) return true;
+        if (value === lastNode && element === -1) return true;
         if (value + 1 !== element) return false;
         value++;
       }
