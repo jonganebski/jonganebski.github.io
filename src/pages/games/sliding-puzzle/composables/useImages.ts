@@ -17,6 +17,7 @@ export function useImages() {
   const { t } = useMyI18n();
 
   const backDoor = ref(false);
+  const hiddenClickCount = ref(0);
 
   const images = computed<ImageCategory[]>(() =>
     backDoor.value
@@ -120,13 +121,16 @@ export function useImages() {
     return images.value[categoryIdx].options[optionIdx].url;
   }
 
-  function openBackDoor() {
-    backDoor.value = true;
-  }
+  let setTimeoutId: NodeJS.Timeout;
 
-  watch(backDoor, () => {
+  function worship() {
+    hiddenClickCount.value += 1;
+    clearTimeout(setTimeoutId);
+    setTimeoutId = setTimeout(() => (hiddenClickCount.value = 0), 200);
+    if (hiddenClickCount.value !== 10) return;
+    backDoor.value = !backDoor.value;
     selectedImage.value = getRandomImage();
-  });
+  }
 
   function findImageByUrl(url: string) {
     for (let i = 0; i < images.value.length; i++) {
@@ -137,5 +141,5 @@ export function useImages() {
     }
   }
 
-  return { selectedImage, images, openBackDoor, findImageByUrl };
+  return { selectedImage, images, findImageByUrl, worship };
 }

@@ -24,7 +24,7 @@ const {
   initialize,
 } = useSlidingPuzzle();
 
-const { selectedImage, openBackDoor, findImageByUrl, images } = useImages();
+const { selectedImage, findImageByUrl, worship, images } = useImages();
 
 watch(
   () => selectedImage.value,
@@ -34,7 +34,7 @@ watch(
 
 <template>
   <div class="my-10 grid gap-5 place-items-center">
-    <button @click="openBackDoor">Back Door</button>
+    <h1 class="text-xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
     <div class="w-52">
       <ui-select v-model="selectedImage" :label="t('image')" class="w-56">
         <ui-option-group
