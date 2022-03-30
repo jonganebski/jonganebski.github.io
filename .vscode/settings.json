@@ -3,6 +3,7 @@
   "i18n-ally.displayLanguage": "en",
   "i18n-ally.localesPaths": "locales",
   "cSpell.words": [
+    "bindgen",
     "composables",
     "ganebski",
     "mapbox",
