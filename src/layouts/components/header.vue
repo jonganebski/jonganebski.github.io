@@ -1,7 +1,34 @@
 <script setup lang="ts">
+import { User } from '@supabase/supabase-js';
+import { useQueryClient } from 'vue-query';
+import { useUserQuery } from '~/api/useUserQuery';
+import { supabase } from '~/libs/supabase';
 import { useMyI18n } from '~/plugins/i18n';
 
 const { setLocaleTo, locale, t } = useMyI18n();
+
+const queryClient = useQueryClient();
+
+const { data: user } = useUserQuery();
+
+const isAuthContainerOpen = ref(false);
+
+const authContainer = ref<HTMLDivElement | null>(null);
+onClickOutside(authContainer, closeAuthContainer);
+
+function closeAuthContainer() {
+  isAuthContainerOpen.value = false;
+}
+
+function toggleAuthContainer() {
+  isAuthContainerOpen.value = !isAuthContainerOpen.value;
+}
+
+onMounted(() => {
+  supabase.auth.onAuthStateChange((_, session) => {
+    queryClient.setQueryData<User | null>('user', () => session?.user ?? null);
+  });
+});
 </script>
 
 <template>
@@ -22,7 +49,34 @@ const { setLocaleTo, locale, t } = useMyI18n();
       </nav>
     </div>
     <div class="mt-auto grid justify-center">
-      <ui-avatar />
+      <div class="relative mb-10" ref="authContainer">
+        <ui-avatar
+          :src="user?.user_metadata.avatar_url"
+          :aria-label="t('click_to_open_authentication_menu')"
+          :alt="t('the_avatar_of_the_authenticated_user')"
+          @click="toggleAuthContainer"
+        />
+        <div class="absolute top-1/2 transform -translate-y-1/2 left-14">
+          <div v-if="isAuthContainerOpen && user" class="auth-container">
+            <div class="text-dark-500">
+              <p>Email: {{ user.email }}</p>
+              <p>Provider: {{ user.app_metadata.provider?.toUpperCase() }}</p>
+            </div>
+            <auth-btn sign-out />
+          </div>
+          <div v-if="isAuthContainerOpen && !user" class="auth-container">
+            <h6 class="text-dark-500">{{ t('sign_up_or_sign_in') }}</h6>
+            <div class="grid gap-3">
+              <auth-btn provider="github" />
+              <auth-btn provider="google" />
+              <auth-btn provider="facebook" />
+            </div>
+            <p class="text-xs text-gray-500">
+              {{ t('sign_up_notice') }}
+            </p>
+          </div>
+        </div>
+      </div>
       <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
       <button>
         <span
@@ -54,5 +108,21 @@ const { setLocaleTo, locale, t } = useMyI18n();
   width: fit-content;
   transform-origin: right;
   transform: translate(-100%) rotate(-90deg);
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.auth-container {
+  @apply min-w-sm p-4 grid gap-6 bg-white rounded shadow-xl;
+  animation: slide-in linear 0.3s;
 }
 </style>
