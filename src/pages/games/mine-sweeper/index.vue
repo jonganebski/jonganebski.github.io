@@ -107,6 +107,7 @@ function pushWithModeQuery(modeId: string | number) {
       <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
     <records :selected-mode="selectedMode" />
+    <ui-contour-lines />
   </div>
 </template>
 
