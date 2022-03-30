@@ -24,12 +24,11 @@ const {
   initialize,
 } = useSlidingPuzzle();
 
-const { selectedImage, openBackDoor, images } = useImages();
+const { selectedImage, openBackDoor, findImageByUrl, images } = useImages();
 
 watch(
-  () => selectedImage.value.url,
+  () => selectedImage.value,
   () => initialize(),
-  { deep: true },
 );
 </script>
 
@@ -37,13 +36,18 @@ watch(
   <div class="my-10 grid gap-5 place-items-center">
     <button @click="openBackDoor">Back Door</button>
     <div class="w-52">
-      <ui-select v-model="selectedImage" label="Image" class="w-56">
+      <ui-select v-model="selectedImage" :label="t('image')" class="w-56">
         <ui-option-group
           v-for="{ categoryName, options } in images"
           :key="categoryName"
           :category-name="categoryName"
         >
-          <ui-option v-for="option in options" :key="option.url" :value="option"></ui-option>
+          <ui-option
+            v-for="option in options"
+            :key="option.url"
+            :value="option.url"
+            :label="option.label"
+          ></ui-option>
         </ui-option-group>
       </ui-select>
     </div>
@@ -68,7 +72,7 @@ watch(
       <div
         class="w-full h-full bg-cover"
         :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
-        :style="{ backgroundImage: `url(${selectedImage.url})` }"
+        :style="{ backgroundImage: `url(${selectedImage})` }"
       />
     </div>
     <div
@@ -95,14 +99,16 @@ watch(
           :style="{
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
-            backgroundImage: `url(${selectedImage.url})`,
+            backgroundImage: `url(${selectedImage})`,
             backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
             backgroundPosition: computeBgPosition(node),
             transform: 'translate(0px)',
           }"
           @click="onClickNode($event, rowIdx, colIdx)"
         >
+          <div class="absolute inset-0 bg-black bg-opacity-50 grid place-items-center">
           {{ status === 'done' ? '' : node }}
+          </div>
         </button>
       </div>
     </div>
@@ -110,7 +116,7 @@ watch(
   <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
     {{ t('games_auth_warning') }}
   </div>
-  <CopyRight :selected-image="selectedImage" />
+  <CopyRight :selected-image="findImageByUrl(selectedImage)" />
   <ui-contour-lines />
 </template>
 

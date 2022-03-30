@@ -33,8 +33,8 @@ function getHintColor(hint: number) {
     : 'text-black';
 }
 
-function pushWithModeQuery(payload: { [key: string]: any }) {
-  router.push({ path: route.path, query: { mode: payload.id } });
+function pushWithModeQuery(modeId: string | number) {
+  router.push({ path: route.path, query: { mode: modeId } });
 }
 </script>
 
@@ -47,7 +47,7 @@ function pushWithModeQuery(payload: { [key: string]: any }) {
         :label="t('mode')"
         @update:model-value="pushWithModeQuery"
       >
-        <ui-option v-for="mode in modes" :key="mode.id" :value="mode" label-key="mode" />
+        <ui-option v-for="mode in modes" :key="mode.id" :value="mode.id" :label="mode.mode" />
       </ui-select>
     </div>
     <div
@@ -106,7 +106,7 @@ function pushWithModeQuery(payload: { [key: string]: any }) {
       </div>
       <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">{{ t('games_auth_warning') }}</div>
     </div>
-    <records v-if="selectedMode" :selected-mode="selectedMode" />
+    <records :selected-mode="selectedMode" />
   </div>
 </template>
 

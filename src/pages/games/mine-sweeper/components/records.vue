@@ -2,13 +2,10 @@
 import { useRecordsQuery } from '../apis/useRecordsQuery';
 
 const props = defineProps<{
-  selectedMode: {
-    id: number;
-    mode: string;
-  };
+  selectedMode?: number;
 }>();
 
-const { data, isLoading } = useRecordsQuery(computed(() => props.selectedMode.id));
+const { data, isLoading } = useRecordsQuery(computed(() => props.selectedMode));
 </script>
 
 <template>

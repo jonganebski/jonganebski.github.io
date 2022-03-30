@@ -1,4 +1,4 @@
-import { randArrayElements } from '~/libs/random';
+import { computeRandInt } from '~/libs/random';
 import { useMyI18n } from '~/plugins/i18n';
 
 export interface ImageOption {
@@ -14,7 +14,7 @@ interface ImageCategory {
 }
 
 export function useImages() {
-  const { t, locale } = useMyI18n();
+  const { t } = useMyI18n();
 
   const backDoor = ref(false);
 
@@ -111,12 +111,13 @@ export function useImages() {
           },
         ],
   );
-  // Photo by <a href="https://unsplash.com/@georgibenev97?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">georgi benev</a> on <a href="https://unsplash.com/s/photos/cat-box?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-  const selectedImage = ref(getRandomImage());
+  const selectedImage = ref<string>(getRandomImage());
 
   function getRandomImage() {
-    return randArrayElements(1, randArrayElements(1, images.value)[0].options)[0];
+    const categoryIdx = computeRandInt(0, images.value.length - 1);
+    const optionIdx = computeRandInt(0, images.value[categoryIdx].options.length - 1);
+    return images.value[categoryIdx].options[optionIdx].url;
   }
 
   function openBackDoor() {
@@ -127,13 +128,14 @@ export function useImages() {
     selectedImage.value = getRandomImage();
   });
 
-  watch(locale, () => {
-    const selectedImageWithNewLocale = images.value
-      .flatMap(({ options }) => options)
-      .find(({ url }) => url === selectedImage.value.url);
-    if (!selectedImageWithNewLocale) return;
-    selectedImage.value = selectedImageWithNewLocale;
-  });
+  function findImageByUrl(url: string) {
+    for (let i = 0; i < images.value.length; i++) {
+      for (let j = 0; j < images.value[i].options.length; j++) {
+        if (images.value[i].options[j].url !== url) continue;
+        return images.value[i].options[j];
+      }
+    }
+  }
 
-  return { selectedImage, images, openBackDoor };
+  return { selectedImage, images, openBackDoor, findImageByUrl };
 }

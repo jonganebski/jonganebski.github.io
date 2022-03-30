@@ -2,15 +2,7 @@ import { useTimestamp } from '@vueuse/core';
 import { Ref } from 'vue';
 import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 
-export function useMineSweeper(
-  selectedMode: Ref<
-    | {
-        id: number;
-        mode: string;
-      }
-    | undefined
-  >,
-) {
+export function useMineSweeper(selectedMode: Ref<number>) {
   class Node {
     public isExploded: boolean;
     public isQuestion: boolean;
@@ -154,17 +146,17 @@ export function useMineSweeper(
   });
 
   const meta = computed(() =>
-    selectedMode.value?.id === 3
+    selectedMode.value === 3
       ? { totalMines: 99, rows: 16, cols: 30 }
-      : selectedMode.value?.id === 2
+      : selectedMode.value === 2
       ? { totalMines: 40, rows: 16, cols: 16 }
-      : selectedMode.value?.id === 1
+      : selectedMode.value === 1
       ? { totalMines: 10, rows: 9, cols: 9 }
       : { totalMines: 0, rows: 0, cols: 0 },
   );
 
   watch(
-    () => meta.value,
+    () => selectedMode.value,
     () => initialize(),
     { immediate: true },
   );
@@ -207,7 +199,7 @@ export function useMineSweeper(
     if (!payload.isSuccess) return explode();
     if (!selectedMode.value) return;
     createRecord.mutate(
-      { modeId: selectedMode.value.id, time: time.value },
+      { modeId: selectedMode.value, time: time.value },
       {
         onSuccess: () => {
           window.alert('New Record!');

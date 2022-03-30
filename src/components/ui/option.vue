@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import type { ComputedRef } from 'vue';
 import colors from 'windicss/colors';
 
 export interface Props {
-  labelKey?: string;
-  value: {
-    [key: string]: any;
-  };
+  value: string | number;
+  label: string;
 }
 
-const props = withDefaults(defineProps<Props>(), { labelKey: 'label' });
+const props = defineProps<Props>();
+
+const modelValue = inject<ComputedRef<string | number>>('modelValue');
+const setSelectedOptionLabel = inject<(value: string) => void>('setSelectedOptionLabel');
+
+watchEffect(() => {
+  if (props.value !== modelValue?.value) return;
+  if (!setSelectedOptionLabel) return;
+  setSelectedOptionLabel(props.label);
+});
 </script>
 
 <template>
@@ -25,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), { labelKey: 'label' });
             : 'text-gray-900',
           'block truncate transition-all transform',
         ]"
-        >{{ props.value[props.labelKey] }}</span
+        >{{ props.label }}</span
       >
     </li>
   </ListboxOption>
