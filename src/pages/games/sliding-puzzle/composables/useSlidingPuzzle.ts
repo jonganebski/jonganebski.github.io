@@ -20,7 +20,14 @@ export function useSlidingPuzzle() {
 
   const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
   const clickCount = ref(0);
-  const score = computed(() => clickCount.value - SHUFFLE_COUNT);
+  const gameStartedAt = ref<number | null>(null);
+  const gameFinishedAt = ref<number | null>(null);
+  const time = computed(() =>
+    !gameStartedAt.value || !gameFinishedAt.value
+      ? null
+      : gameFinishedAt.value - gameStartedAt.value,
+  );
+  const score = computed(() => (!time.value ? null : (clickCount.value * time.value) / 1000));
 
   const nodes = ref([
     [0, 0, 0, 0, 0, 0, 0],
@@ -52,6 +59,8 @@ export function useSlidingPuzzle() {
   }
 
   async function initialize() {
+    gameStartedAt.value = null;
+    gameFinishedAt.value = null;
     nodes.value = [
       [0, 0, 0, 0, 0, 0, 0],
       [0, 1, 2, 3, 4, 5, 0],
@@ -166,10 +175,15 @@ export function useSlidingPuzzle() {
     if (status.value === 'shuffle' || status.value === 'done') return;
     const node = e.currentTarget as HTMLDivElement;
     if (!node) return;
-    if (await switchNode(node, rowIdx, colIdx)) clickCount.value += 1;
+    if (!(await switchNode(node, rowIdx, colIdx))) return;
+    if (!gameStartedAt.value) gameStartedAt.value = new Date().getTime();
+    clickCount.value += 1;
     if (status.value === 'ready') status.value = 'playing';
     if (!validate()) return;
     status.value = 'done';
+    gameFinishedAt.value = new Date().getTime();
+    if (!score.value) return;
+    console.log(score.value);
     createRecord.mutate({ score: score.value });
   }
 
@@ -189,6 +203,7 @@ export function useSlidingPuzzle() {
     status,
     nodes,
     score,
+    time,
     computeBgPosition,
     onClickNode,
     initialize,
