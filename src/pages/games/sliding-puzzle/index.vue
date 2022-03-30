@@ -2,10 +2,10 @@
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import CopyRight from './components/copy-right.vue';
+import Records from './components/records.vue';
 import Score from './components/score.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
-import Records from './components/records.vue';
 
 const { data: user } = useUserQuery();
 
@@ -20,6 +20,7 @@ const {
   status,
   nodes,
   score,
+  time,
   computeBgPosition,
   onClickNode,
   initialize,
@@ -34,8 +35,8 @@ watch(
 </script>
 
 <template>
-  <div class="my-10 grid gap-5 place-items-center">
-    <h1 class="text-xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
+  <div class="my-4 grid gap-12 place-items-center">
+    <h1 class="text-3xl md:text-5xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
     <div class="w-52">
       <ui-select v-model="selectedImageUrl" :label="t('image')" class="w-56">
         <ui-option-group
@@ -52,7 +53,14 @@ watch(
         </ui-option-group>
       </ui-select>
     </div>
-    <Score :shuffle-count="SHUFFLE_COUNT" :click-count="clickCount" :score="score" />
+    <div class="min-h-20">
+      <Score
+        :shuffle-count="SHUFFLE_COUNT"
+        :clicks-count="clickCount"
+        :time="time"
+        :score="score"
+      />
+    </div>
   </div>
   <div
     class="relative grid gap-px transition-all duration-1000 ease-linear"
