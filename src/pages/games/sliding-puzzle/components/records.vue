@@ -55,7 +55,7 @@ function computeTopRecords() {
                   :height="40"
                   :alt="t('the_avatar_of', { user_name: record.user.user_name })"
                 />
-                <span class="absolute top-0 right-0 text-xl">
+                <span class="absolute top-0 right-0 text-xl pointer-events-none">
                   {{
                     record.score === topRecords[0]
                       ? '🥇'
