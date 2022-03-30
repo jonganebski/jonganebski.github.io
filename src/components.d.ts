@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AuthBtn: typeof import('./components/auth/btn.vue')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonChevronDown: typeof import('~icons/carbon/chevron-down')['default']
     CarbonClose: typeof import('~icons/carbon/close')['default']
@@ -15,6 +16,7 @@ declare module 'vue' {
     CarbonLogout: typeof import('~icons/carbon/logout')['default']
     CarbonMenu: typeof import('~icons/carbon/menu')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
+    CarbonScatterMatrix: typeof import('~icons/carbon/scatter-matrix')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonTime: typeof import('~icons/carbon/time')['default']
     CarbonUser: typeof import('~icons/carbon/user')['default']
