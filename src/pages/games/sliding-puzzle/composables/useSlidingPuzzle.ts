@@ -53,7 +53,7 @@ export function useSlidingPuzzle() {
     if (0 < right && right !== prevNode) result.push(right);
     if (0 < left && left !== prevNode) result.push(left);
     if (prevNode) {
-      result = result.filter((node) => node !== 16);
+      result = result.filter((node) => node !== 25);
     }
     return randArrayElements(1, result)[0];
   }
