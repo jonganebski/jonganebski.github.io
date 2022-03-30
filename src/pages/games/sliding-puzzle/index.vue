@@ -25,10 +25,10 @@ const {
   initialize,
 } = useSlidingPuzzle();
 
-const { selectedImage, findImageByUrl, worship, images } = useImages();
+const { selectedImageUrl, findImageByUrl, worship, images } = useImages();
 
 watch(
-  () => selectedImage.value,
+  () => selectedImageUrl.value,
   () => initialize(),
 );
 </script>
@@ -37,7 +37,7 @@ watch(
   <div class="my-10 grid gap-5 place-items-center">
     <h1 class="text-xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
     <div class="w-52">
-      <ui-select v-model="selectedImage" :label="t('image')" class="w-56">
+      <ui-select v-model="selectedImageUrl" :label="t('image')" class="w-56">
         <ui-option-group
           v-for="{ categoryName, options } in images"
           :key="categoryName"
@@ -73,7 +73,7 @@ watch(
       <div
         class="w-full h-full bg-cover"
         :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
-        :style="{ backgroundImage: `url(${selectedImage})` }"
+        :style="{ backgroundImage: `url(${selectedImageUrl})` }"
       />
     </div>
     <div
@@ -100,7 +100,7 @@ watch(
           :style="{
             width: `${SIZE_NODE}px`,
             height: `${SIZE_NODE}px`,
-            backgroundImage: `url(${selectedImage})`,
+            backgroundImage: `url(${selectedImageUrl})`,
             backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
             backgroundPosition: computeBgPosition(node),
             transform: 'translate(0px)',
@@ -108,7 +108,7 @@ watch(
           @click="onClickNode($event, rowIdx, colIdx)"
         >
           <div class="absolute inset-0 bg-black bg-opacity-50 grid place-items-center">
-          {{ status === 'done' ? '' : node }}
+            {{ status === 'done' ? '' : node }}
           </div>
         </button>
       </div>
@@ -117,6 +117,7 @@ watch(
   <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
     {{ t('games_auth_warning') }}
   </div>
+  <CopyRight :selected-image="findImageByUrl(selectedImageUrl)" />
   <Records />
   <ui-contour-lines />
 </template>

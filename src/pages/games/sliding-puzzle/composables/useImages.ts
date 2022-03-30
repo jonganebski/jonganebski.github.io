@@ -13,11 +13,16 @@ interface ImageCategory {
   options: ImageOption[];
 }
 
+const STORAGE_URL =
+  'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images';
+
+const UNSPLASH_QUERY = 'utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText';
+
 export function useImages() {
   const { t } = useMyI18n();
 
   const backDoor = ref(false);
-  const hiddenClickCount = ref(0);
+  const worshipCount = ref(0);
 
   const images = computed<ImageCategory[]>(() =>
     backDoor.value
@@ -25,30 +30,17 @@ export function useImages() {
           {
             categoryName: t('fate_series'),
             options: [
-              {
-                label: t('jean_alter'),
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/jean-alter.jpg',
-              },
-              { label: '', url: '' },
+              { label: t('jean_alter'), url: `${STORAGE_URL}/jean-alter.jpg` },
+              { label: t('rider_5th'), url: `${STORAGE_URL}/rider-5th.jpg` },
             ],
           },
           {
             categoryName: t('eighty_six'),
-            options: [
-              {
-                label: t('vladilena_milize'),
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/vladilena-milize.jpg',
-              },
-            ],
+            options: [{ label: t('vladilena_milize'), url: `${STORAGE_URL}/vladilena-milize.jpg` }],
           },
           {
             categoryName: t('attack_on_titan'),
-            options: [
-              {
-                label: t('eren_yeager'),
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/eren-yeager.jpg',
-              },
-            ],
+            options: [{ label: t('eren_yeager'), url: `${STORAGE_URL}/eren-yeager.jpg` }],
           },
         ]
       : [
@@ -57,26 +49,26 @@ export function useImages() {
             options: [
               {
                 label: 'Kamran Ch',
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/mountain.jpg',
+                url: `${STORAGE_URL}/mountain.jpg`,
                 provider: {
                   name: 'Unsplash',
-                  url: 'https://unsplash.com/t/act-for-nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/t/act-for-nature?${UNSPLASH_QUERY}`,
                 },
                 creator: {
                   name: 'Kamran Ch',
-                  url: 'https://unsplash.com/@kamranch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/@kamranch?${UNSPLASH_QUERY}`,
                 },
               },
               {
                 label: 'David Scanlon',
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/gorilla.jpg',
+                url: `${STORAGE_URL}/gorilla.jpg`,
                 provider: {
                   name: 'Unsplash',
-                  url: 'https://unsplash.com/t/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/t/nature?${UNSPLASH_QUERY}`,
                 },
                 creator: {
                   name: 'David Scanlon',
-                  url: 'https://unsplash.com/@dsartwork?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/@dsartwork?${UNSPLASH_QUERY}`,
                 },
               },
             ],
@@ -86,26 +78,26 @@ export function useImages() {
             options: [
               {
                 label: 'Pacto Visual',
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_pacto-visual.jpg',
+                url: `${STORAGE_URL}/cat_pacto-visual.jpg`,
                 provider: {
                   name: 'Unsplash',
-                  url: 'https://unsplash.com/s/photos/cat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/s/photos/cat?${UNSPLASH_QUERY}`,
                 },
                 creator: {
                   name: 'Pacto Visual',
-                  url: 'https://unsplash.com/@pactovisual?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/@pactovisual?${UNSPLASH_QUERY}`,
                 },
               },
               {
                 label: 'Georgi Benev',
-                url: 'https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/sliding-puzzle-images/cat_georgi-benev.jpg',
+                url: `${STORAGE_URL}/cat_georgi-benev.jpg`,
                 provider: {
                   name: 'Unsplash',
-                  url: 'https://unsplash.com/s/photos/cat-box?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/s/photos/cat-box?${UNSPLASH_QUERY}`,
                 },
                 creator: {
                   name: 'georgi benev',
-                  url: 'https://unsplash.com/@georgibenev97?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+                  url: `https://unsplash.com/@georgibenev97?${UNSPLASH_QUERY}`,
                 },
               },
             ],
@@ -113,7 +105,7 @@ export function useImages() {
         ],
   );
 
-  const selectedImage = ref<string>(getRandomImage());
+  const selectedImageUrl = ref<string>(getRandomImage());
 
   function getRandomImage() {
     const categoryIdx = computeRandInt(0, images.value.length - 1);
@@ -124,12 +116,12 @@ export function useImages() {
   let setTimeoutId: NodeJS.Timeout;
 
   function worship() {
-    hiddenClickCount.value += 1;
+    worshipCount.value += 1;
     clearTimeout(setTimeoutId);
-    setTimeoutId = setTimeout(() => (hiddenClickCount.value = 0), 200);
-    if (hiddenClickCount.value !== 10) return;
+    setTimeoutId = setTimeout(() => (worshipCount.value = 0), 200);
+    if (worshipCount.value !== 10) return;
     backDoor.value = !backDoor.value;
-    selectedImage.value = getRandomImage();
+    selectedImageUrl.value = getRandomImage();
   }
 
   function findImageByUrl(url: string) {
@@ -141,5 +133,5 @@ export function useImages() {
     }
   }
 
-  return { selectedImage, images, findImageByUrl, worship };
+  return { selectedImageUrl, images, findImageByUrl, worship };
 }
