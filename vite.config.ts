@@ -49,7 +49,7 @@ export default defineConfig({
       compositionOnly: true,
       include: [resolve(__dirname, 'locales/**')],
     }),
-    WasmPack(['./mine-sweeper']),
+    WasmPack(['./wasm']),
   ],
   server: { fs: { strict: true } },
   ssgOptions: {
