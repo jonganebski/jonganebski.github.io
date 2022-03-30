@@ -7,12 +7,13 @@ interface Props {
   src?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { height: 40, width: 40 });
 </script>
 
 <template>
   <button
-    class="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden bg-gray-100 dark:bg-dark-800 transform active:scale-90"
+    class="flex items-center justify-center rounded-full overflow-hidden bg-gray-100 dark:bg-dark-800 transform active:scale-90"
+    :style="{ width: `${props.width}px`, height: `${props.height}px` }"
     :aria-label="props.ariaLabel"
   >
     <ui-lazy-image
