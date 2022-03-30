@@ -5,6 +5,7 @@ import CopyRight from './components/copy-right.vue';
 import Score from './components/score.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
+import Records from './components/records.vue';
 
 const { data: user } = useUserQuery();
 
@@ -116,7 +117,7 @@ watch(
   <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
     {{ t('games_auth_warning') }}
   </div>
-  <CopyRight :selected-image="findImageByUrl(selectedImage)" />
+  <Records />
   <ui-contour-lines />
 </template>
 
