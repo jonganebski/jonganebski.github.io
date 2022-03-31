@@ -11,6 +11,8 @@
   "beginner": "초심자",
   "cat": "고양이 | 고양이들",
   "click": "눌러요",
+  "click_to_change_to_the_light_mode": "클릭해서 라이트 모드로 바꾸세요",
+  "click_to_change_to_the_dark_mode": "클릭해서 다크 모드로 바꾸세요",
   "click_to_open_authentication_menu": "클릭해서 유저 메뉴를 여세요.",
   "current": "현재",
   "distance": "거리",

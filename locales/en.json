@@ -11,6 +11,8 @@
   "beginner": "Beginner",
   "cat": "Cat | Cats",
   "click": "Click",
+  "click_to_change_to_the_light_mode": "Click to change to the light mode",
+  "click_to_change_to_the_dark_mode": "Click to change to the dark mode",
   "click_to_open_authentication_menu": "Click to open authentication menu.",
   "current": "Current",
   "distance": "Distance",
