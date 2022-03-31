@@ -77,7 +77,9 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
+      <client-only>
+        <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
+      </client-only>
       <button>
         <span
           class="write-vertical-right"

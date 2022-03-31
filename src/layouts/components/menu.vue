@@ -38,7 +38,9 @@ onBeforeRouteLeave((_, __, next) => {
     >
       <div class="mb-20 flex items-center">
         <h1 class="text-5xl">{{ t('menu') }}</h1>
-        <ui-toggle-dark-mode-btn class="ml-20" />
+        <client-only>
+          <ui-toggle-dark-mode-btn class="ml-20" />
+        </client-only>
       </div>
       <nav class="grid gap-3 text-xl font-normal">
         <router-link to="/">{{ t('nav.home') }}</router-link>
