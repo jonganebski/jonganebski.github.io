@@ -9,17 +9,16 @@ export function useSlidingPuzzle() {
   const SIZE_Y = 5;
   const SHUFFLE_COUNT = import.meta.env.DEV ? 2 : SIZE_X * SIZE_Y * 2;
 
-  const SIZE_NODE = computed(() => (lgAndLarger.value ? 140 : smAndLarger.value ? 100 : 60));
+  const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
+
+  const breakpoints = useBreakpoints(breakpointsTailwind);
+  const smAndLarger = breakpoints.greater('sm');
+  const lgAndLarger = breakpoints.greater('lg');
+  const nodeSize = computed(() => (lgAndLarger.value ? 140 : smAndLarger.value ? 100 : 60));
 
   const createRecord = useCreateRecordMutation();
 
-  const breakpoints = useBreakpoints(breakpointsTailwind);
-
-  const smAndLarger = breakpoints.greater('sm');
-  const lgAndLarger = breakpoints.greater('lg');
-
-  const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
-  const clickCount = ref(0);
+  const clicksCount = ref(0);
   const gameStartedAt = ref<number | null>(null);
   const gameFinishedAt = ref<number | null>(null);
   const time = computed(() =>
@@ -27,7 +26,9 @@ export function useSlidingPuzzle() {
       ? null
       : gameFinishedAt.value - gameStartedAt.value,
   );
-  const score = computed(() => (!time.value ? null : (clickCount.value * time.value) / 1000));
+  const score = computed(() =>
+    !time.value ? null : clicksCount.value + Math.floor(time.value / 1_000),
+  );
 
   const nodes = ref([
     [0, 0, 0, 0, 0, 0, 0],
@@ -72,7 +73,7 @@ export function useSlidingPuzzle() {
       [0, 0, 0, 0, 0, 0, 0],
     ];
     await nextTick();
-    clickCount.value = 0;
+    clicksCount.value = 0;
     status.value = 'shuffle';
     let prevNode;
     for (let i = 0; i < SHUFFLE_COUNT; i++) {
@@ -114,7 +115,7 @@ export function useSlidingPuzzle() {
     if (transition) node.style.transition = 'transform linear 0.1s';
     if (direction === 'top') {
       if (transition) {
-        node.style.transform = `translateY(-${SIZE_NODE.value}px)`;
+        node.style.transform = `translateY(-${nodeSize.value}px)`;
         await sleep(100);
       }
       [nodes.value[rowIdx][colIdx], nodes.value[rowIdx - 1][colIdx]] = [
@@ -124,7 +125,7 @@ export function useSlidingPuzzle() {
     }
     if (direction === 'bottom') {
       if (transition) {
-        node.style.transform = `translateY(${SIZE_NODE.value}px)`;
+        node.style.transform = `translateY(${nodeSize.value}px)`;
         await sleep(100);
       }
       [nodes.value[rowIdx][colIdx], nodes.value[rowIdx + 1][colIdx]] = [
@@ -134,7 +135,7 @@ export function useSlidingPuzzle() {
     }
     if (direction === 'right') {
       if (transition) {
-        node.style.transform = `translateX(${SIZE_NODE.value}px)`;
+        node.style.transform = `translateX(${nodeSize.value}px)`;
         await sleep(100);
       }
       [nodes.value[rowIdx][colIdx], nodes.value[rowIdx][colIdx + 1]] = [
@@ -144,7 +145,7 @@ export function useSlidingPuzzle() {
     }
     if (direction === 'left') {
       if (transition) {
-        node.style.transform = `translateX(-${SIZE_NODE.value}px)`;
+        node.style.transform = `translateX(-${nodeSize.value}px)`;
         await sleep(100);
       }
       [nodes.value[rowIdx][colIdx], nodes.value[rowIdx][colIdx - 1]] = [
@@ -177,7 +178,7 @@ export function useSlidingPuzzle() {
     if (!node) return;
     if (!(await switchNode(node, rowIdx, colIdx))) return;
     if (!gameStartedAt.value) gameStartedAt.value = new Date().getTime();
-    clickCount.value += 1;
+    clicksCount.value += 1;
     if (status.value === 'ready') status.value = 'playing';
     if (!validate()) return;
     status.value = 'done';
@@ -188,18 +189,18 @@ export function useSlidingPuzzle() {
   }
 
   function computeBgPosition(node: number) {
-    const x = ((node - 1) % SIZE_X) * SIZE_NODE.value * -1;
-    const y = Math.floor((node - 1) / SIZE_Y) * SIZE_NODE.value * -1;
+    const x = ((node - 1) % SIZE_X) * nodeSize.value * -1;
+    const y = Math.floor((node - 1) / SIZE_Y) * nodeSize.value * -1;
     const t = `${x}px ${y}px`;
     return t;
   }
 
   return {
     SHUFFLE_COUNT,
-    SIZE_NODE,
+    nodeSize,
     SIZE_X,
     SIZE_Y,
-    clickCount,
+    clicksCount,
     status,
     nodes,
     score,

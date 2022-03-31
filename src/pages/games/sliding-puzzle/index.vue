@@ -13,10 +13,10 @@ const { t } = useMyI18n();
 
 const {
   SHUFFLE_COUNT,
-  SIZE_NODE,
   SIZE_X,
   SIZE_Y,
-  clickCount,
+  clicksCount,
+  nodeSize,
   status,
   nodes,
   score,
@@ -56,7 +56,7 @@ watch(
     <div class="min-h-20">
       <Score
         :shuffle-count="SHUFFLE_COUNT"
-        :clicks-count="clickCount"
+        :clicks-count="clicksCount"
         :time="time"
         :score="score"
       />
@@ -64,14 +64,14 @@ watch(
   </div>
   <div
     class="relative grid gap-px transition-all duration-1000 ease-linear"
-    :style="{ gridTemplateRows: `auto repeat(${SIZE_Y}, ${SIZE_NODE}px) auto` }"
+    :style="{ gridTemplateRows: `auto repeat(${SIZE_Y}, ${nodeSize}px) auto` }"
   >
     <div
       class="absolute top-0 left-1/2 transform -translate-x-1/2 z-1 pointer-events-none"
       :class="[status === 'done' ? 'shadow-2xl' : 'shadow']"
       :style="{
-        width: `${SIZE_X * SIZE_NODE + SIZE_X}px`,
-        height: `${SIZE_Y * SIZE_NODE + SIZE_Y}px`,
+        width: `${SIZE_X * nodeSize + SIZE_X}px`,
+        height: `${SIZE_Y * nodeSize + SIZE_Y}px`,
       }"
     >
       <div
@@ -88,7 +88,7 @@ watch(
       v-for="(row, rowIdx) in nodes"
       :key="rowIdx"
       class="grid gap-px transition-all duration-1000 ease-linear"
-      :style="{ gridTemplateColumns: `auto repeat(${SIZE_X}, ${SIZE_NODE}px) auto` }"
+      :style="{ gridTemplateColumns: `auto repeat(${SIZE_X}, ${nodeSize}px) auto` }"
     >
       <div v-for="(node, colIdx) in row" :key="node">
         <div v-if="node === 0" class="w-0 h-0" />
@@ -97,7 +97,7 @@ watch(
           id="void"
           :data-rowIdx="rowIdx"
           :data-colIdx="colIdx"
-          :style="{ width: `${SIZE_NODE}px`, height: `${SIZE_NODE}px` }"
+          :style="{ width: `${nodeSize}px`, height: `${nodeSize}px` }"
         />
         <button
           v-else
@@ -106,10 +106,10 @@ watch(
           :data-colIdx="colIdx"
           class="text-white"
           :style="{
-            width: `${SIZE_NODE}px`,
-            height: `${SIZE_NODE}px`,
+            width: `${nodeSize}px`,
+            height: `${nodeSize}px`,
             backgroundImage: `url(${selectedImageUrl})`,
-            backgroundSize: `${SIZE_NODE * SIZE_X}px ${SIZE_NODE * SIZE_Y}px`,
+            backgroundSize: `${nodeSize * SIZE_X}px ${nodeSize * SIZE_Y}px`,
             backgroundPosition: computeBgPosition(node),
             transform: 'translate(0px)',
           }"
