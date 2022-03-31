@@ -8,7 +8,7 @@ export interface ImageOption {
   creator?: { name: string; url?: string };
 }
 
-interface ImageCategory {
+export interface ImageCategory {
   categoryName: string;
   options: ImageOption[];
 }
