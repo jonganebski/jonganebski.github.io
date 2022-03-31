@@ -50,62 +50,70 @@ function pushWithModeQuery(modeId: string | number) {
         <ui-option v-for="mode in modes" :key="mode.id" :value="mode.id" :label="mode.mode" />
       </ui-select>
     </div>
-    <div
-      v-if="0 < meta.rows && 0 < meta.cols"
-      class="mt-20 flex flex-col items-center justify-center game"
-      @contextmenu.prevent
-    >
-      <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
-        <div class="p-2 grid grid-cols-3 intaglio">
-          <div class="flex">
-            <span class="counter">
-              {{ (meta.totalMines - flagCount).toString().padStart(3, '0') }}
-            </span>
+    <client-only>
+      <div
+        v-if="0 < meta.rows && 0 < meta.cols"
+        class="mt-20 flex flex-col items-center justify-center game"
+        @contextmenu.prevent
+      >
+        <div class="p-2 relief" :style="{ backgroundColor: COLORS.surfaceDark }">
+          <div class="p-2 grid grid-cols-3 intaglio">
+            <div class="flex">
+              <span class="counter">
+                {{ (meta.totalMines - flagCount).toString().padStart(3, '0') }}
+              </span>
+            </div>
+            <div class="flex items-center justify-center">
+              <button
+                class="node-btn relief player w-10 h-10"
+                :data-isGameOver="isGameOver"
+                aria-label="Click to restart the game"
+                @click="initialize"
+              >
+                {{ isGameOver && isSuccess ? '😎' : isGameOver && !isSuccess ? '💀' : '' }}
+              </button>
+            </div>
+            <div class="flex justify-end">
+              <span class="counter">
+                {{
+                  Math.round(time / 1000)
+                    .toString()
+                    .padStart(3, '0')
+                }}
+              </span>
+            </div>
           </div>
-          <div class="flex items-center justify-center">
-            <button
-              class="node-btn relief player w-10 h-10"
-              :data-isGameOver="isGameOver"
-              aria-label="Click to restart the game"
-              @click="initialize"
-            >
-              {{ isGameOver && isSuccess ? '😎' : isGameOver && !isSuccess ? '💀' : '' }}
-            </button>
-          </div>
-          <div class="flex justify-end">
-            <span class="counter">
-              {{
-                Math.round(time / 1000)
-                  .toString()
-                  .padStart(3, '0')
-              }}
-            </span>
+          <div class="rows-container intaglio">
+            <div v-for="(row, index) in game" :key="index" class="row">
+              <button
+                v-for="(node, index) in row"
+                :key="index"
+                class="node-btn"
+                :class="[node.isVeiled && 'relief']"
+                :data-isExploded="node.isExploded"
+                @contextmenu.prevent="() => withController(() => node.onRightClick())"
+                @dblclick.prevent="() => withController(() => node.onDoubleClick())"
+                @click.prevent="() => withController(() => node.onLeftClick())"
+              >
+                <span
+                  v-if="!node.isVeiled"
+                  class="font-extrabold"
+                  :class="[getHintColor(node.hint)]"
+                >
+                  {{ node.hint === 0 ? '' : node.hint }}
+                </span>
+                <span v-if="node.isExploded">💣</span>
+                <carbon-flag v-if="node.isFlagged" />
+                <carbon-help v-if="node.isQuestion" />
+              </button>
+            </div>
           </div>
         </div>
-        <div class="rows-container intaglio">
-          <div v-for="(row, index) in game" :key="index" class="row">
-            <button
-              v-for="(node, index) in row"
-              :key="index"
-              class="node-btn"
-              :class="[node.isVeiled && 'relief']"
-              :data-isExploded="node.isExploded"
-              @contextmenu.prevent="() => withController(() => node.onRightClick())"
-              @dblclick.prevent="() => withController(() => node.onDoubleClick())"
-              @click.prevent="() => withController(() => node.onLeftClick())"
-            >
-              <span v-if="!node.isVeiled" class="font-extrabold" :class="[getHintColor(node.hint)]">
-                {{ node.hint === 0 ? '' : node.hint }}
-              </span>
-              <span v-if="node.isExploded">💣</span>
-              <carbon-flag v-if="node.isFlagged" />
-              <carbon-help v-if="node.isQuestion" />
-            </button>
-          </div>
+        <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">
+          {{ t('games_auth_warning') }}
         </div>
       </div>
-      <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">{{ t('games_auth_warning') }}</div>
-    </div>
+    </client-only>
     <records :selected-mode="selectedMode" />
     <ui-contour-lines />
   </div>

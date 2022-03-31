@@ -62,66 +62,68 @@ watch(
       />
     </div>
   </div>
-  <div
-    class="relative grid gap-px transition-all duration-1000 ease-linear"
-    :style="{ gridTemplateRows: `auto repeat(${SIZE_Y}, ${nodeSize}px) auto` }"
-  >
+  <client-only>
     <div
-      class="absolute top-0 left-1/2 transform -translate-x-1/2 z-1 pointer-events-none"
-      :class="[status === 'done' ? 'shadow-2xl' : 'shadow']"
-      :style="{
-        width: `${SIZE_X * nodeSize + SIZE_X}px`,
-        height: `${SIZE_Y * nodeSize + SIZE_Y}px`,
-      }"
+      class="relative grid gap-px transition-all duration-1000 ease-linear"
+      :style="{ gridTemplateRows: `auto repeat(${SIZE_Y}, ${nodeSize}px) auto` }"
     >
       <div
-        class="absolute top-0 left-0 z-1 w-full h-full bg-white opacity-0"
-        :class="{ 'done__anim-mask': status === 'done' }"
-      />
-      <div
-        class="w-full h-full bg-cover"
-        :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
-        :style="{ backgroundImage: `url(${selectedImageUrl})` }"
-      />
-    </div>
-    <div
-      v-for="(row, rowIdx) in nodes"
-      :key="rowIdx"
-      class="grid gap-px transition-all duration-1000 ease-linear"
-      :style="{ gridTemplateColumns: `auto repeat(${SIZE_X}, ${nodeSize}px) auto` }"
-    >
-      <div v-for="(node, colIdx) in row" :key="node">
-        <div v-if="node === 0" class="w-0 h-0" />
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 z-1 pointer-events-none"
+        :class="[status === 'done' ? 'shadow-2xl' : 'shadow']"
+        :style="{
+          width: `${SIZE_X * nodeSize + SIZE_X}px`,
+          height: `${SIZE_Y * nodeSize + SIZE_Y}px`,
+        }"
+      >
         <div
-          v-else-if="node === -1"
-          id="void"
-          :data-rowIdx="rowIdx"
-          :data-colIdx="colIdx"
-          :style="{ width: `${nodeSize}px`, height: `${nodeSize}px` }"
+          class="absolute top-0 left-0 z-1 w-full h-full bg-white opacity-0"
+          :class="{ 'done__anim-mask': status === 'done' }"
         />
-        <button
-          v-else
-          :id="node.toString()"
-          :data-rowIdx="rowIdx"
-          :data-colIdx="colIdx"
-          class="text-white"
-          :style="{
-            width: `${nodeSize}px`,
-            height: `${nodeSize}px`,
-            backgroundImage: `url(${selectedImageUrl})`,
-            backgroundSize: `${nodeSize * SIZE_X}px ${nodeSize * SIZE_Y}px`,
-            backgroundPosition: computeBgPosition(node),
-            transform: 'translate(0px)',
-          }"
-          @click="onClickNode($event, rowIdx, colIdx)"
-        >
-          <div class="absolute inset-0 bg-black bg-opacity-50 grid place-items-center">
-            {{ status === 'done' ? '' : node }}
-          </div>
-        </button>
+        <div
+          class="w-full h-full bg-cover"
+          :class="[status === 'done' ? 'done__anim-image opacity-100' : 'opacity-0']"
+          :style="{ backgroundImage: `url(${selectedImageUrl})` }"
+        />
+      </div>
+      <div
+        v-for="(row, rowIdx) in nodes"
+        :key="rowIdx"
+        class="grid gap-px transition-all duration-1000 ease-linear"
+        :style="{ gridTemplateColumns: `auto repeat(${SIZE_X}, ${nodeSize}px) auto` }"
+      >
+        <div v-for="(node, colIdx) in row" :key="node">
+          <div v-if="node === 0" class="w-0 h-0" />
+          <div
+            v-else-if="node === -1"
+            id="void"
+            :data-rowIdx="rowIdx"
+            :data-colIdx="colIdx"
+            :style="{ width: `${nodeSize}px`, height: `${nodeSize}px` }"
+          />
+          <button
+            v-else
+            :id="node.toString()"
+            :data-rowIdx="rowIdx"
+            :data-colIdx="colIdx"
+            class="text-white"
+            :style="{
+              width: `${nodeSize}px`,
+              height: `${nodeSize}px`,
+              backgroundImage: `url(${selectedImageUrl})`,
+              backgroundSize: `${nodeSize * SIZE_X}px ${nodeSize * SIZE_Y}px`,
+              backgroundPosition: computeBgPosition(node),
+              transform: 'translate(0px)',
+            }"
+            @click="onClickNode($event, rowIdx, colIdx)"
+          >
+            <div class="absolute inset-0 bg-black bg-opacity-50 grid place-items-center">
+              {{ status === 'done' ? '' : node }}
+            </div>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </client-only>
   <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
     {{ t('games_auth_warning') }}
   </div>
