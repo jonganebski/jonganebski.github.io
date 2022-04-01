@@ -4,8 +4,11 @@ import bg from '~/assets/menu-bg.svg';
 import bgDark from '~/assets/menu-bg-dark.svg';
 import { useMyI18n } from '~/plugins/i18n';
 import { isDark } from '~/composables/useDarkMode';
+import { useNav } from '../composables/useNav';
 
 const { setLocaleTo, t } = useMyI18n();
+
+const links = useNav();
 
 const menuBtnRef = ref<HTMLDivElement | null>(null);
 
@@ -46,9 +49,14 @@ onBeforeRouteLeave((_, __, next) => {
         </client-only>
       </div>
       <nav class="grid gap-3 text-xl font-normal">
-        <router-link to="/">{{ t('nav.home') }}</router-link>
-        <router-link to="/posts/routes">{{ t('nav.routes') }}</router-link>
-        <router-link to="/posts/techs">{{ t('nav.techs') }}</router-link>
+        <router-link
+          v-for="{ path, isMatch, label } in links"
+          :key="path"
+          :class="[isMatch ? 'text-rose-600' : 'hover:text-rose-500']"
+          :to="path"
+        >
+          {{ label }}
+        </router-link>
       </nav>
       <div class="mt-30">
         <button @click="setLocaleTo('ko')">한국어</button>

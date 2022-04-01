@@ -4,12 +4,15 @@ import { useQueryClient } from 'vue-query';
 import { useUserQuery } from '~/api/useUserQuery';
 import { supabase } from '~/libs/supabase';
 import { useMyI18n } from '~/plugins/i18n';
+import { useNav } from '../composables/useNav';
 
 const { setLocaleTo, locale, t } = useMyI18n();
 
 const queryClient = useQueryClient();
 
 const { data: user } = useUserQuery();
+
+const links = useNav();
 
 const isAuthContainerOpen = ref(false);
 
@@ -37,17 +40,17 @@ onMounted(() => {
   >
     <div class="mt-22 w-0 h-0">
       <nav class="nav">
-        <router-link to="/games" :class="[locale === 'ko' && 'transform rotate-90']">
-          {{ t('nav.games') }}
-        </router-link>
-        <router-link to="/posts/techs" :class="[locale === 'ko' && 'transform rotate-90']">
-          {{ t('nav.techs') }}
-        </router-link>
-        <router-link to="/posts/routes" :class="[locale === 'ko' && 'transform rotate-90']">
-          {{ t('nav.routes') }}
-        </router-link>
-        <router-link to="/" :class="[locale === 'ko' && 'transform rotate-90']">
-          {{ t('nav.home') }}
+        <router-link
+          v-for="{ path, isMatch, label } in links"
+          :key="path"
+          :to="path"
+          :class="[isMatch ? 'text-rose-600' : 'hover:text-rose-500']"
+          :style="{
+            transform: locale === 'ko' ? `rotate(90deg)` : '',
+            marginLeft: locale === 'ko' ? `${label.length + 1}rem` : '1.5rem',
+          }"
+        >
+          {{ label }}
         </router-link>
       </nav>
     </div>
@@ -109,7 +112,7 @@ onMounted(() => {
 <style scoped lang="css">
 .nav {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: row-reverse;
   width: fit-content;
   transform-origin: right;
   transform: translate(-100%) rotate(-90deg);
