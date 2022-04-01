@@ -37,6 +37,9 @@ onMounted(() => {
   >
     <div class="mt-22 w-0 h-0">
       <nav class="nav">
+        <router-link to="/games" :class="[locale === 'ko' && 'transform rotate-90']">
+          {{ t('nav.games') }}
+        </router-link>
         <router-link to="/posts/techs" :class="[locale === 'ko' && 'transform rotate-90']">
           {{ t('nav.techs') }}
         </router-link>
