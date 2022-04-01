@@ -90,7 +90,7 @@ export interface Point__point {
  * created_at: '2022-02-07T05:56:07+00:00';
  * updated_at: '2022-02-07T05:56:07+00:00';
  * user_id: 'ba6546d0-1303-46ee-bddf-77b780542a91'
- * mode: 2;
+ * mode_id: 2;
  * time: 20326
  * ```
  */
