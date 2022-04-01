@@ -20,35 +20,38 @@ const links = computed(() => [
 </script>
 
 <template>
-  <ul class="mt-20 mx-auto p-10 lg:p-20 max-w-screen-xl flex flex-wrap gap-16">
-    <li v-for="{ path, name, src } in links" :key="path">
-      <router-link
-        class="group"
-        :to="path"
-        :aria-label="
-          locale === 'ko' ? `${name}을(를) 플레이하려면 클릭하세요` : `Click to play ${name}`
-        "
-      >
-        <ui-lazy-image
-          class="transition-shadow shadow-sm group-hover:shadow-xl"
-          :style="{ transitionDelay: `${name.length * 10}ms` }"
-          :height="240"
-          :width="200"
-          :src="src"
-        />
-        <h4 class="mt-2 text-center overflow-hidden">
-          <span
-            v-for="(char, index) in name.split('')"
-            :key="index"
-            class="inline-block transition-all transform translate-y-[1em] group-hover:translate-y-0 opacity-0 group-hover:opacity-100"
-            :style="{ transitionDelay: `${index * 10}ms` }"
-          >
-            {{ char }}
-          </span>
-        </h4>
-      </router-link>
-    </li>
-  </ul>
+  <div class="mx-auto p-10 lg:p-20 max-w-screen-xl">
+    <h1 class="text-6xl">{{ t('nav.games') }}</h1>
+    <ul class="mt-30 flex flex-wrap gap-16">
+      <li v-for="{ path, name, src } in links" :key="path">
+        <router-link
+          class="group"
+          :to="path"
+          :aria-label="
+            locale === 'ko' ? `${name}을(를) 플레이하려면 클릭하세요` : `Click to play ${name}`
+          "
+        >
+          <ui-lazy-image
+            class="transition-shadow shadow-sm group-hover:shadow-xl"
+            :style="{ transitionDelay: `${name.length * 10}ms` }"
+            :height="240"
+            :width="200"
+            :src="src"
+          />
+          <h4 class="mt-2 text-center overflow-hidden">
+            <span
+              v-for="(char, index) in name.split('')"
+              :key="index"
+              class="inline-block transition-all transform translate-y-[1em] group-hover:translate-y-0 opacity-0 group-hover:opacity-100"
+              :style="{ transitionDelay: `${index * 10}ms` }"
+            >
+              {{ char }}
+            </span>
+          </h4>
+        </router-link>
+      </li>
+    </ul>
+  </div>
   <client-only>
     <ui-contour-lines />
   </client-only>
