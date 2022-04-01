@@ -23,7 +23,7 @@ export function useRecordsQuery(modeId: ComputedRef<number | undefined>) {
           ).data
         : null,
     reactive({
-      enabled: !!modeId.value,
+      enabled: !!modeId,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       refetchOnMount: false,
