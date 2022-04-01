@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onBeforeRouteLeave } from 'vue-router';
 import bg from '~/assets/menu-bg.svg';
+import bgDark from '~/assets/menu-bg-dark.svg';
 import { useMyI18n } from '~/plugins/i18n';
+import { isDark } from '~/composables/useDarkMode';
 
 const { setLocaleTo, t } = useMyI18n();
 
@@ -27,15 +29,16 @@ onBeforeRouteLeave((_, __, next) => {
 <template>
   <div class="fixed z-50 top-0 left-0">
     <section
-      class="absolute top-0 left-0 w-screen h-screen px-[30vw] py-[30vh] bg-cover text-light-300 transition-all delay-300 duration-300"
+      class="absolute top-0 left-0 w-screen h-screen px-10 sm:px-[30vw] py-24 sm:py-[30vh] bg-cover text-light-300 transition-all delay-300 duration-300 bg-black"
       :style="{
         clipPath: isMenuOpen
           ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
           : 'polygon(0 0, 0% 0, 0% 0%, 0 0%)',
         opacity: isMenuOpen ? 1 : 0,
-        backgroundImage: `url(${bg})`,
       }"
     >
+      <div class="bg" :style="{ backgroundImage: `url(${bgDark})`, opacity: isDark ? 1 : 0 }" />
+      <div class="bg" :style="{ backgroundImage: `url(${bg})`, opacity: isDark ? 0 : 1 }" />
       <div class="mb-20 flex items-center">
         <h1 class="text-5xl">{{ t('menu') }}</h1>
         <client-only>
@@ -80,6 +83,10 @@ onBeforeRouteLeave((_, __, next) => {
 </template>
 
 <style lang="css" scoped>
+.bg {
+  @apply absolute -z-1 top-0 left-0 bg-cover w-full h-full transition-opacity duration-500;
+}
+
 @keyframes move {
   0% {
     transform: translate(0px, 0px);
