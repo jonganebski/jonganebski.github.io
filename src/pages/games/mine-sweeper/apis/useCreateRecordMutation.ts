@@ -59,10 +59,10 @@ export function useCreateRecordMutation() {
         if (!prevData) return;
         queryClient.setQueryData<UseRecordsQueryData[]>(
           ['mine-sweeper-records', resData.mode_id],
-          () => {
-            prevData.push({ ...resData, user: { user_name, avatar_url } });
-            return prevData.sort((a, b) => a.time - b.time);
-          },
+          () =>
+            [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
+              (a, b) => a.time - b.time,
+            ),
         );
       },
     },

@@ -53,10 +53,11 @@ export function useCreateRecordMutation() {
         if (!resData) return;
         const prevData = queryClient.getQueryData<UseRecordsQueryData[]>('sliding-puzzle-records');
         if (!prevData) return;
-        queryClient.setQueryData<UseRecordsQueryData[]>('sliding-puzzle-records', () => {
-          prevData.push({ ...resData, user: { user_name, avatar_url } });
-          return prevData.sort((a, b) => a.score - b.score);
-        });
+        queryClient.setQueryData<UseRecordsQueryData[]>('sliding-puzzle-records', () =>
+          [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
+            (a, b) => a.score - b.score,
+          ),
+        );
       },
     },
   );
