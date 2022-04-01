@@ -11,6 +11,7 @@ declare module 'vue' {
     CarbonCode: typeof import('~icons/carbon/code')['default']
     CarbonFlag: typeof import('~icons/carbon/flag')['default']
     CarbonHelp: typeof import('~icons/carbon/help')['default']
+    CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonLink: typeof import('~icons/carbon/link')['default']
     CarbonListNumbered: typeof import('~icons/carbon/list-numbered')['default']
     CarbonLogout: typeof import('~icons/carbon/logout')['default']
