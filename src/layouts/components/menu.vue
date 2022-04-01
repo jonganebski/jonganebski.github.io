@@ -33,9 +33,9 @@ onBeforeRouteLeave((_, __, next) => {
 </script>
 
 <template>
-  <div class="fixed z-50 top-0 left-0 h-full">
+  <div class="fixed z-50 top-0 left-0">
     <section
-      class="absolute top-0 left-0 w-screen h-full text-light-300 transition-all delay-300 duration-300 bg-black overflow-hidden"
+      class="absolute top-0 left-0 w-screen h-full min-h-screen text-light-300 bg-black overflow-hidden transition-all delay-300 duration-300"
       :style="{
         clipPath: isMenuOpen
           ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
