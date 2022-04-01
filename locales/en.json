@@ -1,5 +1,5 @@
 {
-  "nav": { "home": "Home", "routes": "Routes", "techs": "Techs" },
+  "nav": { "home": "Home", "routes": "Routes", "techs": "Techs", "games": "Games" },
   "posts_techs": {
     "p_1": "The posts on this page are related to the programming.",
     "p_2": "I'm a front-end developer. Most of times I use Typescript(who uses Javascript?), React, Vue.",
@@ -32,6 +32,7 @@
   "lowest": "Lowest",
   "menu": "Menu",
   "milliseconds": "Milliseconds",
+  "minesweeper": "Minesweeper",
   "minutes": "Minutes",
   "mode": "Mode",
   "move": "Move | Moves",
