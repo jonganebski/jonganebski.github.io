@@ -6,6 +6,24 @@ const props = defineProps<{
 }>();
 
 const { data, isLoading } = useRecordsQuery(computed(() => props.selectedMode));
+
+const topRecords = computed(computeTopRecords);
+
+function computeTopRecords() {
+  const topRecords: number[] = [];
+  if (!data.value) return topRecords;
+  for (let i = 0; i < data.value?.length; i++) {
+    const { time } = data.value[i];
+    if (topRecords.length === 0) {
+      topRecords.push(time);
+      continue;
+    }
+    if (topRecords[topRecords.length - 1] === time) continue;
+    topRecords.push(time);
+    if (topRecords.length === 3) break;
+  }
+  return topRecords;
+}
 </script>
 
 <template>
@@ -38,9 +56,15 @@ const { data, isLoading } = useRecordsQuery(computed(() => props.selectedMode));
                   :height="40"
                   class="rounded-full"
                 />
-                <span v-if="index + 1 <= 3" class="absolute top-0 right-0 text-xl">
+                <span class="absolute top-0 right-0 text-xl">
                   {{
-                    index + 1 === 1 ? '🥇' : index + 1 === 2 ? '🥈' : index + 1 === 3 ? '🥉' : ''
+                    topRecords[0] === record.time
+                      ? '🥇'
+                      : topRecords[1] === record.time
+                      ? '🥈'
+                      : topRecords[2] === record.time
+                      ? '🥉'
+                      : ''
                   }}
                 </span>
               </div>
