@@ -5,8 +5,11 @@ import bgDark from '~/assets/menu-bg-dark.svg';
 import { useMyI18n } from '~/plugins/i18n';
 import { isDark } from '~/composables/useDarkMode';
 import { useNav } from '../composables/useNav';
+import { useUserQuery } from '~/api/useUserQuery';
 
 const { setLocaleTo, t } = useMyI18n();
+
+const { data: user } = useUserQuery();
 
 const links = useNav();
 
@@ -30,9 +33,9 @@ onBeforeRouteLeave((_, __, next) => {
 </script>
 
 <template>
-  <div class="fixed z-50 top-0 left-0">
+  <div class="fixed z-50 top-0 left-0 h-full">
     <section
-      class="absolute top-0 left-0 w-screen h-screen px-10 sm:px-[30vw] py-24 sm:py-[30vh] bg-cover text-light-300 transition-all delay-300 duration-300 bg-black"
+      class="absolute top-0 left-0 w-screen h-full text-light-300 transition-all delay-300 duration-300 bg-black overflow-hidden"
       :style="{
         clipPath: isMenuOpen
           ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
@@ -42,26 +45,42 @@ onBeforeRouteLeave((_, __, next) => {
     >
       <div class="bg" :style="{ backgroundImage: `url(${bgDark})`, opacity: isDark ? 1 : 0 }" />
       <div class="bg" :style="{ backgroundImage: `url(${bg})`, opacity: isDark ? 0 : 1 }" />
-      <div class="mb-20 flex items-center">
-        <h1 class="text-5xl">{{ t('menu') }}</h1>
-        <client-only>
-          <ui-toggle-dark-mode-btn class="ml-20" />
-        </client-only>
-      </div>
-      <nav class="grid gap-3 text-xl font-normal">
-        <router-link
-          v-for="{ path, isMatch, label } in links"
-          :key="path"
-          :class="[isMatch ? 'text-rose-600' : 'hover:text-rose-500']"
-          :to="path"
-        >
-          {{ label }}
-        </router-link>
-      </nav>
-      <div class="mt-30">
-        <button @click="setLocaleTo('ko')">한국어</button>
-        <span> / </span>
-        <button @click="setLocaleTo('en')">English</button>
+      <div
+        class="py-28 md:py-[20vh] px-10 md:px-[20vw] h-full grid gap-30 lg:grid-cols-2 overflow-auto"
+      >
+        <div class="grid gap-30">
+          <div class="flex items-center">
+            <h1 class="text-5xl">{{ t('menu') }}</h1>
+            <client-only>
+              <ui-toggle-dark-mode-btn class="ml-20" />
+            </client-only>
+          </div>
+          <nav class="grid gap-3 text-xl font-normal">
+            <router-link
+              v-for="{ path, isMatch, label } in links"
+              :key="path"
+              :class="[isMatch ? 'text-rose-600' : 'hover:text-rose-500']"
+              :to="path"
+            >
+              {{ label }}
+            </router-link>
+          </nav>
+          <div>
+            <button @click="setLocaleTo('ko')">한국어</button>
+            <span> / </span>
+            <button @click="setLocaleTo('en')">English</button>
+          </div>
+        </div>
+        <div class="max-w-96 flex flex-col gap-3 justify-end max-w-80">
+          <template v-if="user">
+            <auth-btn sign-out />
+          </template>
+          <template v-else>
+            <auth-btn provider="github" />
+            <auth-btn provider="google" />
+            <auth-btn provider="facebook" />
+          </template>
+        </div>
       </div>
     </section>
     <section ref="menuBtnRef" @animationend="onAnimationEnd">
