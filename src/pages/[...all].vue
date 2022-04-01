@@ -16,31 +16,37 @@ const content = ref('404');
     class="mt-16 min-h-screen-sm flex flex-col items-center overflow-hidden text-xl md:text-3xl lg:text-5xl"
   >
     <div class="relative w-full h-[1em]">
-      <span class="text-not-found loop-to-right">
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not
-        Found&nbsp;
-      </span>
-      <span class="text-not-found loop-to-right__backup">
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-      </span>
+      <p
+        class="text-not-found loop-to-right"
+        :style="{ animationDuration: `${t('nav.not_found').length * 4}s` }"
+      >
+        <span v-for="num in 18" :key="num"> {{ t('nav.not_found') }}&nbsp; </span>
+      </p>
+      <p
+        class="text-not-found loop-to-right__backup"
+        :style="{ animationDuration: `${t('nav.not_found').length * 4}s` }"
+      >
+        <span v-for="num in 18" :key="num"> {{ t('nav.not_found') }}&nbsp; </span>
+      </p>
     </div>
     <h1 class="text-404">{{ content }}</h1>
     <div class="relative w-full h-[1em]">
-      <span class="text-not-found loop-to-left">
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not
-        Found&nbsp;
-      </span>
-      <span class="text-not-found loop-to-left__backup">
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-        Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found Not Found
-      </span>
+      <p
+        class="text-not-found loop-to-left"
+        :style="{ animationDuration: `${t('nav.not_found').length * 4}s` }"
+      >
+        <span v-for="num in 18" :key="num"> {{ t('nav.not_found') }}&nbsp; </span>
+      </p>
+      <p
+        class="text-not-found loop-to-left__backup"
+        :style="{ animationDuration: `${t('nav.not_found').length * 4}s` }"
+      >
+        <span v-for="num in 18" :key="num"> {{ t('nav.not_found') }}&nbsp; </span>
+      </p>
     </div>
     <router-link
       to="/"
-      class="mt-20 p-2 text-2xl"
+      class="mt-20 p-2 text-2xl text-dark-500 dark:text-light-500"
       aria-label="Click to go back to homepage"
       @mouseenter="content = 'Home'"
       @mouseleave="content = '404'"
@@ -100,15 +106,15 @@ const content = ref('404');
   }
 }
 .loop-to-left {
-  animation: translate-to-left 20s linear infinite;
+  animation: translate-to-left linear infinite;
 }
 .loop-to-left__backup {
-  animation: translate-to-left-2 20s linear infinite;
+  animation: translate-to-left-2 linear infinite;
 }
 .loop-to-right {
-  animation: translate-to-right 20s linear infinite;
+  animation: translate-to-right linear infinite;
 }
 .loop-to-right__backup {
-  animation: translate-to-right-2 20s linear infinite;
+  animation: translate-to-right-2 linear infinite;
 }
 </style>
