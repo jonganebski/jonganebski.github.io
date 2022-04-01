@@ -7,17 +7,10 @@ type Plugin = (ctx: ViteSSGContext) => void;
 
 export type Locale = 'en' | 'ko';
 
-// const messages = Object.fromEntries(
-//   Object.entries(import.meta.globEager('../../locales/*.json')).map(([key, value]) => {
-//     const json = key.endsWith('.json');
-//     return [key.slice(14, json ? -5 : -4), value.default];
-//   }),
-// );
-
 export function useMyI18n() {
   const i18n = useI18n<[typeof enMessages], Locale>();
 
-  const setLocaleTo = (to: 'ko' | 'en') => {
+  const setLocaleTo = (to: Locale) => {
     i18n.locale.value = to;
   };
 
@@ -27,7 +20,7 @@ export function useMyI18n() {
 export const install: Plugin = ({ app }) => {
   const i18n = createI18n({
     legacy: false,
-    locale: 'en',
+    locale: 'ko',
     messages: { ko: koMessages, en: enMessages },
   });
 
