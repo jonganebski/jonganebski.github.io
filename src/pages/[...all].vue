@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import colors from 'windicss/colors';
+import { useMyI18n } from '~/plugins/i18n';
+
+const { t } = useMyI18n();
 
 const content = ref('404');
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('nav.not_found') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div
     class="mt-16 min-h-screen-sm flex flex-col items-center overflow-hidden text-xl md:text-3xl lg:text-5xl"
   >

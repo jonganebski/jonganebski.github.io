@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import { getTechPosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
-import PartyBtn from './components/party-btn.vue';
 import FloatingIcon from './components/floating-icon.vue';
+import PartyBtn from './components/party-btn.vue';
 
 const { locale, t } = useMyI18n();
 
@@ -18,6 +19,9 @@ function formatDate(dateString: string) {
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('tech_blog') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div class="mt-20 mb-40 px-4 md:px-16 mx-auto text-dark-500 dark:text-light-500">
     <div class="flex justify-between">
       <div>

@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
 import CopyRight from './components/copy-right.vue';
 import Records from './components/records.vue';
 import Score from './components/score.vue';
+import SelectImage from './components/select-image.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
-import SelectImage from './components/select-image.vue';
 
 const { data: user } = useUserQuery();
 
@@ -36,6 +37,9 @@ watch(
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('sliding_puzzle') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div class="mt-20 grid gap-12 place-items-center text-dark-500 dark:text-light-500">
     <h1 class="text-3xl md:text-5xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
     <SelectImage v-model="selectedImageUrl" :images="images" />

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
-import { useMineSweeper } from './composables/useMineSweeper';
 import Records from './components/records.vue';
+import { useMineSweeper } from './composables/useMineSweeper';
 import { useModes } from './composables/useModes';
 
 const router = useRouter();
@@ -39,6 +40,9 @@ function pushWithModeQuery(modeId: string | number) {
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('minesweeper') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div class="mt-20 min-h-screen grid place-items-center text-dark-500 dark:text-light-500">
     <h1 class="text-3xl md:text-5xl">{{ t('minesweeper') }}</h1>
     <div class="mt-10 flex justify-center">

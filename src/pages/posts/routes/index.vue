@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import CountryFlag from 'vue-country-flag-next';
 import { getRoutePosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
@@ -9,7 +10,7 @@ interface HoverMeta {
   location: 'img' | 'map';
 }
 
-const { locale } = useMyI18n();
+const { locale, t } = useMyI18n();
 
 const posts = getRoutePosts()?.reverse();
 
@@ -40,6 +41,9 @@ watch(hoverMeta, () => {
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('travel') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div class="h-screen grid grid-rows-[65fr,10fr,auto] bg-light-500 dark:bg-dark-500">
     <client-only>
       <world-map v-model:hoverMeta="hoverMeta" :posts="posts" />

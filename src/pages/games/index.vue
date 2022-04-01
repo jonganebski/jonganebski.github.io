@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import { useMyI18n } from '~/plugins/i18n';
 
 const { t, locale } = useMyI18n();
@@ -20,6 +21,9 @@ const links = computed(() => [
 </script>
 
 <template>
+  <Head>
+    <title>{{ t('nav.games') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
   <div class="mx-auto py-20 px-15 lg:px-20 max-w-screen-xl text-dark-500 dark:text-light-500">
     <h1 class="text-6xl">{{ t('nav.games') }}</h1>
     <ul class="mt-30 flex flex-wrap gap-16">
