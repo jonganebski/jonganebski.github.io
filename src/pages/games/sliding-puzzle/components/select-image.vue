@@ -28,6 +28,7 @@ const { t } = useMyI18n();
       v-for="{ categoryName, options } in props.images"
       :key="categoryName"
       :category-name="categoryName"
+      class="text-dark-500"
     >
       <ui-option
         v-for="option in options"

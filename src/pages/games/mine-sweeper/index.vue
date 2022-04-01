@@ -39,12 +39,14 @@ function pushWithModeQuery(modeId: string | number) {
 </script>
 
 <template>
-  <div class="min-h-screen grid place-items-center">
+  <div class="mt-20 min-h-screen grid place-items-center text-dark-500 dark:text-light-500">
+    <h1 class="text-3xl md:text-5xl">{{ t('minesweeper') }}</h1>
     <div class="mt-10 flex justify-center">
       <ui-select
         :model-value="selectedMode"
         option-label-key="mode"
         :label="t('mode')"
+        class="w-72"
         @update:model-value="pushWithModeQuery"
       >
         <ui-option v-for="mode in modes" :key="mode.id" :value="mode.id" :label="mode.mode" />

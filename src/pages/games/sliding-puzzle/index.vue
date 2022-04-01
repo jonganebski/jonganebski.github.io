@@ -36,7 +36,7 @@ watch(
 </script>
 
 <template>
-  <div class="my-4 grid gap-12 place-items-center">
+  <div class="mt-20 grid gap-12 place-items-center text-dark-500 dark:text-light-500">
     <h1 class="text-3xl md:text-5xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
     <SelectImage v-model="selectedImageUrl" :images="images" />
     <Score

@@ -34,7 +34,9 @@ provide('setSelectedOptionLabel', setSelectedOptionLabel);
       <ListboxLabel
         class="relative z-1 block pl-2 text-sm transition-transform transform"
         :class="[
-          !open && !props.modelValue ? 'translate-y-7 translate-x-1 pointer-events-none' : '',
+          !open && !props.modelValue
+            ? 'translate-y-7 translate-x-1 pointer-events-none text-dark-500'
+            : 'text-dark-500 dark:text-light-500',
         ]"
       >
         {{ props.label }}
@@ -42,7 +44,7 @@ provide('setSelectedOptionLabel', setSelectedOptionLabel);
       <ListboxButton
         class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
       >
-        <span class="block h-5 truncate">{{ selectedOptionLabel }}</span>
+        <span class="block h-5 truncate text-dark-500">{{ selectedOptionLabel }}</span>
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
           <carbon-chevron-down class="w-5 h-5 text-gray-400" aria-hidden="true" />
         </span>
