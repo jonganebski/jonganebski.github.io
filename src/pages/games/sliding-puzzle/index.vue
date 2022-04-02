@@ -2,14 +2,16 @@
 import { Head } from '@vueuse/head';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
+import Records from '../components/records.vue';
+import { useRecordsQuery } from './apis/useRecordsQuery';
 import CopyRight from './components/copy-right.vue';
-import Records from './components/records.vue';
 import Score from './components/score.vue';
 import SelectImage from './components/select-image.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
 
 const { data: user } = useUserQuery();
+const { data: records, isLoading: isRecordsLoading } = useRecordsQuery();
 
 const { t } = useMyI18n();
 
@@ -117,7 +119,7 @@ watch(
     {{ t('games_auth_warning') }}
   </div>
   <CopyRight :selected-image="findImageByUrl(selectedImageUrl)" />
-  <Records />
+  <Records :is-loading="isRecordsLoading" :data="records" />
   <ui-contour-lines />
 </template>
 

@@ -5,7 +5,7 @@ import { UseRecordsQueryData } from './useRecordsQuery';
 
 interface UseCreateRecordMutationVariables {
   modeId: number;
-  time: number;
+  score: number;
 }
 
 export function useCreateRecordMutation() {
@@ -14,7 +14,7 @@ export function useCreateRecordMutation() {
   const { data: user } = useUserQuery();
 
   return useMutation<MineSweeperRecord | null, unknown, UseCreateRecordMutationVariables>(
-    async ({ modeId, time }) => {
+    async ({ modeId, score }) => {
       if (!user.value) return null;
 
       const { data } = await supabase
@@ -22,7 +22,7 @@ export function useCreateRecordMutation() {
         .select('*')
         .eq('user_id', user.value.id)
         .eq('mode_id', modeId)
-        .order('time', { ascending: true });
+        .order('score', { ascending: true });
 
       if (!data) return null;
 
@@ -31,17 +31,17 @@ export function useCreateRecordMutation() {
           return (
             await supabase
               .from<MineSweeperRecord>('mine-sweeper-records')
-              .insert({ mode_id: modeId, time, user_id: user.value.id })
+              .insert({ mode_id: modeId, score, user_id: user.value.id })
               .single()
           ).data;
         }
         case false: {
           const worstRecord = data[data.length - 1];
-          if (worstRecord.time < time) return null;
+          if (worstRecord.score < score) return null;
           return (
             await supabase
               .from<MineSweeperRecord>('mine-sweeper-records')
-              .update({ id: worstRecord.id, time })
+              .update({ id: worstRecord.id, score })
               .single()
           ).data;
         }
@@ -61,7 +61,7 @@ export function useCreateRecordMutation() {
           ['mine-sweeper-records', resData.mode_id],
           () =>
             [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
-              (a, b) => a.time - b.time,
+              (a, b) => a.score - b.score,
             ),
         );
       },

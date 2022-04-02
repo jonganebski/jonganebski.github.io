@@ -91,7 +91,7 @@ export interface Point__point {
  * updated_at: '2022-02-07T05:56:07+00:00';
  * user_id: 'ba6546d0-1303-46ee-bddf-77b780542a91'
  * mode_id: 2;
- * time: 20326
+ * score: 20326
  * ```
  */
 export interface MineSweeperRecord {
@@ -100,7 +100,7 @@ export interface MineSweeperRecord {
   updated_at: string;
   user_id: string;
   mode_id: number;
-  time: number;
+  score: number;
 }
 
 /*----------------------------------

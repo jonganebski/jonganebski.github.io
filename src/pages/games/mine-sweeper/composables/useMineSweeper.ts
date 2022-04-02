@@ -199,7 +199,7 @@ export function useMineSweeper(selectedMode: Ref<number>) {
     if (!payload.isSuccess) return explode();
     if (!selectedMode.value) return;
     createRecord.mutate(
-      { modeId: selectedMode.value, time: time.value },
+      { modeId: selectedMode.value, score: time.value },
       {
         onSuccess: () => {
           window.alert('New Record!');

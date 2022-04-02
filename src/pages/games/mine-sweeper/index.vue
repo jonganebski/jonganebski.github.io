@@ -2,7 +2,8 @@
 import { Head } from '@vueuse/head';
 import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
-import Records from './components/records.vue';
+import Records from '../components/records.vue';
+import { useRecordsQuery } from './apis/useRecordsQuery';
 import { useMineSweeper } from './composables/useMineSweeper';
 import { useModes } from './composables/useModes';
 
@@ -12,6 +13,8 @@ const route = useRoute();
 const { data: user } = useUserQuery();
 
 const { selectedMode, modes } = useModes();
+
+const { data: records, isLoading: isRecordsLoading } = useRecordsQuery(selectedMode);
 
 const { COLORS, isGameOver, isSuccess, flagCount, initialize, meta, game, withController, time } =
   useMineSweeper(selectedMode);
@@ -120,7 +123,7 @@ function pushWithModeQuery(modeId: string | number) {
         </div>
       </div>
     </client-only>
-    <records :selected-mode="selectedMode" />
+    <Records :is-loading="isRecordsLoading" :data="records" />
     <ui-contour-lines />
   </div>
 </template>

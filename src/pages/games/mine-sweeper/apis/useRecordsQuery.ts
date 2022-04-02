@@ -1,4 +1,4 @@
-import { ComputedRef } from 'vue';
+import { Ref } from 'vue';
 import { useQuery } from 'vue-query';
 import { MineSweeperRecord, Profile, supabase } from '~/libs/supabase';
 
@@ -8,7 +8,7 @@ export interface UseRecordsQueryData extends MineSweeperRecord {
 
 const ONE_HOUR = 1000 * 60 * 60;
 
-export function useRecordsQuery(modeId: ComputedRef<number | undefined>) {
+export function useRecordsQuery(modeId: Ref<number | undefined>) {
   return useQuery(
     reactive(['mine-sweeper-records', modeId]),
     async () =>
@@ -18,7 +18,7 @@ export function useRecordsQuery(modeId: ComputedRef<number | undefined>) {
               .from<UseRecordsQueryData>('mine-sweeper-records')
               .select('*, user: user_id (user_name, avatar_url)')
               .eq('mode_id', modeId.value)
-              .order('time', { ascending: true })
+              .order('score', { ascending: true })
               .limit(100)
           ).data
         : null,
