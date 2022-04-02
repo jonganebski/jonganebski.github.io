@@ -136,7 +136,7 @@ export interface MineSweeperMode {
  * created_at: '2022-02-07T05:56:07+00:00';
  * updated_at: '2022-02-07T05:56:07+00:00';
  * user_id: 'ba6546d0-1303-46ee-bddf-77b780542a91'
- * moves_count: -2
+ * score: -2
  * ```
  */
 export interface SlidingPuzzleRecord {
