@@ -30,7 +30,7 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
       </h1>
       <img
         v-if="frontmatter.cover_image_url"
-        class="mt-8"
+        class="mt-8 w-full"
         :src="frontmatter.cover_image_url"
         alt=""
       />
@@ -61,6 +61,6 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
   @apply w-full md:w-[95%] mt-20 mb-10 mx-auto;
 }
 ::v-slotted(p) {
-  @apply mt-5 px-5 text-sm xl:text-lg;
+  @apply mt-5 px-5 text-sm xl:text-base;
 }
 </style>
