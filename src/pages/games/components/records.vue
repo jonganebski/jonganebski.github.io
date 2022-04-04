@@ -40,7 +40,7 @@ function computeTopRecords() {
 </script>
 
 <template>
-  <div class="mt-30 p-4 mx-auto max-w-xl rounded shadow-lg">
+  <div class="mt-30 p-4 mx-auto max-w-xl rounded shadow-lg text-dark-700 dark:text-light-500">
     <table class="mx-auto w-full text-sm table-fixed">
       <thead>
         <tr>
