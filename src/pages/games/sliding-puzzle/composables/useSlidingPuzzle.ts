@@ -1,5 +1,7 @@
 import { breakpointsTailwind } from '@vueuse/core';
+import { useIssueModal } from '~/libs/issue';
 import { randArrayElements } from '~/libs/random';
+import { useMyI18n } from '~/plugins/i18n';
 import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 
 type Direction = 'top' | 'bottom' | 'right' | 'left';
@@ -17,6 +19,8 @@ export function useSlidingPuzzle() {
   const nodeSize = computed(() => (lgAndLarger.value ? 140 : smAndLarger.value ? 100 : 60));
 
   const createRecord = useCreateRecordMutation();
+  const { openIssueModal } = useIssueModal();
+  const { t } = useMyI18n();
 
   const clicksCount = ref(0);
   const gameStartedAt = ref<number | null>(null);
@@ -185,7 +189,16 @@ export function useSlidingPuzzle() {
     gameFinishedAt.value = new Date().getTime();
     if (!score.value) return;
     console.log(score.value);
-    createRecord.mutate({ score: score.value });
+    createRecord.mutate(
+      { score: score.value },
+      {
+        onError: () =>
+          openIssueModal({
+            title: t('record_mutation_failed.title'),
+            content: t('record_mutation_failed.content'),
+          }),
+      },
+    );
   }
 
   function computeBgPosition(node: number) {

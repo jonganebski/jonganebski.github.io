@@ -1,5 +1,7 @@
 import { useTimestamp } from '@vueuse/core';
 import { Ref } from 'vue';
+import { useIssueModal } from '~/libs/issue';
+import { useMyI18n } from '~/plugins/i18n';
 import { useCreateRecordMutation } from '../apis/useCreateRecordMutation';
 
 export function useMineSweeper(selectedMode: Ref<number>) {
@@ -122,6 +124,8 @@ export function useMineSweeper(selectedMode: Ref<number>) {
   };
 
   const createRecord = useCreateRecordMutation();
+  const { openIssueModal } = useIssueModal();
+  const { t } = useMyI18n();
 
   const game = ref<Node[][]>([]);
 
@@ -202,8 +206,15 @@ export function useMineSweeper(selectedMode: Ref<number>) {
       { modeId: selectedMode.value, score: time.value },
       {
         onSuccess: () => {
-          window.alert('New Record!');
+          // vue-extract-i18n can detect this only in this way of declaration.
+          const message = t('congratulations') + '!';
+          window.alert(message);
         },
+        onError: () =>
+          openIssueModal({
+            title: t('record_mutation_failed.title'),
+            content: t('record_mutation_failed.content'),
+          }),
       },
     );
   }
