@@ -15,6 +15,10 @@
     "content": "Your social sign-in/sign-up has failed. Maybe this is not a problem of the site.",
     "title": "Authentication Failed"
   },
+  "record_mutation_failed": {
+    "content": "Your record is not stored in the database. Maybe this is not a problem of the site",
+    "title": "Failed to insert/update your record"
+  },
   "all_rights_of_the_image_belong_to_the_creator": "All rights of the image belong to the creator.",
   "altitude": "Altitude",
   "asuka_langley_sohryu": "Asuka Langley Soryu",
@@ -25,6 +29,7 @@
   "click_to_change_to_the_dark_mode": "Click to change to the dark mode",
   "click_to_change_to_the_light_mode": "Click to change to the light mode",
   "click_to_open_authentication_menu": "Click to open authentication menu.",
+  "congratulations": "Congratulations",
   "current": "Current",
   "distance": "Distance",
   "downhill": "Downhill",

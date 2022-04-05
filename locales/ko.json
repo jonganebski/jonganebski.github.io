@@ -15,6 +15,10 @@
     "content": "소셜 로그인/가입에 실패했습니다. 이 문제는 이 사이트에서 비롯된 것이 아닐 수 있습니다.",
     "title": "사용자 인증에 실패했습니다"
   },
+  "record_mutation_failed": {
+    "content": "기록이 데이터베이스에 저장되지 않았습니다. 이 문제는 이 사이트에서 비롯된 것이 아닐 수 있습니다.",
+    "title": "기록을 저장하는데 실패했습니다"
+  },
   "all_rights_of_the_image_belong_to_the_creator": "해당 이미지에 대한 모든 권리는 원작자에게 있습니다.",
   "altitude": "고도",
   "asuka_langley_sohryu": "소류 아스카 랑그레이",
@@ -25,6 +29,7 @@
   "click_to_change_to_the_dark_mode": "클릭해서 다크 모드로 바꾸세요",
   "click_to_change_to_the_light_mode": "클릭해서 라이트 모드로 바꾸세요",
   "click_to_open_authentication_menu": "클릭해서 유저 메뉴를 여세요.",
+  "congratulations": "축하합니다",
   "current": "현재",
   "distance": "거리",
   "downhill": "내리막",
