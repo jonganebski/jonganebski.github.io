@@ -11,8 +11,13 @@
     "p_2": "I'm a front-end developer. Most of times I use Typescript(who uses Javascript?), React, Vue.",
     "p_3": "Also, I'm interested in other languages like Rust."
   },
+  "authentication_failed": {
+    "content": "Your social sign-in/sign-up has failed. Maybe this is not a problem of the site.",
+    "title": "Authentication Failed"
+  },
   "all_rights_of_the_image_belong_to_the_creator": "All rights of the image belong to the creator.",
   "altitude": "Altitude",
+  "asuka_langley_sohryu": "Asuka Langley Soryu",
   "attack_on_titan": "Attack on Titan",
   "beginner": "Beginner",
   "cat": "Cat | Cats",
@@ -25,6 +30,7 @@
   "downhill": "Downhill",
   "eighty_six": "Eighty Six",
   "eren_yeager": "Eren Yeager",
+  "evangelion": "Evangelion",
   "expert": "Expert",
   "fate_series": "Fate Series",
   "games_auth_warning": "Your record is not going to be saved. Please sign-in to save your records.",
@@ -34,7 +40,7 @@
   "i_am_a_frontend_developer_and_a_traveler": "I'm a front-end developer and a traveler.",
   "image": "Image",
   "intermediate": "Intermediate",
-  "jean_alter": "Jean Alter",
+  "jeanne_alter": "Jeanne Alter",
   "jon_ganebskis_blog": "Jon Ganebski's Blog",
   "lowest": "Lowest",
   "menu": "Menu",
@@ -45,10 +51,15 @@
   "move": "Move | Moves",
   "nature": "Nature",
   "note": "Note | Notes",
+  "or": "Or",
+  "please_let_this_humble_developer_know_this_issue": "Please let this humble developer know this issue.",
   "portfolio": "Portfolio",
+  "rei_ayanami": "Rei Ayanami",
   "rider_5th": "Rider(5th)",
+  "sasha_braus": "Sasha Braus",
   "score": "Score",
   "seconds": "Seconds",
+  "send_email": "Send Email",
   "sign_in_with_facebook": "Sign-in with Facebook",
   "sign_in_with_github": "Sign-in with Github",
   "sign_in_with_google": "Sign-in with Google",
@@ -65,5 +76,6 @@
   "travel": "Travel",
   "up_&_down": "Up & Down",
   "uphill": "Uphill",
-  "vladilena_milize": "Vladilena Milizé"
+  "vladilena_milize": "Vladilena Milizé",
+  "write_an_issue": "Write an Issue"
 }
