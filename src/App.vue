@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { IssueModalProvider } from './libs/issue';
+</script>
 
 <template>
-  <router-view />
+  <IssueModalProvider>
+    <router-view />
+  </IssueModalProvider>
 </template>
