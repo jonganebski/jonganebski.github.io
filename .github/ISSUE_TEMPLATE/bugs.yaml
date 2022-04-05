@@ -13,7 +13,7 @@ body:
       label: What happened?
       description: Also tell me what did you expect to happen. Screenshots will help me a lot.
       placeholder: Describe the issue
-      value: ''
+      value: '🐛🐛🐛'
     validations:
       required: true
   - type: dropdown
