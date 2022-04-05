@@ -83,7 +83,15 @@ const gameLinks = computed(() => [
       </div>
     </div>
     <div class="mt-20 text-center text-sm">
-      <p>Built with Vue</p>
+      <a
+        href="https://github.com/jonganebski/jonganebski.github.io/issues/new?labels=enhancement&template=feature-request.yaml&title=%5BFEAT%5D%3A+"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:underline"
+      >
+        {{ t('propose') }}
+      </a>
+      <p class="mt-5">Built with Vue</p>
       <p>{{ new Date().getFullYear() }} &copy; Jon Ganebski</p>
     </div>
   </footer>
