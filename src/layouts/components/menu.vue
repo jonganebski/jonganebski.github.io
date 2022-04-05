@@ -84,7 +84,7 @@ onBeforeRouteLeave((_, __, next) => {
       </div>
     </section>
     <section ref="menuBtnRef" @animationend="onAnimationEnd">
-      <button class="relative w-14 h-14" @click="onClickMenuBtn">
+      <button class="relative w-14 h-14" :aria-label="t('menu')" @click="onClickMenuBtn">
         <div
           class="absolute inset-0 grid place-items-center bg-red-800 transition-transform delay-300 duration-300"
           style="backface-visibility: hidden; transform-style: preserve-3d"

@@ -55,33 +55,35 @@ onMounted(() => {
       </nav>
     </div>
     <div class="mt-auto grid justify-center">
-      <div class="relative mb-10" ref="authContainer">
+      <div class="mb-10" ref="authContainer">
         <ui-avatar
           :src="user?.user_metadata.avatar_url"
           :aria-label="t('click_to_open_authentication_menu')"
           :alt="t('the_avatar_of_the_authenticated_user')"
           @click="toggleAuthContainer"
         />
-        <div class="absolute top-1/2 transform -translate-y-1/2 left-14">
-          <div v-if="isAuthContainerOpen && user" class="auth-container">
-            <div class="text-dark-500">
-              <p>Email: {{ user.email }}</p>
-              <p>Provider: {{ user.app_metadata.provider?.toUpperCase() }}</p>
+        <teleport to="body">
+          <div class="fixed bottom-24 transform left-16">
+            <div v-if="isAuthContainerOpen && user" class="auth-container">
+              <div class="text-dark-500">
+                <p>Email: {{ user.email }}</p>
+                <p>Provider: {{ user.app_metadata.provider?.toUpperCase() }}</p>
+              </div>
+              <auth-btn sign-out />
             </div>
-            <auth-btn sign-out />
-          </div>
-          <div v-if="isAuthContainerOpen && !user" class="auth-container">
-            <h6 class="text-dark-500">{{ t('sign_up_or_sign_in') }}</h6>
-            <div class="grid gap-3">
-              <auth-btn provider="github" />
-              <auth-btn provider="google" />
-              <auth-btn provider="facebook" />
+            <div v-if="isAuthContainerOpen && !user" class="auth-container">
+              <h6 class="text-dark-500">{{ t('sign_up_or_sign_in') }}</h6>
+              <div class="grid gap-3">
+                <auth-btn provider="github" />
+                <auth-btn provider="google" />
+                <auth-btn provider="facebook" />
+              </div>
+              <p class="text-xs text-gray-500">
+                {{ t('sign_up_notice') }}
+              </p>
             </div>
-            <p class="text-xs text-gray-500">
-              {{ t('sign_up_notice') }}
-            </p>
           </div>
-        </div>
+        </teleport>
       </div>
       <client-only>
         <ui-toggle-dark-mode-btn class="mb-10 mx-auto text-lg" />
@@ -89,7 +91,7 @@ onMounted(() => {
       <button>
         <span
           class="write-vertical-right"
-          :class="locale === 'ko' && 'text-red-500'"
+          :class="locale === 'ko' && 'text-rose-600'"
           @click="setLocaleTo('ko')"
         >
           한국어
@@ -99,7 +101,7 @@ onMounted(() => {
       <button>
         <span
           class="write-vertical-right write-orient-upright"
-          :class="locale === 'en' && 'text-red-500'"
+          :class="locale === 'en' && 'text-rose-600'"
           @click="setLocaleTo('en')"
         >
           en
@@ -130,7 +132,7 @@ onMounted(() => {
 }
 
 .auth-container {
-  @apply min-w-sm p-4 grid gap-6 bg-white rounded shadow-xl;
+  @apply max-w-sm p-4 grid gap-6 bg-white rounded shadow-xl;
   animation: slide-in linear 0.3s;
 }
 </style>
