@@ -11,9 +11,9 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: 'A bug happened!'
+      description: Also tell me what did you expect to happen. Screenshots will help me a lot.
+      placeholder: Describe the issue
+      value: ''
     validations:
       required: true
   - type: dropdown
@@ -41,13 +41,11 @@ body:
         - Safari
         - Microsoft Edge
         - Something else
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
-  - type: markdown
-    id: screenshot
-    attributes:
-      value: '## Screenshots (not required)'
