@@ -3,6 +3,7 @@ import { useSignInMutation } from '~/api/useSignInMutation';
 import type { AllowedProvider } from '~/api/useSignInMutation';
 import { supabase } from '~/libs/supabase';
 import { useMyI18n } from '~/plugins/i18n';
+import { useIssueModal } from '~/libs/issue';
 
 interface Props {
   provider?: AllowedProvider;
@@ -13,11 +14,24 @@ const props = defineProps<Props>();
 
 const { t } = useMyI18n();
 
+const { openIssueModal } = useIssueModal();
+
 const { mutate: signIn } = useSignInMutation();
 
 function onClick() {
   if (props.signOut) return supabase.auth.signOut();
-  if (props.provider) return signIn({ provider: props.provider });
+  if (props.provider)
+    return signIn(
+      { provider: props.provider },
+      {
+        onError: () => {
+          openIssueModal({
+            title: t('authentication_failed.title'),
+            content: t('authentication_failed.content'),
+          });
+        },
+      },
+    );
 }
 </script>
 
