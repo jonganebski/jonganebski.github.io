@@ -16,6 +16,6 @@ body:
     attributes:
       label: Describe the user story
       description: A clear and concise description of what workflow is meant to be improved.
-      placeholder: Example: I often want to do <something>, but I often face <problem>
+      placeholder: Example: I often want to do something, but I often face problem
     validations:
       required: true
