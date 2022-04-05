@@ -21,8 +21,13 @@ const UNSPLASH_QUERY = 'utm_source=unsplash&utm_medium=referral&utm_content=cred
 export function useImages() {
   const { t } = useMyI18n();
 
+  const WORSHIP_ENOUGH_COUNT = 20;
+
   const backDoor = ref(false);
   const worshipCount = ref(0);
+  const worshipRatioReverse = computed(
+    () => 100 - Math.min(100, (worshipCount.value / WORSHIP_ENOUGH_COUNT) * 100),
+  );
 
   const images = computed<ImageCategory[]>(() =>
     backDoor.value
@@ -150,10 +155,11 @@ export function useImages() {
   let setTimeoutId: NodeJS.Timeout;
 
   function worship() {
+    if (backDoor.value) return;
     worshipCount.value += 1;
     clearTimeout(setTimeoutId);
     setTimeoutId = setTimeout(() => (worshipCount.value = 0), 200);
-    if (worshipCount.value !== 10) return;
+    if (worshipCount.value !== WORSHIP_ENOUGH_COUNT) return;
     backDoor.value = !backDoor.value;
     selectedImageUrl.value = getRandomImage();
   }
@@ -167,5 +173,5 @@ export function useImages() {
     }
   }
 
-  return { selectedImageUrl, images, findImageByUrl, worship };
+  return { worshipRatioReverse, selectedImageUrl, images, findImageByUrl, worship };
 }

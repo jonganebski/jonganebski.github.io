@@ -30,7 +30,7 @@ const {
   initialize,
 } = useSlidingPuzzle();
 
-const { selectedImageUrl, findImageByUrl, worship, images } = useImages();
+const { worshipRatioReverse, selectedImageUrl, findImageByUrl, worship, images } = useImages();
 
 watch(
   () => selectedImageUrl.value,
@@ -43,7 +43,14 @@ watch(
     <title>{{ t('sliding_puzzle') }} | {{ t('jon_ganebskis_blog') }}</title>
   </Head>
   <div class="mt-20 grid gap-12 place-items-center text-dark-500 dark:text-light-500">
-    <h1 class="text-3xl md:text-5xl" @click="worship">{{ t('sliding_puzzle') }}</h1>
+    <h1 class="relative select-none text-3xl md:text-5xl" @click="worship">
+      <span class="inline-block worship__inactive">
+        {{ t('sliding_puzzle') }}
+      </span>
+      <span class="inline-block worship__active" aria-hidden="true">
+        {{ t('sliding_puzzle') }}
+      </span>
+    </h1>
     <SelectImage v-model="selectedImageUrl" :images="images" />
     <Score
       class="min-h-20"
@@ -124,6 +131,32 @@ watch(
 </template>
 
 <style scoped lang="css">
+.worship__inactive {
+  display: inline-block;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% v-bind(worshipRatioReverse + '%'),
+    0% v-bind(worshipRatioReverse + '%')
+  );
+}
+.worship__active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  color: transparent;
+  clip-path: polygon(
+    0 100%,
+    100% 100%,
+    100% v-bind(worshipRatioReverse + '%'),
+    0% v-bind(worshipRatioReverse + '%')
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(60deg, #e21143, #ffb03a);
+}
+
 @keyframes done-mask {
   0% {
     opacity: 0;
