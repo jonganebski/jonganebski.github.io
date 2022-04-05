@@ -30,7 +30,7 @@ export function useImages() {
           {
             categoryName: t('fate_series'),
             options: [
-              { label: t('jean_alter'), url: `${STORAGE_URL}/jean-alter.jpg` },
+              { label: t('jeanne_alter'), url: `${STORAGE_URL}/jean-alter.jpg` },
               { label: t('rider_5th'), url: `${STORAGE_URL}/rider-5th.jpg` },
             ],
           },
@@ -40,7 +40,17 @@ export function useImages() {
           },
           {
             categoryName: t('attack_on_titan'),
-            options: [{ label: t('eren_yeager'), url: `${STORAGE_URL}/eren-yeager.jpg` }],
+            options: [
+              { label: t('eren_yeager'), url: `${STORAGE_URL}/eren-yeager.jpg` },
+              { label: t('sasha_braus'), url: `${STORAGE_URL}/sasha-braus.jpg` },
+            ],
+          },
+          {
+            categoryName: t('evangelion'),
+            options: [
+              { label: t('asuka_langley_sohryu'), url: `${STORAGE_URL}/asuka-langley-soryu.jpg` },
+              { label: t('rei_ayanami'), url: `${STORAGE_URL}/rei-ayanami.png` },
+            ],
           },
         ]
       : [
@@ -71,6 +81,18 @@ export function useImages() {
                   url: `https://unsplash.com/@dsartwork?${UNSPLASH_QUERY}`,
                 },
               },
+              {
+                label: 'Inés Álvarez Fdez',
+                url: `${STORAGE_URL}/wave.jpg`,
+                provider: {
+                  name: 'Unsplash',
+                  url: `https://unsplash.com/s/photos/ocean?${UNSPLASH_QUERY}`,
+                },
+                creator: {
+                  name: 'Inés Álvarez Fdez',
+                  url: `https://unsplash.com/@powwpic?${UNSPLASH_QUERY}`,
+                },
+              },
             ],
           },
           {
@@ -98,6 +120,18 @@ export function useImages() {
                 creator: {
                   name: 'georgi benev',
                   url: `https://unsplash.com/@georgibenev97?${UNSPLASH_QUERY}`,
+                },
+              },
+              {
+                label: 'Michael Sum',
+                url: `${STORAGE_URL}/cat_michael-sum.jpg`,
+                provider: {
+                  name: 'Unsplash',
+                  url: `https://unsplash.com/s/photos/cat?${UNSPLASH_QUERY}`,
+                },
+                creator: {
+                  name: 'Michael Sum',
+                  url: `https://unsplash.com/@michaelsum1228?${UNSPLASH_QUERY}`,
                 },
               },
             ],
