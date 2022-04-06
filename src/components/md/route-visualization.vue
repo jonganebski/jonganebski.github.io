@@ -12,7 +12,7 @@ const { data } = usePointsQuery(fileName);
 
 const statistics = computed(() => {
   if (!data.value) return null;
-  const totalDistance = data.value[data.value.length - 1].distance.toFixed(2);
+  const totalDistance = data.value[data.value.length - 1].distance;
   let highest = 0;
   let lowest = 0;
   let upHill = 0;
@@ -37,6 +37,12 @@ const statistics = computed(() => {
 });
 
 const hoverPoint = ref<UsePointsQueryResult | null>(null);
+
+function formatNumber({ unit, num }: { unit: 'm' | 'km'; num?: number }) {
+  return `${
+    num === undefined ? '?' : new Intl.NumberFormat('ko', { maximumFractionDigits: 2 }).format(num)
+  } ${unit}`;
+}
 </script>
 
 <template>
@@ -46,40 +52,40 @@ const hoverPoint = ref<UsePointsQueryResult | null>(null);
     <map-detail v-model:hoverPoint="hoverPoint" :file-name="fileName" :points="data" />
     <ul class="p-5 grid sm:grid-cols-3 gap-5 md:gap-14 text-sm">
       <li class="px-6">
-        <h6 class="mb-3">{{ t('up_&_down') }}</h6>
+        <h6><carbon-arrows-vertical />{{ t('up_&_down') }}</h6>
         <p class="flex justify-between">
           <span>{{ t('uphill') }}</span>
-          <span>{{ statistics?.upHill.toFixed(2) }} m</span>
+          <span>{{ formatNumber({ num: statistics?.upHill, unit: 'm' }) }}</span>
         </p>
         <p class="flex justify-between">
           <span>{{ t('downhill') }}</span>
-          <span> {{ statistics?.downHill.toFixed(2) }} m</span>
+          <span> {{ formatNumber({ num: statistics?.downHill, unit: 'm' }) }}</span>
         </p>
       </li>
       <li class="px-6">
-        <h6 class="mb-3">{{ t('altitude') }}</h6>
+        <h6><carbon-mountain />{{ t('altitude') }}</h6>
         <p class="flex justify-between">
           <span>{{ t('highest') }}</span>
-          <span>{{ statistics?.highest ?? '?' }} m</span>
+          <span>{{ formatNumber({ num: statistics?.highest, unit: 'm' }) }}</span>
         </p>
         <p class="flex justify-between">
           <span>{{ t('lowest') }}</span>
-          <span>{{ statistics?.lowest ?? '?' }} m</span>
+          <span>{{ formatNumber({ num: statistics?.lowest, unit: 'm' }) }}</span>
         </p>
         <p class="mt-2 flex justify-between">
           <span>{{ t('current') }}</span>
-          <span>{{ hoverPoint ? `${hoverPoint.ele} m` : null }}</span>
+          <span>{{ formatNumber({ num: hoverPoint?.ele, unit: 'm' }) }}</span>
         </p>
       </li>
       <li class="px-6">
-        <h6 class="mb-3">{{ t('distance') }}</h6>
+        <h6><carbon-movement />{{ t('distance') }}</h6>
         <p class="flex justify-between">
           <span>{{ t('total') }}</span>
-          <span>{{ statistics?.totalDistance ?? '?' }} km</span>
+          <span>{{ formatNumber({ num: statistics?.totalDistance, unit: 'km' }) }}</span>
         </p>
         <p class="mt-2 flex justify-between">
           <span>{{ t('current') }}</span>
-          <span> {{ hoverPoint ? `${hoverPoint.distance.toFixed(2)} km` : null }}</span>
+          <span> {{ formatNumber({ num: hoverPoint?.distance, unit: 'km' }) }}</span>
         </p>
       </li>
     </ul>
@@ -87,8 +93,8 @@ const hoverPoint = ref<UsePointsQueryResult | null>(null);
   </div>
 </template>
 
-<style lang="css" scoped>
-.flip {
-  transform: scaleY(-1);
+<style scoped lang="css">
+h6 {
+  @apply mb-3 flex gap-2 font-bold;
 }
 </style>
