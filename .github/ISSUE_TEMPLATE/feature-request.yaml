@@ -1,0 +1,32 @@
+name: Feature Request
+description: Propose a new feature
+title: '[FEAT]: '
+labels: ['enhancement']
+body:
+  - type: checkboxes
+    id: purpose
+    attributes:
+      label: Why do you purpose?
+      options:
+        - label: 🤸 For fun 재밌잖아요
+        - label: 🌱 I'm cute 난 귀여우니까요
+        - label: ❤️ I love you 당신을 사랑하니까요
+        - label: 🌧️ It's raining 비가 오잖아요
+        - label: 🛐 God wants it 신께서 원하신다
+        - label: 😳 It's a shame that you don't have it 이런 것도 없다니 부끄러워서요
+  - type: textarea
+    id: user-story
+    attributes:
+      label: Describe the user story
+      description: A clear and concise description of what workflow is meant to be improved.
+      placeholder: 'Example: I often want to do <something>, but I often face <problem>'
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what workflow is meant to be improved.
+      placeholder: 'The solution I propose is...'
+    validations:
+      required: true

@@ -1,9 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Footer from './components/footer.vue';
+import Header from './components/header.vue';
+import Menu from './components/menu.vue';
+</script>
 
 <template>
-  <layout-header />
-  <main class="min-h-screen ml-14">
+  <Menu />
+  <Header />
+  <main class="min-h-screen lg:ml-14">
     <router-view />
   </main>
-  <layout-footer />
+  <Footer />
 </template>

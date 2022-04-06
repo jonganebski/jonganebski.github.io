@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import { getTechPosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
+import FloatingIcon from './components/floating-icon.vue';
+import PartyBtn from './components/party-btn.vue';
 
 const { locale, t } = useMyI18n();
 
@@ -16,7 +19,10 @@ function formatDate(dateString: string) {
 </script>
 
 <template>
-  <div class="mt-20 mb-40 px-16 mx-auto">
+  <Head>
+    <title>{{ t('tech_blog') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
+  <div class="mt-20 mb-40 px-4 md:px-16 mx-auto text-dark-500 dark:text-light-500">
     <div class="flex justify-between">
       <div>
         <h1 class="text-6xl">{{ t('tech_blog') }}</h1>
@@ -30,27 +36,27 @@ function formatDate(dateString: string) {
       <li
         v-for="({ cover_image_url, fileName, title, date }, index) in posts"
         :key="index"
-        class="relative max-w-6xl flex"
+        class="relative max-w-6xl grid lg:grid-cols-2"
       >
         <ui-lazy-image
           :src="cover_image_url"
-          class="h-[300px] aspect-video object-cover bg-gray-300"
+          class="w-full aspect-video object-cover bg-gray-300"
           :height="300"
           :width="500"
         />
-        <div class="z-1 px-16 max-w-lg flex-1">
+        <div class="z-1 mt-5 lg:mt-0 lg:px-16 max-w-lg flex-1">
           <p class="text-xs mr-auto">
             {{ formatDate(date) }}
           </p>
           <h5 class="mt-6 text-5xl">{{ title[locale] }}</h5>
-          <ui-party-btn
+          <party-btn
             :content="t('click').toUpperCase()"
             :to="`/posts/techs/${fileName}`"
             class="mt-10 text-sm"
           />
         </div>
         <client-only>
-          <ui-floating-icon :index="index" />
+          <floating-icon :index="index" />
         </client-only>
       </li>
     </ul>

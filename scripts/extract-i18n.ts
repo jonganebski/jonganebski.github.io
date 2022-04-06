@@ -1,11 +1,44 @@
+/**
+ * @file This file extracts i18n and handle locale json file automatically.
+ */
+
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import objectPath from 'object-path';
 import path from 'path';
 import VueI18NExtract from 'vue-i18n-extract';
 
+/*----------------------------------
+| Types
+----------------------------------*/
+
+/**
+ * ### Type of Locale Json File
+ *
+ * @example
+ * ```json
+ * {
+ *  "nav": { "home": "Home", "routes": "Routes", "techs": "Techs" },
+ *  "altitude": "Altitude",
+ *  "click": "Click",
+ * }
+ * ```
+ */
 type TMessages = { [key: string]: string | TMessages };
 
+/*----------------------------------
+| Helper Functions
+----------------------------------*/
+
+/**
+ * ### Sort Messages
+ *
+ * This function sorts i18n keys in alphanumeric order.
+ * This is a recursive function.
+ *
+ * @param messages The messages object.
+ * @returns Sorted messages object.
+ */
 function sortMessages(messages: TMessages) {
   const newMessages: TMessages = {};
   const keys = [];
@@ -29,59 +62,63 @@ function sortMessages(messages: TMessages) {
   return newMessages;
 }
 
-function handleUnusedKey(messages: TMessages, path: string) {
-  objectPath.del(messages, path);
-}
-
-function handleMissingKey(messages: TMessages, path: string) {
-  objectPath.set(messages, path, '__missing__');
-}
+/*----------------------------------
+| Main function
+----------------------------------*/
 
 async function main() {
   console.log('\n--------------------- Extract i18n ---------------------\n');
 
-  const enUSFilePath = path.resolve(__dirname, `../locales/en.json`);
-  const viVNFilePath = path.resolve(__dirname, `../locales/ko.json`);
+  // Path to the locale json file.
+  const enFilePath = path.resolve(__dirname, `../locales/en.json`);
+  const koFilePath = path.resolve(__dirname, `../locales/ko.json`);
 
-  const enUSMessages = await fs.readJson(enUSFilePath);
-  const viVNMessages = await fs.readJson(viVNFilePath);
+  // Message Object of the locale json file.
+  const enMessages = await fs.readJson(enFilePath);
+  const koMessages = await fs.readJson(koFilePath);
 
+  // Run vue-i18n-extract and get the keys of the missing/unused i18n.
   const { missingKeys, unusedKeys } = await VueI18NExtract.createI18NReport({
     languageFiles: path.resolve(__dirname, `../locales/*.json`),
     vueFiles: path.resolve(__dirname, `../src/**/*.?(ts|vue)`),
   });
 
+  // Add the missing i18n key with set value as '__missing__'.
   missingKeys.forEach((key) => {
     switch (key.language) {
       case 'en':
-        handleMissingKey(enUSMessages, key.path);
+        objectPath.set(enMessages, key.path, '__missing__');
         break;
       case 'ko':
-        handleMissingKey(viVNMessages, key.path);
+        objectPath.set(koMessages, key.path, '__missing__');
         break;
     }
   });
 
+  // Delete the unused i18n key and value.
   unusedKeys.forEach((key) => {
     switch (key.language) {
       case 'en':
-        handleUnusedKey(enUSMessages, key.path);
+        objectPath.del(enMessages, key.path);
         break;
       case 'ko':
-        handleUnusedKey(viVNMessages, key.path);
+        objectPath.del(koMessages, key.path);
         break;
     }
   });
-  const sortedEnUS = sortMessages(enUSMessages);
-  const sortedViVN = sortMessages(viVNMessages);
+
+  // Sort locale json files.
+  const sortedEn = sortMessages(enMessages);
+  const sortedKo = sortMessages(koMessages);
 
   try {
-    await fs.writeJson(enUSFilePath, sortedEnUS);
-
-    await fs.writeJson(viVNFilePath, sortedViVN);
+    // Write locale json files
+    await fs.writeJson(enFilePath, sortedEn);
+    await fs.writeJson(koFilePath, sortedKo);
 
     console.log(chalk.green('I18n extraction completed!'));
   } catch (err) {
+    // Log error
     console.log(chalk.bgRed(`Failed with following error `));
     console.error(err);
   } finally {

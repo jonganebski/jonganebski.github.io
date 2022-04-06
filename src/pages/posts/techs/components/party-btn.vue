@@ -20,7 +20,7 @@ const parentStyle = computed(() => ({
 
 function maskComponent() {
   return h('div', {
-    class: `px-8 py-3 bg-white transform border bg-white text-gray-900 shadow-lg group-hover:translate-x-2 group-hover:translate-y-2 transition-transform ${props.maskClass}`,
+    class: `px-8 py-3 bg-light-500 dark:bg-dark-500 transform border bg-white text-dark-500 dark:text-light-500 shadow-lg group-hover:translate-x-2 group-hover:translate-y-2 transition-transform ${props.maskClass}`,
     innerHTML: props.content,
   });
 }

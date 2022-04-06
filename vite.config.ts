@@ -6,19 +6,20 @@ import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
+import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
+import WasmPack from 'vite-plugin-wasm-pack';
 import WindiCSS from 'vite-plugin-windicss';
-import { markdownWrapperClass } from './windi.config';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
   plugins: [
     Vue({ include: [/\.vue$/, /\.md$/] }),
-    Pages({ extensions: ['vue', 'md'] }),
+    Pages({ extensions: ['vue', 'md'], exclude: ['**/composables/*', '**/components/*'] }),
     Layouts(),
     AutoImport({
       imports: ['vue', 'vue-router', 'vue-i18n', '@vueuse/head', '@vueuse/core'],
@@ -27,7 +28,7 @@ export default defineConfig({
     Components({
       directoryAsNamespace: true,
       extensions: ['vue', 'md'],
-      resolvers: [IconsResolver({ prefix: false })],
+      resolvers: [IconsResolver({ prefix: false }), HeadlessUiResolver()],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
     }),
@@ -35,7 +36,6 @@ export default defineConfig({
     WindiCSS(),
     Markdown({
       wrapperComponent: 'md-wrapper',
-      wrapperClasses: markdownWrapperClass,
       markdownItSetup(md) {
         md.use(Prism);
         md.use(LinkAttributes, {
@@ -49,6 +49,7 @@ export default defineConfig({
       compositionOnly: true,
       include: [resolve(__dirname, 'locales/**')],
     }),
+    WasmPack(['./wasm']),
   ],
   server: { fs: { strict: true } },
   ssgOptions: {

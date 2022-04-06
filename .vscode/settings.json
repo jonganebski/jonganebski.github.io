@@ -1,5 +1,18 @@
 {
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "en",
-  "i18n-ally.localesPaths": "locales"
+  "i18n-ally.localesPaths": "locales",
+  "cSpell.words": [
+    "bindgen",
+    "composables",
+    "ganebski",
+    "mapbox",
+    "mapboxgl",
+    "supabase",
+    "vite",
+    "vitest",
+    "vueuse",
+    "windi",
+    "windicss"
+  ]
 }

@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import { Head } from '@vueuse/head';
 import CountryFlag from 'vue-country-flag-next';
 import { getRoutePosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
+import WorldMap from './components/world-map.vue';
 
 interface HoverMeta {
   fileName: string;
   location: 'img' | 'map';
 }
 
-const { locale } = useMyI18n();
+const { locale, t } = useMyI18n();
 
 const posts = getRoutePosts()?.reverse();
 
@@ -39,27 +41,34 @@ watch(hoverMeta, () => {
 </script>
 
 <template>
-  <div class="h-screen grid grid-rows-[65vh,10vh,25vh] 2xl:(grid grid-rows-1 grid-cols-2) bg-white">
+  <Head>
+    <title>{{ t('travel') }} | {{ t('jon_ganebskis_blog') }}</title>
+  </Head>
+  <div class="h-screen grid grid-rows-[65fr,10fr,auto] bg-light-500 dark:bg-dark-500">
     <client-only>
-      <map-summary v-model:hoverMeta="hoverMeta" :posts="posts" />
+      <world-map v-model:hoverMeta="hoverMeta" :posts="posts" />
     </client-only>
     <div class="grid place-items-center">
       <div v-show="hoverPost">
         <div class="flex justify-center gap-3">
           <country-flag v-for="country in hoverPost?.countries" :key="country" :country="country" />
         </div>
-        <h4 class="text-center text-gray-900 text-lg">{{ hoverPost?.title[locale] }}</h4>
-        <p class="text-center text-gray-700 text-xs">{{ hoverPost?.from }} ~ {{ hoverPost?.to }}</p>
+        <h4 class="text-center text-dark-500 dark:text-light-500 text-lg">
+          {{ hoverPost?.title[locale] }}
+        </h4>
+        <p class="text-center text-dark-300 dark:text-light-300 text-xs">
+          {{ hoverPost?.from }} ~ {{ hoverPost?.to }}
+        </p>
       </div>
     </div>
-    <ul ref="ulRef" class="flex 2xl:flex-col space-x-12 overflow-x-scroll 2xl:overflow-x-hidden">
+    <ul ref="ulRef" class="flex space-x-12 overflow-x-scroll">
       <li v-for="{ cover_image_url, fileName, path } in posts" :key="fileName" :id="fileName">
-        <router-link :to="path" class="block min-w-[400px] overflow-hidden">
+        <router-link :to="path" class="block min-w-xs overflow-hidden">
           <img
             :src="cover_image_url"
             width="400"
             height="400"
-            class="min-w-[400px] aspect-video object-cover transition-all duration-300 filter transform"
+            class="aspect-video object-cover transition-all duration-300 filter transform"
             :class="[
               hoverMeta?.fileName === fileName
                 ? 'grayscale-0 scale-110'
