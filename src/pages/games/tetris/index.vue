@@ -10,7 +10,7 @@ const { nodes, NODE, NODE_SIZE, currNode, nextNode, switchNode, X_SIZE, Y_SIZE, 
 const I = useI();
 const O = useO();
 
-const defaultSetTimeoutMs = 200;
+const defaultSetTimeoutMs = 700;
 let setTimeoutId: NodeJS.Timeout;
 const setTimeoutMs = ref(defaultSetTimeoutMs);
 
@@ -63,6 +63,11 @@ onKeyStroke('ArrowDown', (e) => {
   setTimeoutMs.value = defaultSetTimeoutMs;
 });
 
+function isGuide(rowIdx: number, colIdx: number) {
+  return currNode.value === NODE.I
+    ? !!I.endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx)
+    : O.endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
+}
 // onRenderTriggered(() => {
 //   console.log('render');
 // });
@@ -70,25 +75,34 @@ onKeyStroke('ArrowDown', (e) => {
 
 <template>
   <div>Tetris</div>
+  {{ I.endPosition }}
   <button @click="startGame">Start</button>
   <button @click="I.fall">Fall</button>
   <div>
     <p>Current Node: {{ currNode }}</p>
-    <p>Next Node: {{ nextNode }}</p>
+  </div>
+  <div class="mx-auto flex">
+    <div v-if="nextNode === NODE.I" class="grid gap-px">
+      <div v-for="num in 4" :key="num" class="w-8 h-8 bg-blue-200"></div>
+    </div>
+    <div v-if="nextNode === NODE.O" class="grid gap-px grid-cols-2">
+      <div v-for="num in 4" :key="num" class="w-8 h-8 bg-red-200"></div>
+    </div>
   </div>
   <div class="flex justify-center items-center">
     <div
       class="grid gap-px bg-black"
       :style="{ width: `${NODE_SIZE * X_SIZE + 8}px`, height: `${NODE_SIZE * Y_SIZE + 14}px` }"
     >
-      <div v-for="(raw, index) in nodes" :key="index" class="grid grid-cols-9 gap-px bg-black">
+      <div v-for="(raw, indexR) in nodes" :key="indexR" class="grid grid-cols-9 gap-px bg-black">
         <div
-          v-for="(node, index) in raw"
-          :key="index"
-          class="bg-white"
+          v-for="(node, indexC) in raw"
+          :key="indexC"
+          class="bg-white border border-transparent"
           :class="{
             'bg-blue-200': node === NODE.I || node === NODE.FOSSIL_I,
             'bg-red-200': node === NODE.O || node === NODE.FOSSIL_O,
+            'border-red-700': isGuide(indexR, indexC),
           }"
           :style="{ width: `${NODE_SIZE}px`, height: `${NODE_SIZE}px` }"
         >
