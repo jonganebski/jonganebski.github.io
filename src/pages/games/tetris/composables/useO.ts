@@ -14,6 +14,27 @@ export function useO() {
   const nextPosition = computed(() =>
     position.value.map(([rowIdx, colIdx]) => [rowIdx + 1, colIdx]),
   );
+  const endPosition = computed(computeEndPosition);
+
+  function computeEndPosition() {
+    let isBlocked = false;
+    let x = 0;
+    while (!isBlocked) {
+      x++;
+      for (let i = 0; i < position.value.length; i++) {
+        const [rowIdx, colIdx] = position.value[i];
+        if (
+          nodes.value[rowIdx + x][colIdx] === NODE.BIRTH ||
+          nodes.value[rowIdx + x][colIdx] === NODE.VOID ||
+          nodes.value[rowIdx + x][colIdx] === NODE.O
+        )
+          continue;
+        isBlocked = true;
+        break;
+      }
+    }
+    return position.value.map(([rowIdx, colIdx]) => [rowIdx + x - 1, colIdx]);
+  }
 
   function prepare() {
     shape.value = 0;
@@ -59,7 +80,6 @@ export function useO() {
       )
         willCollide = true;
     });
-    console.log(willCollide);
     if (willCollide) return;
     position.value.forEach(([rowIdx, colIdx], i) => {
       nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
@@ -90,5 +110,5 @@ export function useO() {
     });
   }
 
-  return { prepare, fall, moveRight, moveLeft, position };
+  return { prepare, fall, moveRight, moveLeft, position, endPosition };
 }

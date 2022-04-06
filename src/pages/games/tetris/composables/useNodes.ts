@@ -41,7 +41,7 @@ const currNode = ref<NODE>(randomTetromino());
 const nextNode = ref<NODE>(randomTetromino());
 
 function randomTetromino() {
-  return randArrayElements(1, [NODE.I, NODE.FOSSIL_O])[0];
+  return randArrayElements(1, [NODE.I, NODE.O])[0];
 }
 
 function switchNode() {
