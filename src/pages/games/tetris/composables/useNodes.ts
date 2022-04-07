@@ -49,6 +49,19 @@ function switchNode() {
   nextNode.value = randomTetromino();
 }
 
+function willCollide(position: number[][]) {
+  for (let i = 0; i < position.length; i++) {
+    const [rowIdx, colIdx] = position[i];
+    if (
+      nodes.value[rowIdx][colIdx] !== NODE.VOID &&
+      nodes.value[rowIdx][colIdx] !== NODE.BIRTH &&
+      nodes.value[rowIdx][colIdx] !== currNode.value
+    )
+      return true;
+  }
+  return false;
+}
+
 export function useNodes() {
   return {
     nodes,
@@ -57,6 +70,7 @@ export function useNodes() {
     NODE,
     currNode,
     nextNode,
+    willCollide,
     switchNode,
     X_SIZE,
     Y_SIZE,

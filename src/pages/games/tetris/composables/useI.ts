@@ -1,7 +1,7 @@
 import { useNodes } from './useNodes';
 
 export function useI() {
-  const { nodes, NODE, TOP_RESERVE } = useNodes();
+  const { nodes, NODE, TOP_RESERVE, willCollide } = useNodes();
   const defaultPosition = Object.freeze([
     [0, 4],
     [1, 4],
@@ -68,19 +68,6 @@ export function useI() {
 
     position.value = nextPosition.value;
     return true;
-  }
-
-  function willCollide(position: number[][]) {
-    for (let i = 0; i < position.length; i++) {
-      const [rowIdx, colIdx] = position[i];
-      if (
-        nodes.value[rowIdx][colIdx] !== NODE.VOID &&
-        nodes.value[rowIdx][colIdx] !== NODE.BIRTH &&
-        nodes.value[rowIdx][colIdx] !== NODE.I
-      )
-        return true;
-    }
-    return false;
   }
 
   function moveRight() {
