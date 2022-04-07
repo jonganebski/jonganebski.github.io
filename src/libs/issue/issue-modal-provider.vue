@@ -75,7 +75,7 @@ provide('OPEN_ISSUE_MODAL', open);
                   <a
                     class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md cursor-pointer hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     href="https://github.com/jonganebski/jonganebski.github.io/issues/new?template=bugs.yaml&labels=bug&title=[BUG]:"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     {{ t('write_an_issue') }}
@@ -84,7 +84,7 @@ provide('OPEN_ISSUE_MODAL', open);
                   <a
                     class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md cursor-pointer hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     href="mailto:jon.ganebski@gmail.com"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     {{ t('send_email') }}
