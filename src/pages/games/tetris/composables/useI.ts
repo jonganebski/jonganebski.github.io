@@ -70,17 +70,22 @@ export function useI() {
     return true;
   }
 
-  function moveRight() {
-    let willCollide = false;
-    position.value.forEach(([rowIdx, colIdx]) => {
+  function willCollide(position: number[][]) {
+    for (let i = 0; i < position.length; i++) {
+      const [rowIdx, colIdx] = position[i];
       if (
-        nodes.value[rowIdx][colIdx + 1] !== NODE.VOID &&
-        nodes.value[rowIdx][colIdx + 1] !== NODE.BIRTH &&
-        nodes.value[rowIdx][colIdx + 1] !== NODE.I
+        nodes.value[rowIdx][colIdx] !== NODE.VOID &&
+        nodes.value[rowIdx][colIdx] !== NODE.BIRTH &&
+        nodes.value[rowIdx][colIdx] !== NODE.I
       )
-        willCollide = true;
-    });
-    if (willCollide) return;
+        return true;
+    }
+    return false;
+  }
+
+  function moveRight() {
+    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx + 1]);
+    if (willCollide(positionCandidate)) return;
     position.value.forEach(([rowIdx, colIdx], i) => {
       nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
       position.value[i] = [rowIdx, colIdx + 1];
@@ -91,16 +96,8 @@ export function useI() {
   }
 
   function moveLeft() {
-    let willCollide = false;
-    position.value.forEach(([rowIdx, colIdx]) => {
-      if (
-        nodes.value[rowIdx][colIdx - 1] !== NODE.VOID &&
-        nodes.value[rowIdx][colIdx - 1] !== NODE.BIRTH &&
-        nodes.value[rowIdx][colIdx - 1] !== NODE.I
-      )
-        willCollide = true;
-    });
-    if (willCollide) return;
+    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx - 1]);
+    if (willCollide(positionCandidate)) return;
     position.value.forEach(([rowIdx, colIdx], i) => {
       nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
       position.value[i] = [rowIdx, colIdx - 1];
@@ -111,24 +108,35 @@ export function useI() {
   }
 
   function changeShape() {
+    let offset = 0;
+    let positionCandidate: number[][] = [...position.value];
+    while (offset === 0 || willCollide(positionCandidate)) {
+      if (shape.value === 0) {
+        positionCandidate = positionCandidate.map(([rowIdx, colIdx], i, arr) => {
+          if (i === 0) return [arr[2][0], arr[2][1] - 2 + offset];
+          if (i === 1) return [arr[2][0], arr[2][1] - 1 + offset];
+          if (i === 2) return [rowIdx, colIdx + offset];
+          return [arr[2][0], arr[2][1] + 1 + offset];
+        });
+      } else {
+        positionCandidate = positionCandidate.map(([rowIdx, colIdx], i, arr) => {
+          if (i === 0) return [arr[2][0] - 2, arr[2][1] + offset];
+          if (i === 1) return [arr[2][0] - 1, arr[2][1] + offset];
+          if (i === 2) return [rowIdx, colIdx + offset];
+          return [arr[2][0] + 1, arr[2][1] + offset];
+        });
+      }
+      const cousion = offset > 0 ? 1 : -1;
+      offset = -(offset + cousion); // 1, -2, 3, -4, 5, -6 ...
+      if (offset > 10) return;
+    }
     position.value.forEach(([rowIdx, colIdx]) => {
       nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
     });
+    position.value = [...positionCandidate];
     if (shape.value === 0) {
-      position.value.forEach(([rowIdx, colIdx], i, arr) => {
-        if (i === 0) position.value[i] = [arr[2][0], arr[2][1] - 2];
-        if (i === 1) position.value[i] = [arr[2][0], arr[2][1] - 1];
-        if (i === 2) position.value[i] = [rowIdx, colIdx];
-        if (i === 3) position.value[i] = [arr[2][0], arr[2][1] + 1];
-      });
       shape.value = 1;
     } else {
-      position.value.forEach(([rowIdx, colIdx], i, arr) => {
-        if (i === 0) position.value[i] = [arr[2][0] - 2, arr[2][1]];
-        if (i === 1) position.value[i] = [arr[2][0] - 1, arr[2][1]];
-        if (i === 2) position.value[i] = [rowIdx, colIdx];
-        if (i === 3) position.value[i] = [arr[2][0] + 1, arr[2][1]];
-      });
       shape.value = 0;
     }
     position.value.forEach(([rowIdx, colIdx]) => {
