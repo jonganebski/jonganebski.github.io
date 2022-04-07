@@ -63,4 +63,7 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
 ::v-slotted(p) {
   @apply mt-5 px-5 text-sm xl:text-base;
 }
+::v-slotted(a) {
+  @apply underline hover:underline-double;
+}
 </style>
