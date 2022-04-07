@@ -2390,177 +2390,177 @@
     "/assets/vendor.c8137ce3.js"
   ],
   "~icons/carbon/home": [
-    "/assets/404.a945a804.js",
-    "/assets/404.bdb7fc31.css"
+    "/assets/404.db0ab291.js",
+    "/assets/404.20c140cc.css"
   ],
   "src/pages/404.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/404.a945a804.js",
-    "/assets/404.bdb7fc31.css"
+    "/assets/404.db0ab291.js",
+    "/assets/404.20c140cc.css"
   ],
   "src/pages/404.vue": [
-    "/assets/404.a945a804.js",
-    "/assets/404.bdb7fc31.css"
+    "/assets/404.db0ab291.js",
+    "/assets/404.20c140cc.css"
   ],
   "src/pages/games/index.vue": [
-    "/assets/index.ebec24ab.js"
+    "/assets/index.c6b298e2.js"
   ],
   "src/pages/notes/route.md": [
-    "/assets/route.15dd391c.js"
+    "/assets/route.1b106c3f.js"
   ],
   "src/pages/notes/tech.md": [
-    "/assets/tech.e79d9e64.js"
+    "/assets/tech.760857f3.js"
   ],
   "~icons/carbon/help": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "~icons/carbon/flag": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/apis/useRecordsQuery.ts": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/apis/useCreateRecordMutation.ts": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/composables/useMineSweeper.ts": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/apis/useModesQuery.ts": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/composables/useModes.ts": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/index.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "src/pages/games/mine-sweeper/index.vue": [
-    "/assets/index.78a95eeb.js",
+    "/assets/index.c8b14a39.js",
     "/assets/index.7d4caf13.css"
   ],
   "~icons/carbon/chevron-down": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "src/components/ui/select.vue": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "src/components/ui/option.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "src/components/ui/option.vue": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "~icons/carbon/scatter-matrix": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "~icons/carbon/list-numbered": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "src/pages/games/components/records.vue": [
-    "/assets/records.795cbee0.js",
+    "/assets/records.427fa30f.js",
     "/assets/records.e83c41c6.css"
   ],
   "src/pages/games/sliding-puzzle/apis/useRecordsQuery.ts": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/components/copy-right.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/components/copy-right.vue": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/components/score.vue": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/components/ui/option-group.vue": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/components/select-image.vue": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/composables/useImages.ts": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/apis/useCreateRecordMutation.ts": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/composables/useSlidingPuzzle.ts": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/index.vue?vue&type=style&index=0&scoped=true&lang.css": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/sliding-puzzle/index.vue": [
-    "/assets/index.b779da50.js",
+    "/assets/index.780879a5.js",
     "/assets/index.03cc373f.css"
   ],
   "src/pages/games/tetris/composables/useNodes.ts": [
-    "/assets/index.64c51e6f.js"
+    "/assets/index.f0cb4a95.js"
   ],
   "src/pages/games/tetris/composables/useI.ts": [
-    "/assets/index.64c51e6f.js"
+    "/assets/index.f0cb4a95.js"
   ],
   "src/pages/games/tetris/composables/useO.ts": [
-    "/assets/index.64c51e6f.js"
+    "/assets/index.f0cb4a95.js"
   ],
   "src/pages/games/tetris/index.vue": [
-    "/assets/index.64c51e6f.js"
+    "/assets/index.f0cb4a95.js"
   ],
   "node_modules/.pnpm/vue-country-flag-next@2.3.2_vue@3.2.31/node_modules/vue-country-flag-next/dist/country-flag.esm.js": [
-    "/assets/index.410d5c2a.js"
+    "/assets/index.658d25f7.js"
   ],
   "src/api/usePointsSummaryQuery.ts": [
-    "/assets/index.410d5c2a.js"
+    "/assets/index.658d25f7.js"
   ],
   "src/pages/posts/routes/components/world-map.vue": [
-    "/assets/index.410d5c2a.js"
+    "/assets/index.658d25f7.js"
   ],
   "src/pages/posts/routes/index.vue": [
-    "/assets/index.410d5c2a.js"
+    "/assets/index.658d25f7.js"
   ],
   "src/components/icon/vue.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/components/icon/typescript.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/components/icon/react.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/components/icon/javascript.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/pages/posts/techs/components/floating-icon.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/pages/posts/techs/components/party-btn.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ],
   "src/pages/posts/techs/index.vue": [
-    "/assets/index.9d9d1541.js"
+    "/assets/index.6ff9acee.js"
   ]
 }
