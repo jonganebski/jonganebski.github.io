@@ -79,6 +79,10 @@ onBeforeRouteLeave((_, __, next) => {
             <auth-btn provider="github" />
             <auth-btn provider="google" />
             <auth-btn provider="facebook" />
+            <p class="mt-4 text-xs text-light-500">
+              <carbon-warning-hex-filled class="mb-2 mx-auto text-lg text-red-400" />
+              {{ t('sign_up_notice') }}
+            </p>
           </template>
         </div>
       </div>

@@ -53,7 +53,7 @@ export function getRoutePosts(): RoutesPostMeta[] | undefined {
       const path = filePath.replace('../pages', '').replace('.md', '');
       const fileName = path.split('/').at(-1);
       if (!fileName) throw Error('File name is not detected');
-      const [from, to] = fileName.split('T');
+      const [from, to] = fileName.split('~');
       return { fileName, points: [], path, from, to, ...frontmatter };
     });
     return posts;

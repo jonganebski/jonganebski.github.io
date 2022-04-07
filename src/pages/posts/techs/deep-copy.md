@@ -6,7 +6,7 @@ date: 2021-02-15
 cover_image_url: https://images.unsplash.com/flagged/photo-1582733265415-a0740c8a82fd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80
 ---
 
-<span class="photo-reference">Photo by <a href="https://unsplash.com/@seimesa?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Mario Mesaglio</a> on <a href="https://unsplash.com/s/photos/recursive?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></span>
+<span class="photo-reference">Photo by <a href="https://unsplash.com/@seimesa?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Mario Mesaglio</a> on <a href="https://unsplash.com/s/photos/recursive?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a></span>
 
 ## 왜 이러지??
 

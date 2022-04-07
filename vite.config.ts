@@ -40,7 +40,7 @@ export default defineConfig({
         md.use(Prism);
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
-          attrs: { target: '_blank', rel: 'noopener' },
+          attrs: { target: '_blank', rel: 'noopener noreferrer' },
         });
       },
     }),

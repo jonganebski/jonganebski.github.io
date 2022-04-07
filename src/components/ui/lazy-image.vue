@@ -11,10 +11,13 @@ const props = withDefaults(defineProps<Props>(), { height: 400, width: 600 });
 
 const imgRef = ref<HTMLImageElement | null>(null);
 
+const isLoading = ref<boolean>(false);
+
 const { stop } = useIntersectionObserver(imgRef, (entries) => {
   const { isIntersecting } = entries[0];
   if (!isIntersecting) return;
   if (!imgRef.value?.dataset.src) return;
+  isLoading.value = true;
   imgRef.value.src = imgRef.value.dataset.src;
   stop();
 });
@@ -27,6 +30,8 @@ const { stop } = useIntersectionObserver(imgRef, (entries) => {
     :height="props.height"
     :width="props.width"
     class="bg-gray-400"
+    :class="{ 'animate-pulse': isLoading }"
     loading="lazy"
+    @load="isLoading = false"
   />
 </template>

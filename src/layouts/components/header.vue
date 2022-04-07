@@ -63,7 +63,7 @@ onMounted(() => {
           @click="toggleAuthContainer"
         />
         <teleport to="body">
-          <div class="fixed bottom-24 transform left-16">
+          <div class="fixed bottom-16 transform left-16">
             <div v-if="isAuthContainerOpen && user" class="auth-container">
               <div class="text-dark-500">
                 <p>Email: {{ user.email }}</p>
@@ -79,6 +79,7 @@ onMounted(() => {
                 <auth-btn provider="facebook" />
               </div>
               <p class="text-xs text-gray-500">
+                <carbon-warning-hex-filled class="mb-2 mx-auto text-lg text-red-700" />
                 {{ t('sign_up_notice') }}
               </p>
             </div>

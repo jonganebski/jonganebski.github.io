@@ -12,7 +12,7 @@ export interface UsePointsQueryResult extends Point__point {
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
 export function usePointsQuery(fileName: string) {
-  const [from, to] = fileName.split('T');
+  const [from, to] = fileName.split('~');
   return useQuery(
     ['points', fileName],
     async () => {

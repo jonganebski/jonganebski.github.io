@@ -82,11 +82,19 @@ const gameLinks = computed(() => [
         </nav>
       </div>
     </div>
-    <div class="mt-20 text-center text-sm">
+    <div class="mt-20 grid gap-2 text-center text-sm">
+      <a
+        href="https://github.com/jonganebski/jonganebski.github.io/issues/new?template=bugs.yaml&labels=bug&title=[BUG]:"
+        rel="noopener noreferrer"
+        target="_blank"
+        class="hover:underline"
+      >
+        {{ t('found_bug') }}
+      </a>
       <a
         href="https://github.com/jonganebski/jonganebski.github.io/issues/new?labels=enhancement&template=feature-request.yaml&title=%5BFEAT%5D%3A+"
-        target="_blank"
         rel="noopener noreferrer"
+        target="_blank"
         class="hover:underline"
       >
         {{ t('propose') }}

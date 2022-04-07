@@ -6,7 +6,7 @@ date: 2021-04-19
 cover_image_url: https://images.unsplash.com/photo-1595984300393-017f4108f886?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80
 ---
 
-<span class="photo-reference">Photo by <a href="https://unsplash.com/@anspchee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Al Soot</a> on <a href="https://unsplash.com/s/photos/bubble?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></span>
+<span class="photo-reference">Photo by <a href="https://unsplash.com/@anspchee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Al Soot</a> on <a href="https://unsplash.com/s/photos/bubble?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a></span>
 
 addEventListner. 자바스크립트를 쓰는 이상 굉장히 많이 사용하게 된다. 하지만 평소에는 별 다른 생각없이 지나치게 되는 특징들을 정리해 보고자 한다.
 

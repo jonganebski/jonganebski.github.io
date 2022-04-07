@@ -9,6 +9,7 @@
     "mapbox",
     "mapboxgl",
     "supabase",
+    "tetromino",
     "vite",
     "vitest",
     "vueuse",

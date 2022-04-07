@@ -18,8 +18,8 @@ const { t } = useMyI18n();
       <a
         :class="[props.selectedImage?.creator.url ? 'link__active' : 'link__inactive']"
         :href="props.selectedImage?.creator.url"
+        rel="noopener noreferrer"
         target="_blank"
-        rel="noopener"
       >
         {{ props.selectedImage?.creator?.name }}
       </a>
@@ -29,8 +29,8 @@ const { t } = useMyI18n();
       <a
         :class="[props.selectedImage?.provider.url ? 'link__active' : 'link__inactive']"
         :href="props.selectedImage?.provider.url"
+        rel="noopener noreferrer"
         target="_blank"
-        rel="noopener"
       >
         {{ props.selectedImage?.provider?.name }}
       </a>
