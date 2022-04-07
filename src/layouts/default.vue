@@ -12,3 +12,9 @@ import Menu from './components/menu.vue';
   </main>
   <Footer />
 </template>
+
+<style lang="css">
+body {
+  @apply transition-colors bg-light-500 dark:bg-dark-500 text-dark-500 dark: text-light-500;
+}
+</style>

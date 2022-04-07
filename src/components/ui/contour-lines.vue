@@ -104,8 +104,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    class="fixed top-0 left-0 -z-1 w-full h-full bg-light-500 dark:bg-dark-500"
-  />
+  <div ref="containerRef" class="fixed top-0 left-0 -z-1 w-full h-full" />
 </template>
