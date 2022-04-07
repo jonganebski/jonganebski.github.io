@@ -6,7 +6,7 @@ date: 2021-05-09
 cover_image_url: https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1021&q=80
 ---
 
-<span class="photo-reference">Photo by <a href="https://unsplash.com/@jankolar?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jan Antonin Kolar</a> on <a href="https://unsplash.com/s/photos/sort?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+<span class="photo-reference">Photo by <a href="https://unsplash.com/@jankolar?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Jan Antonin Kolar</a> on <a href="https://unsplash.com/s/photos/sort?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>
 </span>
 
 타입스크립트를 사용하다보면 `keyof typeof`를 사용하는 경우를 종종 본다. 그 원리를 알기 전에 그냥 사용하는데에 익숙해져버려서 잘 알지도 못하고 쓰는 것 같았다. 그래서 이번에는 typeof와 keyof에 대해서 포스트를 작성해 보고자 한다.  

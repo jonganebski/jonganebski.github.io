@@ -6,7 +6,7 @@ date: 2021-02-18
 cover_image_url: https://images.unsplash.com/photo-1535077516733-ad29da1026f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1398&q=80
 ---
 
-<span class="photo-reference">Photo by <a href="https://unsplash.com/@davidclode?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">David Clode</a> on <a href="https://unsplash.com/s/photos/baby-elephant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+<span class="photo-reference">Photo by <a href="https://unsplash.com/@davidclode?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">David Clode</a> on <a href="https://unsplash.com/s/photos/baby-elephant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a></span>
 
 명령문을 모두 알고 있지는 않다. 하지만 개인 프로젝트를 진행하면서 가장 빈번하게 사용하게 되는 기본적인 명령어들을 정리해 보고자 한다. 물론 pgAdmin같은 GUI를 사용한다면 필요없겠지만...  
 wsl2를 사용하고 있으므로 아래의 예시들은 모두 wsl2 환경에서 진행됐다. (postgresql version: 13.1)
