@@ -31,6 +31,7 @@
 
  <!-- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
 
+- [ ] New Post
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] Style (style changes)
 - [ ] New feature (non-breaking change which adds functionality)
