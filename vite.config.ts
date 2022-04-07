@@ -17,6 +17,23 @@ import WindiCSS from 'vite-plugin-windicss';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
+  build: {
+    rollupOptions: {
+      output: {
+        // === Manual File Name Sanitization ===
+        //
+        // 1.  By default, `[...all].vue` will be compiled to the chunk file with name starts with `_...all_`.
+        //     But jekyll(gh-pages dependency uses it behind the scenes) ignores file name starts with `_`.
+        //     So it will be problematic on the production.
+        //     In this sanitization, I added '_' to the default sanitization.
+        //     https://rollupjs.org/guide/en/#outputsanitizefilename
+        // 2.  Alternate solution is adding empty `.nojekyll` file in the root of the dist folder.
+        //
+        sanitizeFileName: (filename) => filename.replace(/[_?*\0]/, ''),
+        //
+      },
+    },
+  },
   plugins: [
     Vue({ include: [/\.vue$/, /\.md$/] }),
     Pages({ extensions: ['vue', 'md'], exclude: ['**/composables/*', '**/components/*'] }),
