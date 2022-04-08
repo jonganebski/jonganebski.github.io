@@ -5,6 +5,7 @@ import { useJ } from './composables/useJ';
 import { useL } from './composables/useL';
 import { useNodes } from './composables/useNodes';
 import { useO } from './composables/useO';
+import { useS } from './composables/useS';
 
 const { nodes, NODE, NODE_SIZE, currNode, nextNode, switchNode, X_SIZE, Y_SIZE, TOP_RESERVE } =
   useNodes();
@@ -13,13 +14,14 @@ const I = useI();
 const J = useJ();
 const L = useL();
 const O = useO();
+const S = useS();
 
 const defaultSetTimeoutMs = 700;
 let setTimeoutId: NodeJS.Timeout;
 const setTimeoutMs = ref(defaultSetTimeoutMs);
 
 function tetromino() {
-  const t = [O, I, L, J].find(({ id }) => id === currNode.value);
+  const t = [O, I, L, J, S].find(({ id }) => id === currNode.value);
   if (!t) throw Error('Tetromino not found');
   return t;
 }
@@ -102,11 +104,19 @@ function isGuide(rowIdx: number, colIdx: number) {
         v-for="num in 6"
         :key="num"
         class="w-8 h-8"
-        :class="{ 'bg-emerald-500': num === 6 || num % 2 === 1 }"
+        :class="{ 'bg-orange-500': num === 6 || num % 2 === 1 }"
       ></div>
     </div>
     <div v-if="nextNode === NODE.O" class="grid gap-px grid-cols-2">
       <div v-for="num in 4" :key="num" class="w-8 h-8 bg-red-500"></div>
+    </div>
+    <div v-if="nextNode === NODE.S" class="grid gap-px grid-cols-3">
+      <div
+        v-for="num in 6"
+        :key="num"
+        class="w-8 h-8"
+        :class="{ 'bg-emerald-500': [2, 3, 4, 5].includes(num) }"
+      ></div>
     </div>
   </div>
   <div class="flex justify-center items-center">
@@ -122,8 +132,9 @@ function isGuide(rowIdx: number, colIdx: number) {
           :class="{
             'bg-sky-500': node === NODE.I || node === NODE.FOSSIL_I,
             'bg-blue-500': node === NODE.J || node === NODE.FOSSIL_J,
-            'bg-emerald-500': node === NODE.L || node === NODE.FOSSIL_L,
+            'bg-orange-500': node === NODE.L || node === NODE.FOSSIL_L,
             'bg-red-500': node === NODE.O || node === NODE.FOSSIL_O,
+            'bg-emerald-500': node === NODE.S || node === NODE.FOSSIL_S,
             'border-red-700': isGuide(indexR, indexC),
           }"
           :style="{ width: `${NODE_SIZE}px`, height: `${NODE_SIZE}px` }"
