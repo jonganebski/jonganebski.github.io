@@ -1,10 +1,14 @@
 import { Ref } from 'vue';
 import { useNodes } from './useNodes';
 
-export function usePositions(defaultPosition: number[][], shape: Ref<number>) {
-  const { nodes, NODE, currNode, TOP_RESERVE } = useNodes();
+function deepCopy(arr: Readonly<number[][]>) {
+  return [[...arr[0]], [...arr[1]], [...arr[2]], [...arr[3]]];
+}
 
-  const position = ref(defaultPosition);
+export function usePositions(defaultPosition: Readonly<number[][]>, shape: Ref<number>) {
+  const { nodes, NODE, currNode, TOP_RESERVE, willCollide } = useNodes();
+
+  const position = ref(deepCopy(defaultPosition));
   const nextPosition = computed(() =>
     position.value.map(([rowIdx, colIdx]) => [rowIdx + 1, colIdx]),
   );
@@ -32,7 +36,7 @@ export function usePositions(defaultPosition: number[][], shape: Ref<number>) {
 
   function prepare() {
     shape.value = 0;
-    position.value = [...defaultPosition];
+    position.value = deepCopy(defaultPosition);
     position.value.forEach(([rowIdx, colIdx]) => (nodes.value[rowIdx][colIdx] = currNode.value));
   }
 
@@ -87,5 +91,30 @@ export function usePositions(defaultPosition: number[][], shape: Ref<number>) {
     position.value = nextPosition.value;
     return true;
   }
-  return { position, nextPosition, endPosition, prepare, fall };
+
+  function moveRight() {
+    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx + 1]);
+    if (willCollide(positionCandidate)) return;
+    position.value.forEach(([rowIdx, colIdx], i) => {
+      nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
+      position.value[i] = [rowIdx, colIdx + 1];
+    });
+    position.value.forEach(([rowIdx, colIdx]) => {
+      nodes.value[rowIdx][colIdx] = currNode.value;
+    });
+  }
+
+  function moveLeft() {
+    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx - 1]);
+    if (willCollide(positionCandidate)) return;
+    position.value.forEach(([rowIdx, colIdx], i) => {
+      nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
+      position.value[i] = [rowIdx, colIdx - 1];
+    });
+    position.value.forEach(([rowIdx, colIdx]) => {
+      nodes.value[rowIdx][colIdx] = currNode.value;
+    });
+  }
+
+  return { position, nextPosition, endPosition, prepare, fall, moveRight, moveLeft };
 }

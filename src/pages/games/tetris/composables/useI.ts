@@ -26,34 +26,10 @@ export function useI() {
     [3, 4],
   ]);
 
-  const { position, nextPosition, endPosition, prepare, fall } = usePositions(
-    [...defaultPosition],
+  const { position, nextPosition, endPosition, prepare, fall, moveRight, moveLeft } = usePositions(
+    defaultPosition,
     shape,
   );
-
-  function moveRight() {
-    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx + 1]);
-    if (willCollide(positionCandidate)) return;
-    position.value.forEach(([rowIdx, colIdx], i) => {
-      nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
-      position.value[i] = [rowIdx, colIdx + 1];
-    });
-    position.value.forEach(([rowIdx, colIdx]) => {
-      nodes.value[rowIdx][colIdx] = NODE.I;
-    });
-  }
-
-  function moveLeft() {
-    const positionCandidate = position.value.map(([rowIdx, colIdx]) => [rowIdx, colIdx - 1]);
-    if (willCollide(positionCandidate)) return;
-    position.value.forEach(([rowIdx, colIdx], i) => {
-      nodes.value[rowIdx][colIdx] = rowIdx <= TOP_RESERVE - 1 ? NODE.BIRTH : NODE.VOID;
-      position.value[i] = [rowIdx, colIdx - 1];
-    });
-    position.value.forEach(([rowIdx, colIdx]) => {
-      nodes.value[rowIdx][colIdx] = NODE.I;
-    });
-  }
 
   function changeShape() {
     let offset = 0;
@@ -93,6 +69,7 @@ export function useI() {
   }
 
   return {
+    id: NODE.I,
     defaultPosition,
     nextPosition,
     endPosition,
