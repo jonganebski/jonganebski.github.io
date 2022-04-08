@@ -5,6 +5,10 @@ import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
 import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
+import MobileController from './components/mobile-controller.vue';
+import { breakpointsTailwind } from '@vueuse/core';
+
+const { lg } = useBreakpoints(breakpointsTailwind);
 
 const { nodes, TOP_RESERVE, X_SIZE } = useNodes();
 
@@ -79,6 +83,13 @@ onKeyStroke(' ', dropTetromino);
       <button class="py-2 px-3 border border-red-600 rounded" @click="startGame">Start</button>
     </div>
   </div>
+  <MobileController
+    v-if="!lg"
+    @on-touch-arrow-right-btn="moveTetrominoToRight"
+    @on-touch-arrow-left-btn="moveTetrominoToLeft"
+    @on-touch-arrow-down-btn="dropTetromino"
+    @on-touch-rotate-btn="rotateTetromino"
+  />
   <client-only>
     <ui-contour-lines class="opacity-50" />
   </client-only>
