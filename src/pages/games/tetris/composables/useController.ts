@@ -7,9 +7,11 @@ import { useO } from './useO';
 import { useS } from './useS';
 import { useT } from './useT';
 import { useZ } from './useZ';
+import { useGameInfo } from './useGameInfo';
 
 export function useController() {
   const { removeNodes, switchNode, fossilize, TOP_RESERVE, currNode, nodes } = useNodes();
+  const { isGameStarted, isGameFinished, setTimeoutMs, computeSetTimeoutMs } = useGameInfo();
 
   const I = useI();
   const J = useJ();
@@ -19,9 +21,7 @@ export function useController() {
   const Z = useZ();
   const T = useT();
 
-  const defaultSetTimeoutMs = 700;
   let setTimeoutId: NodeJS.Timeout;
-  const setTimeoutMs = ref(defaultSetTimeoutMs);
 
   function tetromino() {
     const t = [I, J, L, O, S, Z, T].find(({ id }) => id === currNode.value);
@@ -30,8 +30,14 @@ export function useController() {
   }
 
   function startGame() {
+    isGameStarted.value = true;
     tetromino().prepare();
     fall();
+  }
+
+  function finishGame() {
+    isGameFinished.value = true;
+    window.alert('Game Over!');
   }
 
   function fall() {
@@ -40,10 +46,7 @@ export function useController() {
       if (!tetromino().fall()) {
         clearTimeout(setTimeoutId);
         removeNodes();
-        if (!validate()) {
-          window.alert('Game Over!');
-          return;
-        }
+        if (!validate()) return finishGame();
         switchNode();
         tetromino().prepare();
       }
@@ -79,7 +82,7 @@ export function useController() {
     e.preventDefault();
     setTimeoutMs.value = 0;
     fall();
-    setTimeoutMs.value = defaultSetTimeoutMs;
+    setTimeoutMs.value = computeSetTimeoutMs();
   }
 
   function dropTetromino(e: KeyboardEvent) {
@@ -94,10 +97,7 @@ export function useController() {
       tetromino().position.value[i][1] = colIdx;
     });
     removeNodes();
-    if (!validate()) {
-      window.alert('Game Over!');
-      return;
-    }
+    if (!validate()) return finishGame();
     switchNode();
     tetromino().prepare();
     fall();

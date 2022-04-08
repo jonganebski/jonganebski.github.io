@@ -3,6 +3,7 @@ import { onKeyStroke } from '@vueuse/core';
 import NextTetromino from './components/next-tetromino.vue';
 import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
+import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
 import { useStyles } from './composables/useStyles';
 
@@ -17,6 +18,8 @@ const {
   dropTetromino,
   isGuide,
 } = useController();
+
+const { score, level } = useGameInfo();
 
 const { bg } = useStyles();
 
@@ -69,6 +72,8 @@ onKeyStroke(' ', dropTetromino);
     </div>
     <div class="grid gap-10">
       <NextTetromino />
+      <div>Level: {{ level }}</div>
+      <div>Score: {{ score }}</div>
       <button class="py-2 px-3 border border-red-600 rounded" @click="startGame">Start</button>
     </div>
   </div>

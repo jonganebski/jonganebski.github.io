@@ -1,5 +1,8 @@
 import { randArrayElements } from '~/libs/random';
 import { NODE } from './@types';
+import { useGameInfo } from './useGameInfo';
+
+const { increaseScore } = useGameInfo();
 
 const X_SIZE = 12;
 const Y_SIZE = 25;
@@ -88,6 +91,7 @@ function removeNodes() {
       targetRowIdxs.push(rowIdx);
   });
   if (targetRowIdxs.length === 0) return;
+  increaseScore(targetRowIdxs.length);
   nodes.value = nodes.value.filter((_, rowIdx) => !targetRowIdxs.includes(rowIdx));
   nodes.value = [
     ...nodes.value.slice(0, TOP_RESERVE),
