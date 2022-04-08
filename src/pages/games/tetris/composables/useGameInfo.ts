@@ -7,12 +7,14 @@ const score = ref(0);
 
 const level = computed(() => Math.floor(destroyedRawsCount.value / 10) + 1);
 
-watch(level, () => (setTimeoutMs.value = computeSetTimeoutMs()));
+watch(level, () => {
+  setTimeoutMs.value = computeSetTimeoutMs();
+});
 
 const setTimeoutMs = ref(computeSetTimeoutMs());
 
 function computeSetTimeoutMs() {
-  return Math.max(80, 500 - (level.value - 1) * 10);
+  return Math.max(80, 500 - (level.value - 1) * 30);
 }
 
 function increaseScore(rowsCount: number) {

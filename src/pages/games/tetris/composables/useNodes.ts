@@ -5,7 +5,7 @@ import { useGameInfo } from './useGameInfo';
 const { increaseScore } = useGameInfo();
 
 const X_SIZE = 12;
-const Y_SIZE = 25;
+const Y_SIZE = 28;
 const TOP_RESERVE = 4;
 
 const nodes = ref<NODE[][]>(generateCleanTemplate());
