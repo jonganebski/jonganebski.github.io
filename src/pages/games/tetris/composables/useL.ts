@@ -36,7 +36,7 @@ export function useL() {
     [1, 4],
     [2, 4], // center
     [3, 4],
-    [3, 3],
+    [3, 5],
   ]);
 
   const { position, nextPosition, endPosition, prepare, fall, moveLeft, moveRight } = usePositions(
@@ -62,7 +62,7 @@ export function useL() {
           if (i === 0) return [arr[1][0] + 1, arr[1][1] + offset];
           if (i === 1) return [rowIdx, colIdx + offset];
           if (i === 2) return [arr[1][0] - 1, arr[1][1] + offset];
-          return [arr[1][0] - 1, arr[1][1] + 1 + offset];
+          return [arr[1][0] - 1, arr[1][1] - 1 + offset];
         });
       } else if (shape.value === 2) {
         // To Shape 3
