@@ -1,5 +1,6 @@
 import { useNodes } from './useNodes';
 import { usePositions } from './usePositions';
+import { NODE } from './@types';
 
 export function useI() {
   /**
@@ -34,9 +35,9 @@ export function useI() {
    */
   const shape = ref<0 | 1 | 2 | 3>(0);
 
-  const { nodes, NODE, TOP_RESERVE, willCollide } = useNodes();
+  const { nodes, TOP_RESERVE, willCollide } = useNodes();
 
-  const defaultPosition = Object.freeze([
+  const defaultPosition = Object.freeze<number[][]>([
     [2, 4],
     [1, 4],
     [0, 4],

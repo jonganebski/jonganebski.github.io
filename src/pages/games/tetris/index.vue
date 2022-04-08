@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onKeyStroke } from '@vueuse/core';
+import { useController } from './composables/useController';
 import { useI } from './composables/useI';
 import { useJ } from './composables/useJ';
 import { useL } from './composables/useL';
@@ -8,9 +9,9 @@ import { useO } from './composables/useO';
 import { useS } from './composables/useS';
 import { useT } from './composables/useT';
 import { useZ } from './composables/useZ';
+import { NODE } from './composables/@types';
 
-const { nodes, NODE, NODE_SIZE, currNode, nextNode, switchNode, X_SIZE, Y_SIZE, TOP_RESERVE } =
-  useNodes();
+const { nodes, NODE_SIZE, nextNode, X_SIZE, Y_SIZE } = useNodes();
 
 const I = useI();
 const J = useJ();
@@ -20,71 +21,25 @@ const S = useS();
 const Z = useZ();
 const T = useT();
 
-const defaultSetTimeoutMs = 700;
-let setTimeoutId: NodeJS.Timeout;
-const setTimeoutMs = ref(defaultSetTimeoutMs);
+const {
+  startGame,
+  rotateTetromino,
+  moveTetrominoToRight,
+  moveTetrominoToLeft,
+  moveTetrominoDown,
+  dropTetromino,
+  tetromino,
+} = useController([O, I, L, J, S, Z, T]);
 
-function tetromino() {
-  const t = [O, I, L, J, S, Z, T].find(({ id }) => id === currNode.value);
-  if (!t) throw Error('Tetromino not found');
-  return t;
-}
-
-function startGame() {
-  tetromino().prepare();
-  fall();
-}
-
-function fall() {
-  clearTimeout(setTimeoutId);
-  setTimeoutId = setTimeout(() => {
-    if (!tetromino().fall()) {
-      clearTimeout(setTimeoutId);
-      if (!validate()) {
-        window.alert('Game Over!');
-        return;
-      }
-      switchNode();
-      tetromino().prepare();
-    }
-    fall();
-  }, setTimeoutMs.value);
-}
-
-function validate() {
-  const target = tetromino().position.value;
-  for (let i = 0; i < target.length; i++) {
-    const [rowIdx] = target[i];
-    if (rowIdx < TOP_RESERVE) return false;
-  }
-  return true;
-}
-
-onKeyStroke('ArrowUp', (e) => {
-  e.preventDefault();
-  tetromino().changeShape();
-});
-onKeyStroke('ArrowRight', (e) => {
-  e.preventDefault();
-  tetromino().moveRight();
-});
-onKeyStroke('ArrowLeft', (e) => {
-  e.preventDefault();
-  tetromino().moveLeft();
-});
-onKeyStroke('ArrowDown', (e) => {
-  e.preventDefault();
-  setTimeoutMs.value = 0;
-  fall();
-  setTimeoutMs.value = defaultSetTimeoutMs;
-});
+onKeyStroke('ArrowUp', rotateTetromino);
+onKeyStroke('ArrowRight', moveTetrominoToRight);
+onKeyStroke('ArrowLeft', moveTetrominoToLeft);
+onKeyStroke('ArrowDown', moveTetrominoDown);
+onKeyStroke(' ', dropTetromino);
 
 function isGuide(rowIdx: number, colIdx: number) {
   return tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
 }
-// onRenderTriggered(() => {
-//   console.log('render');
-// });
 </script>
 
 <template>

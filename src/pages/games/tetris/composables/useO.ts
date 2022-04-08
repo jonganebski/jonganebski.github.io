@@ -1,4 +1,4 @@
-import { useNodes } from './useNodes';
+import { NODE } from './@types';
 import { usePositions } from './usePositions';
 
 export function useO() {
@@ -11,16 +11,14 @@ export function useO() {
    */
   const shape = ref<0>(0);
 
-  const { NODE } = useNodes();
-
-  const defaultPosition = Object.freeze([
+  const defaultPosition = Object.freeze<number[][]>([
     [2, 3],
     [2, 4],
     [3, 3],
     [3, 4],
   ]);
 
-  const { position, endPosition, prepare, fall, moveLeft, moveRight } = usePositions(
+  const { position, nextPosition, endPosition, prepare, fall, moveLeft, moveRight } = usePositions(
     defaultPosition,
     shape,
   );
@@ -34,5 +32,8 @@ export function useO() {
     position,
     endPosition,
     changeShape: () => {},
+    defaultPosition,
+    nextPosition,
+    shape,
   };
 }

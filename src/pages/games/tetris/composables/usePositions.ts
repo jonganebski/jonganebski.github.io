@@ -1,12 +1,13 @@
 import { Ref } from 'vue';
 import { useNodes } from './useNodes';
+import { NODE } from './@types';
 
 function deepCopy(arr: Readonly<number[][]>) {
   return [[...arr[0]], [...arr[1]], [...arr[2]], [...arr[3]]];
 }
 
 export function usePositions(defaultPosition: Readonly<number[][]>, shape: Ref<number>) {
-  const { nodes, NODE, currNode, TOP_RESERVE, willCollide } = useNodes();
+  const { nodes, currNode, TOP_RESERVE, willCollide, fossilize } = useNodes();
 
   const position = ref(deepCopy(defaultPosition));
   const nextPosition = computed(() =>
@@ -54,31 +55,7 @@ export function usePositions(defaultPosition: Readonly<number[][]>, shape: Ref<n
       break;
     }
     if (isBlocked) {
-      position.value.forEach(([rowIdx, colIdx]) => {
-        switch (currNode.value) {
-          case NODE.I:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_I;
-            break;
-          case NODE.J:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_J;
-            break;
-          case NODE.L:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_L;
-            break;
-          case NODE.O:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_O;
-            break;
-          case NODE.S:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_S;
-            break;
-          case NODE.T:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_T;
-            break;
-          case NODE.Z:
-            nodes.value[rowIdx][colIdx] = NODE.FOSSIL_Z;
-            break;
-        }
-      });
+      position.value.forEach(fossilize);
       return false;
     }
     position.value.forEach(([rowIdx, colIdx]) => {

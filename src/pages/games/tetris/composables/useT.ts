@@ -1,13 +1,6 @@
-/**
- * @file
- * ............
- * .....🟨....
- * ..🟨🟨🟨..
- * ............
- */
-
 import { useNodes } from './useNodes';
 import { usePositions } from './usePositions';
+import { NODE } from './@types';
 
 export function useT() {
   /**
@@ -38,9 +31,9 @@ export function useT() {
    */
   const shape = ref<0 | 1 | 2 | 3>(0);
 
-  const { nodes, NODE, TOP_RESERVE, willCollide } = useNodes();
+  const { nodes, TOP_RESERVE, willCollide } = useNodes();
 
-  const defaultPosition = Object.freeze([
+  const defaultPosition = Object.freeze<number[][]>([
     [3, 3],
     [2, 3],
     [3, 2],
