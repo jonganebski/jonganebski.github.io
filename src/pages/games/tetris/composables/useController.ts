@@ -103,6 +103,10 @@ export function useController() {
     fall();
   }
 
+  function isGuide(rowIdx: number, colIdx: number) {
+    return tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
+  }
+
   return {
     startGame,
     fall,
@@ -113,5 +117,6 @@ export function useController() {
     moveTetrominoToLeft,
     moveTetrominoDown,
     dropTetromino,
+    isGuide,
   };
 }
