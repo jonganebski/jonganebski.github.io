@@ -6,7 +6,7 @@ import { useController } from './composables/useController';
 import { useNodes } from './composables/useNodes';
 import { useStyles } from './composables/useStyles';
 
-const { nodes, NODE_SIZE, X_SIZE, Y_SIZE } = useNodes();
+const { nodes, TOP_RESERVE, X_SIZE } = useNodes();
 
 const {
   startGame,
@@ -28,20 +28,25 @@ onKeyStroke(' ', dropTetromino);
 </script>
 
 <template>
-  <div>Tetris</div>
-  <button @click="startGame">Start</button>
+  <h1 class="my-20 text-3xl md:text-5xl text-center">Tetris</h1>
   <br />
-  <div class="flex justify-center gap-20">
-    <div
-      class="grid gap-px bg-black"
-      :style="{ width: `${NODE_SIZE * X_SIZE + 8}px`, height: `${NODE_SIZE * Y_SIZE + 14}px` }"
-    >
-      <div v-for="(raw, rowIdx) in nodes" :key="rowIdx" class="grid grid-cols-9 gap-px bg-black">
+  <div class="flex justify-center items-start gap-20">
+    <div class="grid gap-px shadow-lg">
+      <div
+        v-for="(raw, rowIdx) in nodes"
+        :key="rowIdx"
+        :style="{
+          display: 'grid',
+          gap: '1px',
+          gridTemplateColumns: `repeat(${X_SIZE - 2}, 1fr)`,
+        }"
+      >
         <div
           v-for="(node, colIdx) in raw"
           :key="colIdx"
-          class="bg-white border border-transparent"
+          class="bg-gray-400"
           :class="[
+            node === NODE.WALL || rowIdx < TOP_RESERVE ? 'w-0 h-0 hidden' : 'w-8 h-8',
             isGuide(rowIdx, colIdx) ? 'border border-red-500' : '',
             node === NODE.I || node === NODE.FOSSIL_I
               ? bg.I
@@ -59,17 +64,15 @@ onKeyStroke(' ', dropTetromino);
               ? bg.Z
               : '',
           ]"
-          :style="{
-            width: `${NODE_SIZE}px`,
-            height: `${NODE_SIZE}px`,
-          }"
-        >
-          {{ node }}
-        </div>
+        ></div>
       </div>
     </div>
-    <div>
+    <div class="grid gap-10">
       <NextTetromino />
+      <button class="py-2 px-3 border border-red-600 rounded" @click="startGame">Start</button>
     </div>
   </div>
+  <client-only>
+    <ui-contour-lines class="opacity-50" />
+  </client-only>
 </template>
