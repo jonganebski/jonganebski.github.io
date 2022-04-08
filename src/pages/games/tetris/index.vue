@@ -6,6 +6,7 @@ import { useL } from './composables/useL';
 import { useNodes } from './composables/useNodes';
 import { useO } from './composables/useO';
 import { useS } from './composables/useS';
+import { useZ } from './composables/useZ';
 
 const { nodes, NODE, NODE_SIZE, currNode, nextNode, switchNode, X_SIZE, Y_SIZE, TOP_RESERVE } =
   useNodes();
@@ -15,13 +16,14 @@ const J = useJ();
 const L = useL();
 const O = useO();
 const S = useS();
+const Z = useZ();
 
 const defaultSetTimeoutMs = 700;
 let setTimeoutId: NodeJS.Timeout;
 const setTimeoutMs = ref(defaultSetTimeoutMs);
 
 function tetromino() {
-  const t = [O, I, L, J, S].find(({ id }) => id === currNode.value);
+  const t = [O, I, L, J, S, Z].find(({ id }) => id === currNode.value);
   if (!t) throw Error('Tetromino not found');
   return t;
 }
@@ -118,6 +120,14 @@ function isGuide(rowIdx: number, colIdx: number) {
         :class="{ 'bg-emerald-500': [2, 3, 4, 5].includes(num) }"
       ></div>
     </div>
+    <div v-if="nextNode === NODE.Z" class="grid gap-px grid-cols-3">
+      <div
+        v-for="num in 6"
+        :key="num"
+        class="w-8 h-8"
+        :class="{ 'bg-yellow-500': [1, 2, 5, 6].includes(num) }"
+      ></div>
+    </div>
   </div>
   <div class="flex justify-center items-center">
     <div
@@ -135,6 +145,7 @@ function isGuide(rowIdx: number, colIdx: number) {
             'bg-orange-500': node === NODE.L || node === NODE.FOSSIL_L,
             'bg-red-500': node === NODE.O || node === NODE.FOSSIL_O,
             'bg-emerald-500': node === NODE.S || node === NODE.FOSSIL_S,
+            'bg-yellow-500': node === NODE.Z || node === NODE.FOSSIL_Z,
             'border-red-700': isGuide(indexR, indexC),
           }"
           :style="{ width: `${NODE_SIZE}px`, height: `${NODE_SIZE}px` }"
