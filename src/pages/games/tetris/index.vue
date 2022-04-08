@@ -2,6 +2,7 @@
 import { onKeyStroke } from '@vueuse/core';
 import { useI } from './composables/useI';
 import { useJ } from './composables/useJ';
+import { useL } from './composables/useL';
 import { useNodes } from './composables/useNodes';
 import { useO } from './composables/useO';
 
@@ -10,6 +11,7 @@ const { nodes, NODE, NODE_SIZE, currNode, nextNode, switchNode, X_SIZE, Y_SIZE, 
 
 const I = useI();
 const J = useJ();
+const L = useL();
 const O = useO();
 
 const defaultSetTimeoutMs = 700;
@@ -17,7 +19,7 @@ let setTimeoutId: NodeJS.Timeout;
 const setTimeoutMs = ref(defaultSetTimeoutMs);
 
 function tetromino() {
-  const t = [O, I, J].find(({ id }) => id === currNode.value);
+  const t = [O, I, L, J].find(({ id }) => id === currNode.value);
   if (!t) throw Error('Tetromino not found');
   return t;
 }
@@ -95,6 +97,14 @@ function isGuide(rowIdx: number, colIdx: number) {
         :class="{ 'bg-blue-500': num === 5 || num % 2 === 0 }"
       ></div>
     </div>
+    <div v-if="nextNode === NODE.L" class="grid gap-px grid-cols-2">
+      <div
+        v-for="num in 6"
+        :key="num"
+        class="w-8 h-8"
+        :class="{ 'bg-emerald-500': num === 6 || num % 2 === 1 }"
+      ></div>
+    </div>
     <div v-if="nextNode === NODE.O" class="grid gap-px grid-cols-2">
       <div v-for="num in 4" :key="num" class="w-8 h-8 bg-red-500"></div>
     </div>
@@ -112,6 +122,7 @@ function isGuide(rowIdx: number, colIdx: number) {
           :class="{
             'bg-sky-500': node === NODE.I || node === NODE.FOSSIL_I,
             'bg-blue-500': node === NODE.J || node === NODE.FOSSIL_J,
+            'bg-emerald-500': node === NODE.L || node === NODE.FOSSIL_L,
             'bg-red-500': node === NODE.O || node === NODE.FOSSIL_O,
             'border-red-700': isGuide(indexR, indexC),
           }"
