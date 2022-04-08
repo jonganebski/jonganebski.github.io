@@ -32,13 +32,13 @@ export function useS(): UseTetrominoResult {
    */
   const shape = ref<0 | 1 | 2 | 3>(0);
 
-  const { nodes, TOP_RESERVE, willCollide } = useNodes();
+  const { nodes, TOP_RESERVE, willCollide, X_SIZE } = useNodes();
 
   const defaultPosition = Object.freeze<number[][]>([
-    [3, 3],
-    [2, 3],
-    [2, 4],
-    [3, 2],
+    [TOP_RESERVE - 1, Math.floor(X_SIZE / 2) - 1],
+    [TOP_RESERVE - 2, Math.floor(X_SIZE / 2) - 1],
+    [TOP_RESERVE - 2, Math.floor(X_SIZE / 2)],
+    [TOP_RESERVE - 1, Math.floor(X_SIZE / 2) - 2],
   ]);
 
   const { position, nextPosition, endPosition, prepare, fall, moveRight, moveLeft } = usePositions(
