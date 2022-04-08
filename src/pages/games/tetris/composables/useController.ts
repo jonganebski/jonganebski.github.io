@@ -1,16 +1,30 @@
 import { useNodes } from './useNodes';
 import { NODE } from './@types';
-import type { UseTetrominoResult } from './@types';
+import { useI } from './useI';
+import { useJ } from './useJ';
+import { useL } from './useL';
+import { useO } from './useO';
+import { useS } from './useS';
+import { useT } from './useT';
+import { useZ } from './useZ';
 
-export function useController(ts: UseTetrominoResult[]) {
+export function useController() {
   const { removeNodes, switchNode, fossilize, TOP_RESERVE, currNode, nodes } = useNodes();
+
+  const I = useI();
+  const J = useJ();
+  const L = useL();
+  const O = useO();
+  const S = useS();
+  const Z = useZ();
+  const T = useT();
 
   const defaultSetTimeoutMs = 700;
   let setTimeoutId: NodeJS.Timeout;
   const setTimeoutMs = ref(defaultSetTimeoutMs);
 
   function tetromino() {
-    const t = ts.find(({ id }) => id === currNode.value);
+    const t = [I, J, L, O, S, Z, T].find(({ id }) => id === currNode.value);
     if (!t) throw Error('Tetromino not found');
     return t;
   }

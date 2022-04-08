@@ -1,8 +1,9 @@
 import { useNodes } from './useNodes';
 import { usePositions } from './usePositions';
 import { NODE } from './@types';
+import type { UseTetrominoResult } from './@types';
 
-export function useT() {
+export function useT(): UseTetrominoResult {
   /**
    * ### Shape 0
    * ```

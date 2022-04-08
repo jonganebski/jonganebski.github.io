@@ -1,25 +1,11 @@
 <script setup lang="ts">
 import { onKeyStroke } from '@vueuse/core';
 import { useController } from './composables/useController';
-import { useI } from './composables/useI';
-import { useJ } from './composables/useJ';
-import { useL } from './composables/useL';
 import { useNodes } from './composables/useNodes';
-import { useO } from './composables/useO';
-import { useS } from './composables/useS';
-import { useT } from './composables/useT';
-import { useZ } from './composables/useZ';
+
 import { NODE } from './composables/@types';
 
 const { nodes, NODE_SIZE, nextNode, X_SIZE, Y_SIZE } = useNodes();
-
-const I = useI();
-const J = useJ();
-const L = useL();
-const O = useO();
-const S = useS();
-const Z = useZ();
-const T = useT();
 
 const {
   startGame,
@@ -29,7 +15,7 @@ const {
   moveTetrominoDown,
   dropTetromino,
   tetromino,
-} = useController([O, I, L, J, S, Z, T]);
+} = useController();
 
 onKeyStroke('ArrowUp', rotateTetromino);
 onKeyStroke('ArrowRight', moveTetrominoToRight);
