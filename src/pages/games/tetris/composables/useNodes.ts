@@ -1,9 +1,8 @@
 import { randArrayElements } from '~/libs/random';
 import { NODE } from './@types';
 
-const NODE_SIZE = 30;
-const X_SIZE = 9;
-const Y_SIZE = 20;
+const X_SIZE = 12;
+const Y_SIZE = 25;
 const TOP_RESERVE = 4;
 
 const nodes = ref<NODE[][]>(generateCleanTemplate());
@@ -104,7 +103,6 @@ function removeNodes() {
 export function useNodes() {
   return {
     nodes,
-    NODE_SIZE,
     TOP_RESERVE,
     currNode,
     nextNode,
