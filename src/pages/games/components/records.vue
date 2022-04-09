@@ -49,9 +49,9 @@ function computeTopRecords() {
       <thead>
         <tr>
           <th class="pb-5"><carbon-list-numbered /></th>
-          <th class="pb-5 w-[60%]"><carbon-user class="mx-auto" /></th>
+          <th class="pb-5 w-[50%]"><carbon-user class="mx-auto" /></th>
           <th class="pb-5"><carbon-event-schedule class="mx-auto" /></th>
-          <th class="pb-5"><carbon-scatter-matrix class="ml-auto" /></th>
+          <th class="pb-5"><carbon-result class="ml-auto" /></th>
         </tr>
       </thead>
       <tbody class="w-full">
