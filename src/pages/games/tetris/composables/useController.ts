@@ -64,29 +64,25 @@ export function useController() {
   }
 
   function rotateTetromino(e: Event) {
-    if (!isGameStarted.value) return;
-    if (isGameFinished.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     e.preventDefault();
     tetromino().changeShape();
   }
 
   function moveTetrominoToRight(e: Event) {
-    if (!isGameStarted.value) return;
-    if (isGameFinished.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     e.preventDefault();
     tetromino().moveRight();
   }
 
   function moveTetrominoToLeft(e: Event) {
-    if (!isGameStarted.value) return;
-    if (isGameFinished.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     e.preventDefault();
     tetromino().moveLeft();
   }
 
   function moveTetrominoDown(e: Event) {
-    if (!isGameStarted.value) return;
-    if (isGameFinished.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     e.preventDefault();
     setTimeoutMs.value = 0;
     fall();
@@ -94,8 +90,7 @@ export function useController() {
   }
 
   function dropTetromino(e: Event) {
-    if (!isGameStarted.value) return;
-    if (isGameFinished.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     e.preventDefault();
     clearTimeout(setTimeoutId);
     tetromino().position.value.forEach(([rowIdx, colIdx]) => {
@@ -114,20 +109,20 @@ export function useController() {
   }
 
   function isGuide(rowIdx: number, colIdx: number) {
-    if (!isGameStarted.value) return;
+    if (!isGameStarted.value || isGameFinished.value) return;
     return tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
   }
 
   return {
-    startGame,
-    fall,
-    validate,
-    tetromino,
-    rotateTetromino,
     moveTetrominoToRight,
     moveTetrominoToLeft,
     moveTetrominoDown,
+    rotateTetromino,
     dropTetromino,
+    startGame,
+    tetromino,
+    validate,
     isGuide,
+    fall,
   };
 }

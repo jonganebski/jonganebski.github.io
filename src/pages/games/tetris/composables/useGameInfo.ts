@@ -27,12 +27,12 @@ function increaseScore(rowsCount: number) {
 
 export function useGameInfo() {
   return {
-    isGameStarted,
     isGameFinished,
+    isGameStarted,
     setTimeoutMs,
+    level,
+    score,
     computeSetTimeoutMs,
     increaseScore,
-    score,
-    level,
   };
 }

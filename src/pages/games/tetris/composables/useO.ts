@@ -28,16 +28,16 @@ export function useO(): UseTetrominoResult {
   );
 
   return {
-    id: NODE.O,
-    prepare,
-    fall,
-    moveRight,
-    moveLeft,
-    position,
-    endPosition,
-    changeShape: () => {},
     defaultPosition,
     nextPosition,
+    endPosition,
+    position,
     shape,
+    id: NODE.O,
+    changeShape: () => {},
+    moveRight,
+    moveLeft,
+    prepare,
+    fall,
   };
 }

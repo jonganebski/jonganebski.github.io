@@ -1,33 +1,32 @@
 <script setup lang="ts">
-import { onKeyStroke } from '@vueuse/core';
+import { breakpointsTailwind } from '@vueuse/core';
+import MobileController from './components/mobile-controller.vue';
 import NextTetromino from './components/next-tetromino.vue';
 import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
 import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
-import MobileController from './components/mobile-controller.vue';
-import { breakpointsTailwind } from '@vueuse/core';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
 
 const { nodes, TOP_RESERVE, X_SIZE } = useNodes();
 
 const {
-  startGame,
-  rotateTetromino,
   moveTetrominoToRight,
   moveTetrominoToLeft,
   moveTetrominoDown,
+  rotateTetromino,
   dropTetromino,
+  startGame,
   isGuide,
 } = useController();
 
 const { score, level } = useGameInfo();
 
-onKeyStroke('ArrowUp', rotateTetromino);
 onKeyStroke('ArrowRight', moveTetrominoToRight);
 onKeyStroke('ArrowLeft', moveTetrominoToLeft);
 onKeyStroke('ArrowDown', moveTetrominoDown);
+onKeyStroke('ArrowUp', rotateTetromino);
 onKeyStroke(' ', dropTetromino);
 </script>
 
@@ -40,9 +39,9 @@ onKeyStroke(' ', dropTetromino);
         v-for="(raw, rowIdx) in nodes"
         :key="rowIdx"
         :style="{
-          display: rowIdx < TOP_RESERVE ? 'none' : 'grid',
-          gap: '1px',
-          gridTemplateColumns: `repeat(${X_SIZE - 2}, 1fr)`,
+          ...(rowIdx < TOP_RESERVE
+            ? { display: 'none' }
+            : { display: 'grid', gap: '1px', gridTemplateColumns: `repeat(${X_SIZE - 2}, 1fr)` }),
         }"
       >
         <div

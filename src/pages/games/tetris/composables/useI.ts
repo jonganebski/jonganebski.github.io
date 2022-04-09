@@ -110,16 +110,16 @@ export function useI(): UseTetrominoResult {
   }
 
   return {
-    id: NODE.I,
     defaultPosition,
     nextPosition,
     endPosition,
     position,
     shape,
-    prepare,
-    fall,
+    id: NODE.I,
+    changeShape,
     moveRight,
     moveLeft,
-    changeShape,
+    prepare,
+    fall,
   };
 }

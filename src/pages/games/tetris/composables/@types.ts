@@ -21,15 +21,15 @@ export enum NODE {
 }
 
 export interface UseTetrominoResult {
-  id: NODE;
   defaultPosition: readonly number[][];
   nextPosition: ComputedRef<number[][]>;
   endPosition: ComputedRef<number[][]>;
   position: Ref<number[][]>;
   shape: Ref<0 | 1 | 2 | 3>;
-  prepare: () => void;
-  fall: () => boolean;
+  id: NODE;
+  changeShape: () => void;
   moveRight: () => void;
   moveLeft: () => void;
-  changeShape: () => void;
+  prepare: () => void;
+  fall: () => boolean;
 }

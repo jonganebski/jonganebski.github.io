@@ -106,16 +106,16 @@ export function useZ(): UseTetrominoResult {
   }
 
   return {
-    id: NODE.Z,
     defaultPosition,
     nextPosition,
     endPosition,
     position,
     shape,
-    prepare,
-    fall,
+    id: NODE.Z,
+    changeShape,
     moveRight,
     moveLeft,
-    changeShape,
+    prepare,
+    fall,
   };
 }

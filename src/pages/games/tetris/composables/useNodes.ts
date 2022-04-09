@@ -4,9 +4,9 @@ import { useGameInfo } from './useGameInfo';
 
 const { increaseScore } = useGameInfo();
 
+const TOP_RESERVE = 4;
 const X_SIZE = 12;
 const Y_SIZE = 28;
-const TOP_RESERVE = 4;
 
 const nodes = ref<NODE[][]>(generateCleanTemplate());
 
@@ -106,15 +106,15 @@ function removeNodes() {
 
 export function useNodes() {
   return {
-    nodes,
     TOP_RESERVE,
     currNode,
     nextNode,
+    X_SIZE,
+    Y_SIZE,
+    nodes,
     willCollide,
     removeNodes,
     switchNode,
     fossilize,
-    X_SIZE,
-    Y_SIZE,
   };
 }
