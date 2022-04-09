@@ -8,10 +8,14 @@ import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
 import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
+import Records from '../components/records.vue';
+import { useRecordsQuery } from './apis/useRecordsQuery';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
 
 const { t } = useMyI18n();
+
+const { isLoading: isRecordsLoading, data: records } = useRecordsQuery();
 
 const { nodes, TOP_RESERVE, X_SIZE } = useNodes();
 
@@ -109,6 +113,7 @@ onKeyStroke(' ', dropTetromino);
       </div>
     </div>
   </div>
+  <Records :is-loading="isRecordsLoading" :data="records" />
   <client-only>
     <ui-contour-lines class="opacity-50" />
   </client-only>
