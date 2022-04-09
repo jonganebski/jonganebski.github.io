@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core';
 import { useMyI18n } from '~/plugins/i18n';
+import AuthWarning from '../components/auth-warning.vue';
+import Records from '../components/records.vue';
+import { useRecordsQuery } from './apis/useRecordsQuery';
 import KeyboardGuide from './components/keyboard-guide.vue';
 import MobileController from './components/mobile-controller.vue';
 import NextTetromino from './components/next-tetromino.vue';
@@ -8,8 +11,6 @@ import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
 import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
-import Records from '../components/records.vue';
-import { useRecordsQuery } from './apis/useRecordsQuery';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
 
@@ -113,6 +114,7 @@ onKeyStroke(' ', dropTetromino);
       </div>
     </div>
   </div>
+  <AuthWarning class="mt-10 text-center" />
   <Records :is-loading="isRecordsLoading" :data="records" />
   <client-only>
     <ui-contour-lines class="opacity-50" />

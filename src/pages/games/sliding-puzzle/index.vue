@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@vueuse/head';
-import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
+import AuthWarning from '../components/auth-warning.vue';
 import Records from '../components/records.vue';
 import { useRecordsQuery } from './apis/useRecordsQuery';
 import CopyRight from './components/copy-right.vue';
@@ -10,7 +10,6 @@ import SelectImage from './components/select-image.vue';
 import { useImages } from './composables/useImages';
 import { useSlidingPuzzle } from './composables/useSlidingPuzzle';
 
-const { data: user } = useUserQuery();
 const { data: records, isLoading: isRecordsLoading } = useRecordsQuery();
 
 const { t } = useMyI18n();
@@ -122,9 +121,7 @@ watch(
       </div>
     </div>
   </client-only>
-  <div v-if="!user" class="mt-2 text-center text-rose-500 text-sm">
-    {{ t('games_auth_warning') }}
-  </div>
+  <AuthWarning class="mt-2 text-center" />
   <CopyRight :selected-image="findImageByUrl(selectedImageUrl)" />
   <Records :is-loading="isRecordsLoading" :data="records" />
   <ui-contour-lines />
