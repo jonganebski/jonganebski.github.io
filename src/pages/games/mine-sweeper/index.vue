@@ -38,6 +38,10 @@ function getHintColor(hint: number) {
 function pushWithModeQuery(modeId: string | number) {
   router.push({ path: route.path, query: { mode: modeId } });
 }
+
+function recordFormatter(scoreAsMs: number) {
+  return (scoreAsMs / 1000).toFixed(2) + ' ' + t('abbr.seconds');
+}
 </script>
 
 <template>
@@ -119,7 +123,7 @@ function pushWithModeQuery(modeId: string | number) {
         <AuthWarning class="mt-2" />
       </div>
     </client-only>
-    <Records :is-loading="isRecordsLoading" :data="records" />
+    <Records :is-loading="isRecordsLoading" :data="records" :formatter="recordFormatter" />
     <ui-contour-lines />
   </div>
 </template>

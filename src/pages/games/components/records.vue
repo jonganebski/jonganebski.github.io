@@ -4,6 +4,7 @@ import { useMyI18n } from '~/plugins/i18n';
 
 interface Props {
   isLoading: boolean;
+  formatter?: (score: number) => string;
   data?:
     | {
         id: number;
@@ -99,7 +100,9 @@ function computeTopRecords() {
               </div>
             </td>
             <td class="py-2 text-center whitespace-nowrap">{{ timeAgo(record.updated_at) }}</td>
-            <td class="py-2 text-right">{{ record.score }}</td>
+            <td class="py-2 text-right">
+              {{ formatter ? formatter(record.score) : record.score }}
+            </td>
           </tr>
         </transition-group>
       </tbody>
