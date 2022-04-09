@@ -8,11 +8,19 @@ import { useS } from './useS';
 import { useT } from './useT';
 import { useZ } from './useZ';
 import { useGameInfo } from './useGameInfo';
+import { useCreateRecordMutation } from '../apis/useCreateRecordMutaion';
+import { useIssueModal } from '~/libs/issue';
+import { useMyI18n } from '~/plugins/i18n';
 
 export function useController() {
+  const { t } = useMyI18n();
+
+  const mutation = useCreateRecordMutation();
+  const { openIssueModal } = useIssueModal();
+
   const { TOP_RESERVE, currNode, nodes, removeNodes, switchNode, fossilize, resetUseNodes } =
     useNodes();
-  const { gameStatus, setTimeoutMs, computeSetTimeoutMs, resetGameInfo } = useGameInfo();
+  const { gameStatus, setTimeoutMs, score, computeSetTimeoutMs, resetGameInfo } = useGameInfo();
 
   const I = useI();
   const J = useJ();
@@ -37,8 +45,21 @@ export function useController() {
   }
 
   function finishGame() {
-    window.alert('Game Over!');
-    gameStatus.value = 'END';
+    mutation.mutate(
+      { score: score.value },
+      {
+        onSettled: () => {
+          window.alert('Game Over!');
+          gameStatus.value = 'END';
+        },
+        onError: () => {
+          openIssueModal({
+            title: t('record_mutation_failed.title'),
+            content: t('record_mutation_failed.content'),
+          });
+        },
+      },
+    );
   }
 
   function resetGame() {
