@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useTimeAgo } from '~/libs/time';
 import { useMyI18n } from '~/plugins/i18n';
 
 interface Props {
@@ -18,6 +19,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const { t } = useMyI18n();
+
+const { timeAgo } = useTimeAgo();
 
 const topRecords = computed(computeTopRecords);
 
@@ -45,16 +48,17 @@ function computeTopRecords() {
       <thead>
         <tr>
           <th class="pb-5"><carbon-list-numbered /></th>
-          <th class="pb-5 w-[80%]"><carbon-user class="mx-auto" /></th>
+          <th class="pb-5 w-[60%]"><carbon-user class="mx-auto" /></th>
+          <th class="pb-5"><carbon-event-schedule class="mx-auto" /></th>
           <th class="pb-5"><carbon-scatter-matrix class="ml-auto" /></th>
         </tr>
       </thead>
       <tbody class="w-full">
         <tr v-if="props.isLoading">
-          <td colspan="3" class="py-10 text-center">Loading...</td>
+          <td colspan="4" class="py-10 text-center">Loading...</td>
         </tr>
         <tr v-else-if="!data || data.length === 0">
-          <td colspan="3" class="py-10 text-center">No Data</td>
+          <td colspan="4" class="py-10 text-center">No Data</td>
         </tr>
         <transition-group
           v-else
@@ -94,6 +98,7 @@ function computeTopRecords() {
                 </span>
               </div>
             </td>
+            <td class="py-2 text-center whitespace-nowrap">{{ timeAgo(record.updated_at) }}</td>
             <td class="py-2 text-right">{{ record.score }}</td>
           </tr>
         </transition-group>
