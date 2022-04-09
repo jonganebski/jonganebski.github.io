@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core';
+import { useMyI18n } from '~/plugins/i18n';
 import KeyboardGuide from './components/keyboard-guide.vue';
 import MobileController from './components/mobile-controller.vue';
 import NextTetromino from './components/next-tetromino.vue';
@@ -9,6 +10,8 @@ import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
+
+const { t } = useMyI18n();
 
 const { nodes, TOP_RESERVE, X_SIZE } = useNodes();
 
@@ -33,7 +36,7 @@ onKeyStroke(' ', dropTetromino);
 </script>
 
 <template>
-  <h1 class="my-20 mb-10 text-3xl md:text-5xl text-center">Tetris</h1>
+  <h1 class="my-20 text-3xl md:text-5xl text-center">{{ t('tetris') }}</h1>
   <div class="flex justify-center gap-3 lg:gap-20">
     <div class="grid gap-px shadow-lg bg-gray-700">
       <div
@@ -78,21 +81,21 @@ onKeyStroke(' ', dropTetromino);
     </div>
     <div class="flex flex-col gap-10">
       <NextTetromino />
-      <div>Level: {{ level }}</div>
-      <div>Score: {{ score }}</div>
+      <div>{{ t('level') }}: {{ level }}</div>
+      <div>{{ t('score') }}: {{ score }}</div>
       <button
         v-if="gameStatus === 'READY'"
         class="py-2 px-3 border border-red-600 rounded"
         @click="startGame"
       >
-        Start
+        {{ t('start') }}
       </button>
       <button
         v-if="gameStatus === 'END'"
         class="py-2 px-3 border border-red-600 rounded"
         @click="resetGame"
       >
-        Reset
+        {{ t('reset') }}
       </button>
       <div class="mt-auto">
         <KeyboardGuide v-if="lg" />
