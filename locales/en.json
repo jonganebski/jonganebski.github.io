@@ -19,6 +19,7 @@
     "content": "Your record is not stored in the database. Maybe this is not a problem of the site",
     "title": "Failed to insert/update your record"
   },
+  "abbr": { "seconds": "sec" },
   "all_rights_of_the_image_belong_to_the_creator": "All rights of the image belong to the creator.",
   "altitude": "Altitude",
   "arrow_down_key": "Arrow Down Key",
