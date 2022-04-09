@@ -13,6 +13,7 @@ const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).
 const gameLinks = computed(() => [
   { path: '/games/mine-sweeper', name: t('minesweeper') },
   { path: '/games/sliding-puzzle', name: t('sliding_puzzle') },
+  { path: '/games/tetris', name: t('tetris') },
 ]);
 </script>
 

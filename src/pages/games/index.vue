@@ -17,6 +17,11 @@ const links = computed(() => [
     name: t('sliding_puzzle'),
     src: `${STORAGE_URL}/screenshot-sliding-puzzle.jpg`,
   },
+  {
+    path: '/games/tetris',
+    name: t('tetris'),
+    src: `${STORAGE_URL}/screenshot-tetris.png`,
+  },
 ]);
 </script>
 
@@ -36,7 +41,7 @@ const links = computed(() => [
           "
         >
           <ui-lazy-image
-            class="transition-shadow shadow-sm group-hover:shadow-xl"
+            class="w-[200px] h-[240px] object-cover transition-shadow shadow-sm group-hover:shadow-xl"
             :style="{ transitionDelay: `${name.length * 10}ms` }"
             :height="240"
             :width="200"
