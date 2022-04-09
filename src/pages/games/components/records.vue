@@ -99,8 +99,10 @@ function computeTopRecords() {
                 </span>
               </div>
             </td>
-            <td class="py-2 text-center whitespace-nowrap">{{ timeAgo(record.updated_at) }}</td>
-            <td class="py-2 text-right">
+            <td class="py-2 text-center whitespace-nowrap">
+              {{ timeAgo(record.updated_at) }}
+            </td>
+            <td class="py-2 text-right whitespace-nowrap">
               {{ formatter ? formatter(record.score) : record.score }}
             </td>
           </tr>
