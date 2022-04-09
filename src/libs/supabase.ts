@@ -148,6 +148,30 @@ export interface SlidingPuzzleRecord {
 }
 
 /*----------------------------------
+| Tetris Records Table
+----------------------------------*/
+
+/**
+ * ### Interface of the Tetris Records Table
+ *
+ * @example
+ * ```ts
+ * id: 1;
+ * created_at: '2022-02-07T05:56:07+00:00';
+ * updated_at: '2022-02-07T05:56:07+00:00';
+ * user_id: 'ba6546d0-1303-46ee-bddf-77b780542a91'
+ * score: 30234
+ * ```
+ */
+export interface TetrisRecord {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
+  score: number;
+}
+
+/*----------------------------------
 | Supabase Client
 ----------------------------------*/
 
