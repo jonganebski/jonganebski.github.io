@@ -77,6 +77,7 @@
   "please_let_this_humble_developer_know_this_issue": "Please let this humble developer know this issue.",
   "portfolio": "Portfolio",
   "propose": "Propose",
+  "rank": "Rank",
   "redirecting": "Redirecting",
   "rei_ayanami": "Rei Ayanami",
   "reset": "Reset",
@@ -106,8 +107,10 @@
   "travel": "Travel",
   "up_&_down": "Up & Down",
   "uphill": "Uphill",
+  "user": "User",
   "vladilena_milize": "Vladilena Milizé",
   "weeks_ago": "1 week ago | {weeks} weeks ago",
+  "when": "When",
   "write_an_issue": "Write an Issue",
   "years_ago": "1 year ago | {years} years ago"
 }

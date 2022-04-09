@@ -56,7 +56,7 @@
   "intermediate": "중급자",
   "jeanne_alter": "잔느 얼터",
   "jon_ganebskis_blog": "Jon Ganebski의 블로그",
-  "just_now": "__missing__",
+  "just_now": "방금 전",
   "keyboard_guide": "키보드 가이드",
   "level": "레벨",
   "lowest": "최저",
@@ -77,6 +77,7 @@
   "please_let_this_humble_developer_know_this_issue": "이 미천한 개발자에게 해당 이슈를 알려주세요.",
   "portfolio": "포트폴리오",
   "propose": "제안하기",
+  "rank": "랭킹",
   "redirecting": "리다이렉트 중",
   "rei_ayanami": "아야나미 레이",
   "reset": "리셋",
@@ -106,8 +107,10 @@
   "travel": "여행",
   "up_&_down": "오르락 내리락",
   "uphill": "오르막",
+  "user": "사용자",
   "vladilena_milize": "블라디레나 밀리제",
   "weeks_ago": "{weeks}주 전",
+  "when": "언제",
   "write_an_issue": "이슈 작성",
   "years_ago": "{years}년 전"
 }
