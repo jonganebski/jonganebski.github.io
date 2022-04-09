@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core';
+import KeyboardGuide from './components/keyboard-guide.vue';
 import MobileController from './components/mobile-controller.vue';
 import NextTetromino from './components/next-tetromino.vue';
 import { NODE } from './composables/@types';
@@ -21,7 +22,7 @@ const {
   isGuide,
 } = useController();
 
-const { score, level } = useGameInfo();
+const { isGameStarted, score, level } = useGameInfo();
 
 onKeyStroke('ArrowRight', moveTetrominoToRight);
 onKeyStroke('ArrowLeft', moveTetrominoToLeft);
@@ -31,9 +32,8 @@ onKeyStroke(' ', dropTetromino);
 </script>
 
 <template>
-  <h1 class="my-20 text-3xl md:text-5xl text-center">Tetris</h1>
-  <br />
-  <div class="flex justify-center items-start gap-3 lg:gap-20">
+  <h1 class="my-20 mb-10 text-3xl md:text-5xl text-center">Tetris</h1>
+  <div class="flex justify-center gap-3 lg:gap-20">
     <div class="grid gap-px shadow-lg bg-gray-700">
       <div
         v-for="(raw, rowIdx) in nodes"
@@ -75,20 +75,29 @@ onKeyStroke(' ', dropTetromino);
         ></div>
       </div>
     </div>
-    <div class="grid gap-10">
+    <div class="flex flex-col gap-10">
       <NextTetromino />
       <div>Level: {{ level }}</div>
       <div>Score: {{ score }}</div>
-      <button class="py-2 px-3 border border-red-600 rounded" @click="startGame">Start</button>
+      <button
+        v-if="!isGameStarted"
+        class="py-2 px-3 border border-red-600 rounded"
+        @click="startGame"
+      >
+        Start
+      </button>
+      <div class="mt-auto">
+        <KeyboardGuide v-if="lg" />
+        <MobileController
+          v-else
+          @on-touch-arrow-right-btn="moveTetrominoToRight"
+          @on-touch-arrow-left-btn="moveTetrominoToLeft"
+          @on-touch-arrow-down-btn="dropTetromino"
+          @on-touch-rotate-btn="rotateTetromino"
+        />
+      </div>
     </div>
   </div>
-  <MobileController
-    v-if="!lg"
-    @on-touch-arrow-right-btn="moveTetrominoToRight"
-    @on-touch-arrow-left-btn="moveTetrominoToLeft"
-    @on-touch-arrow-down-btn="dropTetromino"
-    @on-touch-rotate-btn="rotateTetromino"
-  />
   <client-only>
     <ui-contour-lines class="opacity-50" />
   </client-only>
