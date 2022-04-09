@@ -18,11 +18,12 @@ const {
   moveTetrominoDown,
   rotateTetromino,
   dropTetromino,
+  resetGame,
   startGame,
   isGuide,
 } = useController();
 
-const { isGameStarted, score, level } = useGameInfo();
+const { gameStatus, score, level } = useGameInfo();
 
 onKeyStroke('ArrowRight', moveTetrominoToRight);
 onKeyStroke('ArrowLeft', moveTetrominoToLeft);
@@ -80,11 +81,18 @@ onKeyStroke(' ', dropTetromino);
       <div>Level: {{ level }}</div>
       <div>Score: {{ score }}</div>
       <button
-        v-if="!isGameStarted"
+        v-if="gameStatus === 'READY'"
         class="py-2 px-3 border border-red-600 rounded"
         @click="startGame"
       >
         Start
+      </button>
+      <button
+        v-if="gameStatus === 'END'"
+        class="py-2 px-3 border border-red-600 rounded"
+        @click="resetGame"
+      >
+        Reset
       </button>
       <div class="mt-auto">
         <KeyboardGuide v-if="lg" />

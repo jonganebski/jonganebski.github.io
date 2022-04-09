@@ -32,6 +32,12 @@ function switchNode() {
   nextNode.value = randomTetromino();
 }
 
+function resetUseNodes() {
+  currNode.value = randomTetromino();
+  nextNode.value = randomTetromino();
+  nodes.value = generateCleanTemplate();
+}
+
 function willCollide(position: number[][]) {
   for (let i = 0; i < position.length; i++) {
     const [rowIdx, colIdx] = position[i];
@@ -112,6 +118,7 @@ export function useNodes() {
     X_SIZE,
     Y_SIZE,
     nodes,
+    resetUseNodes,
     willCollide,
     removeNodes,
     switchNode,

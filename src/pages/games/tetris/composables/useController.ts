@@ -10,8 +10,9 @@ import { useZ } from './useZ';
 import { useGameInfo } from './useGameInfo';
 
 export function useController() {
-  const { removeNodes, switchNode, fossilize, TOP_RESERVE, currNode, nodes } = useNodes();
-  const { isGameStarted, isGameFinished, setTimeoutMs, computeSetTimeoutMs } = useGameInfo();
+  const { TOP_RESERVE, currNode, nodes, removeNodes, switchNode, fossilize, resetUseNodes } =
+    useNodes();
+  const { gameStatus, setTimeoutMs, computeSetTimeoutMs, resetGameInfo } = useGameInfo();
 
   const I = useI();
   const J = useJ();
@@ -30,14 +31,19 @@ export function useController() {
   }
 
   function startGame() {
-    isGameStarted.value = true;
     tetromino().prepare();
     fall();
+    gameStatus.value = 'PLAYING';
   }
 
   function finishGame() {
-    isGameFinished.value = true;
     window.alert('Game Over!');
+    gameStatus.value = 'END';
+  }
+
+  function resetGame() {
+    resetUseNodes();
+    resetGameInfo();
   }
 
   function fall() {
@@ -64,25 +70,25 @@ export function useController() {
   }
 
   function rotateTetromino(e: Event) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     e.preventDefault();
     tetromino().changeShape();
   }
 
   function moveTetrominoToRight(e: Event) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     e.preventDefault();
     tetromino().moveRight();
   }
 
   function moveTetrominoToLeft(e: Event) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     e.preventDefault();
     tetromino().moveLeft();
   }
 
   function moveTetrominoDown(e: Event) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     e.preventDefault();
     setTimeoutMs.value = 0;
     fall();
@@ -90,7 +96,7 @@ export function useController() {
   }
 
   function dropTetromino(e: Event) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     e.preventDefault();
     clearTimeout(setTimeoutId);
     tetromino().position.value.forEach(([rowIdx, colIdx]) => {
@@ -109,7 +115,7 @@ export function useController() {
   }
 
   function isGuide(rowIdx: number, colIdx: number) {
-    if (!isGameStarted.value || isGameFinished.value) return;
+    if (gameStatus.value !== 'PLAYING') return;
     return tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
   }
 
@@ -119,6 +125,7 @@ export function useController() {
     moveTetrominoDown,
     rotateTetromino,
     dropTetromino,
+    resetGame,
     startGame,
     tetromino,
     validate,

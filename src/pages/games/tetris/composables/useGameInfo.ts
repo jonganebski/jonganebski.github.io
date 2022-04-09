@@ -1,5 +1,4 @@
-const isGameStarted = ref(false);
-const isGameFinished = ref<boolean>(false);
+const gameStatus = ref<'READY' | 'PLAYING' | 'END'>('READY');
 
 const destroyedRawsCount = ref(0);
 
@@ -17,6 +16,13 @@ function computeSetTimeoutMs() {
   return Math.max(80, 500 - (level.value - 1) * 30);
 }
 
+function resetGameInfo() {
+  destroyedRawsCount.value = 0;
+  score.value = 0;
+  setTimeoutMs.value = computeSetTimeoutMs();
+  gameStatus.value = 'READY';
+}
+
 function increaseScore(rowsCount: number) {
   destroyedRawsCount.value += rowsCount;
   if (rowsCount === 1) return (score.value += 40);
@@ -27,12 +33,12 @@ function increaseScore(rowsCount: number) {
 
 export function useGameInfo() {
   return {
-    isGameFinished,
-    isGameStarted,
     setTimeoutMs,
+    gameStatus,
     level,
     score,
     computeSetTimeoutMs,
+    resetGameInfo,
     increaseScore,
   };
 }
