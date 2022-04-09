@@ -32,6 +32,11 @@ export function useController() {
 
   let setTimeoutId: NodeJS.Timeout;
 
+  onBeforeUnmount(() => {
+    clearTimeout(setTimeoutId);
+    resetGame();
+  });
+
   function tetromino() {
     const t = [I, J, L, O, S, Z, T].find(({ id }) => id === currNode.value);
     if (!t) throw Error('Tetromino not found');
