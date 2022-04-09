@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import { useQuery } from 'vue-query';
+import { ONE_DAY } from '~/libs/time';
 import type { Point, Point__point } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
 
@@ -9,10 +10,9 @@ export interface UsePointsQueryResult extends Point__point {
   distance: number;
 }
 
-const ONE_DAY = 1000 * 60 * 60 * 24;
-
 export function usePointsQuery(fileName: string) {
   const [from, to] = fileName.split('~');
+
   return useQuery(
     ['points', fileName],
     async () => {

@@ -1,12 +1,11 @@
 import { useQuery } from 'vue-query';
 import type { Profile, TetrisRecord } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
+import { ONE_HOUR } from '~/libs/time';
 
 export interface UseRecordsQueryData extends TetrisRecord {
   user: Pick<Profile, 'user_name' | 'avatar_url'>;
 }
-
-const ONE_HOUR = 1000 * 60 * 60;
 
 export function useRecordsQuery() {
   return useQuery(

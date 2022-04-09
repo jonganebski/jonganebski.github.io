@@ -1,12 +1,11 @@
 import { Ref } from 'vue';
 import { useQuery } from 'vue-query';
 import { MineSweeperRecord, Profile, supabase } from '~/libs/supabase';
+import { ONE_HOUR } from '~/libs/time';
 
 export interface UseRecordsQueryData extends MineSweeperRecord {
   user: Pick<Profile, 'user_name' | 'avatar_url'>;
 }
-
-const ONE_HOUR = 1000 * 60 * 60;
 
 export function useRecordsQuery(modeId: Ref<number | undefined>) {
   return useQuery(
