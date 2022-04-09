@@ -48,10 +48,10 @@ function computeTopRecords() {
     <table class="mx-auto w-full text-sm table-fixed">
       <thead>
         <tr>
-          <th class="pb-5"><carbon-list-numbered /></th>
-          <th class="pb-5 w-[50%]"><carbon-user class="mx-auto" /></th>
-          <th class="pb-5"><carbon-event-schedule class="mx-auto" /></th>
-          <th class="pb-5"><carbon-result class="ml-auto" /></th>
+          <th :aria-label="t('rank')" class="pb-5"><carbon-list-numbered /></th>
+          <th :aria-label="t('user')" class="pb-5 w-[50%]"><carbon-user class="mx-auto" /></th>
+          <th :aria-label="t('when')" class="pb-5"><carbon-event-schedule class="mx-auto" /></th>
+          <th :aria-label="t('score')" class="pb-5"><carbon-result class="ml-auto" /></th>
         </tr>
       </thead>
       <tbody class="w-full">
