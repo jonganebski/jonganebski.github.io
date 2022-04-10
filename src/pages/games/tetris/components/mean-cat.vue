@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { Ref } from 'vue';
 import { useGameInfo } from '../composables/useGameInfo';
+import { useStyles } from '../composables/useStyles';
 
 const PASSWORD = '111-1-1-11111111';
 
 const props = defineProps<{ position: Ref<number[][]>; left: number }>();
 
-const { isCatHere, gameStatus } = useGameInfo();
+const { isCatHere, gameStatus, level } = useGameInfo();
+
+const { nodeSize } = useStyles();
 
 onKeyStroke(['ArrowUp', 'ArrowDown'], lureCat);
 
@@ -41,13 +44,23 @@ const hunt = ref(false);
 const x = ref('0rem');
 const y = ref('0rem');
 
+onMounted(() => {
+  x.value = '0rem';
+  y.value = '0rem';
+});
+
+function grab() {
+  x.value = Math.floor((props.position.value[2][1] + 1) * nodeSize.value + props.left) + 'px';
+  y.value = props.position.value[2][0] * nodeSize.value + 'px';
+}
+
 function activateMeanCat() {
   intervalId = setInterval(() => {
-    console.log('eee');
     if (gameStatus.value !== 'PLAYING') return;
-    x.value = Math.floor(props.position.value[2][1] * 2 + props.left / 16 + 2) + 'rem';
-    y.value = props.position.value[2][0] * 2 + 'rem';
+    grab();
     hunt.value = true;
+    if (level.value > 2) setTimeout(grab, 2000);
+    if (level.value > 4) setTimeout(grab, 2500);
   }, 15000);
 }
 </script>
@@ -58,8 +71,9 @@ function activateMeanCat() {
       v-if="isCatHere"
       src="https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/tetris-images/paw.png"
       alt=""
-      class="absolute right-full w-[50rem] opacity-0 filter brightness-75"
+      class="absolute right-full z-10 opacity-0 filter brightness-75"
       :class="{ paw__active: hunt }"
+      :style="{ width: `${nodeSize * 22}px` }"
       @animationend="hunt = false"
     />
   </div>
@@ -71,11 +85,11 @@ function activateMeanCat() {
     transform: translateX(0px) translateY(v-bind(y));
     opacity: 0;
   }
-  5% {
+  2% {
     transform: translateX(v-bind(x)) translateY(v-bind(y));
     opacity: 1;
   }
-  95% {
+  98% {
     transform: translateX(v-bind(x)) translateY(v-bind(y));
     opacity: 1;
   }

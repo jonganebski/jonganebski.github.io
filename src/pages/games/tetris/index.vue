@@ -48,7 +48,7 @@ const { left } = useElementBounding(tetrisContainerEl);
 <template>
   <h1 class="my-20 text-3xl md:text-5xl text-center">{{ t('tetris') }}</h1>
   <MeanCat :position="tetromino().position" :left="left" />
-  <div class="flex justify-center gap-3 lg:gap-20">
+  <div class="flex px-10 sm:pl-32 md:pl-50 xl:pl-64 gap-3 lg:gap-20">
     <div ref="tetrisContainerEl" class="grid gap-px shadow-lg bg-gray-700">
       <div
         v-for="(raw, rowIdx) in nodes"

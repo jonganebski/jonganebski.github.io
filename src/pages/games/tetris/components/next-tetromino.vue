@@ -5,12 +5,12 @@ import { useNodes } from '../composables/useNodes';
 
 const { nextNode } = useNodes();
 
-const { destroyedRawsCount, gameStatus, isCatHere, level } = useGameInfo();
+const { destroyedRawsCount, gameStatus, isCatHere } = useGameInfo();
 
-const meanCat = computed(() => {
-  if (!isCatHere.value) return 0;
-  if (level.value < 5) return 0;
-  return destroyedRawsCount.value % 10;
+const stare = computed(() => {
+  if (!isCatHere.value) return false;
+  const rest = destroyedRawsCount.value % 10;
+  return rest === 1 || rest === 5;
 });
 </script>
 
@@ -20,14 +20,13 @@ const meanCat = computed(() => {
   >
     <div v-if="gameStatus === 'PLAYING'">
       <img
-        v-show="meanCat === 1"
+        v-show="stare"
         class="absolute top-0 left-0 w-full h-full object-cover object-left"
-        src="https://media.greenmatters.com/brand-img/gsNnIF17C/0x0/what-does-it-mean-if-my-cat-stares-at-me1-1612842120372.jpg"
+        src="https://ijivzwfsihdcvwrntdpe.supabase.co/storage/v1/object/public/tetris-images/cat-stare.webp"
         width="80"
         height="80"
         alt=""
       />
-      <!-- src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/rainbow-buddha-karl-morfett.jpg" -->
       <div v-if="nextNode === NODE.I" class="grid gap-px">
         <div
           v-for="num in 4"
