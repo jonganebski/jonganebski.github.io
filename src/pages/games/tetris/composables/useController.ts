@@ -141,8 +141,8 @@ export function useController() {
   }
 
   function isGuide(rowIdx: number, colIdx: number) {
-    if (gameStatus.value !== 'PLAYING') return;
-    return tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
+    if (gameStatus.value !== 'PLAYING') return false;
+    return !!tetromino().endPosition.value.find(([r, c]) => r === rowIdx && c === colIdx);
   }
 
   return {
