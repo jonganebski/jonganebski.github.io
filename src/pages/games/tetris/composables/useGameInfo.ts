@@ -15,7 +15,7 @@ watch(level, () => {
 const setTimeoutMs = ref(computeSetTimeoutMs());
 
 function computeSetTimeoutMs() {
-  return Math.max(80, 500 - (level.value - 1) * 30);
+  return Math.max(50, 500 - (level.value - 1) * (isCatHere.value ? 50 : 30));
 }
 
 function resetGameInfo() {
