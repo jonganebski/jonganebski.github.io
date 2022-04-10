@@ -29,7 +29,11 @@ const meanCat = computed(() => {
       />
       <!-- src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/rainbow-buddha-karl-morfett.jpg" -->
       <div v-if="nextNode === NODE.I" class="grid gap-px">
-        <div v-for="num in 4" :key="num" class="node-size tetromino-border tetromino__I" />
+        <div
+          v-for="num in 4"
+          :key="num"
+          class="node-size tetromino-border border-color__tetromino__I"
+        />
       </div>
       <div v-if="nextNode === NODE.J" class="grid gap-px grid-cols-2">
         <div
@@ -37,7 +41,7 @@ const meanCat = computed(() => {
           :key="num"
           class="node-size"
           :class="{
-            'tetromino__J tetromino-border': num === 5 || num % 2 === 0,
+            'border-color__tetromino__J tetromino-border': num === 5 || num % 2 === 0,
           }"
         />
       </div>
@@ -47,12 +51,16 @@ const meanCat = computed(() => {
           :key="num"
           class="node-size"
           :class="{
-            'tetromino__L tetromino-border': num === 6 || num % 2 === 1,
+            'border-color__tetromino__L tetromino-border': num === 6 || num % 2 === 1,
           }"
         />
       </div>
       <div v-if="nextNode === NODE.O" class="grid gap-px grid-cols-2">
-        <div v-for="num in 4" :key="num" class="tetromino__O node-size tetromino-border" />
+        <div
+          v-for="num in 4"
+          :key="num"
+          class="border-color__tetromino__O node-size tetromino-border"
+        />
       </div>
       <div v-if="nextNode === NODE.S" class="grid gap-px grid-cols-3">
         <div
@@ -60,7 +68,7 @@ const meanCat = computed(() => {
           :key="num"
           class="node-size"
           :class="{
-            'tetromino__S tetromino-border': [2, 3, 4, 5].includes(num),
+            'border-color__tetromino__S tetromino-border': [2, 3, 4, 5].includes(num),
           }"
         />
       </div>
@@ -70,7 +78,7 @@ const meanCat = computed(() => {
           :key="num"
           class="node-size"
           :class="{
-            'tetromino__T tetromino-border': [2, 4, 5, 6].includes(num),
+            'border-color__tetromino__T tetromino-border': [2, 4, 5, 6].includes(num),
           }"
         />
       </div>
@@ -80,7 +88,7 @@ const meanCat = computed(() => {
           :key="num"
           class="node-size"
           :class="{
-            'tetromino__Z tetromino-border': [1, 2, 5, 6].includes(num),
+            'border-color__tetromino__Z tetromino-border': [1, 2, 5, 6].includes(num),
           }"
         />
       </div>
