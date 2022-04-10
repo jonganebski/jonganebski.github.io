@@ -11,6 +11,7 @@ import { NODE } from './composables/@types';
 import { useController } from './composables/useController';
 import { useGameInfo } from './composables/useGameInfo';
 import { useNodes } from './composables/useNodes';
+import MeanCat from './components/mean-cat.vue';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
 
@@ -28,22 +29,27 @@ const {
   dropTetromino,
   resetGame,
   startGame,
+  tetromino,
   isGuide,
 } = useController();
 
-const { gameStatus, score, level } = useGameInfo();
+const { gameStatus, isCatHere, score, level } = useGameInfo();
 
 onKeyStroke('ArrowRight', moveTetrominoToRight);
 onKeyStroke('ArrowLeft', moveTetrominoToLeft);
 onKeyStroke('ArrowDown', moveTetrominoDown);
 onKeyStroke('ArrowUp', rotateTetromino);
 onKeyStroke(' ', dropTetromino);
+
+const tetrisContainerEl = ref<HTMLDivElement | null>(null);
+const { left } = useElementBounding(tetrisContainerEl);
 </script>
 
 <template>
   <h1 class="my-20 text-3xl md:text-5xl text-center">{{ t('tetris') }}</h1>
+  <MeanCat :position="tetromino().position" :left="left" />
   <div class="flex justify-center gap-3 lg:gap-20">
-    <div class="grid gap-px shadow-lg bg-gray-700">
+    <div ref="tetrisContainerEl" class="grid gap-px shadow-lg bg-gray-700">
       <div
         v-for="(raw, rowIdx) in nodes"
         :key="rowIdx"
@@ -62,7 +68,7 @@ onKeyStroke(' ', dropTetromino);
               ? 'w-0 h-0 hidden'
               : 'w-5 sm:w-6 md:w-8 h-5 sm:h-6 md:h-8',
             node === NODE.VOID
-              ? isGuide(rowIdx, colIdx)
+              ? isGuide(rowIdx, colIdx) && !isCatHere
                 ? 'guide border'
                 : ''
               : node === NODE.I || node === NODE.FOSSIL_I
@@ -94,6 +100,7 @@ onKeyStroke(' ', dropTetromino);
         @click="startGame"
       >
         {{ t('start') }}
+        <span v-if="isCatHere">🐈</span>
       </button>
       <button
         v-if="gameStatus === 'END'"

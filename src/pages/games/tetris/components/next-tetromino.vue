@@ -5,14 +5,29 @@ import { useNodes } from '../composables/useNodes';
 
 const { nextNode } = useNodes();
 
-const { gameStatus } = useGameInfo();
+const { destroyedRawsCount, gameStatus, isCatHere, level } = useGameInfo();
+
+const meanCat = computed(() => {
+  if (!isCatHere.value) return 0;
+  if (level.value < 5) return 0;
+  return destroyedRawsCount.value % 10;
+});
 </script>
 
 <template>
   <div
-    class="w-20 md:w-28 h-20 md:h-28 flex items-center justify-center bg-gray-900 border border-gray-600 rounded-md"
+    class="relative w-20 md:w-28 h-20 md:h-28 flex items-center justify-center bg-gray-900 border border-gray-600 rounded-md"
   >
     <div v-if="gameStatus === 'PLAYING'">
+      <img
+        v-show="meanCat === 1"
+        class="absolute top-0 left-0 w-full h-full object-cover object-left"
+        src="https://media.greenmatters.com/brand-img/gsNnIF17C/0x0/what-does-it-mean-if-my-cat-stares-at-me1-1612842120372.jpg"
+        width="80"
+        height="80"
+        alt=""
+      />
+      <!-- src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/rainbow-buddha-karl-morfett.jpg" -->
       <div v-if="nextNode === NODE.I" class="grid gap-px">
         <div v-for="num in 4" :key="num" class="node-size tetromino-border tetromino__I" />
       </div>

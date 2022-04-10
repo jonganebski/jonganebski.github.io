@@ -1,5 +1,7 @@
 const gameStatus = ref<'READY' | 'PLAYING' | 'END'>('READY');
 
+const isCatHere = ref(false);
+
 const destroyedRawsCount = ref(0);
 
 const score = ref(0);
@@ -18,23 +20,29 @@ function computeSetTimeoutMs() {
 
 function resetGameInfo() {
   destroyedRawsCount.value = 0;
-  score.value = 0;
   setTimeoutMs.value = computeSetTimeoutMs();
+  isCatHere.value = false;
+  score.value = 0;
   gameStatus.value = 'READY';
 }
 
 function increaseScore(rowsCount: number) {
+  let s = 0;
   destroyedRawsCount.value += rowsCount;
-  if (rowsCount === 1) return (score.value += 40);
-  if (rowsCount === 2) return (score.value += 100);
-  if (rowsCount === 3) return (score.value += 300);
-  return (score.value += 1200);
+  if (rowsCount === 1) s = 40;
+  else if (rowsCount === 2) s = 100;
+  else if (rowsCount === 3) s = 300;
+  else s = 1200;
+  if (isCatHere.value) s * 1.5;
+  score.value += s;
 }
 
 export function useGameInfo() {
   return {
+    destroyedRawsCount,
     setTimeoutMs,
     gameStatus,
+    isCatHere,
     level,
     score,
     computeSetTimeoutMs,
