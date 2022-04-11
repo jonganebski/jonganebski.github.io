@@ -94,6 +94,7 @@ const stopWatch = watchEffect(() => {
           map.getCanvas().style.cursor = 'grab';
         }
       },
+      { immediate: true },
     );
   });
 });
