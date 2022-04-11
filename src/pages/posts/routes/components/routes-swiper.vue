@@ -23,22 +23,52 @@ const emits = defineEmits<Emits>();
 
 const { locale } = useMyI18n();
 
-const { next, prev, index, state } = useCycleList(props.posts);
+const idx = ref(0);
+const prevIdx = computed(() => (idx.value === 0 ? props.posts.length - 1 : idx.value - 1));
+const nextIdx = computed(() => (idx.value === props.posts.length - 1 ? 0 : idx.value + 1));
 
-watch(index, () => emits('update:hoverMeta', { fileName: state.value.fileName, location: 'img' }), {
-  immediate: true,
-});
+const isPostsNone = computed(() => props.posts.length === 0);
+const isLonePost = computed(() => props.posts.length === 1);
+const isDualPosts = computed(() => props.posts.length === 2);
 
-const posts = computed(() => [
-  props.posts[index.value - 1 < 0 ? props.posts.length - 1 : index.value - 1],
-  props.posts[index.value],
-  props.posts[index.value + 1 > props.posts.length - 1 ? 0 : index.value + 1],
-]);
+const targetPosts = computed(() =>
+  isPostsNone.value
+    ? []
+    : isLonePost.value
+    ? [props.posts[idx.value]]
+    : isDualPosts.value
+    ? [props.posts[idx.value], props.posts[nextIdx.value]]
+    : [props.posts[prevIdx.value], props.posts[idx.value], props.posts[nextIdx.value]],
+);
+
+watch(
+  () => props.posts,
+  () => (idx.value = 0),
+);
+
+watch(
+  idx,
+  () =>
+    props.posts[idx.value]
+      ? emits('update:hoverMeta', { fileName: props.posts[idx.value].fileName, location: 'img' })
+      : null,
+  { immediate: true },
+);
+
+function prev() {
+  if (isDualPosts.value && idx.value === 0) return;
+  idx.value = prevIdx.value;
+}
+function next() {
+  if (isDualPosts.value && idx.value === 1) return;
+  idx.value = nextIdx.value;
+}
 
 const swipeListenerEl = ref<HTMLDivElement | null>(null);
 
 const { lengthX, isSwiping } = useSwipe(swipeListenerEl, {
   onSwipeEnd: (_, direction) => {
+    if (isLonePost.value) return;
     if (direction === 'RIGHT') prev();
     if (direction === 'LEFT') next();
   },
@@ -50,9 +80,9 @@ const { lengthX, isSwiping } = useSwipe(swipeListenerEl, {
     <ul
       ref="swipeListenerEl"
       class="flex"
-      :style="{ transform: `translateX(${isSwiping ? -lengthX : 0}px)` }"
+      :style="{ transform: `translateX(${isSwiping && !isLonePost ? -lengthX : 0}px)` }"
     >
-      <li v-for="{ cover_image_url, fileName, path } in posts" :key="fileName" :id="fileName">
+      <li v-for="{ cover_image_url, fileName, path } in targetPosts" :key="fileName" :id="fileName">
         <router-link
           :to="path"
           class="w-screen h-full p-3 block bg-cover bg-center"
@@ -61,15 +91,23 @@ const { lengthX, isSwiping } = useSwipe(swipeListenerEl, {
         </router-link>
       </li>
     </ul>
-    <button class="absolute inset-y-0 left-0 rounded-r-1/2" @click="prev()">
+    <button
+      v-if="!isPostsNone && !isLonePost"
+      class="absolute inset-y-0 left-0 rounded-r-1/2"
+      @click="prev"
+    >
       <carbon-chevron-left />
     </button>
-    <button class="absolute inset-y-0 right-0 rounded-l-1/2" @click="next()">
+    <button
+      v-if="!isPostsNone && !isLonePost"
+      class="absolute inset-y-0 right-0 rounded-l-1/2"
+      @click="next"
+    >
       <carbon-chevron-right />
     </button>
   </div>
-  <h2 class="mt-2 text-center">{{ state.title[locale] }}</h2>
-  <p class="text-center text-sm">{{ state.from }} ~ {{ state.to }}</p>
+  <h2 class="mt-2 text-center">{{ props.posts[idx]?.title[locale] }}</h2>
+  <p class="text-center text-sm">{{ props.posts[idx]?.from }} ~ {{ props.posts[idx]?.to }}</p>
 </template>
 
 <style scoped lang="css">
