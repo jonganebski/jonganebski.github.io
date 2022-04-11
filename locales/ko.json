@@ -20,6 +20,13 @@
     "title": "기록을 저장하는데 실패했습니다"
   },
   "abbr": { "seconds": "초" },
+  "countries": {
+    "all": "모든 나라들",
+    "china": "중국",
+    "mongolia": "몽골",
+    "russia": "러시아",
+    "south_korea": "대한민국"
+  },
   "all_rights_of_the_image_belong_to_the_creator": "해당 이미지에 대한 모든 권리는 원작자에게 있습니다.",
   "altitude": "고도",
   "arrow_down_key": "아래 방향키",
@@ -35,6 +42,7 @@
   "click_to_change_to_the_light_mode": "클릭해서 라이트 모드로 바꾸세요",
   "click_to_open_authentication_menu": "클릭해서 유저 메뉴를 여세요.",
   "congratulations": "축하합니다",
+  "country": "나라",
   "current": "현재",
   "days_ago": "{days}일 전",
   "distance": "거리",

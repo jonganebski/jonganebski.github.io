@@ -20,6 +20,13 @@
     "title": "Failed to insert/update your record"
   },
   "abbr": { "seconds": "sec" },
+  "countries": {
+    "all": "All Countries",
+    "china": "China",
+    "mongolia": "Mongolia",
+    "russia": "Russia",
+    "south_korea": "South Korea"
+  },
   "all_rights_of_the_image_belong_to_the_creator": "All rights of the image belong to the creator.",
   "altitude": "Altitude",
   "arrow_down_key": "Arrow Down Key",
@@ -35,6 +42,7 @@
   "click_to_change_to_the_light_mode": "Click to change to the light mode",
   "click_to_open_authentication_menu": "Click to open authentication menu.",
   "congratulations": "Congratulations",
+  "country": "Country",
   "current": "Current",
   "days_ago": "1 day ago | {days} days ago",
   "distance": "Distance",
