@@ -79,7 +79,10 @@ const { lengthX, isSwiping } = useSwipe(swipeListenerEl, {
 </script>
 
 <template>
-  <div class="relative flex justify-center overflow-hidden">
+  <div
+    class="relative flex overflow-hidden"
+    :class="[isDualPosts ? 'justify-start' : 'justify-center']"
+  >
     <ul
       ref="swipeListenerEl"
       class="flex"
