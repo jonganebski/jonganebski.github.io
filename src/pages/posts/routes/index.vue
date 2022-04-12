@@ -33,7 +33,7 @@ const isLoading = ref(true);
       <WorldMap @on-loaded="isLoading = false" />
     </client-only>
     <RoutesSwiper v-if="swiperActive" :is-loading="isLoading" :posts="posts" />
-    <RoutesList v-else :is-loading="isLoading" :posts="posts" />
+    <RoutesList v-else :posts="posts" />
   </div>
   <ui-contour-lines />
 </template>
