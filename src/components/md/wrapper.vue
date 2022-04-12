@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ShareOptions } from '@vueuse/core';
 import { Head } from '@vueuse/head';
 import type { Frontmatter } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
@@ -9,17 +10,26 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// This doesn't need to be a computedRef because this component is static.
 const { frontmatter } = props;
 const { locale } = useMyI18n();
 
 const route = useRoute();
 const isRoutePost = route.path.startsWith('/posts/routes/');
+
+const title = computed(() => `${frontmatter.title[locale.value]} | Jon Ganebski`);
+
+const { isSupported, share } = useShare(
+  reactive<ShareOptions>({
+    title: title.value,
+    text: frontmatter.title[locale.value],
+    url: route.fullPath,
+  }),
+);
 </script>
 
 <template>
   <Head>
-    <title>{{ frontmatter.title[locale] }} | Jon Ganebski</title>
+    <title>{{ title }}</title>
   </Head>
   <div class="md:p-10 lg:p-20">
     <article
@@ -34,6 +44,15 @@ const isRoutePost = route.path.startsWith('/posts/routes/');
         :src="frontmatter.cover_image_url"
         alt=""
       />
+      <div class="mt-10 flex justify-center">
+        <button
+          v-if="isSupported"
+          class="p-3 rounded-full bg-gray-200 dark:bg-gray-600 text-dark-500 dark:text-light-500 active:(transform scale-95)"
+          @click="share()"
+        >
+          <carbon-share />
+        </button>
+      </div>
       <div class="mt-24">
         <slot />
       </div>

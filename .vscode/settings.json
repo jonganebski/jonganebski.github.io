@@ -2,6 +2,7 @@
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "en",
   "i18n-ally.localesPaths": "locales",
+  "i18n-ally.keystyle": "nested",
   "cSpell.words": [
     "bindgen",
     "composables",
@@ -9,7 +10,9 @@
     "mapbox",
     "mapboxgl",
     "supabase",
+    "tetris",
     "tetromino",
+    "tetrominos",
     "vite",
     "vitest",
     "vueuse",

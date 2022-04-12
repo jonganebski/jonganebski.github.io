@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@vueuse/head';
-import { useUserQuery } from '~/api/useUserQuery';
 import { useMyI18n } from '~/plugins/i18n';
+import AuthWarning from '../components/auth-warning.vue';
 import Records from '../components/records.vue';
 import { useRecordsQuery } from './apis/useRecordsQuery';
 import { useMineSweeper } from './composables/useMineSweeper';
@@ -9,8 +9,6 @@ import { useModes } from './composables/useModes';
 
 const router = useRouter();
 const route = useRoute();
-
-const { data: user } = useUserQuery();
 
 const { selectedMode, modes } = useModes();
 
@@ -39,6 +37,10 @@ function getHintColor(hint: number) {
 
 function pushWithModeQuery(modeId: string | number) {
   router.push({ path: route.path, query: { mode: modeId } });
+}
+
+function recordFormatter(scoreAsMs: number) {
+  return (scoreAsMs / 1000).toFixed(2) + ' ' + t('abbr.seconds');
 }
 </script>
 
@@ -118,12 +120,10 @@ function pushWithModeQuery(modeId: string | number) {
             </div>
           </div>
         </div>
-        <div v-if="!user" class="mt-2 w-96 text-rose-500 text-sm">
-          {{ t('games_auth_warning') }}
-        </div>
+        <AuthWarning class="mt-2" />
       </div>
     </client-only>
-    <Records :is-loading="isRecordsLoading" :data="records" />
+    <Records :is-loading="isRecordsLoading" :data="records" :formatter="recordFormatter" />
     <ui-contour-lines />
   </div>
 </template>

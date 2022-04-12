@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useTimeAgo } from '~/libs/time';
 import { useMyI18n } from '~/plugins/i18n';
 
 interface Props {
   isLoading: boolean;
+  formatter?: (score: number) => string;
   data?:
     | {
         id: number;
@@ -18,6 +20,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const { t } = useMyI18n();
+
+const { timeAgo } = useTimeAgo();
 
 const topRecords = computed(computeTopRecords);
 
@@ -44,17 +48,18 @@ function computeTopRecords() {
     <table class="mx-auto w-full text-sm table-fixed">
       <thead>
         <tr>
-          <th class="pb-5"><carbon-list-numbered /></th>
-          <th class="pb-5 w-[80%]"><carbon-user class="mx-auto" /></th>
-          <th class="pb-5"><carbon-scatter-matrix class="ml-auto" /></th>
+          <th :aria-label="t('rank')" class="pb-5"><carbon-list-numbered /></th>
+          <th :aria-label="t('user')" class="pb-5 w-[50%]"><carbon-user class="mx-auto" /></th>
+          <th :aria-label="t('when')" class="pb-5"><carbon-event-schedule class="mx-auto" /></th>
+          <th :aria-label="t('score')" class="pb-5"><carbon-result class="ml-auto" /></th>
         </tr>
       </thead>
       <tbody class="w-full">
         <tr v-if="props.isLoading">
-          <td colspan="3" class="py-10 text-center">Loading...</td>
+          <td colspan="4" class="py-10 text-center">Loading...</td>
         </tr>
         <tr v-else-if="!data || data.length === 0">
-          <td colspan="3" class="py-10 text-center">No Data</td>
+          <td colspan="4" class="py-10 text-center">No Data</td>
         </tr>
         <transition-group
           v-else
@@ -94,7 +99,12 @@ function computeTopRecords() {
                 </span>
               </div>
             </td>
-            <td class="py-2 text-right">{{ record.score }}</td>
+            <td class="py-2 text-center whitespace-nowrap">
+              {{ timeAgo(record.updated_at) }}
+            </td>
+            <td class="py-2 text-right whitespace-nowrap">
+              {{ formatter ? formatter(record.score) : record.score }}
+            </td>
           </tr>
         </transition-group>
       </tbody>
