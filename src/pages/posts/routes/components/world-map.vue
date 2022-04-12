@@ -133,6 +133,15 @@ const stopWatch = watchEffect(() => {
     });
   }
 
+  function patToRoute(fileName?: string) {
+    if (!fileName) return;
+    const post = posts.value?.find((post) => post.fileName === fileName);
+    if (!post) return;
+    const midLon = (post.points[0].lon + post.points[post.points.length - 1].lon) / 2;
+    const midLat = (post.points[0].lat + post.points[post.points.length - 1].lat) / 2;
+    map.panTo([midLon, midLat]);
+  }
+
   map.on('load', () => {
     paintRoutes(posts.value), emits('onLoaded');
 
@@ -143,6 +152,7 @@ const stopWatch = watchEffect(() => {
     watch(highlight, (current, prev) => {
       normalizeRoute(prev?.fileName);
       highlightRoute(current?.fileName);
+      patToRoute(current?.fileName);
     });
   });
 });
