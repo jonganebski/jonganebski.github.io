@@ -1,12 +1,13 @@
 import { useQuery } from 'vue-query';
 import type { Point } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
-import type { RoutesPostMeta } from '~/libs/markdown';
+import { getRoutePosts } from '~/libs/markdown';
 import { ONE_DAY } from '~/libs/time';
 
 interface UsePointsSummaryQueryData extends Pick<Point, 'date' | 'points_summary'> {}
 
-export function usePointsSummaryQuery(posts?: RoutesPostMeta[]) {
+export function usePointsSummaryQuery() {
+  const posts = getRoutePosts();
   return useQuery(
     'points-summary',
     async () => {
