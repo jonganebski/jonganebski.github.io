@@ -118,6 +118,7 @@ const stopWatch = watchEffect(() => {
 
   function removeRoutes(posts?: RoutesPostMeta[]) {
     posts?.forEach(({ fileName }) => {
+      if (!map.getLayer(fileName)) return;
       map.removeLayer(fileName);
       map.removeSource(fileName);
       map.off('mouseenter', fileName, onMouseEnter);
@@ -128,15 +129,15 @@ const stopWatch = watchEffect(() => {
 
   map.on('load', () => {
     paintRoutes(posts.value), emits('onLoaded');
-  });
 
-  watch(posts, (current, prev) => {
-    removeRoutes(prev);
-    paintRoutes(current);
-  });
-  watch(highlight, (current, prev) => {
-    normalizeRoute(prev?.fileName);
-    highlightRoute(current?.fileName);
+    watch(posts, (current, prev) => {
+      removeRoutes(prev);
+      paintRoutes(current);
+    });
+    watch(highlight, (current, prev) => {
+      normalizeRoute(prev?.fileName);
+      highlightRoute(current?.fileName);
+    });
   });
 });
 </script>
