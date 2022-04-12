@@ -30,7 +30,7 @@ const isLoading = ref(true);
   </div>
   <div class="h-[90vh] grid grid-rows-[2fr,1fr] lg:grid-rows-1 lg:grid-cols-[1.5fr,1fr]">
     <client-only>
-      <WorldMap @on-loaded="isLoading = false" />
+      <WorldMap :swiper-active="swiperActive" @on-loaded="isLoading = false" />
     </client-only>
     <RoutesSwiper v-if="swiperActive" :is-loading="isLoading" :posts="posts" />
     <RoutesList v-else :posts="posts" />

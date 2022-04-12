@@ -7,6 +7,10 @@ import { RoutesPostMeta } from '~/libs/markdown';
 import { useHighlight } from '../composables/useHighlight';
 import { useSearchParams } from '../composables/useSearchParams';
 
+interface Props {
+  swiperActive: boolean;
+}
+
 interface Emits {
   (event: 'onLoaded'): void;
 }
@@ -16,6 +20,7 @@ const COORD_SEOUL = { lon: 127.024612, lat: 37.5326 };
 const HIGHLIGHT_COLOR = colors.rose[700];
 const COLOR = colors.coolGray[700];
 
+const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const { filterBySearchParams } = useSearchParams();
@@ -37,6 +42,7 @@ const stopWatch = watchEffect(() => {
   stopWatch();
 
   const map = new mapboxgl.Map({
+    cooperativeGestures: props.swiperActive,
     accessToken: mapboxAccessToken,
     container: mapContainerRef.value,
     maxZoom: 10,
