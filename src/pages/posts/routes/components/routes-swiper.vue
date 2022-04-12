@@ -54,6 +54,10 @@ watch(
   { immediate: true },
 );
 
+onBeforeUnmount(() => {
+  highlight.value = null;
+});
+
 function prev() {
   if (isDualPosts.value && idx.value === 0) return;
   idx.value = prevIdx.value;
