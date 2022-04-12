@@ -2,16 +2,11 @@
 import { useCountryNames } from '~/composables/useCountryNames';
 import { getRoutePosts } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
-import { CountryParam } from '../composables/useSearchParams';
-
-interface Props {
-  countryParam: CountryParam;
-}
-
-const props = defineProps<Props>();
-const emits = defineEmits<{ (event: 'select-country', code: string): void }>();
+import { useSearchParams } from '../composables/useSearchParams';
 
 const { t } = useMyI18n();
+
+const { countryParam, changeParam } = useSearchParams();
 
 const { countryName } = useCountryNames();
 
@@ -27,8 +22,8 @@ const countryOptions = computed(() =>
 
 <template>
   <ui-select
-    :modelValue="props.countryParam"
-    @update:modelValue="emits('select-country', $event.toString())"
+    :modelValue="countryParam"
+    @update:modelValue="changeParam($event.toString())"
     :label="t('country')"
     class=""
   >

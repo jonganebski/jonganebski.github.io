@@ -12,7 +12,8 @@ import { useSearchParams } from './composables/useSearchParams';
 const { lg } = useBreakpoints(breakpointsTailwind);
 
 const { t } = useMyI18n();
-const { filterBySearchParams, changeParam, countryParam } = useSearchParams();
+
+const { filterBySearchParams } = useSearchParams();
 
 const posts = computed(() => getRoutePosts()?.filter(filterBySearchParams).reverse());
 </script>
@@ -22,7 +23,7 @@ const posts = computed(() => getRoutePosts()?.filter(filterBySearchParams).rever
     <title>{{ t('travel') }} | {{ t('jon_ganebskis_blog') }}</title>
   </Head>
   <div class="px-15 h-14">
-    <SelectCountry :country-param="countryParam" @select-country="changeParam" />
+    <SelectCountry />
   </div>
   <div class="h-[90vh] grid grid-rows-[2fr,1fr] lg:grid-rows-1 lg:grid-cols-[1.5fr,1fr]">
     <client-only>
