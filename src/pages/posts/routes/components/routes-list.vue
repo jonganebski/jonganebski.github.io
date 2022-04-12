@@ -1,29 +1,20 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import CountryFlag from 'vue-country-flag-next';
 import type { RoutesPostMeta } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
-
-interface HoverMeta {
-  fileName: string;
-  location: 'img' | 'map';
-}
+import { useHighlight } from '../composables/useHighlight';
 
 interface Props {
-  hoverMeta: HoverMeta | null;
   posts?: RoutesPostMeta[];
-}
-
-interface Emits {
-  (event: 'update:hoverMeta', payload: HoverMeta | null): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   posts: [] as any,
 });
-const emits = defineEmits<Emits>();
 
 const { locale } = useMyI18n();
+
+const { highlight } = useHighlight();
 
 const ITEM_HEIGHT = 500;
 const IMG_HEIGHT = 350;
@@ -34,19 +25,16 @@ const { list, wrapperProps, containerProps, scrollTo } = useVirtualList(
   { itemHeight: ITEM_HEIGHT },
 );
 
-watch(
-  () => props.hoverMeta,
-  () => {
-    if (props.hoverMeta?.location === 'img') return;
-    const index = props.posts.findIndex(({ fileName }) => fileName === props.hoverMeta?.fileName);
-    if (index < 0) return;
-    scrollTo(index);
-  },
-);
+watch(highlight, () => {
+  if (highlight.value?.from === 'list') return;
+  const index = props.posts.findIndex(({ fileName }) => fileName === highlight.value?.fileName);
+  if (index < 0) return;
+  scrollTo(index);
+});
 </script>
 
 <template>
-  <div v-bind="(containerProps as HTMLAttributes)">
+  <div v-bind="(containerProps as any)">
     <ul v-bind="wrapperProps" class="px-5">
       <li
         v-for="{ data: { cover_image_url, fileName, countries, path, title, from, to } } in list"
@@ -62,13 +50,13 @@ watch(
               :height="400"
               class="aspect-video object-cover transition-all duration-300 filter transform"
               :class="[
-                props.hoverMeta?.fileName === fileName
+                highlight?.fileName === fileName
                   ? 'grayscale-0 scale-110'
                   : 'grayscale-100 scale-100',
               ]"
               :style="{ height: `${IMG_HEIGHT}px`, width: '100%' }"
-              @mouseenter="emits('update:hoverMeta', { fileName, location: 'img' })"
-              @mouseleave="emits('update:hoverMeta', null)"
+              @mouseenter="highlight = { fileName, from: 'list' }"
+              @mouseleave="highlight = null"
             />
           </div>
           <div

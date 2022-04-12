@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import type { RoutesPostMeta } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
-
-interface HoverMeta {
-  fileName: string;
-  location: 'img' | 'map';
-}
+import { useHighlight } from '../composables/useHighlight';
 
 interface Props {
-  hoverMeta: HoverMeta | null;
   posts?: RoutesPostMeta[];
-}
-
-interface Emits {
-  (event: 'update:hoverMeta', payload: HoverMeta | null): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   posts: [] as any,
 });
-const emits = defineEmits<Emits>();
 
 const { locale } = useMyI18n();
+
+const { highlight } = useHighlight();
 
 const idx = ref(0);
 const prevIdx = computed(() => (idx.value === 0 ? props.posts.length - 1 : idx.value - 1));
@@ -50,7 +42,7 @@ watch(
   idx,
   () =>
     props.posts[idx.value]
-      ? emits('update:hoverMeta', { fileName: props.posts[idx.value].fileName, location: 'img' })
+      ? (highlight.value = { fileName: props.posts[idx.value].fileName, from: 'swiper' })
       : null,
   { immediate: true },
 );

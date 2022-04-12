@@ -3,30 +3,15 @@ import mapboxgl from 'mapbox-gl';
 import colors from 'windicss/colors';
 import { usePointsSummaryQuery } from '~/api/usePointsSummaryQuery';
 import { mapboxAccessToken } from '~/libs/env';
-import type { RoutesPostMeta } from '~/libs/markdown';
-
-interface HoverMeta {
-  fileName: string;
-  location: 'img' | 'map';
-}
-
-interface Props {
-  hoverMeta: HoverMeta | null;
-  posts: RoutesPostMeta[] | undefined;
-}
-
-interface Emits {
-  (event: 'update:hoverMeta', payload: HoverMeta | null): void;
-}
-
-const props = defineProps<Props>();
-const emits = defineEmits<Emits>();
+import { useHighlight } from '../composables/useHighlight';
 
 const router = useRouter();
 
 const mapContainerRef = ref<HTMLDivElement | null>(null);
 
-const { data } = usePointsSummaryQuery(props.posts);
+const { data } = usePointsSummaryQuery();
+
+const { highlight } = useHighlight();
 
 const COORD_SEOUL = { lon: 127.024612, lat: 37.5326 };
 
@@ -72,16 +57,14 @@ const stopWatch = watchEffect(() => {
           'line-width': 4,
         },
       });
-      map.on('mouseenter', fileName, () =>
-        emits('update:hoverMeta', { fileName, location: 'map' }),
-      );
-      map.on('mouseleave', fileName, () => emits('update:hoverMeta', null));
+      map.on('mouseenter', fileName, () => (highlight.value = { fileName, from: 'map' }));
+      map.on('mouseleave', fileName, () => (highlight.value = null));
       map.on('click', fileName, () => {
         router.push(path);
       });
     });
     watch(
-      () => props.hoverMeta,
+      highlight,
       (current, prev) => {
         if (current) {
           map.setPaintProperty(current.fileName, 'line-color', hoverColor);
