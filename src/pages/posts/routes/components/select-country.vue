@@ -23,16 +23,17 @@ const countryOptions = computed(() =>
 <template>
   <ui-select
     :modelValue="countryParam"
-    @update:modelValue="changeParam($event.toString())"
     :label="t('country')"
-    class=""
+    size="xs"
+    @update:modelValue="changeParam($event.toString())"
   >
-    <ui-option value="all" :label="t('countries.all')" />
+    <ui-option value="all" :label="t('countries.all')" class="text-xs" />
     <ui-option
       v-for="{ label, value } in countryOptions"
       :key="value"
       :value="value"
       :label="label"
+      class="text-xs"
     />
   </ui-select>
 </template>
