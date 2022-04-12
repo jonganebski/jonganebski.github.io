@@ -10,12 +10,15 @@ import WorldMap from './components/world-map.vue';
 import { useSearchParams } from './composables/useSearchParams';
 
 const { lg } = useBreakpoints(breakpointsTailwind);
+const swiperActive = computed(() => !lg.value);
 
 const { t } = useMyI18n();
 
 const { filterBySearchParams } = useSearchParams();
 
 const posts = computed(() => getRoutePosts()?.filter(filterBySearchParams).reverse());
+
+const isLoading = ref(true);
 </script>
 
 <template>
@@ -27,10 +30,10 @@ const posts = computed(() => getRoutePosts()?.filter(filterBySearchParams).rever
   </div>
   <div class="h-[90vh] grid grid-rows-[2fr,1fr] lg:grid-rows-1 lg:grid-cols-[1.5fr,1fr]">
     <client-only>
-      <WorldMap />
+      <WorldMap @on-loaded="isLoading = false" />
     </client-only>
-    <RoutesList v-if="lg" :posts="posts" />
-    <RoutesSwiper v-else :posts="posts" />
+    <RoutesSwiper v-if="swiperActive" :is-loading="isLoading" :posts="posts" />
+    <RoutesList v-else :is-loading="isLoading" :posts="posts" />
   </div>
   <ui-contour-lines />
 </template>

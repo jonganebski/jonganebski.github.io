@@ -4,6 +4,7 @@ import { useMyI18n } from '~/plugins/i18n';
 import { useHighlight } from '../composables/useHighlight';
 
 interface Props {
+  isLoading: boolean;
   posts?: RoutesPostMeta[];
 }
 
@@ -33,17 +34,23 @@ const targetPosts = computed(() =>
     : [props.posts[prevIdx.value], props.posts[idx.value], props.posts[nextIdx.value]],
 );
 
+function updateHighlight() {
+  !props.isLoading && props.posts[idx.value]
+    ? (highlight.value = { fileName: props.posts[idx.value].fileName, from: 'swiper' })
+    : null;
+}
+
 watch(
-  () => props.posts,
-  () => (idx.value = 0),
+  () => [props.isLoading, props.posts],
+  () => {
+    idx.value = 0;
+    updateHighlight();
+  },
 );
 
 watch(
-  idx,
-  () =>
-    props.posts[idx.value]
-      ? (highlight.value = { fileName: props.posts[idx.value].fileName, from: 'swiper' })
-      : null,
+  () => [props.isLoading, idx.value],
+  () => updateHighlight(),
   { immediate: true },
 );
 
