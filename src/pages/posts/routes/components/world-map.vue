@@ -152,6 +152,7 @@ const stopWatch = watchEffect(() => {
     watch(highlight, (current, prev) => {
       normalizeRoute(prev?.fileName);
       highlightRoute(current?.fileName);
+      if (highlight.value?.from === 'map') return;
       patToRoute(current?.fileName);
     });
   });
