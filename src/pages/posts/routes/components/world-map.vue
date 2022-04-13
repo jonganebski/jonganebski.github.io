@@ -133,7 +133,7 @@ const stopWatch = watchEffect(() => {
     });
   }
 
-  function patToRoute(fileName?: string) {
+  function panToRoute(fileName?: string) {
     if (!fileName) return;
     const post = posts.value?.find((post) => post.fileName === fileName);
     if (!post) return;
@@ -153,7 +153,7 @@ const stopWatch = watchEffect(() => {
       normalizeRoute(prev?.fileName);
       highlightRoute(current?.fileName);
       if (highlight.value?.from === 'map') return;
-      patToRoute(current?.fileName);
+      panToRoute(current?.fileName);
     });
   });
 });
