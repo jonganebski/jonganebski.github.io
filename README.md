@@ -16,10 +16,10 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 ```
 $ node -v
-v14.15.3
+v14.15.4
 
 $ npm -v
-7.9.0
+8.7.0
 
 $ pnpm -v
 6.32.4
