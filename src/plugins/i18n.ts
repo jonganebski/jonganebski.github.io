@@ -17,12 +17,10 @@ export function useMyI18n() {
   return { ...i18n, setLocaleTo };
 }
 
-export const install: Plugin = ({ app }) => {
-  const i18n = createI18n({
-    legacy: false,
-    locale: 'ko',
-    messages: { ko: koMessages, en: enMessages },
-  });
+export const i18n = createI18n({
+  legacy: false,
+  locale: 'ko',
+  messages: { ko: koMessages, en: enMessages },
+});
 
-  app.use(i18n);
-};
+export const install: Plugin = ({ app }) => app.use(i18n);
