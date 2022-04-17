@@ -15,10 +15,12 @@ specifiers:
   '@vue/test-utils': ^2.0.0-rc.20
   '@vueuse/core': ^7.5.5
   '@vueuse/head': ^0.7.5
+  axios: ^0.26.1
   chalk: 4.1.2
   critters: ^0.0.16
   d3: ^7.3.0
   dotenv: ^16.0.0
+  form-data: ^4.0.0
   fs-extra: ^10.0.0
   gh-pages: ^3.2.3
   gitmoji-cli: ^4.7.0
@@ -77,9 +79,11 @@ devDependencies:
   '@types/object-path': 0.11.1
   '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
   '@vue/test-utils': 2.0.0-rc.20_vue@3.2.33
+  axios: 0.26.1
   chalk: 4.1.2
   critters: 0.0.16
   dotenv: 16.0.0
+  form-data: 4.0.0
   fs-extra: 10.0.1
   gh-pages: 3.2.3
   gitmoji-cli: 4.13.1
@@ -1192,6 +1196,14 @@ packages:
 
   /aws4/1.11.0:
     resolution: {integrity: sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==}
+    dev: true
+
+  /axios/0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
+    dependencies:
+      follow-redirects: 1.14.9
+    transitivePeerDependencies:
+      - debug
     dev: true
 
   /babel-walk/3.0.0-canary-5:
@@ -2727,6 +2739,16 @@ packages:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+    dev: true
+
+  /follow-redirects/1.14.9:
+    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     dev: true
 
   /foreach/2.0.5:
