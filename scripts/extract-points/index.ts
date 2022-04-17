@@ -39,7 +39,7 @@ async function extractPoints(fileName: string) {
     const points_summary: Point__point[] = [];
 
     gpx.tracks[0].points.forEach((point) => {
-      const lastPoint = points.at(-1);
+      const lastPoint = points[points.length - 1];
       if (!lastPoint) {
         points.push(point as unknown as Point__point);
         return;
