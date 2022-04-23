@@ -39,7 +39,10 @@ const [prevPost, nextPost] = computed(() => {
     >
       <carbon-chevron-left class="text-3xl" />
       <div>
-        <ui-lazy-image :src="prevPost.cover_image_url" class="mb-2 max-w-72 w-full" />
+          <ui-lazy-image
+            :src="prevPost.cover_image_url"
+            class="mb-2 max-w-72 w-full aspect-video object-cover"
+          />
         <h6 class="text-sm">{{ prevPost.title[locale] }}</h6>
       </div>
     </router-link>
@@ -49,7 +52,10 @@ const [prevPost, nextPost] = computed(() => {
       class="relative flex-1 flex justify-end items-center space-x-2 text-right transform transition-transform hover:(translate-x-5)"
     >
       <div>
-        <ui-lazy-image :src="nextPost.cover_image_url" class="mb-2 max-w-72 w-full" />
+          <ui-lazy-image
+            :src="nextPost.cover_image_url"
+            class="mb-2 max-w-72 w-full aspect-video object-cover"
+          />
         <h6 class="text-sm">{{ nextPost.title[locale] }}</h6>
       </div>
       <carbon-chevron-right class="text-3xl" />
