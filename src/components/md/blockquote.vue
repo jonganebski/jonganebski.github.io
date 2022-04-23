@@ -17,7 +17,7 @@ const color = computed(() => colors[props.colorScheme][500]);
     :style="{ borderLeftColor: color }"
   >
     <carbon-quotes class="w-10" :style="{ color }" />
-    <div class="text-sm">
+    <div class="flex-1 text-sm">
       <slot />
       <div class="mt-2">
         <i v-if="props.from" class="block font-bold">- {{ props.from }}</i>
