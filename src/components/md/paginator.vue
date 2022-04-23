@@ -32,33 +32,37 @@ const [prevPost, nextPost] = computed(() => {
 
 <template>
   <div class="my-20 lg:mx-20 max-w-screen-lg flex justify-between space-x-10">
-    <router-link
-      v-if="prevPost"
-      :to="prevPost.path"
-      class="flex-1 flex items-center space-x-2 transform transition-transform hover:(-translate-x-5)"
-    >
-      <carbon-chevron-left class="text-3xl" />
-      <div>
+    <div>
+      <router-link
+        v-if="prevPost"
+        :to="prevPost.path"
+        class="flex items-center space-x-2 transform transition-transform hover:(-translate-x-5)"
+      >
+        <carbon-chevron-left class="text-3xl" />
+        <div>
           <ui-lazy-image
             :src="prevPost.cover_image_url"
             class="mb-2 max-w-72 w-full aspect-video object-cover"
           />
-        <h6 class="text-sm">{{ prevPost.title[locale] }}</h6>
-      </div>
-    </router-link>
-    <router-link
-      v-if="nextPost"
-      :to="nextPost.path"
-      class="relative flex-1 flex justify-end items-center space-x-2 text-right transform transition-transform hover:(translate-x-5)"
-    >
-      <div>
+          <h6 class="text-sm">{{ prevPost.title[locale] }}</h6>
+        </div>
+      </router-link>
+    </div>
+    <div>
+      <router-link
+        v-if="nextPost"
+        :to="nextPost.path"
+        class="flex justify-end items-center space-x-2 text-right transform transition-transform hover:(translate-x-5)"
+      >
+        <div>
           <ui-lazy-image
             :src="nextPost.cover_image_url"
             class="mb-2 max-w-72 w-full aspect-video object-cover"
           />
-        <h6 class="text-sm">{{ nextPost.title[locale] }}</h6>
-      </div>
-      <carbon-chevron-right class="text-3xl" />
-    </router-link>
+          <h6 class="text-sm">{{ nextPost.title[locale] }}</h6>
+        </div>
+        <carbon-chevron-right class="text-3xl" />
+      </router-link>
+    </div>
   </div>
 </template>
