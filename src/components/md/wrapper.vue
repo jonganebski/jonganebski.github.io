@@ -82,6 +82,9 @@ const { isSupported, share } = useShare(
 ::v-slotted(h3) {
   @apply mt-20 px-5 text-2xl font-bold;
 }
+::v-slotted(h4) {
+  @apply mt-8 px-5 text-xl font-bold;
+}
 ::v-slotted(img) {
   @apply w-full md:w-[95%] mt-20 mb-10 mx-auto;
 }
