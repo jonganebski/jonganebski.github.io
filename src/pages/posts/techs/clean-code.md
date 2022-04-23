@@ -6,7 +6,7 @@ date: 2022-04-22
 cover_image_url: https://imagedelivery.net/fOEhHq_KNsIgC-hb-3NU0w/ded7e3db-6930-4b13-6f7a-8e80560e0700/post
 ---
 
-Photo by <a href="https://unsplash.com/@cedericvandenberghe?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Cederic Vandenberghe</a> on <a href="https://unsplash.com/s/photos/castle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by <a href="https://unsplash.com/@cedericvandenberghe?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Cederic Vandenberghe</a> on <a href="https://unsplash.com/s/photos/castle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>
 
 <br/>
 
