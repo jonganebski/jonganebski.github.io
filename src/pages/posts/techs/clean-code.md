@@ -59,3 +59,43 @@ Photo by <a href="https://unsplash.com/@cedericvandenberghe?utm_source=unsplash&
 3. `DIP: Dependency Inversion Principle`  
    [위키피디아](https://en.wikipedia.org/wiki/Dependency_inversion_principle)  
    [유튜브](https://www.youtube.com/watch?v=9oHY5TllWaU)
+
+<h2 id="day3">2022-04-24</h2>
+
+#### 📖 오늘 읽은 범위
+
+2장.의미있는 이름
+
+#### 😀 책에서 기억하고 싶은 내용을 써보세요.
+
+<md-blockquote from="Clean Code (p.22 ~ p.38)" colorScheme="emerald">1. 의도를 분명히 밝혀라<br/> 2. 그릇된 정보를 피하라<br/> 3. 의미있게 구분하라<br/> 4. 발음하기 쉬운 이름을 사용하라<br/> 5. 검색하기 쉬운 이름을 사용하라<br/> 6. 인코딩을 피하라 <br/> 7. 자신의 기억력을 자랑하지 마라 <br/> 8. 기발한 이름은 피하라 <br/> 9. 한 개념에 한 단어를 사용하라 <br/> 10. 말장난을 하지 마라 <br/> 11. 해법 영역에서 가져온 이름을 사용하라 <br/> 12. 문제 영역에서 가져온 이름을 사용하라 <br/> 13. 의미 있는 맥락을 추가하라 <br/> 14. 불필요한 맥락을 없애라<br/></md-blockquote>
+
+<md-blockquote from="Clean Code (p.38)" colorScheme="emerald">좋은 이름을 선택하려면 설명 능력이 뛰어나야 하고 문화적인 배경이 같아야 한다. 이것이 제일 어렵다. 좋은 이름을 선택하는 능력은 기술, 비즈니스, 관리 문제가 아니라 교육 문제다.</md-blockquote>
+
+#### 🤔 오늘 읽은 소감은? 떠오르는 생각을 가볍게 적어보세요.
+
+1. 나도 작년까지는 `IInterfaceName`이나 `TTypeName`처럼 인코딩을 해서 이름을 지었었는데, 확실히 가독성을 떨어뜨린다. 그리고 인터페이스인지 타입인지는 IDE에서 충분히 알려준다. 그래서 이제는 인코딩을 피하고 있다. 하지만 올바른 이름을 짓는다는건 항상 어려운 문제다.
+
+2. 이 블로그의 코드에도 약간 나만이 알 수 있는 이름을 쓴 경우가 있는데, 개인 프로젝트니까.. 라는 변명 아닌 변명을 해본다...
+
+3. 메서드의 이름은 동사구로 시작하는게 적합하다고 개인적으로도 생각하지만, 그리 간단한 문제는 아닌 것 같다. 예를 들어,
+
+   ```ts
+   function filterPreviousPosts(post) {
+     return new Date(post.date).getTime() < Date.now();
+   }
+
+   const prevPosts = posts.filter(filterPreviousPosts);
+   ```
+
+   ```ts
+   function previousPosts(post) {
+     return new Date(post.date).getTime() < Date.now();
+   }
+
+   const prevPosts = posts.filter(previousPosts);
+   ```
+
+   이렇게 함수형 프로그래밍을 적용할 때에는 함수명에 중복되는 filter를 없애고 싶어진다.
+
+4. 나처럼 영어가 모국어가 아닌 외국인 개발자들과 일 할 기회가 있었다. 이름을 지을 때 문화적인 배경이 같아야 한다는 저자의 말에 공감한다. 우리는 서로가 고심해서 지은 이름들을 서로 직관적인 이름이 아니라고 생각했다. 모든 개발자들이 문화적인 배경이 같을 수는 없다. 하지만 그만큼 교육의 중요성이 커진다고 볼 수 있다.
