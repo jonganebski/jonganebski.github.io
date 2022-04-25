@@ -114,8 +114,8 @@ function recordFormatter(scoreAsMs: number) {
                   {{ node.hint === 0 ? '' : node.hint }}
                 </span>
                 <span v-if="node.isExploded">💣</span>
-                <carbon-flag v-if="node.isFlagged" />
-                <carbon-help v-if="node.isQuestion" />
+                <span v-if="node.isFlagged">🚩</span>
+                <span v-if="node.isQuestion">❓</span>
               </button>
             </div>
           </div>
