@@ -105,7 +105,6 @@ export function useMineSweeper(selectedMode: Ref<number>) {
         return;
       }
       if (this.isQuestion) {
-        flagCount.value -= 1;
         this.isFlagged = false;
         this.isQuestion = false;
         return;
