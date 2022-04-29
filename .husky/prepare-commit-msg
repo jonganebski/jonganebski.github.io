@@ -1,4 +1,11 @@
 #!/bin/sh
 # gitmoji as a commit hook
 exec < /dev/tty
-pnpm exec gitmoji --hook $1 $2
+
+
+# pnpm exec gitmoji --hook $1 $2
+
+pnpm my-commit $1 $2 || (
+    echo ggg
+    exit 1
+)

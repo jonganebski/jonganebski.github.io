@@ -7,6 +7,7 @@ specifiers:
   '@supabase/supabase-js': ^1.30.0
   '@types/d3': ^7.1.0
   '@types/fs-extra': ^9.0.13
+  '@types/inquirer': ^8.2.1
   '@types/mapbox-gl': ^2.6.1
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/node': ^17.0.14
@@ -28,6 +29,7 @@ specifiers:
   gsap: ^3.9.1
   happy-dom: ^2.39.1
   husky: ^7.0.4
+  inquirer: ^8.2.4
   mapbox-gl: ^2.7.0
   markdown-it-link-attributes: ^4.0.0
   markdown-it-prism: ^2.2.2
@@ -73,6 +75,7 @@ devDependencies:
   '@intlify/vite-plugin-vue-i18n': 3.4.0_3d08e1d9025840888da5ae870455a383
   '@types/d3': 7.1.0
   '@types/fs-extra': 9.0.13
+  '@types/inquirer': 8.2.1
   '@types/mapbox-gl': 2.7.0
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/node': 17.0.24
@@ -90,6 +93,7 @@ devDependencies:
   gpxparser: 3.0.8
   happy-dom: 2.55.0
   husky: 7.0.4
+  inquirer: 8.2.4
   markdown-it-link-attributes: 4.0.0
   markdown-it-prism: 2.2.3
   object-path: 0.11.8
@@ -677,6 +681,13 @@ packages:
     resolution: {integrity: sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==}
     dev: true
 
+  /@types/inquirer/8.2.1:
+    resolution: {integrity: sha512-wKW3SKIUMmltbykg4I5JzCVzUhkuD9trD6efAmYgN2MrSntY0SMRQzEnD3mkyJ/rv9NLbTC7g3hKKE86YwEDLw==}
+    dependencies:
+      '@types/through': 0.0.30
+      rxjs: 7.5.5
+    dev: true
+
   /@types/linkify-it/3.0.2:
     resolution: {integrity: sha512-HZQYqbiFVWufzCwexrvh694SOim8z2d+xJl5UNamcvQFejLY/2YUtzXHYi3cHdI7PMlS8ejH2slRAOJQ32aNbA==}
     dev: true
@@ -746,6 +757,12 @@ packages:
 
   /@types/throttle-debounce/2.1.0:
     resolution: {integrity: sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ==}
+    dev: true
+
+  /@types/through/0.0.30:
+    resolution: {integrity: sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==}
+    dependencies:
+      '@types/node': 17.0.24
     dev: true
 
   /@vitejs/plugin-vue/2.3.1_vite@2.9.5+vue@3.2.33:
@@ -3332,6 +3349,27 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
+    dev: true
+
+  /inquirer/8.2.4:
+    resolution: {integrity: sha512-nn4F01dxU8VeKfq192IjLsxu0/OmMZ4Lg3xKAns148rCaXP6ntAoEkVYZThWjwON8AlzdZZi6oqnhNbxUG9hVg==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      ansi-escapes: 4.3.2
+      chalk: 4.1.2
+      cli-cursor: 3.1.0
+      cli-width: 3.0.0
+      external-editor: 3.1.0
+      figures: 3.2.0
+      lodash: 4.17.21
+      mute-stream: 0.0.8
+      ora: 5.4.1
+      run-async: 2.4.1
+      rxjs: 7.5.5
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      through: 2.3.8
+      wrap-ansi: 7.0.0
     dev: true
 
   /internal-slot/1.0.3:

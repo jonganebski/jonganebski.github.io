@@ -81,7 +81,7 @@ ${formatCommit(inquiry)}
 
     console.log(process.cwd().split('/').reverse()[0]);
 
-    if (!confirm) process.exit(1);
+    if (!inquiry.confirm) process.exit(1);
 
     writeFileSync(x, formatCommit(inquiry));
   } catch (error) {
