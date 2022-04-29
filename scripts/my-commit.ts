@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs-extra';
 import { prompt } from 'inquirer';
+import { red } from 'chalk';
 
 enum INQUIRY_NAME {
   description = 'description',
@@ -57,7 +58,7 @@ async function main() {
         default: title.split('\n')[0],
         validate: (val) => {
           if (val.length === 0) {
-            console.log('\n제목은 필수 사항이에요.');
+            console.log(red('\n제목은 필수 사항이에요.'));
             return false;
           }
           return true;
@@ -82,6 +83,7 @@ ${formatCommit(inquiry)}
     console.log(process.cwd().split('/').reverse()[0]);
 
     if (!inquiry.confirm) process.exit(1);
+    process.exit(1);
 
     writeFileSync(x, formatCommit(inquiry));
   } catch (error) {
