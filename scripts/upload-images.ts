@@ -50,7 +50,10 @@ const uploadedIds: string[] = [];
 function searchImageInMarkdown(content: string, index: number) {
   let mdImgExp = '';
 
-  while (!mdImgExp.endsWith('jpg)')) {
+  while (
+    !mdImgExp.toLocaleLowerCase().endsWith('jpg)') &&
+    !mdImgExp.toLocaleLowerCase().endsWith('jpeg)')
+  ) {
     mdImgExp = mdImgExp + content[index];
     ++index;
   }
@@ -61,7 +64,7 @@ function searchImageInMarkdown(content: string, index: number) {
 }
 
 async function uploadImageToCloudFlare(mdImgPath: string) {
-  const stream = await createReadStream(resolve(__dirname, MARKDOWN_PATH, mdImgPath));
+  const stream = await createReadStream(resolve(__dirname, MARKDOWN_PATH, '../', mdImgPath));
   const filename = mdImgPath.split('/').reverse()[0];
 
   const formData = new FormData();
@@ -89,7 +92,7 @@ async function uploadImageToCloudFlare(mdImgPath: string) {
 }
 
 async function handleImages(content: string): Promise<string> {
-  const startIdx = content.search(/!\[image\].*jpg/);
+  const startIdx = content.search(/!\[image\].*jpg/i);
   if (startIdx < 0) return content;
 
   const { mdImgPath, mdImgExp } = searchImageInMarkdown(content, startIdx);
