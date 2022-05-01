@@ -1,11 +1,12 @@
 import { BrowserTracing } from '@sentry/tracing';
 import * as Sentry from '@sentry/vue';
 import type { ViteSSGContext } from 'vite-ssg';
+import { sentryDsn } from './libs/env';
 
 export function initSentry({ app, router }: ViteSSGContext<true>) {
   Sentry.init({
     app,
-    dsn: 'https://2f8e9916dfd44461a2ab9f895d6b641b@o1227492.ingest.sentry.io/6373105',
+    dsn: sentryDsn,
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),
