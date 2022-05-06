@@ -224,3 +224,92 @@ export function useExample (){
 #### 🤔 오늘 읽은 소감은? 떠오르는 생각을 가볍게 적어보세요.
 
 한 번은 컴포넌트를 전혀 나누지 않은 프로젝트를 이어 받아서 진행한 경험이 있다. 단 하나의 파일에 여러가지 기능을 수행하는 코드들이 난잡하게 뒤섞여 있었다. 심지어 스타일까지. (+Javascript ^^) 2,000 줄이 넘어가는 코드를 위아래로 왔다갔다 하다가 결국은 내가 무엇을 찾으려 했던 건지도 잊어버렸다. 그 코드를 보면서 나는 정말 이렇게 코드를 짜지 말아야겠다고 마음 먹었다. 나는 내 코드가 다른 개발자가 이어받았을 때 읽어내려가는데 큰 허들이 없기를 바란다.
+
+<h2 id="day14">2022-05-05</h2>
+
+#### 📖 오늘 읽은 범위
+
+7장. 오류처리
+
+#### 😀 책에서 기억하고 싶은 내용을 써보세요.
+
+<md-blockquote from="Clean Code (p.130)" colorScheme="emerald">오류 처리는 중요하다. 하지만 오류 처리 코드로 인해 프로그램 논리를 이해하기 어려워진다면 깨끗한 코드라 부르기 어렵다.</md-blockquote>
+
+<md-blockquote from="Clean Code (p.142)" colorScheme="emerald">오류 처리를 프로그램 논리와 분리하면 독립적인 추론이 가능해지며 코드 유지보수성도 크게 높아진다.</md-blockquote>
+
+#### 🤔 오늘 읽은 소감은? 떠오르는 생각을 가볍게 적어보세요.
+
+책을 읽고 평소에 굼금하던 바를 MDN에서 검색해 봤다. MDN에 의하면 에러의 종류는 다음과 같다. [링크](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+
+#### Error types
+
+Besides the generic Error constructor, there are other core error constructors in JavaScript. For client-side exceptions, see Exception handling statements.
+
+1. EvalError
+
+   Creates an instance representing an error that occurs regarding the global function eval().
+
+2. RangeError
+
+   Creates an instance representing an error that occurs when a numeric variable or parameter is outside of its valid range.
+
+3. ReferenceError
+
+   Creates an instance representing an error that occurs when de-referencing an invalid reference.
+
+4. SyntaxError
+
+   Creates an instance representing a syntax error.
+
+5. TypeError
+
+   Creates an instance representing an error that occurs when a variable or parameter is not of a valid type.
+
+6. URIError
+
+   Creates an instance representing an error that occurs when encodeURI() or decodeURI() are passed invalid parameters.
+
+7. AggregateError
+
+   Creates an instance representing several errors wrapped in a single error when multiple errors need to be reported by an operation, for example by Promise.any().
+
+8. InternalError (Non-Standard)
+
+   Creates an instance representing an error that occurs when an internal error in the JavaScript engine is thrown. E.g. "too much recursion".
+
+그래서 에러 핸들링이 다음과 같이 가능하다. 이럴 경우 unknown이던 에러의 타입이 정해지면서 `error.name`, `error.message`, `error.cause`, `error.stack`등에 접근이 가능해진다.
+
+```ts
+function example() {
+  try {
+    throw new TypeError('Hello Error!');
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error(error.message); // Hello Error 출력
+    } else if (error instanceof RangeError) {
+      console.error(error.message);
+    }
+    // ...
+  }
+}
+```
+
+만약 어떤 종류의 에러인지는 상관없고, 타입 지원을 받고 싶다면 아래처럼 하면 가능하다.
+
+```ts
+function example() {
+  try {
+    throw new SyntaxError('Hello Error!');
+  } catch (error) {
+    if (!(error instanceof Error)) return;
+    // 타입 지원을 받게 된다.
+    console.log(error.message); //  Hello Error 출력
+    console.log(error.name); //  SyntaxError 출력
+}
+```
+
+#### 🔍 궁금한 내용이 있거나, 잘 이해되지 않는 내용이 있다면 적어보세요.
+
+그런데 자바스크립트에서는 저 타입들을 고려하면서 에러 핸들링을 하는 것을 거의 본 적이 없다.
+
+그 이유가 무엇일까? 굳이 저럴 필요가 없기 때문일까?
