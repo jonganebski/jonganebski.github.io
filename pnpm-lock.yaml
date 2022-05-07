@@ -27,7 +27,6 @@ specifiers:
   gh-pages: ^3.2.3
   gitmoji-cli: ^4.7.0
   gpxparser: ^3.0.8
-  gsap: ^3.9.1
   happy-dom: ^2.39.1
   husky: ^7.0.4
   mapbox-gl: ^2.7.0
@@ -64,7 +63,6 @@ dependencies:
   '@vueuse/core': 7.7.1_vue@3.2.33
   '@vueuse/head': 0.7.6_vue@3.2.33
   d3: 7.4.4
-  gsap: 3.10.3
   mapbox-gl: 2.8.1
   vue: 3.2.33
   vue-country-flag-next: 2.3.2_vue@3.2.33
@@ -3109,10 +3107,6 @@ packages:
 
   /grid-index/1.1.0:
     resolution: {integrity: sha512-HZRwumpOGUrHyxO5bqKZL0B0GlUpwtCAzZ42sgxUPniu33R1LSFH5yrIcBCHjkctCAh3mtWKcKd9J4vDDdeVHA==}
-    dev: false
-
-  /gsap/3.10.3:
-    resolution: {integrity: sha512-O4P5mC6awoo0uSemZ1kS1Nm52I4/3gC8gy6ws6VFXvR1KmA4oRlBY/ZI4+LWsH0MoSDZrpwNyF9FAkB37UTGVg==}
     dev: false
 
   /happy-dom/2.55.0:
