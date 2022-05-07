@@ -14,8 +14,8 @@ function changeCloudShadowContainerHeight() {
   height.value = computeRandInt(300, 2000);
 }
 
-function getD() {
-  const d = randArrayElements(3, [
+function getRandomPathDShapes() {
+  const dShapes = randArrayElements(3, [
     'M436,307.5Q470,365,400,365.5Q330,366,299,380.5Q268,395,235,386.5Q202,378,149.5,381.5Q97,385,90.5,338Q84,291,60.5,244Q37,197,64,153Q91,109,127.5,65.5Q164,22,214.5,73Q265,124,294,134.5Q323,145,359,159.5Q395,174,398.5,212Q402,250,436,307.5Z;',
     'M432,289.5Q401,329,365,346.5Q329,364,300.5,397.5Q272,431,234.5,411Q197,391,155,381Q113,371,102,330Q91,289,57,241.5Q23,194,49,144.5Q75,95,127.5,81Q180,67,224,84.5Q268,102,311,100.5Q354,99,382.5,132Q411,165,437,207.5Q463,250,432,289.5Z;',
     'M436,307.5Q470,365,400,365.5Q330,366,299,380.5Q268,395,235,386.5Q202,378,149.5,381.5Q97,385,90.5,338Q84,291,60.5,244Q37,197,64,153Q91,109,127.5,65.5Q164,22,214.5,73Q265,124,294,134.5Q323,145,359,159.5Q395,174,398.5,212Q402,250,436,307.5Z;',
@@ -25,8 +25,12 @@ function getD() {
     'M417.5,292.5Q411,335,396,387.5Q381,440,327,441Q273,442,224.5,443.5Q176,445,125,425.5Q74,406,76.5,349Q79,292,71,248Q63,204,69.5,150Q76,96,137,104Q198,112,232.5,110Q267,108,305.5,110.5Q344,113,379,138.5Q414,164,419,207Q424,250,417.5,292.5Z;',
     'M396,291.5Q409,333,379.5,364Q350,395,309.5,402.5Q269,410,221.5,430Q174,450,125,427Q76,404,43.5,356.5Q11,309,29.5,254.5Q48,200,69,154Q90,108,127,65Q164,22,221.5,17Q279,12,327,40Q375,68,382.5,122.5Q390,177,386.5,213.5Q383,250,396,291.5Z;',
   ]);
-  d.push(d[0]);
-  return d.join(' ');
+  lastShapeShouldBeInitialShape(dShapes);
+  return dShapes.join(' ');
+}
+
+function lastShapeShouldBeInitialShape(dShapes: string[]) {
+  dShapes.push(dShapes[0]);
 }
 </script>
 
@@ -41,7 +45,12 @@ function getD() {
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <path fill="black" class="opacity-13 dark:opacity-30">
-        <animate attributeName="d" dur="20s" repeatCount="indefinite" :values="getD()" />
+        <animate
+          attributeName="d"
+          dur="20s"
+          repeatCount="indefinite"
+          :values="getRandomPathDShapes()"
+        />
       </path>
     </svg>
   </div>
