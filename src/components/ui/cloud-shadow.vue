@@ -1,36 +1,18 @@
 <script setup lang="ts">
 import { computeRandInt, randArrayElements } from '~/libs/random';
-import gsap from 'gsap';
 
 const props = withDefaults(defineProps<{ delay?: number }>(), { delay: computeRandInt(0, 10) });
 
 const { height: windowHeight } = useWindowSize();
 
-const cloudShadowRef = ref<HTMLDivElement | null>(null);
 const height = ref(computeRandInt(300, windowHeight.value * 2));
-const left = ref(computeRandInt(-height.value - 100, height.value + 100));
+const left = computed(() => computeRandInt(-height.value, height.value));
 const durationSeconds = ref(computeRandInt(60, 70));
 const delaySeconds = ref(props.delay);
 
-onMounted(() => {
-  if (!cloudShadowRef.value) return;
-  function onComplete(this: gsap.core.Tween) {
-    height.value = computeRandInt(300, 2000);
-    this.restart();
-  }
-  gsap
-    .fromTo(
-      cloudShadowRef.value,
-      { y: 0 },
-      {
-        y: -windowHeight.value * 3,
-        delay: delaySeconds.value,
-        duration: durationSeconds.value,
-        ease: 'linear',
-      },
-    )
-    .eventCallback('onComplete', onComplete);
-});
+function changeCloudShadowContainerHeight() {
+  height.value = computeRandInt(300, 2000);
+}
 
 function getD() {
   const d = randArrayElements(3, [
@@ -50,9 +32,8 @@ function getD() {
 
 <template>
   <div
-    ref="cloudShadowRef"
-    class="fixed top-full pointer-events-none filter blur-xl"
-    :style="{ left: `${left}px`, width: `${height}px`, height: `${height}px` }"
+    class="fixed top-full pointer-events-none filter blur-xl cloud-shadow-container cloud-shadow-animation"
+    @animationiteration="changeCloudShadowContainerHeight"
   >
     <svg
       viewBox="0 0 500 500"
@@ -65,3 +46,28 @@ function getD() {
     </svg>
   </div>
 </template>
+
+<style scoped lang="css">
+.cloud-shadow-container {
+  left: v-bind(left + 'px');
+  height: v-bind(height + 'px');
+  width: v-bind(height + 'px');
+}
+
+@keyframes floating-cloud {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(v-bind(-windowHeight * 3 + 'px'));
+  }
+}
+
+.cloud-shadow-animation {
+  animation-name: floating-cloud;
+  animation-duration: v-bind(durationSeconds + 's');
+  animation-delay: v-bind(delaySeconds + 's');
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+</style>
