@@ -13,10 +13,7 @@ import 'virtual:windi-utilities.css';
 import 'virtual:windi-devtools';
 
 import { routerOptions } from './router';
-import { initSentry } from './sentry';
 
 export const createApp = ViteSSG(App, routerOptions, (ctx) => {
   Object.values(import.meta.globEager('./plugins/*.ts')).forEach((plugin) => plugin.install?.(ctx));
-
-  if (import.meta.env.PROD && ctx.isClient) initSentry(ctx);
 });

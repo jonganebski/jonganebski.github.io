@@ -1,9 +1,13 @@
 import { BrowserTracing } from '@sentry/tracing';
 import * as Sentry from '@sentry/vue';
 import type { ViteSSGContext } from 'vite-ssg';
-import { sentryDsn } from './libs/env';
+import { sentryDsn } from '~/libs/env';
 
-export function initSentry({ app, router }: ViteSSGContext<true>) {
+type Plugin = (ctx: ViteSSGContext) => void;
+
+export const install: Plugin = ({ isClient, router, app }) => {
+  if (!import.meta.env.PROD || !isClient) return;
+
   Sentry.init({
     app,
     dsn: sentryDsn,
@@ -18,4 +22,4 @@ export function initSentry({ app, router }: ViteSSGContext<true>) {
     // We recommend adjusting this value in production
     tracesSampleRate: 0.5,
   });
-}
+};
