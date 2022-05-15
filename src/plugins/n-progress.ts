@@ -1,8 +1,6 @@
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { ViteSSGContext } from 'vite-ssg';
-
-type Plugin = (ctx: ViteSSGContext) => void;
+import { Plugin } from './@types';
 
 export const install: Plugin = ({ isClient, router }) => {
   if (!isClient) return;

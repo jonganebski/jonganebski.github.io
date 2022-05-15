@@ -1,9 +1,7 @@
 import { createI18n } from 'vue-i18n';
-import type { ViteSSGContext } from 'vite-ssg';
-import koMessages from '../../locales/ko.json';
 import enMessages from '../../locales/en.json';
-
-type Plugin = (ctx: ViteSSGContext) => void;
+import koMessages from '../../locales/ko.json';
+import { Plugin } from './@types';
 
 export type Locale = 'en' | 'ko';
 

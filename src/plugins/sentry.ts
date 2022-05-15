@@ -1,9 +1,7 @@
 import { BrowserTracing } from '@sentry/tracing';
 import * as Sentry from '@sentry/vue';
-import type { ViteSSGContext } from 'vite-ssg';
 import { sentryDsn } from '~/libs/env';
-
-type Plugin = (ctx: ViteSSGContext) => void;
+import { Plugin } from './@types';
 
 export const install: Plugin = ({ isClient, router, app }) => {
   if (!import.meta.env.PROD || !isClient) return;
