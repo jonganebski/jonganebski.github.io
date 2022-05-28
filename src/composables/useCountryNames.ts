@@ -9,6 +9,7 @@ export function useCountryNames() {
     KG: t('countries.kyrgyzstan'),
     KZ: t('countries.kazakhstan'),
     MN: t('countries.mongolia'),
+    TJ: t('countries.tajikistan'),
     RU: t('countries.russia'),
   }));
 
