@@ -12,6 +12,10 @@ src/assets/images
 
 .vite-ssg-temp
 
+# Local History Extension
+
+.history
+
 # Rust Related
 
 target
