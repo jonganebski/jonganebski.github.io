@@ -2,12 +2,14 @@
 import { useIntersectionObserver } from '@vueuse/core';
 
 interface Props {
+  cfVariant?: 'public' | 'post' | 'avatar';
+  cfId?: string;
   height?: number;
   width?: number;
-  src: string;
+  src?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), { height: 400, width: 600 });
+const props = withDefaults(defineProps<Props>(), { height: 400, width: 600, cfVariant: 'post' });
 
 const imgRef = ref<HTMLImageElement | null>(null);
 
@@ -26,7 +28,11 @@ const { stop } = useIntersectionObserver(imgRef, (entries) => {
 <template>
   <img
     ref="imgRef"
-    :data-src="props.src"
+    :data-src="
+      props.cfId
+        ? `https://imagedelivery.net/fOEhHq_KNsIgC-hb-3NU0w/${props.cfId}/${props.cfVariant}`
+        : props.src
+    "
     :height="props.height"
     :width="props.width"
     class="bg-gray-400"

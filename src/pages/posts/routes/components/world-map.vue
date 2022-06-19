@@ -7,6 +7,10 @@ import { RoutesPostMeta } from '~/libs/markdown';
 import { useHighlight } from '../composables/useHighlight';
 import { useSearchParams } from '../composables/useSearchParams';
 
+interface Props {
+  swiperActive: boolean;
+}
+
 interface Emits {
   (event: 'onLoaded'): void;
 }
@@ -16,6 +20,7 @@ const COORD_SEOUL = { lon: 127.024612, lat: 37.5326 };
 const HIGHLIGHT_COLOR = colors.rose[700];
 const COLOR = colors.coolGray[700];
 
+const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const { filterBySearchParams } = useSearchParams();
@@ -37,6 +42,7 @@ const stopWatch = watchEffect(() => {
   stopWatch();
 
   const map = new mapboxgl.Map({
+    cooperativeGestures: props.swiperActive,
     accessToken: mapboxAccessToken,
     container: mapContainerRef.value,
     maxZoom: 10,
@@ -127,6 +133,15 @@ const stopWatch = watchEffect(() => {
     });
   }
 
+  function panToRoute(fileName?: string) {
+    if (!fileName) return;
+    const post = posts.value?.find((post) => post.fileName === fileName);
+    if (!post) return;
+    const midLon = (post.points[0].lon + post.points[post.points.length - 1].lon) / 2;
+    const midLat = (post.points[0].lat + post.points[post.points.length - 1].lat) / 2;
+    map.panTo([midLon, midLat]);
+  }
+
   map.on('load', () => {
     paintRoutes(posts.value), emits('onLoaded');
 
@@ -137,6 +152,8 @@ const stopWatch = watchEffect(() => {
     watch(highlight, (current, prev) => {
       normalizeRoute(prev?.fileName);
       highlightRoute(current?.fileName);
+      if (highlight.value?.from === 'map') return;
+      panToRoute(current?.fileName);
     });
   });
 });

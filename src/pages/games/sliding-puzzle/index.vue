@@ -43,10 +43,10 @@ watch(
   </Head>
   <div class="mt-20 grid gap-12 place-items-center text-dark-500 dark:text-light-500">
     <h1 class="relative select-none text-3xl md:text-5xl" @click="worship">
-      <span class="inline-block worship__inactive">
+      <span class="py-2 inline-block worship__inactive">
         {{ t('sliding_puzzle') }}
       </span>
-      <span class="inline-block worship__active" aria-hidden="true">
+      <span class="py-2 inline-block worship__active" aria-hidden="true">
         {{ t('sliding_puzzle') }}
       </span>
     </h1>

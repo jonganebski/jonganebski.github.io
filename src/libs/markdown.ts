@@ -51,7 +51,7 @@ export function getRoutePosts(): RoutesPostMeta[] | undefined {
       import.meta.globEager('../pages/posts/routes/*.md') as Record<string, RoutesFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
-      const fileName = path.split('/').at(-1);
+      const [fileName] = path.split('/').reverse();
       if (!fileName) throw Error('File name is not detected');
       const [from, to] = fileName.split('~');
       return { fileName, points: [], path, from, to, ...frontmatter };
@@ -83,7 +83,7 @@ export function getTechPosts() {
       import.meta.globEager('../pages/posts/techs/*.md') as Record<string, TechsFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
-      const fileName = path.split('/').at(-1);
+      const [fileName] = path.split('/').reverse();
       if (!fileName) throw Error('File name is not detected');
       return { fileName, path, ...frontmatter };
     });

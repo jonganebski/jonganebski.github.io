@@ -15,6 +15,7 @@ const { locale } = useMyI18n();
 
 const route = useRoute();
 const isRoutePost = route.path.startsWith('/posts/routes/');
+const isTechPost = route.path.startsWith('/posts/techs/');
 
 const title = computed(() => `${frontmatter.title[locale.value]} | Jon Ganebski`);
 
@@ -61,6 +62,11 @@ const { isSupported, share } = useShare(
   <client-only v-if="isRoutePost">
     <md-route-visualization />
   </client-only>
+  <md-paginator
+    :frontmatter="frontmatter"
+    :is-route-post="isRoutePost"
+    :is-tech-post="isTechPost"
+  />
   <client-only>
     <ui-contour-lines />
   </client-only>
@@ -75,6 +81,9 @@ const { isSupported, share } = useShare(
 }
 ::v-slotted(h3) {
   @apply mt-20 px-5 text-2xl font-bold;
+}
+::v-slotted(h4) {
+  @apply mt-8 px-5 text-xl font-bold;
 }
 ::v-slotted(img) {
   @apply w-full md:w-[95%] mt-20 mb-10 mx-auto;

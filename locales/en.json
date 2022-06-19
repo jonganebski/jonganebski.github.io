@@ -23,9 +23,12 @@
   "countries": {
     "all": "All Countries",
     "china": "China",
+    "kazakhstan": "Kazakhstan",
+    "kyrgyzstan": "Kyrgyzstan",
     "mongolia": "Mongolia",
     "russia": "Russia",
-    "south_korea": "South Korea"
+    "south_korea": "South Korea",
+    "tajikistan": "Tajikistan"
   },
   "all_rights_of_the_image_belong_to_the_creator": "All rights of the image belong to the creator.",
   "altitude": "Altitude",

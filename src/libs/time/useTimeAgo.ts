@@ -5,7 +5,7 @@ export function useTimeAgo() {
   const { t } = useMyI18n();
 
   function timeAgo(dateStr: string) {
-    const agoEpoch = Date.now() - new Date(dateStr).getTime();
+    const agoEpoch = Math.abs(Date.now() - new Date(dateStr).getTime());
     const years = Math.floor(agoEpoch / ONE_YEAR);
     if (years) return t('years_ago', { years }, { plural: years });
 

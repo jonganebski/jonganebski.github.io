@@ -1,7 +1,6 @@
 import { VueQueryPlugin } from 'vue-query';
-import type { ViteSSGContext } from 'vite-ssg';
+import { Plugin } from './@types';
 
-type Plugin = (ctx: ViteSSGContext) => void;
 export const install: Plugin = ({ app }) => {
   app.use(VueQueryPlugin);
 };

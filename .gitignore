@@ -10,6 +10,12 @@ src/assets/images
 
 *.gpx
 
+.vite-ssg-temp
+
+# Local History Extension
+
+.history
+
 # Rust Related
 
 target

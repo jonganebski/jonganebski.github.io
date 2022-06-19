@@ -8,7 +8,10 @@ const routePosts = getRoutePosts();
 const routePostsRecent = routePosts?.slice(-5).reverse();
 
 const techPosts = getTechPosts();
-const techPostsRecent = techPosts?.sort((a, b) => b.date.localeCompare(a.date)).slice(-5);
+const techPostsRecent = techPosts
+  ?.sort((a, b) => a.date.localeCompare(b.date))
+  .slice(-5)
+  .reverse();
 
 const gameLinks = computed(() => [
   { path: '/games/mine-sweeper', name: t('minesweeper') },

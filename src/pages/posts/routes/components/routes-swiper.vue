@@ -79,11 +79,15 @@ const { lengthX, isSwiping } = useSwipe(swipeListenerEl, {
 </script>
 
 <template>
-  <div class="relative flex justify-center overflow-hidden">
+  <div
+    class="relative flex overflow-hidden"
+    :class="[isDualPosts ? 'justify-start' : 'justify-center']"
+  >
     <ul
       ref="swipeListenerEl"
       class="flex"
       :style="{ transform: `translateX(${isSwiping && !isLonePost ? -lengthX : 0}px)` }"
+      @touchmove="(e) => e.preventDefault()"
     >
       <li v-for="{ cover_image_url, fileName, path } in targetPosts" :key="fileName" :id="fileName">
         <router-link

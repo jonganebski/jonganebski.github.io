@@ -21,7 +21,7 @@ export function useCreateRecordMutation() {
         .from<TetrisRecord>('tetris-records')
         .select('*')
         .eq('user_id', user.value.id)
-        .order('score', { ascending: true });
+        .order('score', { ascending: false });
 
       if (!data) return null;
 
@@ -37,7 +37,7 @@ export function useCreateRecordMutation() {
 
         case false: {
           const worstRecord = data[data.length - 1];
-          if (worstRecord.score < score) return null;
+          if (worstRecord.score > score) return null;
           return (
             await supabase
               .from<TetrisRecord>('tetris-records')
@@ -56,7 +56,7 @@ export function useCreateRecordMutation() {
         if (!prevData) return;
         queryClient.setQueryData<UseRecordsQueryData[]>('tetris-records', () =>
           [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
-            (a, b) => a.score - b.score,
+            (a, b) => b.score - a.score,
           ),
         );
       },

@@ -15,7 +15,7 @@ export function useRecordsQuery() {
         await supabase
           .from<UseRecordsQueryData>('tetris-records')
           .select('*, user: user_id (user_name, avatar_url)')
-          .order('score', { ascending: true })
+          .order('score', { ascending: false })
           .limit(100)
       ).data,
     {
