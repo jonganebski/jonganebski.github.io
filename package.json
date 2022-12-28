@@ -25,7 +25,7 @@
     "@tanstack/vue-query": "^4.20.5",
     "@vueuse/core": "^7.7.1",
     "@vueuse/head": "^1.0.22",
-    "d3": "^7.3.0",
+    "d3": "^7.8.0",
     "mapbox-gl": "^2.7.0",
     "nprogress": "^0.2.0",
     "vue": "^3.2.45",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.11",
     "@intlify/unplugin-vue-i18n": "^0.8.1",
-    "@types/d3": "^7.1.0",
+    "@types/d3": "^7.4.0",
     "@types/fs-extra": "^9.0.13",
     "@types/mapbox-gl": "^2.6.1",
     "@types/markdown-it-link-attributes": "^3.0.1",

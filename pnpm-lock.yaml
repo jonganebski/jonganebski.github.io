@@ -8,7 +8,7 @@ specifiers:
   '@sentry/vue': ^6.19.7
   '@supabase/supabase-js': ^1.30.0
   '@tanstack/vue-query': ^4.20.5
-  '@types/d3': ^7.1.0
+  '@types/d3': ^7.4.0
   '@types/fs-extra': ^9.0.13
   '@types/mapbox-gl': ^2.6.1
   '@types/markdown-it-link-attributes': ^3.0.1
@@ -22,7 +22,7 @@ specifiers:
   axios: ^0.26.1
   chalk: 4.1.2
   critters: ^0.0.16
-  d3: ^7.3.0
+  d3: ^7.8.0
   dotenv: ^16.0.0
   form-data: ^4.0.0
   fs-extra: ^10.0.0
@@ -65,7 +65,7 @@ dependencies:
   '@tanstack/vue-query': 4.20.5_vue@3.2.45
   '@vueuse/core': 7.7.1_vue@3.2.45
   '@vueuse/head': 1.0.22_vue@3.2.45
-  d3: 7.4.4
+  d3: 7.8.0
   mapbox-gl: 2.8.1
   nprogress: 0.2.0
   vue: 3.2.45
@@ -76,7 +76,7 @@ dependencies:
 devDependencies:
   '@iconify-json/carbon': 1.1.11
   '@intlify/unplugin-vue-i18n': 0.8.1_vue-i18n@9.2.2
-  '@types/d3': 7.1.0
+  '@types/d3': 7.4.0
   '@types/fs-extra': 9.0.13
   '@types/mapbox-gl': 2.7.0
   '@types/markdown-it-link-attributes': 3.0.1
@@ -979,8 +979,8 @@ packages:
       '@types/d3-selection': 3.0.2
     dev: true
 
-  /@types/d3/7.1.0:
-    resolution: {integrity: sha512-gYWvgeGjEl+zmF8c+U1RNIKqe7sfQwIXeLXO5Os72TjDjCEtgpvGBvZ8dXlAuSS1m6B90Y1Uo6Bm36OGR/OtCA==}
+  /@types/d3/7.4.0:
+    resolution: {integrity: sha512-jIfNVK0ZlxcuRDKtRS/SypEyOQ6UHaFQBKv032X45VvxSJ6Yi5G9behy9h6tNTHTDGh5Vq+KbmBjUWLgY4meCA==}
     dependencies:
       '@types/d3-array': 3.0.2
       '@types/d3-axis': 3.0.1
@@ -2226,6 +2226,13 @@ packages:
       internmap: 2.0.3
     dev: false
 
+  /d3-array/3.2.1:
+    resolution: {integrity: sha512-gUY/qeHq/yNqqoCKNq4vtpFLdoCdvyNpWoC/KNjhGbhDuQpAM9sIQQKkXSNpXa9h5KySs/gzm7R88WkUutgwWQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      internmap: 2.0.3
+    dev: false
+
   /d3-axis/3.0.0:
     resolution: {integrity: sha512-IH5tgjV4jE/GhHkRV0HiVYPDtvfjHQlQfJHs0usq7M30XcSBvOotpmH1IgkcXsO/5gEQZD43B//fc7SRT5S+xw==}
     engines: {node: '>=12'}
@@ -2254,11 +2261,11 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /d3-contour/3.0.1:
-    resolution: {integrity: sha512-0Oc4D0KyhwhM7ZL0RMnfGycLN7hxHB8CMmwZ3+H26PWAG0ozNuYG5hXSDNgmP1SgJkQMrlG6cP20HoaSbvcJTQ==}
+  /d3-contour/4.0.0:
+    resolution: {integrity: sha512-7aQo0QHUTu/Ko3cP9YK9yUTxtoDEiDGwnBHyLxG5M4vqlBkO/uixMRele3nfsfj6UXOcuReVpVXzAboGraYIJw==}
     engines: {node: '>=12'}
     dependencies:
-      d3-array: 3.1.6
+      d3-array: 3.2.1
     dev: false
 
   /d3-delaunay/6.0.2:
@@ -2431,8 +2438,8 @@ packages:
       d3-transition: 3.0.1_d3-selection@3.0.0
     dev: false
 
-  /d3/7.4.4:
-    resolution: {integrity: sha512-97FE+MYdAlV3R9P74+R3Uar7wUKkIFu89UWMjEaDhiJ9VxKvqaMxauImy8PC2DdBkdM2BxJOIoLxPrcZUyrKoQ==}
+  /d3/7.8.0:
+    resolution: {integrity: sha512-a5rNemRadWkEfqnY5NsD4RdCP9vn8EIJ4I5Rl14U0uKH1SXqcNmk/h9aGaAF1O98lz6L9M0IeUcuPa9GUYbI5A==}
     engines: {node: '>=12'}
     dependencies:
       d3-array: 3.1.6
@@ -2440,7 +2447,7 @@ packages:
       d3-brush: 3.0.0
       d3-chord: 3.0.1
       d3-color: 3.1.0
-      d3-contour: 3.0.1
+      d3-contour: 4.0.0
       d3-delaunay: 6.0.2
       d3-dispatch: 3.0.1
       d3-drag: 3.0.0
