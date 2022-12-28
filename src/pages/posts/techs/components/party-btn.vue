@@ -3,8 +3,8 @@ import { computeRandInt } from '~/libs/random';
 
 interface Props {
   content: string;
+  to: string;
   maskClass?: string;
-  to?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {});
