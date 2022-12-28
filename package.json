@@ -22,15 +22,15 @@
     "@sentry/tracing": "^6.19.7",
     "@sentry/vue": "^6.19.7",
     "@supabase/supabase-js": "^1.30.0",
-    "@vueuse/core": "^7.5.5",
-    "@vueuse/head": "^0.7.5",
+    "@tanstack/vue-query": "^4.20.5",
+    "@vueuse/core": "^7.7.1",
+    "@vueuse/head": "^0.7.13",
     "d3": "^7.3.0",
     "mapbox-gl": "^2.7.0",
     "nprogress": "^0.2.0",
     "vue": "^3.2.45",
     "vue-country-flag-next": "^2.3.2",
     "vue-i18n": "^9.2.2",
-    "vue-query": "^1.19.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
