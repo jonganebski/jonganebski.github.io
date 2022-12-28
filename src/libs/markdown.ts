@@ -48,7 +48,10 @@ export interface RoutesPostMeta extends RoutesFrontmatter {
 export function getRoutePosts(): RoutesPostMeta[] | undefined {
   try {
     const posts = Object.entries(
-      import.meta.globEager('../pages/posts/routes/*.md') as Record<string, RoutesFrontmatter>,
+      import.meta.glob('../pages/posts/routes/*.md', {
+        import: 'frontmatter',
+        eager: true,
+      }) as Record<string, RoutesFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
       const [fileName] = path.split('/').reverse();
@@ -80,7 +83,10 @@ export interface TechsFrontmatter
 export function getTechPosts() {
   try {
     const posts = Object.entries(
-      import.meta.globEager('../pages/posts/techs/*.md') as Record<string, TechsFrontmatter>,
+      import.meta.glob('../pages/posts/techs/*.md', {
+        import: 'frontmatter',
+        eager: true,
+      }) as Record<string, TechsFrontmatter>,
     ).map(([filePath, frontmatter]) => {
       const path = filePath.replace('../pages', '').replace('.md', '');
       const [fileName] = path.split('/').reverse();

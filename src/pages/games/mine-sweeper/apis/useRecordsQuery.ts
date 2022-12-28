@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/vue-query';
 import { Ref } from 'vue';
-import { useQuery } from 'vue-query';
 import { MineSweeperRecord, Profile, supabase } from '~/libs/supabase';
 import { ONE_HOUR } from '~/libs/time';
 

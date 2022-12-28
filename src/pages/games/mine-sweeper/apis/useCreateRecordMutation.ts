@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useUserQuery } from '~/api/useUserQuery';
 import { MineSweeperRecord, supabase } from '~/libs/supabase';
 import { UseRecordsQueryData } from './useRecordsQuery';

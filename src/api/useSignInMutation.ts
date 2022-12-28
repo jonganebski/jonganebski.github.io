@@ -1,5 +1,5 @@
 import { Provider, User } from '@supabase/supabase-js';
-import { useMutation, useQueryClient } from 'vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { supabase } from '~/libs/supabase';
 
 export type AllowedProvider = Extract<Provider, 'facebook' | 'github' | 'google'>;
@@ -15,7 +15,7 @@ export function useSignInMutation() {
     async ({ provider }) => (await supabase.auth.signIn({ provider })).user,
     {
       onSuccess: (data) => {
-        queryClient.setQueryData<User | null>('user', () => data);
+        queryClient.setQueryData<User | null>(['user'], () => data);
       },
     },
   );

@@ -1,8 +1,8 @@
+import { useQuery } from '@tanstack/vue-query';
 import mapboxgl from 'mapbox-gl';
-import { useQuery } from 'vue-query';
-import { ONE_DAY } from '~/libs/time';
 import type { Point, Point__point } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
+import { ONE_DAY } from '~/libs/time';
 
 export interface UsePointsQueryData extends Pick<Point, 'date' | 'points'> {}
 

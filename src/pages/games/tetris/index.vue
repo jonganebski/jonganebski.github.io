@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core';
+import { breakpointsTailwind, MaybeElementRef } from '@vueuse/core';
 import { useMyI18n } from '~/plugins/i18n';
 import AuthWarning from '../components/auth-warning.vue';
 import Records from '../components/records.vue';
@@ -42,7 +42,7 @@ onKeyStroke('ArrowUp', rotateTetromino);
 onKeyStroke(' ', dropTetromino);
 
 const tetrisContainerEl = ref<HTMLDivElement | null>(null);
-const { left } = useElementBounding(tetrisContainerEl);
+const { left } = useElementBounding(tetrisContainerEl as MaybeElementRef);
 </script>
 
 <template>

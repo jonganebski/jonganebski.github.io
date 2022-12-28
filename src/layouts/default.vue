@@ -11,7 +11,7 @@ const mainMinHeight = computed(() => `100vh + ${top.value} + ${bottom.value}`);
 <template>
   <Menu />
   <Header />
-  <main class="lg:ml-14">
+  <main class="lg:ml-14 min-h-screen">
     <router-view />
   </main>
   <Footer />

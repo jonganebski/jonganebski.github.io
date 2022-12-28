@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { User } from '@supabase/supabase-js';
-import { useQueryClient } from 'vue-query';
+import { useQueryClient } from '@tanstack/vue-query';
+import { MaybeElementRef } from '@vueuse/core';
+import { RouterLink } from 'vue-router';
 import { useUserQuery } from '~/api/useUserQuery';
 import { supabase } from '~/libs/supabase';
 import { useMyI18n } from '~/plugins/i18n';
@@ -17,7 +19,7 @@ const links = useNav();
 const isAuthContainerOpen = ref(false);
 
 const authContainer = ref<HTMLDivElement | null>(null);
-onClickOutside(authContainer, closeAuthContainer);
+onClickOutside(authContainer as MaybeElementRef, closeAuthContainer);
 
 function closeAuthContainer() {
   isAuthContainerOpen.value = false;
@@ -29,7 +31,7 @@ function toggleAuthContainer() {
 
 onMounted(() => {
   supabase.auth.onAuthStateChange((_, session) => {
-    queryClient.setQueryData<User | null>('user', () => session?.user ?? null);
+    queryClient.setQueryData<User | null>(['user'], () => session?.user ?? null);
   });
 });
 </script>
