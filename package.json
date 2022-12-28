@@ -34,7 +34,7 @@
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.0.14",
+    "@iconify-json/carbon": "^1.1.11",
     "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@types/d3": "^7.1.0",
     "@types/fs-extra": "^9.0.13",
@@ -44,7 +44,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/object-path": "^0.11.1",
     "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/test-utils": "^2.0.0-rc.20",
+    "@vue/test-utils": "^2.2.6",
     "axios": "^0.26.1",
     "chalk": "4.1.2",
     "critters": "^0.0.16",
@@ -71,7 +71,7 @@
     "vite-plugin-wasm-pack": "^0.1.9",
     "vite-plugin-windicss": "^1.8.10",
     "vite-ssg": "^0.22.1",
-    "vitest": "^0.4.1",
+    "vitest": "^0.26.2",
     "vue-i18n-extract": "^2.0.4",
     "vue-tsc": "^0.29.8",
     "windicss": "^3.5.6"
