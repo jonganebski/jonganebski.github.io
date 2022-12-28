@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@headlessui/vue': ^1.5.0
+  '@headlessui/vue': ^1.7.7
   '@iconify-json/carbon': ^1.0.14
   '@intlify/unplugin-vue-i18n': ^0.8.1
   '@sentry/tracing': ^6.19.7
@@ -55,10 +55,10 @@ specifiers:
   vue-i18n-extract: ^2.0.4
   vue-router: ^4.0.12
   vue-tsc: ^0.29.8
-  windicss: ^3.4.3
+  windicss: ^3.5.6
 
 dependencies:
-  '@headlessui/vue': 1.5.0_vue@3.2.45
+  '@headlessui/vue': 1.7.7_vue@3.2.45
   '@sentry/tracing': 6.19.7
   '@sentry/vue': 6.19.7_vue@3.2.45
   '@supabase/supabase-js': 1.34.0
@@ -114,7 +114,7 @@ devDependencies:
   vitest: 0.4.3_happy-dom@2.55.0
   vue-i18n-extract: 2.0.4
   vue-tsc: 0.29.8_typescript@4.6.3
-  windicss: 3.5.1
+  windicss: 3.5.6
 
 packages:
 
@@ -403,8 +403,8 @@ packages:
     dev: true
     optional: true
 
-  /@headlessui/vue/1.5.0_vue@3.2.45:
-    resolution: {integrity: sha512-jAp6XYpqdEv32xhszaj5ejvjaX5qhu20sCbxu7lplePEfZL+4ffabivJBBTZAiPWczqAXmnZWNWG5DOyqjRa4w==}
+  /@headlessui/vue/1.7.7_vue@3.2.45:
+    resolution: {integrity: sha512-dkdNhJkxyT9rXW5fHx/MkKaM3U13P3duYuwoGTRmDGjE7xAsvcWOSJRJpw1AmCQTvjZF44bh2wSlySLaHW+WuQ==}
     engines: {node: '>=10'}
     peerDependencies:
       vue: ^3.2.0
@@ -7234,12 +7234,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       string-width: 4.2.3
-    dev: true
-
-  /windicss/3.5.1:
-    resolution: {integrity: sha512-E1hYZATcZFci/XhGS0sJAMRxULjnK+glNukE78Ku7xeb3jxgMY55fFOdIrav+GjQCsgR+IZxPq9/DwmO6eyc4Q==}
-    engines: {node: '>= 12'}
-    hasBin: true
     dev: true
 
   /windicss/3.5.6:

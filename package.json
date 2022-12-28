@@ -18,7 +18,7 @@
     "upload:images": "tsnd --transpile-only -P tsconfig.common.json scripts/upload-images.ts"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.5.0",
+    "@headlessui/vue": "^1.7.7",
     "@sentry/tracing": "^6.19.7",
     "@sentry/vue": "^6.19.7",
     "@supabase/supabase-js": "^1.30.0",
@@ -74,6 +74,6 @@
     "vitest": "^0.4.1",
     "vue-i18n-extract": "^2.0.4",
     "vue-tsc": "^0.29.8",
-    "windicss": "^3.4.3"
+    "windicss": "^3.5.6"
   }
 }
