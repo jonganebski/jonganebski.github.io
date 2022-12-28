@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { User } from '@supabase/supabase-js';
-import { useQueryClient } from 'vue-query';
+import { useQueryClient } from '@tanstack/vue-query';
 import { useUserQuery } from '~/api/useUserQuery';
 import { supabase } from '~/libs/supabase';
 import { useMyI18n } from '~/plugins/i18n';
@@ -29,7 +29,7 @@ function toggleAuthContainer() {
 
 onMounted(() => {
   supabase.auth.onAuthStateChange((_, session) => {
-    queryClient.setQueryData<User | null>('user', () => session?.user ?? null);
+    queryClient.setQueryData<User | null>(['user'], () => session?.user ?? null);
   });
 });
 </script>
