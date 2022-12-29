@@ -16,16 +16,13 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 ```
 $ node -v
-v14.15.4
+v18.12.1
 
 $ npm -v
-8.7.0
+8.19.2
 
 $ pnpm -v
-6.32.4
-
-$ wasm-pack -v
-wasm-pack 0.10.2
+7.20.0
 ```
 
 ## Environment Variables
