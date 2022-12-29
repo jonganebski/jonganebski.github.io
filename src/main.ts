@@ -13,7 +13,10 @@ import 'virtual:windi-utilities.css';
 import 'virtual:windi-devtools';
 
 import { routerOptions } from './router';
+import { Plugin } from './plugins/@types';
 
 export const createApp = ViteSSG(App, routerOptions, (ctx) => {
-  Object.values(import.meta.globEager('./plugins/*.ts')).forEach((plugin) => plugin.install?.(ctx));
+  Object.values(import.meta.glob<{ install?: Plugin }>('./plugins/*.ts', { eager: true })).forEach(
+    (plugin) => plugin.install?.(ctx),
+  );
 });

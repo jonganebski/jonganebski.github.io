@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { useElementBounding, useElementVisibility, useWindowSize } from '@vueuse/core';
+import {
+  MaybeElementRef,
+  useElementBounding,
+  useElementVisibility,
+  useWindowSize,
+} from '@vueuse/core';
+import { Ref } from 'vue';
 import { computeRandInt } from '~/libs/random';
 
 const props = defineProps<{ index: number }>();
@@ -10,8 +16,8 @@ const top = computeRandInt(0, 50);
 const left = computeRandInt(0, 100);
 
 const { height: windowHeight } = useWindowSize();
-const { top: boundingTop } = useElementBounding(iconContainerRef);
-const visible = useElementVisibility(iconContainerRef);
+const { top: boundingTop } = useElementBounding(iconContainerRef as MaybeElementRef);
+const visible = useElementVisibility(iconContainerRef as Ref<HTMLSpanElement | null>);
 
 const translateY = computed(() => boundingTop.value - windowHeight.value);
 const rotate = computed(() => translateY.value / 2.5);

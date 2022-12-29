@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useUserQuery } from '~/api/useUserQuery';
 import { SlidingPuzzleRecord, supabase } from '~/libs/supabase';
 import { UseRecordsQueryData } from './useRecordsQuery';
@@ -51,9 +51,11 @@ export function useCreateRecordMutation() {
         if (!user.value) return;
         const { user_name = user.value.email, avatar_url = '' } = user.value.user_metadata;
         if (!resData) return;
-        const prevData = queryClient.getQueryData<UseRecordsQueryData[]>('sliding-puzzle-records');
+        const prevData = queryClient.getQueryData<UseRecordsQueryData[]>([
+          'sliding-puzzle-records',
+        ]);
         if (!prevData) return;
-        queryClient.setQueryData<UseRecordsQueryData[]>('sliding-puzzle-records', () =>
+        queryClient.setQueryData<UseRecordsQueryData[]>(['sliding-puzzle-records'], () =>
           [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
             (a, b) => a.score - b.score,
           ),

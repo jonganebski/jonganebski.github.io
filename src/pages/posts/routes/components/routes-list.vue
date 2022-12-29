@@ -9,7 +9,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  posts: [] as any,
+  posts: () => [],
 });
 
 const { locale } = useMyI18n();

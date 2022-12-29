@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useIntersectionObserver } from '@vueuse/core';
+import { MaybeElementRef, useIntersectionObserver } from '@vueuse/core';
 
 interface Props {
   cfVariant?: 'public' | 'post' | 'avatar';
@@ -15,7 +15,7 @@ const imgRef = ref<HTMLImageElement | null>(null);
 
 const isLoading = ref<boolean>(false);
 
-const { stop } = useIntersectionObserver(imgRef, (entries) => {
+const { stop } = useIntersectionObserver(imgRef as MaybeElementRef, (entries) => {
   const { isIntersecting } = entries[0];
   if (!isIntersecting) return;
   if (!imgRef.value?.dataset.src) return;

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useUserQuery } from '~/api/useUserQuery';
 import { supabase } from '~/libs/supabase';
 import type { TetrisRecord } from '~/libs/supabase';
@@ -52,9 +52,9 @@ export function useCreateRecordMutation() {
         if (!user.value) return;
         const { user_name = user.value.email, avatar_url = '' } = user.value.user_metadata;
         if (!resData) return;
-        const prevData = queryClient.getQueryData<UseRecordsQueryData[]>('tetris-records');
+        const prevData = queryClient.getQueryData<UseRecordsQueryData[]>(['tetris-records']);
         if (!prevData) return;
-        queryClient.setQueryData<UseRecordsQueryData[]>('tetris-records', () =>
+        queryClient.setQueryData<UseRecordsQueryData[]>(['tetris-records'], () =>
           [...prevData, { ...resData, user: { user_name, avatar_url } }].sort(
             (a, b) => b.score - a.score,
           ),

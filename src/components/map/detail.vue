@@ -24,7 +24,7 @@ const stopWatch = watchEffect(() => {
   const map = new mapboxgl.Map({
     cooperativeGestures: true,
     accessToken: mapboxAccessToken,
-    container: mapContainerRef.value,
+    container: mapContainerRef.value as HTMLDivElement,
     maxZoom: 14,
     minZoom: 4,
     center: COORD_SEOUL,

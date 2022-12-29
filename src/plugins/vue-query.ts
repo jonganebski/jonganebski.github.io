@@ -1,4 +1,4 @@
-import { VueQueryPlugin } from 'vue-query';
+import { VueQueryPlugin } from '@tanstack/vue-query';
 import { Plugin } from './@types';
 
 export const install: Plugin = ({ app }) => {

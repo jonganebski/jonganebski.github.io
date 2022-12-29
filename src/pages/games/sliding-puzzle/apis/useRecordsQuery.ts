@@ -1,4 +1,4 @@
-import { useQuery } from 'vue-query';
+import { useQuery } from '@tanstack/vue-query';
 import type { Profile, SlidingPuzzleRecord } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
 import { ONE_HOUR } from '~/libs/time';
@@ -9,7 +9,7 @@ export interface UseRecordsQueryData extends SlidingPuzzleRecord {
 
 export function useRecordsQuery() {
   return useQuery(
-    'sliding-puzzle-records',
+    ['sliding-puzzle-records'],
     async () =>
       (
         await supabase

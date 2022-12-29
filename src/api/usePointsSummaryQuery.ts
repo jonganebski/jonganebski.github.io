@@ -1,4 +1,4 @@
-import { useQuery } from 'vue-query';
+import { useQuery } from '@tanstack/vue-query';
 import type { Point } from '~/libs/supabase';
 import { supabase } from '~/libs/supabase';
 import { getRoutePosts } from '~/libs/markdown';
@@ -9,7 +9,7 @@ interface UsePointsSummaryQueryData extends Pick<Point, 'date' | 'points_summary
 export function usePointsSummaryQuery() {
   const posts = getRoutePosts();
   return useQuery(
-    'points-summary',
+    ['points-summary'],
     async () => {
       if (!posts) return null;
 

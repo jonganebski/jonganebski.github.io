@@ -1,4 +1,4 @@
-import VueI18n from '@intlify/vite-plugin-vue-i18n';
+import VueI18n from '@intlify/unplugin-vue-i18n/vite';
 import Vue from '@vitejs/plugin-vue';
 import LinkAttributes from 'markdown-it-link-attributes';
 import Prism from 'markdown-it-prism';
@@ -12,7 +12,8 @@ import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
-import WasmPack from 'vite-plugin-wasm-pack';
+// Temporarily commenting out
+// import WasmPack from 'vite-plugin-wasm-pack';
 import WindiCSS from 'vite-plugin-windicss';
 
 export default defineConfig({
@@ -69,7 +70,7 @@ export default defineConfig({
       compositionOnly: true,
       include: [resolve(__dirname, 'locales/**')],
     }),
-    WasmPack(['./wasm']),
+    // WasmPack(['./wasm']),
   ],
   server: { fs: { strict: true } },
   ssgOptions: {
