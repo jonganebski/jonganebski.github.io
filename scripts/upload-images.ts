@@ -101,7 +101,10 @@ async function handleImages(content: string): Promise<string> {
   const { id } = await uploadImageToCloudFlare(mdImgPath);
 
   const replacedContent = await handleImages(
-    content.replace(mdImgExp, `<ui-lazy-image cfId="${id}" />`),
+    content.replace(
+      mdImgExp,
+      `<ui-lazy-image src="https://imagedelivery.net/fOEhHq_KNsIgC-hb-3NU0w/${id}/post" />`,
+    ),
   );
 
   return replacedContent;
