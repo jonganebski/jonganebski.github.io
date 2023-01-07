@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     CarbonCode: typeof import('~icons/carbon/code')['default']
     CarbonEventSchedule: typeof import('~icons/carbon/event-schedule')['default']
     CarbonGameConsole: typeof import('~icons/carbon/game-console')['default']
+    CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonLink: typeof import('~icons/carbon/link')['default']
     CarbonListNumbered: typeof import('~icons/carbon/list-numbered')['default']
     CarbonLogout: typeof import('~icons/carbon/logout')['default']
