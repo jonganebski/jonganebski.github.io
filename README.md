@@ -27,4 +27,4 @@ $ pnpm -v
 
 ## Environment Variables
 
-See [`./src/libs/env.ts`](https://github.com/jonganebski/jonganebski.github.io/blob/dev/src/libs/env.ts)
+See [`./src/libs/env.ts`](https://github.com/jonganebski/jonganebski.github.io/blob/main/src/libs/env.ts)
