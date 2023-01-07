@@ -14,7 +14,7 @@ Photo by <a href="https://unsplash.com/@cedericvandenberghe?utm_source=unsplash&
 
 [#노마드코더](https://nomadcoders.co/) [#노개북](https://nomadcoders.co/clean-code)
 
-<ui-lazy-image cfId="f830767e-75ee-4c96-8603-967fcfbf2900" />
+<ui-lazy-image src="https://imagedelivery.net/fOEhHq_KNsIgC-hb-3NU0w/f830767e-75ee-4c96-8603-967fcfbf2900/post" />
 
 <md-ko>제목: 클린 코드: 에자일 소프트웨어 장인 정신 (8쇄)</md-ko>
 <md-en>Title: Clean Code: A handbook of Agile Software Craftsmanship</md-en>
