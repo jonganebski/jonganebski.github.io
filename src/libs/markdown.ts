@@ -49,7 +49,6 @@ export function getRoutePosts(): RoutesPostMeta[] | undefined {
   try {
     const posts = Object.entries(
       import.meta.glob('../pages/posts/routes/*.md', {
-        import: 'frontmatter',
         eager: true,
       }) as Record<string, RoutesFrontmatter>,
     ).map(([filePath, frontmatter]) => {
@@ -84,7 +83,6 @@ export function getTechPosts() {
   try {
     const posts = Object.entries(
       import.meta.glob('../pages/posts/techs/*.md', {
-        import: 'frontmatter',
         eager: true,
       }) as Record<string, TechsFrontmatter>,
     ).map(([filePath, frontmatter]) => {

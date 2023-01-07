@@ -9,12 +9,13 @@ import Icons from 'unplugin-icons/vite';
 import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
-import Markdown from 'vite-plugin-md';
+import Markdown from 'vite-plugin-vue-markdown';
 import Pages from 'vite-plugin-pages';
 import Layouts from 'vite-plugin-vue-layouts';
 // Temporarily commenting out
 // import WasmPack from 'vite-plugin-wasm-pack';
 import WindiCSS from 'vite-plugin-windicss';
+import VueMacros from 'unplugin-vue-macros/vite';
 
 export default defineConfig({
   resolve: { alias: { '~/': `${resolve(__dirname, 'src')}/` } },
@@ -36,7 +37,9 @@ export default defineConfig({
     },
   },
   plugins: [
-    Vue({ include: [/\.vue$/, /\.md$/] }),
+    VueMacros({
+      plugins: { vue: Vue({ include: [/\.vue$/, /\.md$/], reactivityTransform: true }) },
+    }),
     Pages({
       extensions: ['vue', 'md'],
       exclude: ['**/composables/*', '**/components/*', '**/drafts/*'],
@@ -78,10 +81,12 @@ export default defineConfig({
     formatting: 'minify',
   },
   optimizeDeps: { include: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head'] },
-  // @ts-ignore
-  // Remove @ts-ignore when vite adds test config to their config type.
   test: {
     globals: true,
     environment: 'happy-dom',
+  },
+  ssr: {
+    // Workaround until they support native ESM ㅠㅠ
+    noExternal: [/vue-i18n/],
   },
 });
