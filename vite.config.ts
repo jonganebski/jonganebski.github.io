@@ -81,10 +81,12 @@ export default defineConfig({
     formatting: 'minify',
   },
   optimizeDeps: { include: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head'] },
-  // @ts-ignore
-  // Remove @ts-ignore when vite adds test config to their config type.
   test: {
     globals: true,
     environment: 'happy-dom',
+  },
+  ssr: {
+    // Workaround until they support native ESM ㅠㅠ
+    noExternal: [/vue-i18n/],
   },
 });
