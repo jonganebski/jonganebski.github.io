@@ -22,6 +22,7 @@
   "abbr": { "seconds": "sec" },
   "countries": {
     "all": "All Countries",
+    "azerbaijan": "Azerbaijan",
     "china": "China",
     "kazakhstan": "Kazakhstan",
     "kyrgyzstan": "Kyrgyzstan",
