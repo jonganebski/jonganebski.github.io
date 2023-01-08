@@ -94,4 +94,7 @@ const { isSupported, share } = useShare(
 ::v-slotted(a) {
   @apply underline hover:underline-double;
 }
+::v-slotted(.images-layout__horizontal) {
+  @apply grid grid-flow-col gap-1;
+}
 </style>
