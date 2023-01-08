@@ -11,6 +11,7 @@ export function useCountryNames() {
     MN: t('countries.mongolia'),
     TJ: t('countries.tajikistan'),
     RU: t('countries.russia'),
+    UZ: t('countries.uzbekistan'),
   }));
 
   return { countryName };
