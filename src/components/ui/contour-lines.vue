@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as d3 from 'd3';
 import { useWindowSize } from '@vueuse/core';
+import { useIsMobile } from '~/composables/useIsMobile';
 
 interface Props {
   transition?: boolean;
@@ -12,6 +13,8 @@ interface Emits {
 
 const props = withDefaults(defineProps<Props>(), { transition: false });
 const emits = defineEmits<Emits>();
+
+const { isMobile } = useIsMobile();
 
 const { width, height } = useWindowSize();
 const containerRef = ref<HTMLDivElement | null>(null);
@@ -26,6 +29,11 @@ function generateData() {
 }
 
 onMounted(() => {
+  if (isMobile) {
+    emits('transitionend');
+    return;
+  }
+
   const data = generateData();
 
   const svg = d3
