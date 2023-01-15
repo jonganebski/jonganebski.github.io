@@ -124,7 +124,9 @@ function recordFormatter(scoreAsMs: number) {
       </div>
     </client-only>
     <Records :is-loading="isRecordsLoading" :data="records" :formatter="recordFormatter" />
-    <ui-contour-lines />
+    <client-only>
+      <ui-contour-lines />
+    </client-only>
   </div>
 </template>
 
