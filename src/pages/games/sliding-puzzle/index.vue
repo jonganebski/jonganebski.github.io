@@ -124,7 +124,9 @@ watch(
   <AuthWarning class="mt-2 text-center" />
   <CopyRight :selected-image="findImageByUrl(selectedImageUrl)" />
   <Records :is-loading="isRecordsLoading" :data="records" />
-  <ui-contour-lines />
+  <client-only>
+    <ui-contour-lines />
+  </client-only>
 </template>
 
 <style scoped lang="css">

@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { useIsMobile } from '~/composables/useIsMobile';
 import { computeRandInt, randArrayElements } from '~/libs/random';
 
 const props = withDefaults(defineProps<{ delay?: number }>(), { delay: computeRandInt(0, 10) });
+
+const { isMobile } = useIsMobile();
 
 const { height: windowHeight } = useWindowSize();
 
@@ -36,6 +39,7 @@ function lastShapeShouldBeInitialShape(dShapes: string[]) {
 
 <template>
   <div
+    v-if="isMobile === false"
     class="fixed top-full pointer-events-none filter blur-xl cloud-shadow-container cloud-shadow-animation"
     @animationiteration="changeCloudShadowContainerHeight"
   >

@@ -55,7 +55,9 @@ const content = ref('404');
         <carbon-home />
       </router-link>
     </div>
-    <ui-contour-lines />
+    <client-only>
+      <ui-contour-lines />
+    </client-only>
   </div>
 </template>
 

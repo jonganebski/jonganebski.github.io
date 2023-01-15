@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ShareOptions } from '@vueuse/core';
+import type { UseShareOptions } from '@vueuse/core';
 import { Head } from '@vueuse/head';
 import type { Frontmatter } from '~/libs/markdown';
 import { useMyI18n } from '~/plugins/i18n';
@@ -20,7 +20,7 @@ const isTechPost = route.path.startsWith('/posts/techs/');
 const title = computed(() => `${frontmatter.title[locale.value]} | Jon Ganebski`);
 
 const { isSupported, share } = useShare(
-  reactive<ShareOptions>({
+  reactive<UseShareOptions>({
     title: title.value,
     text: frontmatter.title[locale.value],
     url: route.fullPath,

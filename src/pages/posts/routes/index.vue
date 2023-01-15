@@ -37,5 +37,7 @@ const isLoading = ref(true);
     <RoutesSwiper v-if="swiperActive" :is-loading="isLoading" :posts="posts" />
     <RoutesList v-else :posts="posts" />
   </div>
-  <ui-contour-lines />
+  <client-only>
+    <ui-contour-lines />
+  </client-only>
 </template>
