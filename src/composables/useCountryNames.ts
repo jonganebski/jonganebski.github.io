@@ -6,6 +6,7 @@ export function useCountryNames() {
   const countryName = computed<{ [key: string]: string }>(() => ({
     AZ: t('countries.azerbaijan'),
     CN: t('countries.china'),
+    IR: t('countries.iran'),
     KR: t('countries.south_korea'),
     KG: t('countries.kyrgyzstan'),
     KZ: t('countries.kazakhstan'),
