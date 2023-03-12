@@ -9,7 +9,7 @@ type Direction = 'top' | 'bottom' | 'right' | 'left';
 export function useSlidingPuzzle() {
   const SIZE_X = 5;
   const SIZE_Y = 5;
-  const SHUFFLE_COUNT = import.meta.env.DEV ? 2 : SIZE_X * SIZE_Y * 2;
+  const SHUFFLE_COUNT = SIZE_X * SIZE_Y * 2;
 
   const status = ref<'shuffle' | 'ready' | 'playing' | 'done'>('shuffle');
 
